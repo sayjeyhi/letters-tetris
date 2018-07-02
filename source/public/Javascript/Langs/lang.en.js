@@ -1,10 +1,12 @@
 var lang = {
+    name: "en",
+    rtl: false,
     score: "score",
     createdWords: "created words",
     spentTime: "time",
     startGame: "Start Game",
     pauseGame: "Pause Game",
-    nextLetter: "next letter",
+    nextLetter: "Next letter",
     copyRight : "All right reserved for Arsh Team",
     Save : "Save",
 

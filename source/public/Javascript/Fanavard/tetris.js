@@ -297,6 +297,10 @@ var TetrisGame;
             var validColumnsCount = TetrisGame.getValidColumnsNumber();
             log(validColumnsCount);
 
+            // create game columns and rows
+
+
+
             // Choose n words from json to create rows and columns
             for(var i = 0; i < TetrisGame.config.workingWordCount;i++) {
                 TetrisGame.choosedWords.push(TetrisGame.chooseWord());
@@ -322,7 +326,11 @@ var TetrisGame;
          * Pause Game play
          */
         pauseGamePlay: function () {
-            // todo : 1. pause timer
+
+            // stop timer
+            TetrisGame.stopTimer();
+
+
             //      2. pause adding new chars
         },
 
@@ -340,8 +348,13 @@ var TetrisGame;
             ], { type: "text/javascript" });
 
 
+            var ltrClass = "";
+            if(!lang.rtl){
+                ltrClass = "isLtr";
+            }
+
             document.querySelector("#container").innerHTML =
-                `<div id="gameHolder">
+                `<div class="gameHolder ${ltrClass}">
                     <div class="behindPlayBoard">
                        <div class="showUpComingLetter" title="${lang.nextLetter}:">ح</div>
                        <div class="gameControlButtons" >
@@ -355,18 +368,7 @@ var TetrisGame;
                        </div>
                    </div>
                    <div class="playBoard">
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
+                       <div class="charBlock" >ت</div><div class="charBlock" >ت</div><div class="charBlock" >ت</div><div class="charBlock" >ت</div><div class="charBlock" >ت</div><div class="charBlock" >ت</div>
                     </div>
                 </div>
                 <footer class="page-footer">

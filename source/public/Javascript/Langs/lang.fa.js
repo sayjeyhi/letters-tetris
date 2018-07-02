@@ -1,4 +1,6 @@
 var lang = {
+    name: "fa",
+    rtl:true,
     score: "امتیاز",
     createdWords: "کلمات ساخته شده",
     spentTime: "زمان",
