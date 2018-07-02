@@ -46,11 +46,20 @@
 #gameHolder .behindPlayBoard .courseArea {
     display: inline-block;
     font-size: 14px;
-    text-align: left;
+    text-align: right;
     position: absolute;
+    left: 0;
+    bottom: 19px;
+    width: 100%;
+}
 
-    left: 14px;
-    bottom: 12px;
+#gameHolder .behindPlayBoard .courseArea div {
+    margin-top:2px
+}
+
+#gameHolder .behindPlayBoard .courseArea .linearicon{
+    position: relative;
+    bottom: -2px;
 }
 
 #gameHolder .behindPlayBoard .showUpComingLetter{

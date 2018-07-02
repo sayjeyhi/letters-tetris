@@ -1,4 +1,7 @@
 var lang = {
+    score: "امتیاز",
+    createdWords: "کلمات ساخته شده",
+    spentTime: "زمان",
     copyRight : "کپی رایت برای تیم عرش محفوظ می باشد.",
     Save : "ذخیره",
 

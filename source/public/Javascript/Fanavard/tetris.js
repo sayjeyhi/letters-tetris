@@ -344,17 +344,17 @@ var TetrisGame;
                 `<div id="gameHolder">
                     <div class="behindPlayBoard">
                        <div class="courseArea"> 
-                           <div ><i class="linearicon linearicon-bag-pound"></i> langEmtiza : 123</div> 
-                           <div ><i class="linearicon linearicon-mustache-glasses"></i> langCreatedWords : 22</div> 
-                           <div ><i class="linearicon linearicon-clock"></i> langSpentTime : <span class="timerDisplay">1:41</span></div> 
+                           <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div> 
+                           <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div> 
+                           <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div> 
                        </div>
                        <div class="showUpComingLetter" title="langNextLetter">ح</div>
                        <div class="gameControlButtons" >
                             <div onclick="TetrisGame.startGamePlay();" class="startGame">langStartGame</div>
-                            <div class="pauseGame">langPauseGame</div>
+                            <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame">langPauseGame</div>
                        </div>
                    </div>
-                   <div class="playBoard"> 
+                   <div class="playBoard">
                        <div class="charBlock" >ت</div>
                        <div class="charBlock" >ت</div>
                        <div class="charBlock" >ت</div>

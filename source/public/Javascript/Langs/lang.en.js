@@ -1,4 +1,7 @@
 var lang = {
+    score: "score",
+    createdWords: "created words",
+    spentTime: "time",
     copyRight : "All right reserved for Arsh Team",
     Save : "Save",
 
