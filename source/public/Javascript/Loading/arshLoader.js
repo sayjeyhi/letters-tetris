@@ -306,7 +306,7 @@ var arshLoader = {
 
     afterLoad : function () {
         if(arshLoader.animationLoading && !arshLoader.isLoaded) {
-            arshLoader._('.loadingText').innerHTML = "<div class='btnEnterProject' onclick='arshLoader.startGame();'><i class='linearicon linearicon-gamepad'></i> شروع بازی</div>";
+            arshLoader._('.loadingText').innerHTML = "<div class='btnEnterProject' onclick='arshLoader.startGame();'><i class='linearicon linearicon-gamepad'></i> ورود به بازی</div>";
             arshLoader.isLoaded = true;
         }
     },

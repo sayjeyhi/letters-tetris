@@ -343,20 +343,18 @@ var TetrisGame;
             document.querySelector("#container").innerHTML =
                 `<div id="gameHolder">
                     <div class="behindPlayBoard">
+                       <div class="showUpComingLetter" title="${lang.nextLetter}:">ح</div>
+                       <div class="gameControlButtons" >
+                            <div onclick="TetrisGame.startGamePlay();" class="startGame">${lang.startGame}</div>
+                            <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame">${lang.pauseGame}</div>
+                       </div>
                        <div class="courseArea"> 
                            <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div> 
                            <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div> 
                            <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div> 
                        </div>
-                       <div class="showUpComingLetter" title="langNextLetter">ح</div>
-                       <div class="gameControlButtons" >
-                            <div onclick="TetrisGame.startGamePlay();" class="startGame">langStartGame</div>
-                            <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame">langPauseGame</div>
-                       </div>
                    </div>
                    <div class="playBoard">
-                       <div class="charBlock" >ت</div>
-                       <div class="charBlock" >ت</div>
                        <div class="charBlock" >ت</div>
                        <div class="charBlock" >ت</div>
                        <div class="charBlock" >ت</div>

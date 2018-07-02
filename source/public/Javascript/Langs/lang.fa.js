@@ -2,6 +2,9 @@ var lang = {
     score: "امتیاز",
     createdWords: "کلمات ساخته شده",
     spentTime: "زمان",
+    startGame: "شروع بازی",
+    pauseGame: "توقف بازی",
+    nextLetter: "کاراکتر بعدی",
     copyRight : "کپی رایت برای تیم عرش محفوظ می باشد.",
     Save : "ذخیره",
 
