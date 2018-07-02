@@ -43,11 +43,13 @@
 
         jRun.addLanguage("fa");
         jRun.init([
-                {url: "extra.app.css" , kind: "app"},
+                {url: "tetris_words", kind: "Fanavard"},
+                {url: "tetris.css" , kind: "app"},
                 {url: "linerIcons.css", kind: "Icons"},
-                {url: "app", kind: "Fanavard"}
+                {url: "tetris", kind: "Fanavard"}
             ], function () {
 
+                window['FanavardTetris'] = new TetrisGame();
                 document.getElementById("container").innerText = lang.copyRight;
 
             }

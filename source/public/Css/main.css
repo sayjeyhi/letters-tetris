@@ -141,6 +141,23 @@ h3{
 }
 
 
+.btnEnterProject{display: inline-block;
+    background: #37c328;
+    border: none;
+    padding: 8px 38px 8px 17px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px !important;
+    position: relative;}
+.btnEnterProject .linearicon{
+    font-size: 37px;
+    position: absolute;
+    right: -5px;
+    color: rgba(255,255,255,.5);
+    transform: rotate(16deg);
+    top: 0;
+}
+
 svg{transition:all .9s ease-in-out,width .01s ease-in-out;max-width:100%!important;-webkit-filter:drop-shadow(-1px 7px 5px rgba(0,0,0,0.4));filter:drop-shadow(-1px 7px 5px rgba(0,0,0,0.4))}
 svg :not(.doNotUnfill){stroke:currentColor}
 .bloc{text-align:center;border-radius:6rem 0 6rem 6rem;padding:30px 40px 20px;position:relative}

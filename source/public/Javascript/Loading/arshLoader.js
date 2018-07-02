@@ -27,10 +27,6 @@ var arshLoader = {
         // colors from https://github.com/egoist/color-lib/blob/master/color.json
         var colors = {
             "red": {
-                /* "50": "#ffebee", */
-                /* "100": "#ffcdd2", */
-                /* "200": "#ef9a9a",*/
-                /* "300": "#e57373",*/
                 "400": "#ef5350",
                 "500": "#f44336",
                 "600": "#e53935",
@@ -38,16 +34,11 @@ var arshLoader = {
                 "800": "#c62828",
                 "900": "#b71c1c",
                 "hex": "#f44336",
-                "a100": "#ff8a80",
                 "a200": "#ff5252",
                 "a400": "#ff1744",
                 "a700": "#d50000"
             },
             "pink": {
-                /* "50": "#fce4ec", */
-                /* "100": "#f8bbd0", */
-                /* "200": "#f48fb1",*/
-                /* "300": "#f06292",*/
                 "400": "#ec407a",
                 "500": "#e91e63",
                 "600": "#d81b60",
@@ -55,8 +46,6 @@ var arshLoader = {
                 "800": "#ad1457",
                 "900": "#880e4f",
                 "hex": "#e91e63",
-                //        "a100": "#ff80ab",
-                "a200": "#ff4081",
                 "a400": "#f50057",
                 "a700": "#c51162"
             },
@@ -78,10 +67,6 @@ var arshLoader = {
                 "a700": "#aa00ff"
             },
             "deepPurple": {
-                /* "50": "#ede7f6", */
-                /* "100": "#d1c4e9", */
-                /* "200": "#b39ddb",*/
-                /* "300": "#9575cd",*/
                 "400": "#7e57c2",
                 "500": "#673ab7",
                 "600": "#5e35b1",
@@ -89,16 +74,11 @@ var arshLoader = {
                 "800": "#4527a0",
                 "900": "#311b92",
                 "hex": "#673ab7",
-                "a100": "#b388ff",
                 "a200": "#7c4dff",
                 "a400": "#651fff",
                 "a700": "#6200ea"
             },
             "indigo": {
-                /* "50": "#e8eaf6", */
-                /* "100": "#c5cae9", */
-                /* "200": "#9fa8da",*/
-                /* "300": "#7986cb",*/
                 "400": "#5c6bc0",
                 "500": "#3f51b5",
                 "600": "#3949ab",
@@ -106,16 +86,11 @@ var arshLoader = {
                 "800": "#283593",
                 "900": "#1a237e",
                 "hex": "#3f51b5",
-                "a100": "#8c9eff",
                 "a200": "#536dfe",
                 "a400": "#3d5afe",
                 "a700": "#304ffe"
             },
             "blue": {
-                /* "50": "#e3f2fd", */
-                /* "100": "#bbdefb", */
-                /* "200": "#90caf9",*/
-                /* "300": "#64b5f6",*/
                 "400": "#42a5f5",
                 "500": "#2196f3",
                 "600": "#1e88e5",
@@ -123,34 +98,21 @@ var arshLoader = {
                 "800": "#1565c0",
                 "900": "#0d47a1",
                 "hex": "#2196f3",
-                "a100": "#82b1ff",
                 "a200": "#448aff",
                 "a400": "#2979ff",
                 "a700": "#2962ff"
             },
             "lightBlue": {
-                /* "50": "#e1f5fe", */
-                /* "100": "#b3e5fc", */
-                /* "200": "#81d4fa",*/
-                /* "300": "#4fc3f7",*/
-                /* "400": "#29b6f6", */
                 "500": "#03a9f4",
                 "600": "#039be5",
                 "700": "#0288d1",
                 "800": "#0277bd",
                 "900": "#01579b",
                 "hex": "#03a9f4",
-                //        "a100": "#80d8ff",
-                "a200": "#40c4ff",
                 "a400": "#00b0ff",
                 "a700": "#0091ea"
             },
             "cyan": {
-                /* "50": "#e0f7fa", */
-                /* "100": "#b2ebf2", */
-                /* "200": "#80deea",*/
-                /* "300": "#4dd0e1",*/
-                /* "400": "#26c6da", */
                 "500": "#00bcd4",
                 "600": "#00acc1",
                 "700": "#0097a7",
@@ -167,7 +129,6 @@ var arshLoader = {
                 /* "100": "#b2dfdb", */
                 /* "200": "#80cbc4",*/
                 /* "300": "#4db6ac",*/
-                "400": "#26a69a",
                 "500": "#009688",
                 "600": "#00897b",
                 "700": "#00796b",
@@ -190,7 +151,6 @@ var arshLoader = {
                 "700": "#388e3c",
                 "800": "#2e7d32",
                 "900": "#1b5e20",
-                "hex": "#4caf50",
                 //        "a100": "#b9f6ca",
                 //        "a200": "#69f0ae",
                 //        "a400": "#00e676",
@@ -202,7 +162,6 @@ var arshLoader = {
                 /* "200": "#c5e1a5",*/
                 /* "300": "#aed581",*/
                 /* "400": "#9ccc65", */
-                "500": "#8bc34a",
                 "600": "#7cb342",
                 "700": "#689f38",
                 "800": "#558b2f",
@@ -329,7 +288,6 @@ var arshLoader = {
                 /* "100": "#cfd8dc", */
                 /* "200": "#b0bec5",*/
                 /* "300": "#90a4ae",*/
-                "400": "#78909c",
                 "500": "#607d8b",
                 "600": "#546e7a",
                 "700": "#455a64",
@@ -348,12 +306,7 @@ var arshLoader = {
 
     afterLoad : function () {
         if(arshLoader.animationLoading && !arshLoader.isLoaded) {
-            arshLoader._('.loadingText').innerHTML = "<div class='btn btn-primary'>ورود</div>";
-            arshLoader._('#loadData').innerHTML = arshLoader.htmlData;
-
-            // set color to copy right icon responsive
-            arshLoader._('.isResponsive').color = arshLoader.choosedColor;
-
+            arshLoader._('.loadingText').innerHTML = "<div class='btnEnterProject' onclick='arshLoader.startGame();'><i class='linearicon linearicon-gamepad'></i> شروع بازی</div>";
             arshLoader.isLoaded = true;
         }
     },
@@ -365,6 +318,10 @@ var arshLoader = {
         arshLoader._('#jafarRezaeiAnimate').style.color = color;
         arshLoader._('#jafarRezaeiAnimate').style.fill = color;
         arshLoader.choosedColor = color;
+    },
+
+    startGame: function () {
+        window['FanavardTetris'].build();
     },
 
 
@@ -415,7 +372,7 @@ var arshLoader = {
             'jafarRezaeiAnimate',
             {
                 type: 'oneByOne',
-                duration: 300,
+                duration: 20,
                 start: 'autostart',
                 dashGap: 40,
                 forceRender: false
