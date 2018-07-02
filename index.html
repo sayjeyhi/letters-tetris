@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="fa" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>مسابقه فن‌آورد مرحله اینترنتی</title>
+    <meta name="description" content="JafarRezaei">
+    <meta name="author" content="http://jrjs.ir[Rezaei]">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <style>
+        @font-face{font-family:'BYekan';src:url('docs/files/fonts/BYekan.eot') format("eot"),url('docs/files/fonts/BYekan.woff') format("woff"),url('docs/files/fonts/BYekan.ttf') format("truetype")}
+        .byekan,fieldset,legend,strong,.btn,.smalltext,table,.tooltip{font-family:BYekan ,'BYekan','b yekan',tahoma!important}
+        body {
+            background-color: rgb(245, 245, 245);
+            font-family:'BYekan' , tahoma;
+            color:#333;
+            margin:20px 10%;
+            text-align: right;
+        }
+        h1{
+            margin:0;
+            font-weight: normal;
+            font-size: 20px;
+        }
+
+        a {
+            color:#0078ff;
+            text-decoration: none;
+        }
+
+        .canvas-wrap{
+            position:relative;
+            padding-top: 0;
+        }
+        div.canvas-content{
+            position: absolute;
+            z-index: 2000;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            top: 2px;
+            left: 50%;
+            margin-left: -105px;
+        }
+        #canvas{
+            width:100%;
+            overflow: hidden;
+            top:0;
+            left:0;
+            border-radius: 20px 20px 0 0 !important;
+
+            height:120px;
+            background: rgb(46, 48, 216);
+            background: -moz-linear-gradient(135deg, rgb(248, 112, 91) 0%, rgb(46, 48, 216) 100%);
+            background: -webkit-gradient(linear, 0deg, 135deg, color-stop(0%,rgb(248, 112, 91)), color-stop(100%,rgb(46, 48, 216)));
+            background: -webkit-linear-gradient(135deg, rgb(248, 112, 91) 0%,rgb(46, 48, 216) 100%);
+            background: -o-linear-gradient(135deg, rgb(248, 112, 91) 0%,rgb(46, 48, 216) 100%);
+            background: -ms-linear-gradient(135deg, rgb(248, 112, 91) 0%,rgb(46, 48, 216) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgb(248, 112, 91)', endColorstr='rgb(46, 48, 216)',GradientType=0 );
+            background: linear-gradient(135deg, rgb(248, 112, 91) 0%,rgb(46, 48, 216) 100%);
+            border-bottom: 3px double #fff !important;
+            border-bottom: 6px double rgb(255, 255, 255) !important;
+            box-shadow: 0 12px 20px -10px rgba(156,39,176,0.28),0 4px 20px 0 rgba(0,0,0,0.12),0 7px 8px -5px rgba(156,39,176,0.2);
+        }
+
+
+
+        .container{
+            text-align: center;
+            border: 2px solid rgb(237, 236, 236);
+            background: #fff;
+            border-radius: 0 0 20px 20px  !important;
+        }
+        .container p{
+            margin: 5px 25px;
+            text-align: justify;
+            direction: rtl;
+            display: inline-block;
+        }
+        .footer{
+            direction: rtl;
+            color:#777;
+            font-size:13px;
+            margin-right:8px;
+            margin-top:5px;
+        }
+        .footer span{
+            float: left;
+            display: inline-block;
+            margin-left:8px;
+        }
+        .mainBlock {
+            margin-top: 15px;
+            text-align: center;
+            display: block;
+        }
+        img{
+            max-width: 80%;
+            margin:10px 10%;
+            -webkit-border-radius:8px;
+            -moz-border-radius:8px;
+            border-radius:8px;
+        }
+
+        .btn{
+            cursor: pointer;
+            display: inline-block;
+            background-color: rgb(137, 112, 221);
+            border: none;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            color:#fff;
+            text-decoration: none !important;
+            margin-top: 15px;
+        }
+        .btn:hover{
+            background-color: rgb(186, 193, 190);
+            box-shadow: 0 0 4px rgba(0,0,0,0.2);
+        }
+
+
+        .bottomPart a {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #555;
+            color: #fff;
+            text-decoration: none;
+            padding:5px 10px;
+            margin-left:20px;
+            display: inline-block;
+        }
+        .bottomPart a:last-child {margin-left:0;}
+
+
+        .parts a{
+            display: block;
+            margin: 50px 20%;
+            border-radius: 50px !important;
+            background: #e7e5e4;
+            font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+            font-weight: 900;
+            font-size: 62px;
+            padding: 50px 30px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            text-rendering: optimizeLegibility;
+            color: #131313;
+            position: relative;
+            letter-spacing: .15em;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            text-shadow: 1px -1px 0 #767676, -1px 2px 1px #737272, -2px 4px 1px #767474, -3px 6px 1px #787777, -4px 8px 1px #7b7a7a, -5px 10px 1px #7f7d7d, -6px 12px 1px #828181, -7px 14px 1px #868585, -8px 16px 1px #8b8a89, -9px 18px 1px #8f8e8d, -10px 20px 1px #949392, -11px 22px 1px #999897, -12px 24px 1px #9e9c9c, -13px 26px 1px #a3a1a1, -14px 28px 1px #a8a6a6, -15px 30px 1px #adabab, -16px 32px 1px #b2b1b0, -17px 34px 1px #b7b6b5, -18px 36px 1px #bcbbba, -19px 38px 1px #c1bfbf, -20px 40px 1px #c6c4c4, -21px 42px 1px #cbc9c8, -22px 44px 1px #cfcdcd, -23px 46px 1px #d4d2d1, -24px 48px 1px #d8d6d5, -25px 50px 1px #dbdad9, -26px 52px 1px #dfdddc, -27px 54px 1px #e2e0df, -28px 56px 1px #e4e3e2;
+        }
+
+        .parts a:hover{
+            color: #fff;
+        }
+
+        .mysitelink{
+            text-decoration: none;
+            color: #e2e2e2;
+            margin-bottom: 20px;
+            display: block;
+            font-size: 13px;
+            letter-spacing: 10px;
+            text-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px){
+            body{
+                margin:20px 20px !important;
+            }
+        }
+        @media (max-width: 585px){
+
+        }
+        @media (max-width: 405px){
+
+        }
+    </style>
+
+</head>
+<body>
+<section class="canvas-wrap">
+    <div class="canvas-content">
+        <div class="logo">
+            <img src="docs/fanavardLogo.png" alt="fanavard" style="margin:0 !important;width:210px;height: auto" />
+        </div>
+    </div>
+    <div id="canvas"></div>
+</section>
+<div class="container">
+
+    <h1 class="byekan" style="margin-top: 40px">پاسخ های ارائه شده <a href="http://www.jrjs.ir" target="_blank">جعفررضائی</a> برای مرحله اینترنتی</h1>
+    <a href="docs/web/index.html" class="btn">سند توضیحات</a>
+    <a href="source/index.html" class="btn">مشاهده پروژه</a>
+    <div class="mainBlock">
+        <div class="parts">
+            <a href="source/index.html" target="_blank">Emoji 😋</a>
+        </div>
+        <a href="http://jrjs.ir" target="_blank" class="mysitelink" rel="follow">www.jrjs.ir</a>
+    </div>
+</div>
+<div class="footer">
+    کپی راست برای خودم محفوظ می باشد.
+    <span>@1397</span>
+</div>
+
+<script src="docs/files/packet.js"></script>
+</body>
+</html>
