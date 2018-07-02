@@ -3,88 +3,36 @@
 var TetrisGame;
 (function () {
 
-    /**
-     *
-     * @param options
-     * @constructor
-     */
-    TetrisGame = function (options) {
+    'use strict';
 
-        'use strict';
-
-        /**
-         * Default options of emoji manager
-         * @type {{selector: string, draggable: boolean, title: string, background: string, textColor: string, kindOfSearch: string, afterMenuShow: afterMenuShow, afterChoose: afterChoose, afterClose: afterClose, rtl: boolean, debug: boolean}}
-         */
-        var defaultOptions = {
-            selector: '.tetrisGame',
-            title: 'انتخاب شکلک',
-            background: '#F00000',
-            textColor: '#fff',
-            kindOfSearch: 'all',   // first , end
-            afterMenuShow: function () {
-            },
-            afterChoose: function () {
-            },
-            afterClose: function () {
-            },
-            rtl: true,
-            position: 'absolute',    // fixed-top-left , fixed-top-right , fixed-bottom-left , fixed-bottom-right
-            debug: false
-        };
-
-        var TetrisGame = this;
-        var jsonOfWords = window.jsonOfWords;
+    TetrisGame = {
 
 
         /**
-         * Extend object
-         *
-         * @param out
-         * @returns {*|{}}
+         * Object of game words
          */
-        this.deepExtend = function (out) {
-            out = out || {};
+        jsonOfWords : window.jsonOfWords,
 
-            for (var i = 1; i < arguments.length; i++) {
-                var obj = arguments[i];
-
-                if (!obj)
-                    continue;
-
-                for (var key in obj) {
-                    if (obj.hasOwnProperty(key)) {
-                        if (typeof obj[key] === 'object')
-                            out[key] = TetrisGame.deepExtend(out[key], obj[key]);
-                        else
-                            out[key] = obj[key];
-                    }
-                }
-            }
-
-            return out;
-        };
 
 
         /**
          * Use to add new comming block
          */
-        this.charBlock = function () {
+        charBlock: function() {
 
-        };
+        },
 
 
-        this.checkWordSuccess = function () {
+        checkWordSuccess: function () {
 
-        };
+        },
 
         /*
         Overload default settings on user options
          */
-        this.settings = this.deepExtend({}, defaultOptions, options);
-        this.firstRun = true;
+        firstRun : true,
 
-        this.isBrowser = (typeof window !== 'undefined');
+        isBrowser : (typeof window !== 'undefined'),
 
 
 
@@ -93,7 +41,11 @@ var TetrisGame;
          * Select editor element with class search emoji
          * @type {HTMLElement | null}
          */
-        this.build = function () {
+        build : function () {
+
+
+            // get max json word length [min:8 - max:12] to create columns
+            log(jsonOfWords);
 
             document.querySelector("#container").innerHTML =
                 `<div id="gameHolder">
@@ -119,13 +71,12 @@ var TetrisGame;
                     </div>
                 </footer>`;
 
-        };
+        }
 
 
         /**
          * Build emojiManger
          */
-        this.build();
 
     };
 

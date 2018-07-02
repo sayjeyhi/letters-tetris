@@ -53,9 +53,9 @@
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
-    width: 150px;
+    width: 140px;
     left: 43px;
-    top: 20px;
+    top: 35px;
     text-align: center;
     height: 150px;
     font-size: 44px;
@@ -63,11 +63,18 @@
     color: #314e81;
     position: absolute;
 }
+#gameHolder .behindPlayBoard .showUpComingLetter::before {
+    content: attr(title);
+    font-size: 12px;
+    top: -75px;
+    position: absolute;
+    right: 0;
+}
 
 
 #gameHolder .behindPlayBoard .gameControlButtons{
     left: 0;
-    top: 200px;
+    top: 220px;
     text-align: center;
     width: 100%;
     position: relative;
@@ -90,6 +97,9 @@
 }
 #gameHolder .behindPlayBoard .gameControlButtons .pauseGame{
     background: #c3450e;
+}
 
+.hide{
+    display: none;
 }
 

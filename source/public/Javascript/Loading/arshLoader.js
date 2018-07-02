@@ -321,7 +321,7 @@ var arshLoader = {
     },
 
     startGame: function () {
-        window['FanavardTetris'].build();
+        TetrisGame.build();
     },
 
 
