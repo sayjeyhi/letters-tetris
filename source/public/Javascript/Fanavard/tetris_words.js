@@ -2,22 +2,31 @@
  * List of emoji icons in json
  * @type {*[]}
  */
-var jsonOfWords = [
+var TetrisWords = [
     {
-        "keywords": "score - perfect - numbers - century - exam - quiz - test - pass - hundred ",
-        "faKeywords": "نمره - کامل - اعداد - قرن - امتحان - مسابقه - آزمون - عبور - صد - 100 ",
-        "name": "100 ",
-        "content": "💯"
+        "word": "سلام",
+        "unicode": "100",
+        "length": 4
     }, {
-        "keywords": "numbers - blue-square ",
-        "faKeywords": "اعداد - مربع آبی - 1234 ",
-        "name": "1234 ",
-        "content": "🔢"
+        "word": "قلب",
+        "unicode": "100",
+        "length": 4
     }, {
-        "keywords": "face - smile - happy - joy - grin -  ",
-        "faKeywords": "صورت - لبخند - خوشحال - شادی - گریه",
-        "name": "grinning ",
-        "content": "😀"
+        "word": "آدم",
+        "unicode": "100",
+        "length": 3
+    }, {
+        "word": "کیف",
+        "unicode": "100",
+        "length": 3
+    }, {
+        "word": "کفش",
+        "unicode": "100",
+        "length": 3
+    }, {
+        "word": "ماشین",
+        "unicode": "100",
+        "length": 5
     }
 ];
 

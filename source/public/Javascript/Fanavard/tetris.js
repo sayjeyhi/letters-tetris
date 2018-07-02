@@ -7,32 +7,130 @@ var TetrisGame;
 
     TetrisGame = {
 
-
         /**
-         * Object of game words
+         * Is browser ?
          */
-        jsonOfWords : window.jsonOfWords,
+        isBrowser : (typeof window !== 'undefined'),
+
+
+        /**
+         * Json Of words
+         */
+        words : window.TetrisWords,
+
+        /**
+         * Base config for game
+         */
+        config: {
+            rows: 10,
+            columns : 5,
+            charSpeed : 1,  // second
+            checkInRow: true,
+            checkInColumn : false,
+            animateHiding: true,
+            playSoundOnSuccess : false,
+            playSoundOnFailure : false
+        },
+
+
+        /**
+         * Objects of char blocks
+         */
+        aliveChars : [],
+
+        
+        /**
+         * Active character [not stopped] Object index
+         */
+        activeCharIndex : 0,
+
+
+        /**
+         * Choosed words to work with them
+         */
+        choosedWords : [],
 
 
 
         /**
-         * Use to add new comming block
+         * Class Use to add new coming block
          */
         charBlock: function() {
 
+
+            var self = {};
+
+            // get random char from choosed words
+            var choosed = "ج";
+
+            // choose random column to init char
+            var initColumn = 2;
+
+
+            // choose random color
+            var color = "#ccc";
+
+
+            self.column = initColumn;
+            self.row = TetrisGame.config.rows;  // top is max
+            self.name = choosed;
+            self.color = color;
+
+
+
+            // add this char to active chars
+
+
+            self.move = function(eventKeyCode){
+
+
+                switch (eventKeyCode){
+                    case 37:  // left
+                        alert("left");
+                        break;
+                    case 39:  // right
+                        alert("right");
+                        break;
+                    case 40:  // down
+                        alert("down");
+                        break;
+                }
+            };
+
+            TetrisGame.activeCharIndex = TetrisGame.aliveChars.push(self);
+
+            return self;
+
         },
 
 
+        /**
+         * Get a valid column number [8-15]
+         */
+        getValidColumnsNumber: function () {
+
+        },
+
+
+        /**
+         * Choose random words in game build to work with
+         */
+        chooseWords: function () {
+            var result;
+            var count = 0;
+            for (var prop in TetrisGame.words)
+                if (Math.random() < 1/++count)
+                    result = prop;
+            return TetrisGame.words[result];
+        },
+
+
+        /**
+         * Check if could find a success word
+         */
         checkWordSuccess: function () {
 
         },
-
-        /*
-        Overload default settings on user options
-         */
-        firstRun : true,
-
-        isBrowser : (typeof window !== 'undefined'),
 
 
 
@@ -45,7 +143,24 @@ var TetrisGame;
 
 
             // get max json word length [min:8 - max:12] to create columns
-            log(jsonOfWords);
+            log(TetrisGame.words);
+
+
+            // get two words from json to create rows and columns
+            log("random words");
+            log(TetrisGame.chooseWords());
+
+
+            // create first char block
+            new TetrisGame.charBlock();
+
+
+            document.addEventListener("keydown" , function (e) {
+                TetrisGame.aliveChars[TetrisGame.activeCharIndex - 1].move(e.keyCode);
+            });
+
+
+
 
             document.querySelector("#container").innerHTML =
                 `<div id="gameHolder">
@@ -72,11 +187,6 @@ var TetrisGame;
                 </footer>`;
 
         }
-
-
-        /**
-         * Build emojiManger
-         */
 
     };
 

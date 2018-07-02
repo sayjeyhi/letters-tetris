@@ -15,7 +15,6 @@
     <meta property="og:url" content="http://jrjs.ir"/>
 </head>
 
-
 <body>
 
     <!-- Main holder of every thing -->
@@ -24,8 +23,8 @@
     <!-- Add Main Project script -->
     <script type="application/javascript" src="public/Javascript/jRun.js"></script>
     <script type="application/javascript">
-
         jRun.urlPrefix = "public/";
+        jRun.debugMode = false;
 
         jRun.plugins = [{
             url : 'vivus.min',
@@ -40,7 +39,6 @@
         }];
         jRun.buildPlugIns();
 
-
         jRun.addLanguage("fa");
         jRun.init([
                 {url: "tetris_words", kind: "Fanavard"},
@@ -50,6 +48,5 @@
             ]
         );
     </script>
-
 </body>
 </html>
