@@ -82,8 +82,6 @@ var TetrisGame;
 
 
             self.move = function(eventKeyCode){
-
-
                 switch (eventKeyCode){
                     case 37:  // left
                         alert("left");
@@ -98,9 +96,7 @@ var TetrisGame;
             };
 
             TetrisGame.activeCharIndex = TetrisGame.aliveChars.push(self);
-
             return self;
-
         },
 
 
@@ -108,7 +104,14 @@ var TetrisGame;
          * Get a valid column number [8-15]
          */
         getValidColumnsNumber: function () {
-
+            var columnsNumber = 8;
+            for (var i = Object.keys(TetrisGame.words).length - 1; i >= 0; i--) {
+                var thisWordLength = TetrisGame.words[i].word.length;
+                if(thisWordLength > columnsNumber){
+                    columnsNumber = thisWordLength;
+                }
+            }
+            return columnsNumber;
         },
 
 
@@ -133,17 +136,13 @@ var TetrisGame;
         },
 
 
-
-
         /**
-         * Select editor element with class search emoji
-         * @type {HTMLElement | null}
+         * Start Game play
          */
-        build : function () {
-
+        startGamePlay: function () {
 
             // get max json word length [min:8 - max:12] to create columns
-            log(TetrisGame.words);
+            var validColumns = TetrisGame.getValidColumnsNumber();
 
 
             // get two words from json to create rows and columns
@@ -158,9 +157,24 @@ var TetrisGame;
             document.addEventListener("keydown" , function (e) {
                 TetrisGame.aliveChars[TetrisGame.activeCharIndex - 1].move(e.keyCode);
             });
+        },
+
+
+        /**
+         * Pause Game play
+         */
+        pauseGamePlay: function () {
+            // todo : 1. pause timer
+            //      2. pause adding new chars
+        },
 
 
 
+        /**
+         * Select editor element with class search emoji
+         * @type {HTMLElement | null}
+         */
+        build : function () {
 
             document.querySelector("#container").innerHTML =
                 `<div id="gameHolder">
@@ -172,7 +186,7 @@ var TetrisGame;
                        </div>
                        <div class="showUpComingLetter" title="langNextLetter">ح</div>
                        <div class="gameControlButtons" >
-                            <div class="startGame">langStartGame</div>
+                            <div onclick="TetrisGame.startGamePlay();" class="startGame">langStartGame</div>
                             <div class="pauseGame">langPauseGame</div>
                        </div>
                    </div>
@@ -185,7 +199,6 @@ var TetrisGame;
                         <i class="linearicon linearicon-brain"></i>  ${lang.copyRight}
                     </div>
                 </footer>`;
-
         }
 
     };
