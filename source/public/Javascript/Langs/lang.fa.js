@@ -7,6 +7,7 @@ var lang = {
     startGame: "شروع بازی",
     pauseGame: "توقف بازی",
     nextLetter: "کاراکتر بعدی",
+    clickStartGame: "برای شروع بر روی دکمه شروع بازی کلیک کنید",
     copyRight : "کپی رایت برای تیم عرش محفوظ می باشد.",
     Save : "ذخیره",
 

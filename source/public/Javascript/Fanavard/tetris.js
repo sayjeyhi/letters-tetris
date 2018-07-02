@@ -28,7 +28,7 @@ var TetrisGame;
             columnsMin : 6,
             columnsMax : 12,
             workingWordCount : 2,
-            charSpeed : 1,  // second
+            charSpeed : 1000,  // 1 second
             checkInRow: true,
             checkInColumn : false,
             animateHiding: true,
@@ -105,8 +105,6 @@ var TetrisGame;
 
         /**
          * Choose a char of choosed words
-         *
-         * @return string
          */
         chooseChar: function () {
             var availableChars = TetrisGame.choosedWords.join();
@@ -292,11 +290,18 @@ var TetrisGame;
             // Get valid column length based on max json word length to create columns
             TetrisGame.validatedColumnsCount = TetrisGame.getValidColumnsNumber();
 
-            for(var c = 0;c < TetrisGame.validatedColumnsCount; c++){
 
-            }
 
             // create game columns and rows
+            var playBoardTable = '';
+            for(var r = 0;r < TetrisGame.config.rows; r++) {
+                playBoardTable += '<div class="isRow row_' + r + '">';
+                for (var c = 0; c < TetrisGame.validatedColumnsCount; c++) {
+                    playBoardTable += '<div class="isColumn column_' + c + '" data-row="' + r + '"></div>';
+                }
+                playBoardTable += '</div>';
+            }
+            document.querySelector(".playBoard").innerHTML = playBoardTable;
 
 
 
@@ -329,7 +334,6 @@ var TetrisGame;
 
             // stop timer
             TetrisGame.stopTimer();
-
 
             //      2. pause adding new chars
             //      3. clear active char setTimeout
@@ -370,9 +374,7 @@ var TetrisGame;
                            <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div> 
                        </div>
                    </div>
-                   <div class="playBoard">
-                       <div class="charBlock" >ت</div><div class="charBlock" >ت</div><div class="charBlock" >ت</div><div class="charBlock" >ت</div><div class="charBlock" >ت</div><div class="charBlock" >ت</div>
-                    </div>
+                   <div class="playBoard"><span class="emptyPlayBoard">${lang.clickStartGame}</span></div>
                 </div>
                 <footer class="page-footer">
                     <div class="container">

@@ -23,6 +23,15 @@
     border-radius: 6px;
 }
 
+.gameHolder .playBoard .emptyPlayBoard{
+    font-size: 17px;
+    color: rgba(186, 183, 183, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
 .gameHolder .playBoard .charBlock {
     width: 40px;
     height: 40px;
