@@ -21,6 +21,9 @@ var TetrisWords = [
     }, {
         "word": "ماشین",
         "unicode": "100"
+    }, {
+        "word": "قسطنطیه",
+        "unicode": "100"
     }
 ];
 

@@ -5,6 +5,8 @@ var TetrisGame;
 
     'use strict';
 
+    var blobTiming , timerWorker = null;
+
     TetrisGame = {
 
         /**
@@ -24,6 +26,7 @@ var TetrisGame;
         config: {
             rows: 10,
             columns : 5,
+            workingWordCount : 2,
             charSpeed : 1,  // second
             checkInRow: true,
             checkInColumn : false,
@@ -51,17 +54,18 @@ var TetrisGame;
         choosedWords : [],
 
 
+        /**
+         * Chars that used from choosed words
+         */
+        choosedWordsUsedChars : [],
+
 
         /**
          * Class Use to add new coming block
          */
         charBlock: function() {
 
-
             var self = {};
-
-            // get random char from choosed words
-            var choosed = "ج";
 
             // choose random column to init char
             var initColumn = 2;
@@ -73,7 +77,7 @@ var TetrisGame;
 
             self.column = initColumn;
             self.row = TetrisGame.config.rows;  // top is max
-            self.name = choosed;
+            self.name = TetrisGame.chooseChar();
             self.color = color;
 
 
@@ -101,10 +105,38 @@ var TetrisGame;
 
 
         /**
-         * Get a valid column number [8-15]
+         * Choose a char of choosed words
+         *
+         * @return string
+         */
+        chooseChar: function () {
+            var availableChars = TetrisGame.choosedWords.join();
+            TetrisGame.choosedWordsUsedChars.forEach(function (value) {
+                availableChars.replace(value , '');
+            });
+
+            return availableChars[Math.random() * availableChars.length << 0];
+        },
+
+
+        /**
+         * Choose random words in game build to work with
+         */
+        chooseWord: function () {
+            var keys = Object.keys(TetrisGame.words);
+            var randomKey = keys[ keys.length * Math.random() << 0];
+            var value = TetrisGame.words[randomKey];
+            delete TetrisGame.words[randomKey];
+            return value;
+        },
+
+
+
+        /**
+         * Get a valid column number [7-10]
          */
         getValidColumnsNumber: function () {
-            var columnsNumber = 8;
+            var columnsNumber = 7;
             for (var i = Object.keys(TetrisGame.words).length - 1; i >= 0; i--) {
                 var thisWordLength = TetrisGame.words[i].word.length;
                 if(thisWordLength > columnsNumber){
@@ -114,14 +146,6 @@ var TetrisGame;
             return columnsNumber;
         },
 
-
-        /**
-         * Choose random words in game build to work with
-         */
-        chooseWords: function () {
-            var keys = Object.keys(TetrisGame.words)
-            return TetrisGame.words[keys[ keys.length * Math.random() << 0]];
-        },
 
 
         /**
@@ -165,7 +189,6 @@ var TetrisGame;
                 "#5e35b1",
                 "#512da8",
                 "#4527a0",
-                "#311b92",
                 "#673ab7",
                 "#7c4dff",
                 "#651fff",
@@ -180,20 +203,16 @@ var TetrisGame;
                 "#536dfe",
                 "#3d5afe",
                 "#304ffe",
-                "#2196f3",
                 "#1e88e5",
                 "#1976d2",
                 "#1565c0",
                 "#0d47a1",
-                "#448aff",
                 "#2979ff",
                 "#2962ff",
-                "#039be5",
                 "#0288d1",
                 "#0277bd",
                 "#01579b",
                 "#0091ea",
-                "#00acc1",
                 "#0097a7",
                 "#00838f",
                 "#006064",
@@ -214,8 +233,58 @@ var TetrisGame;
                 "#ef6c00",
                 "#e65100"
             ];
-            var random = parseInt(Math.random() * colors.length);
+            var random = Math.random() * colors.length << 0;
             return colors[random];
+        },
+
+
+
+        startTimer: function () {
+            var timerDisplayEl = document.querySelector(".timerDisplay");
+            if (typeof(Worker) !== "undefined") {
+
+                // stop timer if running already
+                TetrisGame.stopTimer();
+
+                if (timerWorker === null) {
+                    timerWorker = new Worker(window.URL.createObjectURL(blobTiming));
+                }
+
+                timerWorker.onmessage = function(event) {
+                    // @todo : add to local storage
+                    timerDisplayEl.innerHTML = TetrisGame.beautifySecond(event.data);
+                };
+
+            } else {
+                timerDisplayEl.innerHTML = lang.webWorkerNotSupported;
+            }
+        },
+
+        // stop timer
+        stopTimer: function() {
+            if (timerWorker === null) {
+                timerWorker = new Worker(window.URL.createObjectURL(blobTiming));
+            }
+            timerWorker.terminate();
+            timerWorker = null;
+        },
+
+
+        beautifySecond: function(s){
+
+            if (s > 3600) {
+
+                // 1 hour and 34 min
+                return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
+
+            } else if (s > 60 && s <= 3600) {
+
+                // 4 min and 3 s
+                return (Math.ceil(s / 60) + lang.minute + lang.and + s % 60 + lang.second);
+
+            } else {
+                return (s + lang.second);
+            }
         },
 
 
@@ -228,15 +297,21 @@ var TetrisGame;
             var validColumnsCount = TetrisGame.getValidColumnsNumber();
             log(validColumnsCount);
 
-            // get two words from json to create rows and columns
-            log("random words");
-            log(TetrisGame.chooseWords());
+            // Choose n words from json to create rows and columns
+            for(var i = 0; i < TetrisGame.config.workingWordCount;i++) {
+                TetrisGame.choosedWords.push(TetrisGame.chooseWord());
+            }
 
 
             // create first char block
             var char = new TetrisGame.charBlock();
             log(char);
 
+
+            TetrisGame.startTimer();
+
+
+            // arrow keys press
             document.addEventListener("keydown" , function (e) {
                 TetrisGame.aliveChars[TetrisGame.activeCharIndex - 1].move(e.keyCode);
             });
@@ -259,13 +334,19 @@ var TetrisGame;
          */
         build : function () {
 
+
+            blobTiming = new Blob([
+                document.querySelector('#workerTiming').textContent
+            ], { type: "text/javascript" });
+
+
             document.querySelector("#container").innerHTML =
                 `<div id="gameHolder">
                     <div class="behindPlayBoard">
                        <div class="courseArea"> 
                            <div ><i class="linearicon linearicon-bag-pound"></i> langEmtiza : 123</div> 
                            <div ><i class="linearicon linearicon-mustache-glasses"></i> langCreatedWords : 22</div> 
-                           <div ><i class="linearicon linearicon-clock"></i> langSpentTime : 1:41</div> 
+                           <div ><i class="linearicon linearicon-clock"></i> langSpentTime : <span class="timerDisplay">1:41</span></div> 
                        </div>
                        <div class="showUpComingLetter" title="langNextLetter">ح</div>
                        <div class="gameControlButtons" >
@@ -284,6 +365,10 @@ var TetrisGame;
                        <div class="charBlock" >ت</div>
                        <div class="charBlock" >ت</div>
                        <div class="charBlock" >ت</div>
+                       <div class="charBlock" >ت</div>
+                       <div class="charBlock" >ت</div>
+                       <div class="charBlock" >ت</div>
+                       <div class="charBlock" >ت</div>
                     </div>
                 </div>
                 <footer class="page-footer">
@@ -292,7 +377,6 @@ var TetrisGame;
                     </div>
                 </footer>`;
         }
-
     };
 
 

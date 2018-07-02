@@ -48,5 +48,17 @@
             ]
         );
     </script>
+
+    <!-- web worker timing content @type="javascript/worker" -->
+    <script id="workerTiming" type="javascript/worker">
+        var i = 0;
+        var timedCount = function() {
+            i = i+1;
+            postMessage(i);
+            setTimeout("timedCount()", 1000);
+        }
+        timedCount();
+    </script>
+
 </body>
 </html>
