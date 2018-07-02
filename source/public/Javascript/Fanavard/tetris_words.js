@@ -1,5 +1,5 @@
 /**
- * List of emoji icons in json
+ * List of words in json
  * @type {*[]}
  */
 var TetrisWords = [
