@@ -220,9 +220,10 @@ var jRun = {
      */
     addLanguage : function(lang , callback) {
 
-        if (jRun.checkLoad("lang" + lang)) {
+        if (jRun.checkLoad("lang" + lang) || lang === "") {
             return true;
         }
+
         jRun.init(
             [{
                 url: "lang." + lang + ".js",

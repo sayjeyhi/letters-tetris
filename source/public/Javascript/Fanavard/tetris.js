@@ -48,6 +48,12 @@ var TetrisGame;
          */
         aliveChars : [],
 
+
+        /**
+         * Next character
+         */
+        nextChar : '',
+
         
         /**
          * Active character [not stopped] Object index
@@ -82,8 +88,9 @@ var TetrisGame;
             // choose random column to init char
             self.column = Math.random() * TetrisGame.validatedColumnsCount << 0;
             self.row = 0;                               // top is 0 and bottom is max
-            self.name = TetrisGame.chooseChar();        // char value
+            self.name = TetrisGame.nextChar === "" ? TetrisGame.chooseChar() : TetrisGame.nextChar;        // char value
             self.color = TetrisGame.materialColor();    // random material color
+            self.active = true;                         // character is animating on air
 
 
             // move char
@@ -101,9 +108,22 @@ var TetrisGame;
                 }
             };
 
+            self.checkMoveAvailability = function (direction) {
+                if(true){
+
+                }
+            };
+
+            self.interval = setInterval(function () {
+                self.move(40);
+            } , TetrisGame.config.charSpeed);
+
+            // create and show up coming char
+            document.querySelector(".showUpComingLetter").innerHTML = TetrisGame.nextChar = TetrisGame.chooseChar();
 
             // add this char to alive chars
             TetrisGame.activeCharIndex = TetrisGame.aliveChars.push(self);
+
             return self;
         },
 
@@ -135,7 +155,7 @@ var TetrisGame;
 
 
         /**
-         * Get a valid column number [7-10]
+         * Get a valid column number [min-max]
          */
         getValidColumnsNumber: function () {
             var columnsNumber = TetrisGame.config.columnsMin;
@@ -385,7 +405,7 @@ var TetrisGame;
                        <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
                        <div class="gameControlButtons" >
                             <div onclick="TetrisGame.startGamePlay();" class="startGame">${lang.startGame}</div>
-                            <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame">${lang.pauseGame}</div>
+                            <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame hide">${lang.pauseGame}</div>
                        </div>
                        <div class="courseArea"> 
                            <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div> 
