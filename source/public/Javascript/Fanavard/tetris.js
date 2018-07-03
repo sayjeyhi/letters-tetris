@@ -66,6 +66,11 @@ var TetrisGame;
          */
         choosedWordsUsedChars : [],
 
+        /**
+         * Game play board
+         */
+        playBoard : null,
+
 
         /**
          * Class Use to add new coming block
@@ -107,7 +112,7 @@ var TetrisGame;
          * Choose a char of choosed words
          */
         chooseChar: function () {
-            var availableChars = TetrisGame.choosedWords.join();
+            var availableChars = TetrisGame.choosedWords.map(function(e){return e.word}).join('');
             TetrisGame.choosedWordsUsedChars.forEach(function (value) {
                 availableChars.replace(value , '');
             });
@@ -140,7 +145,8 @@ var TetrisGame;
                     columnsNumber = thisWordLength;
                 }
             }
-            return TetrisGame.config.columnsMax < columnsNumber ? TetrisGame.config.columnsMax : columnsNumber;
+            columnsNumber = TetrisGame.config.columnsMax < columnsNumber ? TetrisGame.config.columnsMax : columnsNumber;
+            return columnsNumber%2 === 0 ? columnsNumber : columnsNumber +1;
         },
 
 
@@ -268,6 +274,7 @@ var TetrisGame;
             timerWorker = null;
         },
 
+
         // make time beautiful
         beautifySecond: function(s){
             if (s > 3600) {
@@ -282,14 +289,28 @@ var TetrisGame;
         },
 
 
+        addCharacter: function () {
+
+            var char = new TetrisGame.charBlock();
+            var initializeElement = TetrisGame.playBoard.querySelector(".row_" + char.row + " .column_" + char.column);
+
+            initializeElement.innerHTML = '<span style="background: ' + char.color + '" class="charBlock">' + char.name + '</span>';
+
+        },
+
+
         /**
          * Start Game play
          */
         startGamePlay: function () {
 
+            TetrisGame.playBoard = document.querySelector(".playBoard");
+
             // Get valid column length based on max json word length to create columns
             TetrisGame.validatedColumnsCount = TetrisGame.getValidColumnsNumber();
 
+            // add class to have playBoard columns
+            TetrisGame.playBoard.classList.add('is' + TetrisGame.validatedColumnsCount + 'Column');
 
 
             // create game columns and rows
@@ -301,8 +322,7 @@ var TetrisGame;
                 }
                 playBoardTable += '</div>';
             }
-            document.querySelector(".playBoard").innerHTML = playBoardTable;
-
+            TetrisGame.playBoard.innerHTML = playBoardTable;
 
 
             // Choose n words from json to create rows and columns
@@ -312,8 +332,7 @@ var TetrisGame;
 
 
             // create first char block
-            var char = new TetrisGame.charBlock();
-            log(char);
+            TetrisGame.addCharacter();
 
 
             TetrisGame.startTimer();
@@ -363,7 +382,7 @@ var TetrisGame;
             document.querySelector("#container").innerHTML =
                 `<div class="gameHolder ${ltrClass}">
                     <div class="behindPlayBoard">
-                       <div class="showUpComingLetter" title="${lang.nextLetter}:">ح</div>
+                       <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
                        <div class="gameControlButtons" >
                             <div onclick="TetrisGame.startGamePlay();" class="startGame">${lang.startGame}</div>
                             <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame">${lang.pauseGame}</div>

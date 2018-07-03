@@ -33,16 +33,40 @@
 }
 
 .gameHolder .playBoard .charBlock {
-    width: 40px;
-    height: 40px;
-    background: #d17070;
     border-radius: 5px;
     text-align: center;
-    line-height: 40px;
-    display: inline-block;
-    margin:0.1rem;
     color: #fff !important;
+    position: absolute;
+    width: 99%;
+    height: 99%;
+    line-height: 44px;
 }
+
+.gameHolder .playBoard .isRow{
+    height: 40px;
+}
+
+
+.gameHolder .playBoard .isColumn{
+    position: relative;
+    display: inline-block;
+    height:100%;
+}
+
+.gameHolder .playBoard.is6Column .isColumn{
+    width: 16.66%;
+}
+.gameHolder .playBoard.is8Column .isColumn{
+    width: 12.5%;
+}
+.gameHolder .playBoard.is10Column .isColumn {
+    width: 10%;
+}
+.gameHolder .playBoard.is12Column .isColumn {
+    width: 8.33%;
+}
+
+
 
 
 .gameHolder .behindPlayBoard{
