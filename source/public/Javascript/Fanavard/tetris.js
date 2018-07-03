@@ -10,10 +10,10 @@ var TetrisGame;
     TetrisGame = {
 
         /**
-         * Is browser ?
+         * Current version
          */
-        isBrowser : (typeof window !== 'undefined'),
-        
+        version : '0.1.9',
+
 
         /**
          * Base config for game
@@ -28,12 +28,14 @@ var TetrisGame;
             checkInColumn : false,
             animateHiding: true,
             playSoundOnSuccess : false,
-            playSoundOnFailure : false
+            playSoundOnFailure : false,
+
+            // internal config
+            paused : false,
+            isBrowser : (typeof window !== 'undefined'),
+
         },
 
-        gameVariables : {
-            timer: null,
-        },
 
         /**
          * Count of columns which are validated
@@ -42,7 +44,7 @@ var TetrisGame;
 
 
         /**
-         * Objects of char blocks
+         * Objects of char blocks that not deleted
          */
         aliveChars : [],
 
@@ -70,10 +72,12 @@ var TetrisGame;
          */
         choosedWordsUsedChars : [],
 
+
         /**
          * Game play board
          */
         playBoard : null,
+
 
 
         /**
@@ -81,19 +85,19 @@ var TetrisGame;
          */
         charBlock: function() {
 
-            var self = {};
+            var charBlock = {};
 
             // choose random column to init char
-            self.column = Math.random() * TetrisGame.validatedColumnsCount << 0;
-            self.row = 0;                               // top is 0 and bottom is max
-            self.name = TetrisGame.nextChar === "" ? TetrisGame.chooseChar() : TetrisGame.nextChar;        // char value
-            self.color = TetrisGame.materialColor();    // random material color
-            self.active = true;                         // character is animating on air
-            self.element = null;                        // holds our character element
+            charBlock.column = Math.random() * TetrisGame.validatedColumnsCount << 0;
+            charBlock.row = 0;                               // top is 0 and bottom is max
+            charBlock.name = TetrisGame.nextChar === "" ? TetrisGame.chooseChar() : TetrisGame.nextChar;        // char value
+            charBlock.color = TetrisGame.materialColor();    // random material color
+            charBlock.active = true;                         // character is animating on air
+            charBlock.element = null;                        // holds our character element
 
 
             // move char
-            self.move = function(eventKeyCode){
+            charBlock.move = function(eventKeyCode){
 
                 var moveTo = {};
                 var isBottomMove = false;
@@ -101,20 +105,20 @@ var TetrisGame;
                 switch (eventKeyCode){
                     case 37:  // left
                         moveTo = {
-                            row : self.row ,
-                            column : self.column + 1
+                            row : charBlock.row ,
+                            column : charBlock.column + 1
                         };
                         break;
                     case 39:  // right
                         moveTo = {
-                            row : self.row ,
-                            column : self.column - 1
+                            row : charBlock.row ,
+                            column : charBlock.column - 1
                         };
                         break;
                     case 40:  // down
                         moveTo = {
-                            row : self.row + 1 ,
-                            column : self.column
+                            row : charBlock.row + 1 ,
+                            column : charBlock.column
                         };
                         isBottomMove = true;
                         break;
@@ -134,13 +138,15 @@ var TetrisGame;
 
                     if(isBottomMove) {
                         // stop interval and request new char
-                        clearInterval(self.interval);
+                        clearInterval(charBlock.interval);
 
 
-                        if(self.row !== 0) {
+                        if(charBlock.row !== 0) {
                             // add new char
                             TetrisGame.characterFactory();
                         }else{
+
+                            TetrisGame.timer().stop();
                             alert("loosed !");
                         }
                     }
@@ -148,14 +154,14 @@ var TetrisGame;
                 }else{
 
                     // remove current char
-                    self.element.parentNode.removeChild(self.element);
+                    charBlock.element.parentNode.removeChild(charBlock.element);
 
                     // update current char info
-                    self.row = moveTo.row;
-                    self.column = moveTo.column;
+                    charBlock.row = moveTo.row;
+                    charBlock.column = moveTo.column;
 
                     // do our char move
-                    TetrisGame.characterFactory(self , destinationEl);
+                    TetrisGame.characterFactory(charBlock , destinationEl);
 
                     // @todo : animate move
 
@@ -164,8 +170,11 @@ var TetrisGame;
 
 
             // interval
-            self.interval = setInterval(function () {
-                self.move(40);
+            charBlock.interval = setInterval(function () {
+                log(TetrisGame.config.paused);
+                //if(!TetrisGame.config.paused) {
+                    charBlock.move(40);
+                //}
             } , TetrisGame.config.charSpeed);
 
 
@@ -174,9 +183,9 @@ var TetrisGame;
             document.querySelector(".showUpComingLetter").innerHTML = TetrisGame.nextChar;
 
             // add this char to alive chars
-            TetrisGame.activeCharIndex = TetrisGame.aliveChars.push(self);
+            TetrisGame.activeCharIndex = TetrisGame.aliveChars.push(charBlock);
 
-            return self;
+            return charBlock;
         },
 
 
@@ -191,7 +200,7 @@ var TetrisGame;
             });
 
             choosedChar = availableChars[Math.random() * availableChars.length << 0];
-            TetrisGame.choosedWordsUsedChars.push(choosedChar)
+            TetrisGame.choosedWordsUsedChars.push(choosedChar);
 
             return choosedChar;
         },
@@ -322,9 +331,14 @@ var TetrisGame;
          * Game timer manager class
          */
         timer : function () {
-            var self = {};
 
-            self.start = function () {
+            var timer = {};
+
+            timer.start = function () {
+
+                // change paused status
+                TetrisGame.config.paused = false;
+
                 var timerDisplayEl = document.querySelector(".timerDisplay");
                 if (typeof(Worker) !== "undefined") {
 
@@ -346,7 +360,10 @@ var TetrisGame;
             };
 
             // stop timer
-            self.stop = function() {
+            timer.stop = function() {
+
+                TetrisGame.config.paused = true;
+
                 if (timerWorker === null) {
                     timerWorker = new Worker(window.URL.createObjectURL(blobTiming));
                 }
@@ -356,7 +373,7 @@ var TetrisGame;
 
 
             // make time beautiful
-            self.beautifySecond = function(s){
+            timer.beautifySecond = function(s){
                 if (s > 3600) {
                     // 1 hour and 34 min
                     return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
@@ -368,7 +385,7 @@ var TetrisGame;
                 }
             };
 
-            return self;
+            return timer;
 
         },
 
@@ -379,7 +396,9 @@ var TetrisGame;
 
             // if char is not supplied create new one
             if(typeof char === "undefined") {
+
                 char = new TetrisGame.charBlock();
+
                 initializeElement = TetrisGame.playBoard.querySelector(".row_" + char.row + " .column_" + char.column);
             }
 
@@ -448,11 +467,9 @@ var TetrisGame;
          */
         pauseGamePlay: function () {
 
-            // stop timer
-            TetrisGame.stopTimer();
+            // stop timer [will stop whole game]
+            TetrisGame.timer().stop();
 
-            //      2. pause adding new chars
-            //      3. clear active char setTimeout
         },
 
 
