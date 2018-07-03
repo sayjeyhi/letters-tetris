@@ -324,9 +324,21 @@ var arshLoader = {
     },
 
     startGame: function (lang) {
-        jRun.addLanguage(lang , function () {
-            TetrisGame.build();
-        });
+        jRun.init(
+            [
+                {
+                    url: "lang." + lang + ".js",
+                    kind: "Langs",
+                    attributes : {class : 'isLanguageFile'},
+                    waitLoading: false,
+                },
+                {
+                    url: "tetris_words." + lang, kind: "Fanavard"
+                }
+            ] , function () {
+                TetrisGame.build();
+            }
+        );
     },
 
 

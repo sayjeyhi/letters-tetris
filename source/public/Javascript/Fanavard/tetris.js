@@ -13,12 +13,7 @@ var TetrisGame;
          * Is browser ?
          */
         isBrowser : (typeof window !== 'undefined'),
-
-
-        /**
-         * Json Of words
-         */
-        words : window.TetrisWords,
+        
 
         /**
          * Base config for game
@@ -145,10 +140,10 @@ var TetrisGame;
          * Choose random words in game build to work with
          */
         chooseWord: function () {
-            var keys = Object.keys(TetrisGame.words);
+            var keys = Object.keys(window.TetrisWords);
             var randomKey = keys[ keys.length * Math.random() << 0];
-            var value = TetrisGame.words[randomKey];
-            delete TetrisGame.words[randomKey];
+            var value = window.TetrisWords[randomKey];
+            delete window.TetrisWords[randomKey];
             return value;
         },
 
@@ -159,8 +154,8 @@ var TetrisGame;
          */
         getValidColumnsNumber: function () {
             var columnsNumber = TetrisGame.config.columnsMin;
-            for (var i = Object.keys(TetrisGame.words).length - 1; i >= 0; i--) {
-                var thisWordLength = TetrisGame.words[i].word.length;
+            for (var i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
+                var thisWordLength = window.TetrisWords[i].word.length;
                 if(thisWordLength > columnsNumber){
                     columnsNumber = thisWordLength;
                 }

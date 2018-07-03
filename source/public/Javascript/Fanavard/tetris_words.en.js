@@ -4,25 +4,25 @@
  */
 var TetrisWords = [
     {
-        "word": "سلام",
+        "word": "Hi",
         "unicode": "100"
     }, {
-        "word": "قلب",
+        "word": "Heart",
         "unicode": "100"
     }, {
-        "word": "آدم",
+        "word": "Human",
         "unicode": "100"
     }, {
-        "word": "کیف",
+        "word": "Bag",
         "unicode": "100"
     }, {
-        "word": "کفش",
+        "word": "Mobile",
         "unicode": "100"
     }, {
-        "word": "ماشین",
+        "word": "Car",
         "unicode": "100"
     }, {
-        "word": "قسطنطیه",
+        "word": "Pencil",
         "unicode": "100"
     }
 ];
