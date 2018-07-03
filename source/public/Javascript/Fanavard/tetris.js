@@ -105,7 +105,9 @@ var TetrisGame;
 
             self.checkMoveAvailability = function (direction) {
                 if(true){
-
+                    // return true
+                }else{
+                    // stop [if bottom]
                 }
             };
 
