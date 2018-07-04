@@ -40,6 +40,8 @@
     width: 99%;
     height: 99%;
     line-height: 44px;
+    left:0;
+    top:0;
 }
 
 .gameHolder .playBoard .isRow{
