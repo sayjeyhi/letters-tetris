@@ -200,11 +200,31 @@ var arshLoader = {
 
     afterLoad : function () {
         if(arshLoader.animationLoading && !arshLoader.isLoaded) {
+            var loadingTextElement = arshLoader._('.loadingText');
+            loadingTextElement.querySelector(".archLoadingAnimation").className += " animatedOneSecond fadeOut";
+
             setTimeout(function () {
-                arshLoader._('.loadingText').innerHTML = "<div class='btnEnterProject' onclick='arshLoader.startGame(\"fa\");'><i class='linearicon linearicon-gamepad'></i> ورود به بازی</div>" +
-                    "<div class='btnEnterProject ltr' onclick='arshLoader.startGame(\"en\");'><i class='linearicon linearicon-gamepad'></i> Enter Game</div>";;
+
+                loadingTextElement.innerHTML = '';
+
+
+                var btnFa = document.createElement('div');
+                btnFa.onclick = function () {arshLoader.startGame("fa")};
+                btnFa.className = "btnEnterProject animatedOneSecond bounceIn";
+                btnFa.innerHTML = "<i class='linearicon linearicon-gamepad'></i> ورود به بازی";
+
+                var btnEn = document.createElement('div');
+                btnEn.onclick = function () {arshLoader.startGame("en")};
+                btnEn.className = "btnEnterProject animatedOneSecond bounceIn ltr";
+                btnEn.innerHTML = "<i class='linearicon linearicon-gamepad'></i> Enter Game";
+
+                loadingTextElement.appendChild(btnFa);
+                loadingTextElement.appendChild(btnEn);
+
+
                 arshLoader.isLoaded = true;
-            }, 220);
+
+            }, 1000);
         }
     },
 
