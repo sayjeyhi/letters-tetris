@@ -54,7 +54,7 @@ var TetrisGame;
          */
         nextChar : '',
 
-        
+
         /**
          * Active character [not stopped] Object index
          */
@@ -99,23 +99,40 @@ var TetrisGame;
             // move char
             charBlock.move = function(eventKeyCode){
 
+                let controlCodes = {
+                    DOWN: 40,
+                    LEFT: 37,
+                    RIGHT: 39
+                };
+
+                // In LTR languages, Left and Right should be swapped
+                if(!lang.rtl){
+                    let tmp = controlCodes.LEFT;
+                    controlCodes.LEFT = controlCodes.RIGHT;
+                    controlCodes.RIGHT= tmp;
+                }
+
+
+
                 var moveTo = {};
                 var isBottomMove = false;
 
+
+
                 switch (eventKeyCode){
-                    case 37:  // left
+                    case controlCodes.LEFT:  // left
                         moveTo = {
                             row : charBlock.row ,
                             column : charBlock.column + 1
                         };
                         break;
-                    case 39:  // right
+                    case controlCodes.RIGHT:  // right
                         moveTo = {
                             row : charBlock.row ,
                             column : charBlock.column - 1
                         };
                         break;
-                    case 40:  // down
+                    case controlCodes.DOWN:  // down
                         moveTo = {
                             row : charBlock.row + 1 ,
                             column : charBlock.column
@@ -173,7 +190,7 @@ var TetrisGame;
             charBlock.interval = setInterval(function () {
                 log(TetrisGame.config.paused);
                 //if(!TetrisGame.config.paused) {
-                    charBlock.move(40);
+                charBlock.move(40);
                 //}
             } , TetrisGame.config.charSpeed);
 
