@@ -50,13 +50,23 @@
     <script id="workerTiming" type="javascript/worker">
 
         //TODO: TetrisGame.storage.getInt('seconds',0)
+
+        var pause_flag = false;
         let i = 0;
         let timedCount = function() {
-            i = i+1;
+            if (!pause_flag) {
+                i = i+1;
+            }
             postMessage(i);
             setTimeout("timedCount()", 1000);
         }
         timedCount();
+
+        onmessage = function(event) {
+            if ('pause_flag' in event.data) {
+                pause_flag = event.data['pause_flag'];
+            }
+        };
     </script>
 
 </body>

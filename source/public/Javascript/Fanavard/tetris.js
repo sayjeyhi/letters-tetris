@@ -35,8 +35,6 @@ var TetrisGame;
             animateHiding: true,
             playSoundOnSuccess : false,
             playSoundOnFailure : false,
-            
-            isBrowser : (typeof window !== 'undefined')
 
         },
 
@@ -58,7 +56,12 @@ var TetrisGame;
             choosedWordsUsedChars : []      // Chars that used from choosed words
         },
 
-        
+
+        /**
+         * Are we in browser env
+         */
+        isBrowser : (typeof window !== 'undefined'),
+
 
         /**
          * Game play board
@@ -421,16 +424,16 @@ var TetrisGame;
                 }
             };
 
-            // stop timer
-            timer.stop = function() {
 
+            timer.pause = function () {
                 TetrisGame.initValues.paused = true;
+                timerWorker.postMessage({'pause_flag': true});
+            };
 
-                if (timerWorker === null) {
-                    timerWorker = new Worker(window.URL.createObjectURL(blobTiming));
-                }
-                timerWorker.terminate();
-                timerWorker = null;
+
+            timer.resume = function () {
+                TetrisGame.initValues.paused = false;
+                timerWorker.postMessage({'pause_flag': false});
             };
 
 
@@ -547,8 +550,7 @@ var TetrisGame;
             gameBtnControl.querySelector(".resumeGame").style.display = "inline-block";
 
             // stop timer [will stop whole game]
-            TetrisGame.timer().stop();
-
+            TetrisGame.timer().pause();
         },
 
 
@@ -561,7 +563,8 @@ var TetrisGame;
             gameBtnControl.querySelector(".resumeGame").style.display = "none";
             gameBtnControl.querySelector(".pauseGame").style.display = "inline-block";
 
-            TetrisGame.initValues.paused = false;
+            // resume timer [will resume whole game]
+            TetrisGame.timer().resume();
         },
 
 
