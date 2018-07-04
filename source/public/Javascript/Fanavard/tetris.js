@@ -48,6 +48,7 @@ var TetrisGame;
 
             paused : false,                 // is game paused 
             finished: false,                // is game finished
+            wordsFinished: false,           // do we run out of words
             
             validatedColumnsCount: 0,       // Count of columns which are validated
             aliveChars: [],                 // Objects of char blocks that not deleted
@@ -145,8 +146,13 @@ var TetrisGame;
                         TetrisGame.checkWordSuccess(charBlock);
 
                         if(charBlock.row !== 0) {
-                            // add new char
-                            TetrisGame.characterFactory();
+
+                            if(TetrisGame.initValues.wordsFinished){
+                                TetrisGame.finishGame("finishWords");
+                            }else {
+                                // add new char
+                                TetrisGame.characterFactory();
+                            }
                         }else{
                             TetrisGame.finishGame("gameOver");
                         }
@@ -154,12 +160,8 @@ var TetrisGame;
 
                 }else{
 
-                    let workingElement = charBlock.element;
-                    workingElement.className += " animated " + moveTo.animateOutClass;
-                    setTimeout(function () {
-                        // remove current char
-                        workingElement.parentNode.removeChild(workingElement);
-                    } , 200);
+                    // remove char with animation
+                    charBlock.destroy(charBlock.element , moveTo.animateOutClass);
 
                     // update current char info
                     charBlock.row = moveTo.row;
@@ -181,8 +183,14 @@ var TetrisGame;
             } , TetrisGame.config.charSpeed);
 
 
-            // destroy current charcter
-            charBlock.destroy = function () {};
+            // destroy current character
+            charBlock.destroy = function (workingElement , outgoingAnimation) {
+                workingElement.className += " animated " + outgoingAnimation;
+                setTimeout(function () {
+                    // remove current char
+                    workingElement.parentNode.removeChild(workingElement);
+                } , 200);
+            };
 
 
             // create and show up coming char
@@ -234,7 +242,7 @@ var TetrisGame;
             var value = window.TetrisWords[randomKey];
 
             if(typeof value === "undefined" && !TetrisGame.initValues.finished){
-                TetrisGame.finishGame("finishWords");
+                TetrisGame.initValues.wordsFinished = true;
                 return false;
             }
             log(value);
