@@ -5,7 +5,7 @@ var TetrisGame;
 
     'use strict';
 
-    var blobTiming, timerWorker = null, charBlockInterval;
+    var blobTiming, timerWorker = null;
 
     let controlCodes = {
         DOWN: 40,
@@ -35,51 +35,29 @@ var TetrisGame;
             animateHiding: true,
             playSoundOnSuccess : false,
             playSoundOnFailure : false,
-
-            // internal config
-            paused : false,
-            finished: false,
-
-            isBrowser : (typeof window !== 'undefined'),
+            
+            isBrowser : (typeof window !== 'undefined')
 
         },
 
 
         /**
-         * Count of columns which are validated
+         * Initialize values
          */
-        validatedColumnsCount:0,
+        initValues : {
 
+            paused : false,                 // is game paused 
+            finished: false,                // is game finished
+            
+            validatedColumnsCount: 0,       // Count of columns which are validated
+            aliveChars: [],                 // Objects of char blocks that not deleted
+            nextChar: '',                   // Next character
+            activeCharIndex : 0,            // Active character [not stopped] Object index
+            choosedWords: [],               // Choosed words to work with them
+            choosedWordsUsedChars : []      // Chars that used from choosed words
+        },
 
-        /**
-         * Objects of char blocks that not deleted
-         */
-        aliveChars : [],
-
-
-        /**
-         * Next character
-         */
-        nextChar : '',
-
-
-        /**
-         * Active character [not stopped] Object index
-         */
-        activeCharIndex : 0,
-
-
-        /**
-         * Choosed words to work with them
-         */
-        choosedWords : [],
-
-
-        /**
-         * Chars that used from choosed words
-         */
-        choosedWordsUsedChars : [],
-
+        
 
         /**
          * Game play board
@@ -95,18 +73,17 @@ var TetrisGame;
 
 
             // if game is finished
-            if(TetrisGame.config.finished){
+            if(TetrisGame.initValues.finished){
                 document.querySelector(".showUpComingLetter").innerHTML = "";
                 return false;
             }
 
             let charBlock = {};
-            let intervalValue;
 
             // choose random column to init char
-            charBlock.column = Math.random() * TetrisGame.validatedColumnsCount << 0;
+            charBlock.column = Math.random() * TetrisGame.initValues.validatedColumnsCount << 0;
             charBlock.row = 0;                               // top is 0 and bottom is max
-            charBlock.name = TetrisGame.nextChar === "" ? TetrisGame.chooseChar() : TetrisGame.nextChar;        // char value
+            charBlock.name = TetrisGame.initValues.nextChar === "" ? TetrisGame.chooseChar() : TetrisGame.initValues.nextChar;        // char value
             charBlock.color = TetrisGame.materialColor();    // random material color
             charBlock.active = true;                         // character is animating on air
             charBlock.element = null;                        // holds our character element
@@ -123,19 +100,25 @@ var TetrisGame;
                     case controlCodes.LEFT:  // left
                         moveTo = {
                             row : charBlock.row ,
-                            column : charBlock.column + 1
+                            column : charBlock.column + 1,
+                            animateOutClass : "fadeOutLeft",
+                            animateInClass : "fadeInRight"
                         };
                         break;
                     case controlCodes.RIGHT:  // right
                         moveTo = {
                             row : charBlock.row ,
-                            column : charBlock.column - 1
+                            column : charBlock.column - 1,
+                            animateOutClass : "fadeOutRight",
+                            animateInClass : "fadeInLeft"
                         };
                         break;
                     case controlCodes.DOWN:  // down
                         moveTo = {
                             row : charBlock.row + 1 ,
-                            column : charBlock.column
+                            column : charBlock.column,
+                            animateOutClass : "fadeOutDown",
+                            animateInClass : "fadeInDown"
                         };
                         isBottomMove = true;
                         break;
@@ -145,7 +128,7 @@ var TetrisGame;
 
 
                 // if move to is out of range
-                if(moveTo.column >= TetrisGame.validatedColumnsCount || moveTo.column < 0){
+                if(moveTo.column >= TetrisGame.initValues.validatedColumnsCount || moveTo.column < 0){
                     return false;
                 }
 
@@ -165,48 +148,49 @@ var TetrisGame;
                             // add new char
                             TetrisGame.characterFactory();
                         }else{
-
-                            TetrisGame.timer().stop();
-                            alert("Game Over!");
+                            TetrisGame.finishGame("gameOver");
                         }
                     }
 
                 }else{
 
-                    // remove current char
-                    charBlock.element.parentNode.removeChild(charBlock.element);
+                    let workingElement = charBlock.element;
+                    workingElement.className += " animated " + moveTo.animateOutClass;
+                    setTimeout(function () {
+                        // remove current char
+                        workingElement.parentNode.removeChild(workingElement);
+                    } , 200);
 
                     // update current char info
                     charBlock.row = moveTo.row;
                     charBlock.column = moveTo.column;
+                    charBlock.animateInClass = moveTo.animateInClass;
 
                     // add our char in destination
-                    if(destinationEl) {
-                        TetrisGame.characterFactory(charBlock, destinationEl);
-                    }
+                    TetrisGame.characterFactory(charBlock, destinationEl);
 
                 }
             };
 
 
             // interval
-            charBlock.interval = charBlockInterval = setInterval(function () {
-                if(!TetrisGame.config.paused) {
+            charBlock.interval = setInterval(function () {
+                if(!TetrisGame.initValues.paused) {
                     charBlock.move(40);
                 }
             } , TetrisGame.config.charSpeed);
 
 
-            charBlock.destroy = function () {
-                alert("destroyed");
-            };
+            // destroy current charcter
+            charBlock.destroy = function () {};
+
 
             // create and show up coming char
-            TetrisGame.nextChar = TetrisGame.chooseChar();
-            document.querySelector(".showUpComingLetter").innerHTML = TetrisGame.nextChar || "";
+            TetrisGame.initValues.nextChar = TetrisGame.chooseChar();
+            document.querySelector(".showUpComingLetter").innerHTML = TetrisGame.initValues.nextChar || "";
 
             // add this char to alive chars
-            TetrisGame.activeCharIndex = TetrisGame.aliveChars.push(charBlock);
+            TetrisGame.initValues.activeCharIndex = TetrisGame.initValues.aliveChars.push(charBlock);
 
             return charBlock;
         },
@@ -218,23 +202,23 @@ var TetrisGame;
         chooseChar: function () {
 
             var choosedChar;
-            var availableChars = TetrisGame.choosedWords.map(function(e){
+            var availableChars = TetrisGame.initValues.choosedWords.map(function(e){
                 return e ? e.word : ""
             }).join('');
 
-            TetrisGame.choosedWordsUsedChars.forEach(function (value) {
+            TetrisGame.initValues.choosedWordsUsedChars.forEach(function (value) {
                 availableChars = availableChars.replace(value , '');
             });
 
             if(availableChars.length === 0){
                 let newWord = TetrisGame.chooseWord();
                 if(newWord !== false) {
-                    TetrisGame.choosedWords.push(newWord);
+                    TetrisGame.initValues.choosedWords.push(newWord);
                     return TetrisGame.chooseChar();
                 }
             }else {
                 choosedChar = availableChars[Math.random() * availableChars.length << 0];
-                TetrisGame.choosedWordsUsedChars.push(choosedChar);
+                TetrisGame.initValues.choosedWordsUsedChars.push(choosedChar);
 
                 return choosedChar;
             }
@@ -249,8 +233,8 @@ var TetrisGame;
             var randomKey = keys[ keys.length * Math.random() << 0];
             var value = window.TetrisWords[randomKey];
 
-            if(typeof value === "undefined" && !TetrisGame.config.finished){
-                TetrisGame.finishedGame();
+            if(typeof value === "undefined" && !TetrisGame.initValues.finished){
+                TetrisGame.finishGame("finishWords");
                 return false;
             }
             log(value);
@@ -283,7 +267,6 @@ var TetrisGame;
          */
         checkWordSuccess: function (lastChar) {
 
-            log(lastChar)
             log("check word happens");
             // @todo : if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
         },
@@ -407,7 +390,7 @@ var TetrisGame;
             timer.start = function () {
 
                 // change paused status
-                TetrisGame.config.paused = false;
+                TetrisGame.initValues.paused = false;
 
                 var timerDisplayEl = document.querySelector(".timerDisplay");
                 if (typeof(Worker) !== "undefined") {
@@ -433,7 +416,7 @@ var TetrisGame;
             // stop timer
             timer.stop = function() {
 
-                TetrisGame.config.paused = true;
+                TetrisGame.initValues.paused = true;
 
                 if (timerWorker === null) {
                     timerWorker = new Worker(window.URL.createObjectURL(blobTiming));
@@ -461,8 +444,11 @@ var TetrisGame;
         },
 
 
-
-
+        /**
+         * Factory of character
+         * @param char
+         * @param initializeElement
+         */
         characterFactory: function (char , initializeElement) {
 
             // if char is not supplied create new one
@@ -470,13 +456,17 @@ var TetrisGame;
 
                 char = new TetrisGame.charBlock();
 
-                initializeElement = TetrisGame.playBoard.querySelector(".row_" + char.row + " .column_" + char.column);
+                if(Object.keys(char).length !== 0){
+                    initializeElement = TetrisGame.playBoard.querySelector(".row_" + char.row + " .column_" + char.column);
+                }else{
+                    return false;
+                }
             }
 
             var charBlock = document.createElement('span');
             charBlock.style.background = char.color;
             charBlock.innerHTML = char.name;
-            charBlock.className = "charBlock";
+            charBlock.className = "charBlock animated " + (char.animateInClass || "");
 
             char.element = charBlock;
 
@@ -494,17 +484,17 @@ var TetrisGame;
             TetrisGame.playBoard = document.querySelector(".playBoard");
 
             // Get valid column length based on max json word length to create columns
-            TetrisGame.validatedColumnsCount = TetrisGame.getValidColumnsNumber();
+            TetrisGame.initValues.validatedColumnsCount = TetrisGame.getValidColumnsNumber();
 
             // add class to have playBoard columns
-            TetrisGame.playBoard.classList.add('is' + TetrisGame.validatedColumnsCount + 'Column');
+            TetrisGame.playBoard.classList.add('is' + TetrisGame.initValues.validatedColumnsCount + 'Column');
 
 
             // create game columns and rows
             var playBoardTable = '';
             for(var r = 0;r < TetrisGame.config.rows; r++) {
                 playBoardTable += '<div class="isRow row_' + r + '">';
-                for (var c = 0; c < TetrisGame.validatedColumnsCount; c++) {
+                for (var c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
                     playBoardTable += '<div class="isColumn column_' + c + '" data-row="' + r + '"></div>';
                 }
                 playBoardTable += '</div>';
@@ -514,10 +504,10 @@ var TetrisGame;
 
             // Choose n words from json to create rows and columns
             for(var i = 0; i < TetrisGame.config.workingWordCount;i++) {
-                TetrisGame.choosedWords.push(TetrisGame.chooseWord());
+                TetrisGame.initValues.choosedWords.push(TetrisGame.chooseWord());
             }
 
-
+            // start game timer
             TetrisGame.timer().start();
 
 
@@ -528,7 +518,7 @@ var TetrisGame;
 
             // arrow keys press
             document.addEventListener("keydown" , function (e) {
-                TetrisGame.aliveChars[TetrisGame.activeCharIndex - 1].move(e.keyCode);
+                TetrisGame.initValues.aliveChars[TetrisGame.initValues.activeCharIndex - 1].move(e.keyCode);
             });
 
 
@@ -543,7 +533,6 @@ var TetrisGame;
          * @todo : add resumeGamePlay
          */
         pauseGamePlay: function (e) {
-
 
             let gameBtnControl = document.querySelector(".gameControlButtons");
             gameBtnControl.querySelector(".pauseGame").style.display = "none";
@@ -564,7 +553,7 @@ var TetrisGame;
             gameBtnControl.querySelector(".resumeGame").style.display = "none";
             gameBtnControl.querySelector(".pauseGame").style.display = "inline-block";
 
-            TetrisGame.config.paused = false;
+            TetrisGame.initValues.paused = false;
         },
 
 
@@ -572,26 +561,41 @@ var TetrisGame;
          * Reset Game play
          */
         restartGamePlay: function () {
-
-            alert("reset game play");
+            TetrisGame.initValues = {
+                validatedColumnsCount: 0,       // Count of columns which are validated
+                aliveChars: [],                 // Objects of char blocks that not deleted
+                nextChar: '',                   // Next character
+                activeCharIndex : 0,            // Active character [not stopped] Object index
+                choosedWords: [],               // Choosed words to work with them
+                choosedWordsUsedChars : []      // Chars that used from choosed words
+            };
+            TetrisGame.build();
         },
 
 
         /**
-         * Game words are finished
+         * Game is finished [gameOver OR finishWords]
+         * @param mode
          */
-        finishedGame: function () {
+        finishGame: function (mode) {
 
             let gameBtnControl = document.querySelector(".gameControlButtons");
             gameBtnControl.querySelector(".startGame,.pauseGame,.resumeGame").style.display = "none";
             gameBtnControl.querySelector(".restartGame").style.display = "inline-block";
 
-            TetrisGame.config.finished = true;
+            TetrisGame.initValues.finished = true;
+            TetrisGame.timer().stop();
+
+
+            if(mode === "gameOver"){
+                alert("Game Over!");
+            }else{
+                alert("Finished words.");
+            }
 
 
             // @todo : show modal
 
-            alert("بازی به اتمام رسیده است");
         },
 
 
@@ -601,7 +605,6 @@ var TetrisGame;
          * @type {HTMLElement | null}
          */
         build : function () {
-
 
             // blob for timer
             blobTiming = new Blob([
