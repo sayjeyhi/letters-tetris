@@ -48,8 +48,10 @@
 
     <!-- web worker timing content @type="javascript/worker" -->
     <script id="workerTiming" type="javascript/worker">
-        var i = 0;
-        var timedCount = function() {
+
+        //TODO: TetrisGame.Store.geti('seconds',0)
+        let i = 0;
+        let timedCount = function() {
             i = i+1;
             postMessage(i);
             setTimeout("timedCount()", 1000);

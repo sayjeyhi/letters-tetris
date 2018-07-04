@@ -5,7 +5,13 @@ var TetrisGame;
 
     'use strict';
 
-    var blobTiming , timerWorker = null;
+    var blobTiming, timerWorker = null, charBlockInterval;
+
+    let controlCodes = {
+        DOWN: 40,
+        LEFT: 37,
+        RIGHT: 39
+    };
 
     TetrisGame = {
 
@@ -85,7 +91,9 @@ var TetrisGame;
          */
         charBlock: function() {
 
-            var charBlock = {};
+
+            let charBlock = {};
+            let intervalValue;
 
             // choose random column to init char
             charBlock.column = Math.random() * TetrisGame.validatedColumnsCount << 0;
@@ -98,21 +106,6 @@ var TetrisGame;
 
             // move char
             charBlock.move = function(eventKeyCode){
-
-                let controlCodes = {
-                    DOWN: 40,
-                    LEFT: 37,
-                    RIGHT: 39
-                };
-
-                // In LTR languages, Left and Right should be swapped
-                if(!lang.rtl){
-                    let tmp = controlCodes.LEFT;
-                    controlCodes.LEFT = controlCodes.RIGHT;
-                    controlCodes.RIGHT= tmp;
-                }
-
-
 
                 var moveTo = {};
                 var isBottomMove = false;
@@ -164,7 +157,7 @@ var TetrisGame;
                         }else{
 
                             TetrisGame.timer().stop();
-                            alert("loosed !");
+                            alert("Game Over!");
                         }
                     }
 
@@ -187,7 +180,7 @@ var TetrisGame;
 
 
             // interval
-            charBlock.interval = setInterval(function () {
+            charBlock.interval = charBlockInterval = setInterval(function () {
                 log(TetrisGame.config.paused);
                 //if(!TetrisGame.config.paused) {
                 charBlock.move(40);
@@ -345,6 +338,22 @@ var TetrisGame;
 
 
         /**
+         * LocalStorage Helper Class
+         */
+        Store:{
+                get: function (key,default_value) {
+                    return localStorage.setItem(key) || default_value;
+                },
+                geti: function (key,default_value) {
+                    return Number(this.get(key),default_value);
+                },
+                set: function (key,value) {
+                    localStorage.setItem(key,value)
+                }
+
+            },
+
+        /**
          * Game timer manager class
          */
         timer : function () {
@@ -367,8 +376,8 @@ var TetrisGame;
                     }
 
                     timerWorker.onmessage = function(event) {
-                        // @todo : add to local storage
                         timerDisplayEl.innerHTML = TetrisGame.timer().beautifySecond(event.data);
+                        TetrisGame.Store.set('seconds',event.data);
                     };
 
                 } else {
@@ -381,10 +390,10 @@ var TetrisGame;
 
                 TetrisGame.config.paused = true;
 
-                if (timerWorker === null) {
+                if (timerWorker !== null) {
                     timerWorker = new Worker(window.URL.createObjectURL(blobTiming));
+                    timerWorker.terminate();
                 }
-                timerWorker.terminate();
                 timerWorker = null;
             };
 
@@ -486,6 +495,7 @@ var TetrisGame;
 
             // stop timer [will stop whole game]
             TetrisGame.timer().stop();
+            clearInterval(charBlockInterval);
 
         },
 
@@ -497,17 +507,26 @@ var TetrisGame;
          */
         build : function () {
 
+
             // blob for timer
             blobTiming = new Blob([
                 document.querySelector('#workerTiming').textContent
             ], { type: "text/javascript" });
 
 
+
             // make ltr if used lang is ltr
-            var ltrClass = "";
+            let ltrClass = "";
             if(!lang.rtl){
                 ltrClass = "isLtr";
+
+                // In LTR languages, Left and Right should be swapped
+                let tmp = controlCodes.LEFT;
+                controlCodes.LEFT = controlCodes.RIGHT;
+                controlCodes.RIGHT= tmp;
             }
+
+
 
             // add main html to page
             document.querySelector("#container").innerHTML =
