@@ -119,7 +119,6 @@ var TetrisGame;
                 var isBottomMove = false;
 
 
-
                 switch (eventKeyCode){
                     case controlCodes.LEFT:  // left
                         moveTo = {
@@ -155,9 +154,12 @@ var TetrisGame;
                 if(moveTo.row >= TetrisGame.config.rows || (destinationEl.innerText.trim() !== "")){
 
                     if(isBottomMove) {
+
                         // stop interval and request new char
                         clearInterval(charBlock.interval);
 
+                        // check words
+                        TetrisGame.checkWordSuccess(charBlock);
 
                         if(charBlock.row !== 0) {
                             // add new char
@@ -178,10 +180,10 @@ var TetrisGame;
                     charBlock.row = moveTo.row;
                     charBlock.column = moveTo.column;
 
-                    // do our char move
-                    TetrisGame.characterFactory(charBlock , destinationEl);
-
-                    // @todo : animate move
+                    // add our char in destination
+                    if(destinationEl) {
+                        TetrisGame.characterFactory(charBlock, destinationEl);
+                    }
 
                 }
             };
@@ -189,16 +191,19 @@ var TetrisGame;
 
             // interval
             charBlock.interval = charBlockInterval = setInterval(function () {
-                log(TetrisGame.config.paused);
-                //if(!TetrisGame.config.paused) {
-                charBlock.move(40);
-                //}
+                if(!TetrisGame.config.paused) {
+                    charBlock.move(40);
+                }
             } , TetrisGame.config.charSpeed);
 
 
+            charBlock.destroy = function () {
+                alert("destroyed");
+            };
+
             // create and show up coming char
             TetrisGame.nextChar = TetrisGame.chooseChar();
-            document.querySelector(".showUpComingLetter").innerHTML = TetrisGame.nextChar;
+            document.querySelector(".showUpComingLetter").innerHTML = TetrisGame.nextChar || "";
 
             // add this char to alive chars
             TetrisGame.activeCharIndex = TetrisGame.aliveChars.push(charBlock);
@@ -211,9 +216,8 @@ var TetrisGame;
          * Choose a char of choosed words
          */
         chooseChar: function () {
+
             var choosedChar;
-
-
             var availableChars = TetrisGame.choosedWords.map(function(e){
                 return e ? e.word : ""
             }).join('');
@@ -223,14 +227,17 @@ var TetrisGame;
             });
 
             if(availableChars.length === 0){
-                TetrisGame.choosedWords.push(TetrisGame.chooseWord());
-                return TetrisGame.chooseChar();
+                let newWord = TetrisGame.chooseWord();
+                if(newWord !== false) {
+                    TetrisGame.choosedWords.push(newWord);
+                    return TetrisGame.chooseChar();
+                }
+            }else {
+                choosedChar = availableChars[Math.random() * availableChars.length << 0];
+                TetrisGame.choosedWordsUsedChars.push(choosedChar);
+
+                return choosedChar;
             }
-
-            choosedChar = availableChars[Math.random() * availableChars.length << 0];
-            TetrisGame.choosedWordsUsedChars.push(choosedChar);
-
-            return choosedChar;
         },
 
 
@@ -242,8 +249,9 @@ var TetrisGame;
             var randomKey = keys[ keys.length * Math.random() << 0];
             var value = window.TetrisWords[randomKey];
 
-            if(typeof value === "undefined"){
+            if(typeof value === "undefined" && !TetrisGame.config.finished){
                 TetrisGame.finishedGame();
+                return false;
             }
             log(value);
 
@@ -273,8 +281,10 @@ var TetrisGame;
         /**
          * Check if could find a success word
          */
-        checkWordSuccess: function () {
+        checkWordSuccess: function (lastChar) {
 
+            log(lastChar)
+            log("check word happens");
             // @todo : if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
         },
 
@@ -364,18 +374,28 @@ var TetrisGame;
         /**
          * LocalStorage Helper Class
          */
-        Store:{
-                get: function (key,default_value) {
-                    return localStorage.setItem(key) || default_value;
-                },
-                geti: function (key,default_value) {
-                    return Number(this.get(key),default_value);
-                },
-                set: function (key,value) {
-                    localStorage.setItem(key,value)
-                }
+        storage: function() {
+            let storage = {};
 
-            },
+            storage.get = function (key, default_value) {
+                default_value = default_value || "";
+                return localStorage.getItem(key) || default_value;
+            };
+            storage.getInt = function (key, default_value) {
+                default_value = default_value || 0;
+                return Number(storage.get(key , default_value));
+            };
+            storage.set = function (key, value) {
+                localStorage.setItem(key, value)
+            };
+
+            storage.setArray = function (key, value) {
+                return localStorage.setItem(key, value.join(","))
+            };
+
+            return storage;
+        },
+
 
         /**
          * Game timer manager class
@@ -392,16 +412,17 @@ var TetrisGame;
                 var timerDisplayEl = document.querySelector(".timerDisplay");
                 if (typeof(Worker) !== "undefined") {
 
-                    // stop timer if running already
-                    TetrisGame.timer().stop();
 
                     if (timerWorker === null) {
                         timerWorker = new Worker(window.URL.createObjectURL(blobTiming));
+                    }else{
+                        // stop timer if running already
+                        TetrisGame.timer().stop();
                     }
 
                     timerWorker.onmessage = function(event) {
                         timerDisplayEl.innerHTML = TetrisGame.timer().beautifySecond(event.data);
-                        TetrisGame.Store.set('seconds',event.data);
+                        TetrisGame.storage().set('seconds',event.data);
                     };
 
                 } else {
@@ -414,10 +435,10 @@ var TetrisGame;
 
                 TetrisGame.config.paused = true;
 
-                if (timerWorker !== null) {
+                if (timerWorker === null) {
                     timerWorker = new Worker(window.URL.createObjectURL(blobTiming));
-                    timerWorker.terminate();
                 }
+                timerWorker.terminate();
                 timerWorker = null;
             };
 
@@ -497,17 +518,23 @@ var TetrisGame;
             }
 
 
+            TetrisGame.timer().start();
+
+
             // create first char block
             TetrisGame.characterFactory();
 
-
-            TetrisGame.timer().start();
 
 
             // arrow keys press
             document.addEventListener("keydown" , function (e) {
                 TetrisGame.aliveChars[TetrisGame.activeCharIndex - 1].move(e.keyCode);
             });
+
+
+            let gameBtnControl = document.querySelector(".gameControlButtons");
+            gameBtnControl.querySelector(".startGame").style.display = "none";
+            gameBtnControl.querySelector(".pauseGame").style.display = "inline-block";
         },
 
 
@@ -515,12 +542,38 @@ var TetrisGame;
          * Pause Game play
          * @todo : add resumeGamePlay
          */
-        pauseGamePlay: function () {
+        pauseGamePlay: function (e) {
+
+
+            let gameBtnControl = document.querySelector(".gameControlButtons");
+            gameBtnControl.querySelector(".pauseGame").style.display = "none";
+            gameBtnControl.querySelector(".resumeGame").style.display = "inline-block";
 
             // stop timer [will stop whole game]
             TetrisGame.timer().stop();
-            clearInterval(charBlockInterval);
 
+        },
+
+
+        /**
+         * Resume Game play
+         */
+        resumeGamePlay: function () {
+
+            let gameBtnControl = document.querySelector(".gameControlButtons");
+            gameBtnControl.querySelector(".resumeGame").style.display = "none";
+            gameBtnControl.querySelector(".pauseGame").style.display = "inline-block";
+
+            TetrisGame.config.paused = false;
+        },
+
+
+        /**
+         * Reset Game play
+         */
+        restartGamePlay: function () {
+
+            alert("reset game play");
         },
 
 
@@ -529,10 +582,16 @@ var TetrisGame;
          */
         finishedGame: function () {
 
-            // @todo : show modal
-            alert("بازی به اتمام رسیده است");
+            let gameBtnControl = document.querySelector(".gameControlButtons");
+            gameBtnControl.querySelector(".startGame,.pauseGame,.resumeGame").style.display = "none";
+            gameBtnControl.querySelector(".restartGame").style.display = "inline-block";
 
             TetrisGame.config.finished = true;
+
+
+            // @todo : show modal
+
+            alert("بازی به اتمام رسیده است");
         },
 
 
@@ -571,7 +630,9 @@ var TetrisGame;
                        <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
                        <div class="gameControlButtons" >
                             <div onclick="TetrisGame.startGamePlay();" class="startGame">${lang.startGame}</div>
-                            <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame hide">${lang.pauseGame}</div>
+                            <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame" style="display: none">${lang.pauseGame}</div>
+                            <div onclick="TetrisGame.resumeGamePlay();" class="resumeGame" style="display: none">${lang.resumeGame}</div>
+                            <div onclick="TetrisGame.restartGamePlay();" class="restartGame" style="display: none">${lang.restartGame}</div>
                        </div>
                        <div class="courseArea"> 
                            <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div> 

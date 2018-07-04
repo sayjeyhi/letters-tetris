@@ -6,6 +6,8 @@ var lang = {
     spentTime: "time",
     startGame: "Start Game",
     pauseGame: "Pause Game",
+    resumeGame: "Resume Game",
+    restartGame: "Restart Game",
     nextLetter: "Next letter",
     clickStartGame: "Click Start game to begin",
     copyRight : "All right reserved for Arsh Team",

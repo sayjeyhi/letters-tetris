@@ -140,6 +140,7 @@
     position: relative;
     font-size: 14px;
     margin: 1px !important;
+    background: #6180ff;
 }
 
 .gameHolder .behindPlayBoard .gameControlButtons .startGame{
@@ -148,7 +149,6 @@
 }
 .gameHolder .behindPlayBoard .gameControlButtons .pauseGame{
     background: #c3450e;
-    padding: 5px 9px;
     font-size: 13px;
 }
 

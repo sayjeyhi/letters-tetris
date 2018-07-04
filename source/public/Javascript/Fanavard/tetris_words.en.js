@@ -7,7 +7,7 @@ var TetrisWords = [
         "word": "Hi",
         "unicode": "100"
     }, {
-        "word": "Heart",
+        "word": "Kiss",
         "unicode": "100"
     }, {
         "word": "Human",
