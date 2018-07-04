@@ -38,6 +38,8 @@ var TetrisGame;
 
             // internal config
             paused : false,
+            finished: false,
+
             isBrowser : (typeof window !== 'undefined'),
 
         },
@@ -91,6 +93,12 @@ var TetrisGame;
          */
         charBlock: function() {
 
+
+            // if game is finished
+            if(TetrisGame.config.finished){
+                document.querySelector(".showUpComingLetter").innerHTML = "";
+                return false;
+            }
 
             let charBlock = {};
             let intervalValue;
@@ -204,10 +212,20 @@ var TetrisGame;
          */
         chooseChar: function () {
             var choosedChar;
-            var availableChars = TetrisGame.choosedWords.map(function(e){return e.word}).join('');
+
+
+            var availableChars = TetrisGame.choosedWords.map(function(e){
+                return e ? e.word : ""
+            }).join('');
+
             TetrisGame.choosedWordsUsedChars.forEach(function (value) {
-                availableChars.replace(value , '');
+                availableChars = availableChars.replace(value , '');
             });
+
+            if(availableChars.length === 0){
+                TetrisGame.choosedWords.push(TetrisGame.chooseWord());
+                return TetrisGame.chooseChar();
+            }
 
             choosedChar = availableChars[Math.random() * availableChars.length << 0];
             TetrisGame.choosedWordsUsedChars.push(choosedChar);
@@ -223,6 +241,12 @@ var TetrisGame;
             var keys = Object.keys(window.TetrisWords);
             var randomKey = keys[ keys.length * Math.random() << 0];
             var value = window.TetrisWords[randomKey];
+
+            if(typeof value === "undefined"){
+                TetrisGame.finishedGame();
+            }
+            log(value);
+
             delete window.TetrisWords[randomKey];
             return value;
         },
@@ -497,6 +521,18 @@ var TetrisGame;
             TetrisGame.timer().stop();
             clearInterval(charBlockInterval);
 
+        },
+
+
+        /**
+         * Game words are finished
+         */
+        finishedGame: function () {
+
+            // @todo : show modal
+            alert("بازی به اتمام رسیده است");
+
+            TetrisGame.config.finished = true;
         },
 
 
