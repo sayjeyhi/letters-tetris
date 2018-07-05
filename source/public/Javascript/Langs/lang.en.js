@@ -10,8 +10,8 @@ var lang = {
     restartGame: "Restart Game",
     nextLetter: "Next letter",
     clickStartGame: "Click Start game to begin",
-    copyRight : "All right reserved for Arsh Team",
-    Save : "Save",
+    copyRight: "All right reserved for Arsh Team",
+    Save: "Save",
 
 
     hour: " hour ",

@@ -29,7 +29,7 @@ var jRun = {
     /**
      * Set array of types we let them to initialize with .init function
      */
-    allowedInitTypes : [
+    allowedInitTypes: [
         'css',
         'js'
     ],
@@ -39,36 +39,36 @@ var jRun = {
      * Files url prefix string link : 'public/'
      * @note : add `/` at the end of string
      */
-    urlPrefix : '',
+    urlPrefix: '',
 
 
     /**
      * If a file has type which not allowed by `allowedInitTypes` Or has
      * not any type we use js type.
      */
-    defaultType : 'js',
+    defaultType: 'js',
 
 
     /**
      * Default properties for loadFile function
      */
-    defaultLoadProperties : {
-        waitLoading : true,
-        kind : false,
-        url : '',
-        urls : [],
-        cdn : false,
-        attributes : {},
-        multiFileUrl : false,
-        afterLoad : function () {},
-        beforeLoad: function() {},
-        errorLoading : function(){}
+    defaultLoadProperties: {
+        waitLoading: true,
+        kind: false,
+        url: '',
+        urls: [],
+        cdn: false,
+        attributes: {},
+        multiFileUrl: false,
+        afterLoad: function () { },
+        beforeLoad: function () { },
+        errorLoading: function () { }
     },
 
     /**
      * Attributes which should not added by user
      */
-    notAllowedUserAttributes : [
+    notAllowedUserAttributes: [
         'href',
         'src'
     ],
@@ -89,7 +89,7 @@ var jRun = {
     /**
      * Do not let files to be cached
      */
-    disableCache : false,
+    disableCache: false,
 
 
     /**
@@ -153,7 +153,7 @@ var jRun = {
             if (!obj)
                 continue;
 
-            if(typeof obj === 'object') {
+            if (typeof obj === 'object') {
                 for (var key in obj) {
                     if (obj.hasOwnProperty(key)) {
                         if (typeof obj[key] === 'object')
@@ -175,22 +175,22 @@ var jRun = {
     build: function () {
 
         // alias log instead of console.log in dev mode
-        var log = function (message , type ) {
+        var log = function (message, type) {
             type = type || 'log';
             var stack = new Error().stack.toString().split(/\r\n|\n/);
             console[type](message, '          [' + stack[1] + ']');
         };
 
-        if(typeof window !== 'undefined'){
+        if (typeof window !== 'undefined') {
             window.log = log;
         }
 
         // load main configuration
         this.firstCall = true;
 
-        if(this.plugins.length > 0) {
+        if (this.plugins.length > 0) {
             this.buildPlugIns();
-        }else{
+        } else {
             this.allowInit = true;
         }
 
@@ -218,7 +218,7 @@ var jRun = {
      * @param lang
      * @param callback
      */
-    addLanguage : function(lang , callback) {
+    addLanguage: function (lang, callback) {
 
         if (jRun.checkLoad("lang" + lang) || lang === "") {
             return true;
@@ -228,10 +228,10 @@ var jRun = {
             [{
                 url: "lang." + lang + ".js",
                 kind: "Langs",
-                attributes : {class : 'isLanguageFile'},
+                attributes: { class: 'isLanguageFile' },
                 waitLoading: false,
-                afterLoad : function(){
-                    if(typeof callback === "function") callback();
+                afterLoad: function () {
+                    if (typeof callback === "function") callback();
                 }
             }]
         );
@@ -244,13 +244,13 @@ var jRun = {
      * @param urls
      * @param callback
      */
-    init: function (urls , callback ) {
+    init: function (urls, callback) {
 
-        if(!(jRun.allowInit || jRun.firstCall)) {
+        if (!(jRun.allowInit || jRun.firstCall)) {
             // sleep a bit and call your self again after 100 milliSeconds
             setTimeout(function () {
-                jRun.init(urls , callback);
-            } , 100);
+                jRun.init(urls, callback);
+            }, 100);
             return false;
         }
 
@@ -263,7 +263,7 @@ var jRun = {
                 return str.indexOf(suffix, str.length - suffix.length) !== -1;
             },
             loadFinish = function (o) {
-                if(!o.multiFileUrl)
+                if (!o.multiFileUrl)
                     loadFinishCount++;
 
 
@@ -275,7 +275,7 @@ var jRun = {
 
                 if (urls.length === loadFinishCount) {
                     if (callback !== undefined && typeof callback === "function") {
-                        if(jRun.debugMode) {
+                        if (jRun.debugMode) {
                             log("...... Start All Callback ......");
                         }
                         callback();
@@ -285,19 +285,19 @@ var jRun = {
 
             loadFile = function (o) {
 
-                if(jRun.debugMode && o.url === ""){
+                if (jRun.debugMode && o.url === "") {
                     var callbackStack = new Error().stack.toString().split(/\r\n|\n/);
                     throw "File url is empty [" + callbackStack[1] + "]";
                 }
 
 
-                if(!waiting) {
+                if (!waiting) {
 
                     var realName = jRun.sanitizeName(o.url);
 
                     // if file is loaded already
-                    if(jRun.checkLoad(realName)){
-                        if(jRun.debugMode){
+                    if (jRun.checkLoad(realName)) {
+                        if (jRun.debugMode) {
                             log(realName + " : Was already added !");
                             log(jRun.loadedFiles);
                         }
@@ -310,19 +310,19 @@ var jRun = {
                     var kind = o.kind ? o.kind + "/" : "";
                     var type = o.url.split('.').pop();
 
-                    if(jRun.allowedInitTypes.indexOf(type) < 0){
+                    if (jRun.allowedInitTypes.indexOf(type) < 0) {
                         type = jRun.defaultType;
                     }
 
                     var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
-                    var url = kind + (endsWith(o.url , "." + type) ? o.url : o.url + "." + type);
+                    var url = kind + (endsWith(o.url, "." + type) ? o.url : o.url + "." + type);
 
 
                     o.beforeLoad();
 
 
                     var extraParameter = "?jVer=" + jRun.version;
-                    if(jRun.disableCache){
+                    if (jRun.disableCache) {
                         extraParameter = jRun.buildDummy();
                     }
 
@@ -341,13 +341,13 @@ var jRun = {
 
 
                     // add user extra attributes
-                    fileReference = jRun.deepExtend(fileReference , o.attributes);
+                    fileReference = jRun.deepExtend(fileReference, o.attributes);
 
-                    fileReference.onload = function(){
+                    fileReference.onload = function () {
                         if (jRun.debugMode) {
                             log('Loaded -> ' + o.multiFileUrl + " -> " + o.url);
                         }
-                        if(typeof loadFinish === "function") loadFinish(o);
+                        if (typeof loadFinish === "function") loadFinish(o);
                     };
 
 
@@ -361,11 +361,11 @@ var jRun = {
 
                     document.head.appendChild(fileReference);
 
-                }else{
+                } else {
                     // sleep a bit and call your self again after 100 milliSeconds
                     setTimeout(function () {
                         loadFile(o);
-                    } , 100);
+                    }, 100);
                 }
             };
 
@@ -377,21 +377,21 @@ var jRun = {
             var options = {};
 
 
-            options = jRun.deepExtend({}, jRun.defaultLoadProperties , url);
+            options = jRun.deepExtend({}, jRun.defaultLoadProperties, url);
 
-            if(typeof url === "string") {
+            if (typeof url === "string") {
                 options['url'] = url;
                 options['kind'] = 'Utility';
             }
 
             var urlKeys = Object.keys(options.urls);
-            if(urlKeys.length > 0){
-                urlKeys.forEach(function(key){
+            if (urlKeys.length > 0) {
+                urlKeys.forEach(function (key) {
                     options.multiFileUrl = (key !== 1);
                     options.url = options.urls[key];
                     loadFile(options);
                 });
-            }else{
+            } else {
                 loadFile(options);
             }
         });

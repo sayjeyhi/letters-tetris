@@ -3,7 +3,7 @@ var arshLoader = {
     filesLoading: false,
     animationLoading: false,
     isLoaded: false,
-    timingProps : {
+    timingProps: {
         type: 'delayed',
         duration: 150,
         start: 'autostart'
@@ -198,8 +198,8 @@ var arshLoader = {
     },
 
 
-    afterLoad : function () {
-        if(arshLoader.animationLoading && !arshLoader.isLoaded) {
+    afterLoad: function () {
+        if (arshLoader.animationLoading && !arshLoader.isLoaded) {
             var loadingTextElement = arshLoader._('.loadingText');
             loadingTextElement.querySelector(".archLoadingAnimation").className += " animatedOneSecond fadeOut";
 
@@ -215,16 +215,16 @@ var arshLoader = {
                 };
                 chooseWordsKind.innerHTML =
                     "<div data-choosedWordsKind='animals' class='wordsKind'>" +
-                        '<div class="persianTitle">حیوانات</div>' +
-                        '<div class="englishTitle">Animals</div>' +
-                        '<i class="linearicon linearicon-chevrons-expand-vertical"></i>' +
+                    '<div class="persianTitle">حیوانات</div>' +
+                    '<div class="englishTitle">Animals</div>' +
+                    '<i class="linearicon linearicon-chevrons-expand-vertical"></i>' +
                     "</div>";
 
 
                 var btnFa = document.createElement('div');
                 btnFa.onclick = function () {
                     let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales";
-                    arshLoader.startGame("fa" , wordsType);
+                    arshLoader.startGame("fa", wordsType);
                 };
                 btnFa.className = "btnEnterProject animatedOneSecond bounceIn";
                 btnFa.innerHTML = "<i class='linearicon linearicon-gamepad'></i> ورود به بازی";
@@ -233,7 +233,7 @@ var arshLoader = {
                 var btnEn = document.createElement('div');
                 btnEn.onclick = function () {
                     let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales";
-                    arshLoader.startGame("en" , wordsType);
+                    arshLoader.startGame("en", wordsType);
                 };
                 btnEn.className = "btnEnterProject animatedOneSecond bounceIn ltr";
                 btnEn.innerHTML = "<i class='linearicon linearicon-gamepad'></i> Enter Game";
@@ -243,31 +243,31 @@ var arshLoader = {
                 workKindChooser.className = "chooseWordKindTooltip";
                 workKindChooser.innerHTML =
                     '<ul>' +
-                        '<li onclick="arshLoader.chooseWordKind(\'animals\' , this);" >' +
-                            '<div class="persianTitle">حیوانات</div>' +
-                            '<div class="englishTitle">Animals</div>' +
-                            '<i class="linearicon linearicon-fish"></i>' +
-                        '</li>' +
-                        '<li onclick="arshLoader.chooseWordKind(\'colors\' , this);">'+
-                            '<div class="persianTitle">رنگ ها</div>' +
-                            '<div class="englishTitle">Colors</div>' +
-                            '<i class="linearicon linearicon-brush2"></i>' +
-                        '</li>' +
-                        '<li onclick="arshLoader.chooseWordKind(\'things\' ,this);">'+
-                            '<div class="persianTitle">اشیا</div>' +
-                            '<div class="englishTitle">Things</div>' +
-                            '<i class="linearicon linearicon-socks"></i>' +
-                        '</li>' +
-                        '<li onclick="arshLoader.chooseWordKind(\'cities\' , this);">'+
-                            '<div class="persianTitle">شهرها</div>' +
-                            '<div class="englishTitle">Cities</div>' +
-                            '<i class="linearicon linearicon-map"></i>' +
-                        '</li>' +
-                        '<li onclick="arshLoader.chooseWordKind(\'fruits\' , this);">'+
-                            '<div class="persianTitle">میوه ها</div>' +
-                            '<div class="englishTitle">Fruits</div>' +
-                            '<i class="linearicon linearicon-cherry"></i>' +
-                        '</li>' +
+                    '<li onclick="arshLoader.chooseWordKind(\'animals\' , this);" >' +
+                    '<div class="persianTitle">حیوانات</div>' +
+                    '<div class="englishTitle">Animals</div>' +
+                    '<i class="linearicon linearicon-fish"></i>' +
+                    '</li>' +
+                    '<li onclick="arshLoader.chooseWordKind(\'colors\' , this);">' +
+                    '<div class="persianTitle">رنگ ها</div>' +
+                    '<div class="englishTitle">Colors</div>' +
+                    '<i class="linearicon linearicon-brush2"></i>' +
+                    '</li>' +
+                    '<li onclick="arshLoader.chooseWordKind(\'things\' ,this);">' +
+                    '<div class="persianTitle">اشیا</div>' +
+                    '<div class="englishTitle">Things</div>' +
+                    '<i class="linearicon linearicon-socks"></i>' +
+                    '</li>' +
+                    '<li onclick="arshLoader.chooseWordKind(\'cities\' , this);">' +
+                    '<div class="persianTitle">شهرها</div>' +
+                    '<div class="englishTitle">Cities</div>' +
+                    '<i class="linearicon linearicon-map"></i>' +
+                    '</li>' +
+                    '<li onclick="arshLoader.chooseWordKind(\'fruits\' , this);">' +
+                    '<div class="persianTitle">میوه ها</div>' +
+                    '<div class="englishTitle">Fruits</div>' +
+                    '<i class="linearicon linearicon-cherry"></i>' +
+                    '</li>' +
                     '</ul>';
 
                 loadingTextElement.appendChild(chooseWordsKind);
@@ -282,7 +282,7 @@ var arshLoader = {
         }
     },
 
-    chooseWordKind:function (name , el) {
+    chooseWordKind: function (name, el) {
         let choosedPersianTitle = el.querySelector(".persianTitle").innerHTML;
         let choosedEnglishTitle = el.querySelector(".englishTitle").innerHTML;
         let chooserEl = document.querySelector(".wordsKind");
@@ -302,19 +302,19 @@ var arshLoader = {
         arshLoader.choosedColor = color;
     },
 
-    startGame: function (lang , wordsType) {
+    startGame: function (lang, wordsType) {
         jRun.init(
             [
                 {
                     url: "lang." + lang + ".js",
                     kind: "Langs",
-                    attributes : {class : 'isLanguageFile'},
+                    attributes: { class: 'isLanguageFile' },
                     waitLoading: false
                 },
                 {
-                    url: "words/" + lang + "/" + wordsType , kind: "Fanavard"
+                    url: "words/" + lang + "/" + wordsType, kind: "Fanavard"
                 }
-            ] , function () {
+            ], function () {
                 TetrisGame.build();
             }
         );
@@ -323,9 +323,9 @@ var arshLoader = {
 
     build: function () {
 
-        arshLoader._('#container').innerHTML = ''+
+        arshLoader._('#container').innerHTML = '' +
             '    <div class="bloc">\n' +
-            '        <div><img src="public/Images/fanavardLogo.png" style="width:150px;height: auto"/></div>'+
+            '        <div><img src="public/Images/fanavardLogo.png" style="width:150px;height: auto"/></div>' +
             '        <svg id="jafarRezaeiAnimate" viewBox="-17 -20 412.8504 64.80315" height="70.80315" width="412.8504" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:400px;padding:50px 0 !important;height:auto">\n' +
             '            <defs>\n' +
             '                <filter id="dropshadow" height="50%">\n' +
@@ -360,7 +360,7 @@ var arshLoader = {
             '        <div class="loadingText"><div class="archLoadingAnimation center"><span></span></div></div>\n' +
             '    </div>' +
             ''
-        ;
+            ;
 
         arshLoader.setRandomColor();
 
@@ -386,7 +386,7 @@ var arshLoader = {
         );
 
 
-        document.getElementById("jafarRezaeiAnimate").addEventListener("click" , function () {
+        document.getElementById("jafarRezaeiAnimate").addEventListener("click", function () {
 
             arshLoader.setRandomColor();
 

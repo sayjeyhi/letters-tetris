@@ -1,6 +1,6 @@
 var lang = {
     name: "fa",
-    rtl:true,
+    rtl: true,
     score: "امتیاز",
     createdWords: "کلمات ساخته شده",
     spentTime: "زمان",
@@ -10,8 +10,8 @@ var lang = {
     restartGame: "شروع دوباره",
     nextLetter: "کاراکتر بعدی",
     clickStartGame: "برای شروع بر روی دکمه شروع بازی کلیک کنید",
-    copyRight : "کپی رایت برای تیم عرش محفوظ می باشد.",
-    Save : "ذخیره",
+    copyRight: "کپی رایت برای تیم عرش محفوظ می باشد.",
+    Save: "ذخیره",
 
 
     hour: " ساعت ",
