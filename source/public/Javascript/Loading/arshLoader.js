@@ -211,6 +211,7 @@ var arshLoader = {
 
                 var chooseWordsKind = document.createElement('div');
                 chooseWordsKind.onclick = function (ev) {
+                    this.datas
                     document.querySelector(".chooseWordKindTooltip").style.display = "inline-block";
                 };
                 chooseWordsKind.innerHTML =
@@ -224,7 +225,7 @@ var arshLoader = {
                 var btnFa = document.createElement('div');
                 btnFa.onclick = function () {
                     let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales";
-                    arshLoader.startGame("fa", wordsType);
+                    arshLoader.startGame("fa" , wordsType);
                 };
                 btnFa.className = "btnEnterProject animatedOneSecond bounceIn";
                 btnFa.innerHTML = "<i class='linearicon linearicon-gamepad'></i> ورود به بازی";
@@ -233,7 +234,7 @@ var arshLoader = {
                 var btnEn = document.createElement('div');
                 btnEn.onclick = function () {
                     let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales";
-                    arshLoader.startGame("en", wordsType);
+                    arshLoader.startGame("en" , wordsType);
                 };
                 btnEn.className = "btnEnterProject animatedOneSecond bounceIn ltr";
                 btnEn.innerHTML = "<i class='linearicon linearicon-gamepad'></i> Enter Game";
@@ -243,31 +244,26 @@ var arshLoader = {
                 workKindChooser.className = "chooseWordKindTooltip";
                 workKindChooser.innerHTML =
                     '<ul>' +
-                    '<li onclick="arshLoader.chooseWordKind(\'animals\' , this);" >' +
-                    '<div class="persianTitle">حیوانات</div>' +
-                    '<div class="englishTitle">Animals</div>' +
-                    '<i class="linearicon linearicon-fish"></i>' +
-                    '</li>' +
-                    '<li onclick="arshLoader.chooseWordKind(\'colors\' , this);">' +
-                    '<div class="persianTitle">رنگ ها</div>' +
-                    '<div class="englishTitle">Colors</div>' +
-                    '<i class="linearicon linearicon-brush2"></i>' +
-                    '</li>' +
-                    '<li onclick="arshLoader.chooseWordKind(\'things\' ,this);">' +
-                    '<div class="persianTitle">اشیا</div>' +
-                    '<div class="englishTitle">Things</div>' +
-                    '<i class="linearicon linearicon-socks"></i>' +
-                    '</li>' +
-                    '<li onclick="arshLoader.chooseWordKind(\'cities\' , this);">' +
-                    '<div class="persianTitle">شهرها</div>' +
-                    '<div class="englishTitle">Cities</div>' +
-                    '<i class="linearicon linearicon-map"></i>' +
-                    '</li>' +
-                    '<li onclick="arshLoader.chooseWordKind(\'fruits\' , this);">' +
-                    '<div class="persianTitle">میوه ها</div>' +
-                    '<div class="englishTitle">Fruits</div>' +
-                    '<i class="linearicon linearicon-cherry"></i>' +
-                    '</li>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'animals\' , this);" >' +
+                            '<div class="persianTitle">حیوانات</div>' +
+                            '<div class="englishTitle">Animals</div>' +
+                            '<i class="linearicon linearicon-fish"></i>' +
+                        '</li>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'colors\' , this);">'+
+                            '<div class="persianTitle">رنگ ها</div>' +
+                            '<div class="englishTitle">Colors</div>' +
+                            '<i class="linearicon linearicon-brush2"></i>' +
+                        '</li>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'things\' ,this);">'+
+                            '<div class="persianTitle">اشیا</div>' +
+                            '<div class="englishTitle">Things</div>' +
+                            '<i class="linearicon linearicon-socks"></i>' +
+                        '</li>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'fruits\' , this);">'+
+                            '<div class="persianTitle">میوه ها</div>' +
+                            '<div class="englishTitle">Fruits</div>' +
+                            '<i class="linearicon linearicon-cherry"></i>' +
+                        '</li>' +
                     '</ul>';
 
                 loadingTextElement.appendChild(chooseWordsKind);

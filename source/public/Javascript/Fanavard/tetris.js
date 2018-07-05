@@ -484,6 +484,12 @@ var TetrisGame;
 
         },
 
+        buttonManager: function () {
+            let gameBtnControl = document.querySelector(".gameControlButtons");
+            gameBtnControl.querySelector(".pauseGame").style.display = "none";
+            gameBtnControl.querySelector(".resumeGame").style.display = "inline-block";
+        },
+
 
         /**
          * Start Game play
@@ -543,9 +549,7 @@ var TetrisGame;
          */
         pauseGamePlay: function () {
 
-            let gameBtnControl = document.querySelector(".gameControlButtons");
-            gameBtnControl.querySelector(".pauseGame").style.display = "none";
-            gameBtnControl.querySelector(".resumeGame").style.display = "inline-block";
+            //TetrisGame.buttonManager()
 
             // stop timer [will stop whole game]
             TetrisGame.timer().pause();
@@ -557,9 +561,8 @@ var TetrisGame;
          */
         resumeGamePlay: function () {
 
-            let gameBtnControl = document.querySelector(".gameControlButtons");
-            gameBtnControl.querySelector(".resumeGame").style.display = "none";
-            gameBtnControl.querySelector(".pauseGame").style.display = "inline-block";
+            //TetrisGame.buttonManager()
+
 
             // resume timer [will resume whole game]
             TetrisGame.timer().resume();
