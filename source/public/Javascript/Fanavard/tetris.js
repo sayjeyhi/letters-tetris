@@ -366,26 +366,31 @@ var TetrisGame;
         /**
          * LocalStorage Helper Class
          */
-        storage: function () {
-            let storage = {};
+        Storage: {
 
-            storage.get = function (key, default_value) {
+            get: function (key, default_value) {
                 default_value = default_value || "";
                 return localStorage.getItem(key) || default_value;
-            };
-            storage.getInt = function (key, default_value) {
+            },
+
+            getInt: function (key, default_value) {
                 default_value = default_value || 0;
-                return Number(storage.get(key, default_value));
-            };
-            storage.set = function (key, value) {
+                return Number(get(key, default_value));
+            },
+            getArray: function (key, default_value) {
+                default_value = default_value || [];
+                return JSON.parse(get(key),default_value);
+            },
+            getJson: function (key, default_value) {
+                default_value = default_value || {};
+                return JSON.parse(get(key),default_value);
+            },
+            set : function (key, value) {
+                if (Array.isArray(value)){
+                    value = JSON.stringify(value);
+                }
                 localStorage.setItem(key, value)
-            };
-
-            storage.setArray = function (key, value) {
-                return localStorage.setItem(key, value.join(","))
-            };
-
-            return storage;
+            }
         },
 
 
@@ -414,7 +419,7 @@ var TetrisGame;
 
                     timerWorker.onmessage = function (event) {
                         timerDisplayEl.innerHTML = TetrisGame.timer().beautifySecond(event.data);
-                        TetrisGame.storage().set('seconds', event.data);
+                        TetrisGame.Storage.set('seconds', event.data);
                     };
 
                 } else {
