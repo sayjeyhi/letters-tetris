@@ -104,7 +104,7 @@ var TetrisGame;
                         moveTo = {
                             row: charBlock.row,
                             column: charBlock.column + 1,
-                            animateOutClass: (lang.rtl ? "fadeOutLeft" : "fadeInRight"),
+                            animateOutClass: (lang.rtl ? "fadeOutLeft" : "fadeOutRight"),
                             animateInClass: (lang.rtl ? "fadeInRight" : "fadeInLeft")
                         };
                         break;
@@ -112,7 +112,7 @@ var TetrisGame;
                         moveTo = {
                             row: charBlock.row,
                             column: charBlock.column - 1,
-                            animateOutClass: (lang.rtl ? "fadeOutRight" : "fadeInLeft"),
+                            animateOutClass: (lang.rtl ? "fadeOutRight" : "fadeOutLeft"),
                             animateInClass: (lang.rtl ? "fadeInLeft" : "fadeInRight")
                         };
                         break;
