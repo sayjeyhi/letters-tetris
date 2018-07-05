@@ -44,10 +44,10 @@ var TetrisGame;
          * Initialize variables
          */
         initValues : {
-            paused : false,                 // is game paused 
+            paused : false,                 // is game paused
             finished: false,                // is game finished
             wordsFinished: false,           // do we run out of words
-            
+
             validatedColumnsCount: 0,       // Count of columns which are validated
             nextChar: '',                   // Next character
             activeChar : {},                // Active character [not stopped] Object index
@@ -378,6 +378,7 @@ var TetrisGame;
                 return Number(storage.get(key , default_value));
             };
             storage.set = function (key, value) {
+                //TODO: Mix all set variables
                 localStorage.setItem(key, value)
             };
 
@@ -393,7 +394,7 @@ var TetrisGame;
          * Game timer manager class
          */
         timer : function () {
-
+            //TODO: Make timer class instance able to tetris game
             var timer = {};
 
             timer.start = function () {
