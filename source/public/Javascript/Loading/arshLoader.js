@@ -208,24 +208,89 @@ var arshLoader = {
                 loadingTextElement.innerHTML = '';
 
 
+
+                var chooseWordsKind = document.createElement('div');
+                chooseWordsKind.onclick = function (ev) {
+                    document.querySelector(".chooseWordKindTooltip").style.display = "inline-block";
+                };
+                chooseWordsKind.innerHTML =
+                    "<div data-choosedWordsKind='animals' class='wordsKind'>" +
+                        '<div class="persianTitle">حیوانات</div>' +
+                        '<div class="englishTitle">Animals</div>' +
+                        '<i class="linearicon linearicon-chevrons-expand-vertical"></i>' +
+                    "</div>";
+
+
                 var btnFa = document.createElement('div');
-                btnFa.onclick = function () {arshLoader.startGame("fa")};
+                btnFa.onclick = function () {
+                    let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales";
+                    arshLoader.startGame("fa" , wordsType);
+                };
                 btnFa.className = "btnEnterProject animatedOneSecond bounceIn";
                 btnFa.innerHTML = "<i class='linearicon linearicon-gamepad'></i> ورود به بازی";
 
+
                 var btnEn = document.createElement('div');
-                btnEn.onclick = function () {arshLoader.startGame("en")};
+                btnEn.onclick = function () {
+                    let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales";
+                    arshLoader.startGame("en" , wordsType);
+                };
                 btnEn.className = "btnEnterProject animatedOneSecond bounceIn ltr";
                 btnEn.innerHTML = "<i class='linearicon linearicon-gamepad'></i> Enter Game";
 
+
+                var workKindChooser = document.createElement('div');
+                workKindChooser.className = "chooseWordKindTooltip";
+                workKindChooser.innerHTML =
+                    '<ul>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'animals\' , this);" >' +
+                            '<div class="persianTitle">حیوانات</div>' +
+                            '<div class="englishTitle">Animals</div>' +
+                            '<i class="linearicon linearicon-fish"></i>' +
+                        '</li>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'colors\' , this);">'+
+                            '<div class="persianTitle">رنگ ها</div>' +
+                            '<div class="englishTitle">Colors</div>' +
+                            '<i class="linearicon linearicon-brush2"></i>' +
+                        '</li>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'things\' ,this);">'+
+                            '<div class="persianTitle">اشیا</div>' +
+                            '<div class="englishTitle">Things</div>' +
+                            '<i class="linearicon linearicon-socks"></i>' +
+                        '</li>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'cities\' , this);">'+
+                            '<div class="persianTitle">شهرها</div>' +
+                            '<div class="englishTitle">Cities</div>' +
+                            '<i class="linearicon linearicon-map"></i>' +
+                        '</li>' +
+                        '<li onclick="arshLoader.chooseWordKind(\'fruits\' , this);">'+
+                            '<div class="persianTitle">میوه ها</div>' +
+                            '<div class="englishTitle">Fruits</div>' +
+                            '<i class="linearicon linearicon-cherry"></i>' +
+                        '</li>' +
+                    '</ul>';
+
+                loadingTextElement.appendChild(chooseWordsKind);
                 loadingTextElement.appendChild(btnFa);
                 loadingTextElement.appendChild(btnEn);
+                loadingTextElement.appendChild(workKindChooser);
 
 
                 arshLoader.isLoaded = true;
 
             }, 1000);
         }
+    },
+
+    chooseWordKind:function (name , el) {
+        let choosedPersianTitle = el.querySelector(".persianTitle").innerHTML;
+        let choosedEnglishTitle = el.querySelector(".englishTitle").innerHTML;
+        let chooserEl = document.querySelector(".wordsKind");
+        el.parentNode.parentNode.style.display = "none";
+
+        chooserEl.querySelector(".persianTitle").innerHTML = choosedPersianTitle;
+        chooserEl.querySelector(".englishTitle").innerHTML = choosedEnglishTitle;
+        chooserEl.dataset.choosedwordskind = name;
     },
 
 
@@ -237,17 +302,17 @@ var arshLoader = {
         arshLoader.choosedColor = color;
     },
 
-    startGame: function (lang) {
+    startGame: function (lang , wordsType) {
         jRun.init(
             [
                 {
                     url: "lang." + lang + ".js",
                     kind: "Langs",
                     attributes : {class : 'isLanguageFile'},
-                    waitLoading: false,
+                    waitLoading: false
                 },
                 {
-                    url: "tetris_words." + lang, kind: "Fanavard"
+                    url: "words/" + lang + "/" + wordsType , kind: "Fanavard"
                 }
             ] , function () {
                 TetrisGame.build();

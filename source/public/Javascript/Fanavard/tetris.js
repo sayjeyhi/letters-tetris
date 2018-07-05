@@ -36,6 +36,7 @@ var TetrisGame;
             playSoundOnSuccess : false,
             playSoundOnFailure : false,
             useLowercase : false,
+            animateCharSpeed : 20
         },
 
 
@@ -526,7 +527,7 @@ var TetrisGame;
 
             // arrow keys press
             document.addEventListener("keydown" , function (e) {
-                TetrisGame.activeChar.move(e.keyCode);
+                TetrisGame.initValues.activeChar.move(e.keyCode);
             });
 
 
@@ -540,7 +541,7 @@ var TetrisGame;
          * Pause Game play
          * @todo : add resumeGamePlay
          */
-        pauseGamePlay: function (e) {
+        pauseGamePlay: function () {
 
             let gameBtnControl = document.querySelector(".gameControlButtons");
             gameBtnControl.querySelector(".pauseGame").style.display = "none";
