@@ -469,7 +469,8 @@ let TetrisGame;
         chooseWord: function () {
             let keys = Object.keys(window.TetrisWords);
             let randomKey = keys[keys.length * Math.random() << 0];
-            let value = window.TetrisWords[randomKey].replace(/ /g,"");
+            let value = window.TetrisWords[randomKey];
+            value.word = value.word.replace(/ /g,"");
 
             if (typeof value === "undefined" && !TetrisGame.initValues.finished) {
                 TetrisGame.initValues.wordsFinished = true;
