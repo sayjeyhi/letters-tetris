@@ -27,7 +27,8 @@
 
         jRun.plugins = [
             {url: "tetris.css" , kind: "app"},
-            {url: "classes/MaterialColor.class" , kind: "Fanavard"},
+            {url: "MaterialColor.class" , kind: "Fanavard/classes"},
+            {url: "Sounds.class" , kind: "Fanavard/classes"},
             {
                 url : 'vivus.min',
                 afterLoad : function(){
@@ -43,8 +44,8 @@
         jRun.buildPlugIns();
 
         jRun.init([
-            {url: "classes/Storage.class" , kind: "Fanavard"},
-            {url: "classes/Timer.class" , kind: "Fanavard"},
+            {url: "Storage.class" , kind: "Fanavard/classes"},
+            {url: "Timer.class" , kind: "Fanavard/classes"},
             {url: "tetris", kind: "Fanavard"},
             {url: "linerIcons.css", kind: "Icons"}
         ]);

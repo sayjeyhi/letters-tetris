@@ -4,15 +4,14 @@
  * {@link https://github.com/egoist/color-lib/blob/master/color.json Colors from this link }
  */
 class MaterialColor {
+
     /**
      * Get Hex value of a random material color
      * @return {string}
      *
      * @example
-     *
      * let myRandomColor = MaterialColor.getRandomColor();
      */
-
     static getRandomColor() {
         let colors = {
             "red": {
@@ -185,6 +184,11 @@ class MaterialColor {
     }
 
 
+    /**
+     * Pick a random property of object
+     * @param obj
+     * @return {*}
+     */
     static pickRandomProperty(obj) {
         let result;
         let count = 0;
