@@ -523,14 +523,31 @@ let TetrisGame;
 
 
             // create and show up coming char
-            TetrisGame.initValues.nextChar = TetrisGame.chooseChar();
-            document.querySelector(".showUpComingLetter").innerHTML = TetrisGame.initValues.nextChar || "";
+            TetrisGame.showUpCommingChar();
 
             // add this char to active chars
             TetrisGame.initValues.activeChar = charBlock;
 
             return charBlock;
         },
+
+
+        /**
+         * Create and show upcoming character
+         */
+        showUpCommingChar: function () {
+
+            TetrisGame.initValues.nextChar = TetrisGame.chooseChar();
+
+            let upCommingCharHolder = document.querySelector(".showUpComingLetter");
+            let upcommingCharEl = document.createElement('span');
+
+            upCommingCharHolder.innerHTML = '';
+            upcommingCharEl.className = "animated bounceIn";
+            upcommingCharEl.innerHTML = TetrisGame.initValues.nextChar || "";
+            upCommingCharHolder.appendChild(upcommingCharEl);
+        },
+
 
 
         /**
@@ -706,7 +723,9 @@ let TetrisGame;
 
             // arrow keys press
             document.addEventListener("keydown", function (e) {
-                TetrisGame.initValues.activeChar.move(e.keyCode);
+                if(!TetrisGame.initValues.paused) {
+                    TetrisGame.initValues.activeChar.move(e.keyCode);
+                }
             });
 
 

@@ -1,9 +1,9 @@
 var lang = {
     name: "en",
     rtl: false,
-    score: "score",
-    createdWords: "created words",
-    spentTime: "time",
+    score: "Score",
+    createdWords: "Found words",
+    spentTime: "Time",
     startGame: "Start Game",
     pauseGame: "Pause Game",
     resumeGame: "Resume Game",
@@ -11,7 +11,7 @@ var lang = {
     nextLetter: "Next letter",
     clickStartGame: "Click Start game to begin",
     copyRight: "All right reserved for Arsh Team",
-    settings: "تنظیمات",
+    settings: "Settings",
     save: "Save",
 
 

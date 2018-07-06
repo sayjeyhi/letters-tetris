@@ -9,7 +9,7 @@ a{color:#5b57ef;text-decoration:none}
 #container{direction:rtl;text-align:right;background:#fff}
 .content{position:relative;border-radius:20px!important;padding:10px 10%}
 #topContainer .parallax{position:relative;padding:5em 0;text-align:center;color:#fff!important;background:#DA4453;background:-webkit-linear-gradient(to right,#89216B,#DA4453);background:linear-gradient(to right,#89216B,#DA4453)}
-.page-footer div{text-align:center;font-size:14px;margin-top:40px}
+.page-footer div{text-align:center;font-size:12px;margin-top:40px}
 nav ul a,nav .brand-logo{color:#444}
 p{line-height:2rem}
 .tabContent{padding:15px 12px;background:#f1f1f1}
@@ -129,7 +129,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
     display: inline-block;
     background: #fff;
     padding: 3px;
-    height: 460px;
+    min-height: 460px;
     position: relative;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -143,6 +143,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    text-align: center;
 }
 
 .gameHolder .playBoard .charBlock {
@@ -194,7 +195,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 
 .gameHolder .behindPlayBoard .courseArea {
     display: inline-block;
-    font-size: 14px;
+    font-size: 13px;
     text-align: right;
     position: absolute;
     left: 0;
@@ -210,12 +211,12 @@ svg :not(.doNotUnfill){stroke:currentColor}
     margin: 0 0 10px 0;
     color: #2aad1c;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .gameHolder .behindPlayBoard .courseArea .linearicon{
     position: relative;
-    bottom: -3px;
+    bottom: -2px;
     margin-left: 4px;
 }
 
@@ -247,14 +248,14 @@ svg :not(.doNotUnfill){stroke:currentColor}
     text-align: center;
     height: 150px;
     font-size: 44px;
-    line-height: 135px;
+    line-height: 155px;
     color: #314e81;
     position: absolute;
 }
 .gameHolder .behindPlayBoard .showUpComingLetter::before {
     content: attr(title);
     font-size: 12px;
-    top: -75px;
+    top: -86px;
     position: absolute;
     right: 0;
 }
@@ -297,7 +298,15 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .gameHolder.isLtr .behindPlayBoard .courseArea {text-align: left;margin-left:5px}
 
 
-
+.noselect,.wordsKind {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
 
 .animated{-webkit-animation-duration:.2s;animation-duration:.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedOneSecond{-webkit-animation-duration:.2s;animation-duration:.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
@@ -560,4 +569,106 @@ svg :not(.doNotUnfill){stroke:currentColor}
     animation-duration: 0.75s;
     -webkit-animation-name: bounceIn;
     animation-name: bounceIn;
+}
+
+
+
+
+
+
+/* Make responsive */
+@media (max-width: 868px) {
+
+    .page-footer div {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .gameHolder{
+        width:96%;
+        left: 0;
+        right: 0;
+        transform: none !important;
+        margin: 1%;
+    }
+
+    .gameHolder .behindPlayBoard {
+        position: relative;
+        width: auto;
+        display: block;
+    }
+    .gameHolder .playBoard{
+        width: auto !important;
+        display: block;
+    }
+
+
+    .gameHolder .behindPlayBoard .showUpComingLetter{
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        top: 58px;
+        left: 0;
+        line-height: 98px;
+    }
+    .gameHolder .behindPlayBoard .showUpComingLetter::before{
+        top:-56px
+    }
+
+
+    .gameHolder .behindPlayBoard .gameControlButtons{
+        right: 0;
+        text-align: right;
+        width: auto;
+        position: relative;
+        top: auto;
+        margin: 10px 0;
+        display: block;
+    }
+
+    .gameHolder .behindPlayBoard .gameControlButtons > div{
+
+    }
+
+    .gameHolder .behindPlayBoard .courseArea{
+        text-align: right;
+        margin-right: 5px;
+        position: relative;
+        bottom: 5px;
+    }
+    .gameHolder .behindPlayBoard .courseArea .setting{
+        font-size:13px !important;
+    }
+
+    .gameHolder .behindPlayBoard .gamingKind{
+        margin: 0;
+    }
+
+
+    /* For ltr */
+    .gameHolder.isLtr .behindPlayBoard .showUpComingLetter {
+        right: 0;
+        float: right;
+        left: auto !important;
+        top: 74px;
+    }
+    .gameHolder.isLtr .behindPlayBoard .gameControlButtons{
+        left: 0;
+        text-align: left;
+    }
+    .gameHolder.isLtr .behindPlayBoard .courseArea{
+        text-align: left !important;
+        margin-left: 5px;
+    }
+    .gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before {
+        left: -10px;
+    }
+    .gameHolder.isLtr .behindPlayBoard .courseArea {
+        text-align: left;
+        margin-left:5px;
+        position: relative;
+        bottom: 5px;
+        font-size: 11px;
+    }
+
 }
