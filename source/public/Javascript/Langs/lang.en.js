@@ -11,7 +11,8 @@ var lang = {
     nextLetter: "Next letter",
     clickStartGame: "Click Start game to begin",
     copyRight: "All right reserved for Arsh Team",
-    Save: "Save",
+    settings: "تنظیمات",
+    save: "Save",
 
 
     hour: " hour ",

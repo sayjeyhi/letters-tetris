@@ -110,6 +110,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .chooseWordKindTooltip ul > li .persianTitle,.wordsKind .persianTitle{position:absolute;right:7px}
 .chooseWordKindTooltip ul > li .linearicon{font-size:16px;position:relative;bottom:-3px;margin:0 13px;color:#26a718;left:5px}
 
+
 .gameHolder{
     background: #f6f6f6;
     padding: 8px;
@@ -205,9 +206,34 @@ svg :not(.doNotUnfill){stroke:currentColor}
     margin-top:2px
 }
 
+.gameHolder .behindPlayBoard .courseArea .setting{
+    margin: 0 0 10px 0;
+    color: #2aad1c;
+    cursor: pointer;
+    font-size: 15px;
+}
+
 .gameHolder .behindPlayBoard .courseArea .linearicon{
     position: relative;
-    bottom: -2px;
+    bottom: -3px;
+    margin-left: 4px;
+}
+
+.gameHolder .behindPlayBoard  .gamingKind{
+
+    background: #ededed80;
+    margin: auto 9px;
+    padding: 8px;
+    font-size: 12px;
+    border-radius: 5px;
+    line-height: 18px;
+}
+
+.gameHolder .behindPlayBoard  .gamingKind .english{
+    float: left;
+}
+
+.gameHolder .behindPlayBoard  .gamingKind .persian{
 }
 
 .gameHolder .behindPlayBoard .showUpComingLetter{
@@ -217,7 +243,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
     border-radius: 8px;
     width: 140px;
     left: 31px;
-    top: 35px;
+    top: 75px;
     text-align: center;
     height: 150px;
     font-size: 44px;
@@ -259,7 +285,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
     background: #37c328;
 
 }
-.gameHolder .behindPlayBoard .gameControlButtons .pauseGame{
+.gameHolder .behindPlayBoard .gameControlButtons .restartGame{
     background: #c3450e;
     font-size: 13px;
 }
@@ -270,9 +296,6 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before {left: -10px;}
 .gameHolder.isLtr .behindPlayBoard .courseArea {text-align: left;margin-left:5px}
 
-.hide{
-    display: none;
-}
 
 
 

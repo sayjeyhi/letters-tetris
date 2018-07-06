@@ -368,15 +368,16 @@ let TetrisGame;
          * Initialize variables
          */
         initValues: {
-            paused: false,                 // is game paused
+            paused: false,                  // is game paused
             finished: false,                // is game finished
             wordsFinished: false,           // do we run out of words
+            chooseedWordKind: {},           // holds user words kind
 
             validatedColumnsCount: 0,       // Count of columns which are validated
             nextChar: '',                   // Next character
-            activeChar: {},                // Active character [not stopped] Object index
+            activeChar: {},                 // Active character [not stopped] Object index
             choosedWords: [],               // Choosed words to work with them
-            choosedWordsUsedChars: []      // Chars that used from choosed words
+            choosedWordsUsedChars: []       // Chars that used from choosed words
         },
 
 
@@ -639,10 +640,20 @@ let TetrisGame;
 
         },
 
-        buttonManager: function () {
+
+        /**
+         * Manage btn parts buttons
+         * @param showClassed
+         * @param hideClasses
+         */
+        buttonManager: function (showClassed , hideClasses) {
             let gameBtnControl = document.querySelector(".gameControlButtons");
-            gameBtnControl.querySelector(".pauseGame").style.display = "none";
-            gameBtnControl.querySelector(".resumeGame").style.display = "inline-block";
+            gameBtnControl.querySelectorAll(showClassed).forEach((item) => {
+                item.style.display = "inline-block";
+            })
+            gameBtnControl.querySelectorAll(hideClasses).forEach((item) => {
+                item.style.display = "none";
+            })
         },
 
 
@@ -693,16 +704,13 @@ let TetrisGame;
             TetrisGame.characterFactory();
 
 
-
             // arrow keys press
             document.addEventListener("keydown", function (e) {
                 TetrisGame.initValues.activeChar.move(e.keyCode);
             });
 
 
-            let gameBtnControl = document.querySelector(".gameControlButtons");
-            gameBtnControl.querySelector(".startGame").style.display = "none";
-            gameBtnControl.querySelector(".pauseGame").style.display = "inline-block";
+            TetrisGame.buttonManager('.pauseGame,.restartGame' , '.startGame,.resumeGame');
         },
 
 
@@ -712,7 +720,7 @@ let TetrisGame;
          */
         pauseGamePlay: function () {
 
-            //TetrisGame.buttonManager()
+            TetrisGame.buttonManager('.resumeGame,.restartGame' , '.startGame,.pauseGame');
 
             // stop timer [will stop whole game]
             TetrisGame.timer.pause();
@@ -724,7 +732,8 @@ let TetrisGame;
          */
         resumeGamePlay: function () {
 
-            //TetrisGame.buttonManager()
+
+            TetrisGame.buttonManager('.pauseGame,.restartGame' , '.startGame,.resumeGame');
 
 
             // resume timer [will resume whole game]
@@ -740,6 +749,10 @@ let TetrisGame;
                 paused: false,                 // is game paused
                 finished: false,                // is game finished
                 wordsFinished: false,           // do we run out of words
+                chooseedWordKind: {
+                    persianTitle: TetrisGame.initValues.chooseedWordKind.persianTitle,
+                    englishTitle: TetrisGame.initValues.chooseedWordKind.englishTitle
+                },
 
                 validatedColumnsCount: 0,       // Count of columns which are validated
                 nextChar: '',                   // Next character
@@ -757,9 +770,7 @@ let TetrisGame;
          */
         finishGame: function (mode) {
 
-            let gameBtnControl = document.querySelector(".gameControlButtons");
-            gameBtnControl.querySelector(".startGame,.pauseGame,.resumeGame").style.display = "none";
-            gameBtnControl.querySelector(".restartGame").style.display = "inline-block";
+            TetrisGame.buttonManager('.restartGame' , '.startGame,.pauseGame,.resumeGame');
 
             TetrisGame.initValues.finished = true;
             TetrisGame.timer.pause();
@@ -789,6 +800,7 @@ let TetrisGame;
                 document.querySelector('#workerTiming').textContent
             ], { type: "text/javascript" });
 
+
             TetrisGame.timer = new Timer({
                 blobTiming:blobTiming,
                 onStart: function(){
@@ -802,9 +814,10 @@ let TetrisGame;
                 },
                 onResume:function () {
                     TetrisGame.initValues.paused = false;
-                },
-
+                }
             });
+
+
 
             // make ltr if used lang is ltr
             let ltrClass = "";
@@ -823,14 +836,16 @@ let TetrisGame;
             document.querySelector("#container").innerHTML =
                 `<div class="gameHolder ${ltrClass}">
                     <div class="behindPlayBoard">
-                       <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
-                       <div class="gameControlButtons" >
+                        <div class="gamingKind"><span class="persian">${TetrisGame.initValues.chooseedWordKind.persianTitle}</span><span class="english">${TetrisGame.initValues.chooseedWordKind.englishTitle}</span></div>
+                        <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
+                        <div class="gameControlButtons" >
                             <div onclick="TetrisGame.startGamePlay();" class="startGame">${lang.startGame}</div>
                             <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame" style="display: none">${lang.pauseGame}</div>
                             <div onclick="TetrisGame.resumeGamePlay();" class="resumeGame" style="display: none">${lang.resumeGame}</div>
                             <div onclick="TetrisGame.restartGamePlay();" class="restartGame" style="display: none">${lang.restartGame}</div>
-                       </div>
+                        </div>
                        <div class="courseArea">
+                           <div class="setting"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
                            <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div>
                            <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
                            <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>

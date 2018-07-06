@@ -1,5 +1,8 @@
+/**
+ * Main class to load animation of game starting
+ * @type {{choosedColor: string, filesLoading: boolean, animationLoading: boolean, isLoaded: boolean, timingProps: {type: string, duration: number, start: string}, _: arshLoader._, pickRandomProperty: arshLoader.pickRandomProperty, materialColor: arshLoader.materialColor, afterLoad: arshLoader.afterLoad, chooseWordKind: arshLoader.chooseWordKind, setRandomColor: arshLoader.setRandomColor, startGame: arshLoader.startGame, build: arshLoader.build}}
+ */
 var arshLoader = {
-    choosedColor: '',
     filesLoading: false,
     animationLoading: false,
     isLoaded: false,
@@ -209,13 +212,15 @@ var arshLoader = {
 
 
 
-                var chooseWordsKind = document.createElement('div');
+                let chooseWordsKind = document.createElement('div');
                 chooseWordsKind.onclick = function (ev) {
-                    this.datas
-                    document.querySelector(".chooseWordKindTooltip").style.display = "inline-block";
+                    let openedStatus = this.dataset.opened || "no";
+                    let newDisplay = openedStatus === "yes" ? "none" : "inline-block";
+                    this.dataset.opened = openedStatus === "yes" ? "no" : "yes";
+                    document.querySelector(".chooseWordKindTooltip").style.display = newDisplay;
                 };
                 chooseWordsKind.innerHTML =
-                    "<div data-choosedWordsKind='animals' class='wordsKind'>" +
+                    "<div data-choosedWordsKind='animals-حیوانات' class='wordsKind'>" +
                     '<div class="persianTitle">حیوانات</div>' +
                     '<div class="englishTitle">Animals</div>' +
                     '<i class="linearicon linearicon-chevrons-expand-vertical"></i>' +
@@ -224,7 +229,7 @@ var arshLoader = {
 
                 var btnFa = document.createElement('div');
                 btnFa.onclick = function () {
-                    let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales";
+                    let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
                     arshLoader.startGame("fa" , wordsType);
                 };
                 btnFa.className = "btnEnterProject animatedOneSecond bounceIn";
@@ -233,7 +238,7 @@ var arshLoader = {
 
                 var btnEn = document.createElement('div');
                 btnEn.onclick = function () {
-                    let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales";
+                    let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
                     arshLoader.startGame("en" , wordsType);
                 };
                 btnEn.className = "btnEnterProject animatedOneSecond bounceIn ltr";
@@ -286,7 +291,7 @@ var arshLoader = {
 
         chooserEl.querySelector(".persianTitle").innerHTML = choosedPersianTitle;
         chooserEl.querySelector(".englishTitle").innerHTML = choosedEnglishTitle;
-        chooserEl.dataset.choosedwordskind = name;
+        chooserEl.dataset.choosedwordskind = (name.toString() + "-" + choosedPersianTitle.toString());
     },
 
 
@@ -295,10 +300,10 @@ var arshLoader = {
         arshLoader._('.bloc').style.borderColor = color;
         arshLoader._('#jafarRezaeiAnimate').style.color = color;
         arshLoader._('#jafarRezaeiAnimate').style.fill = color;
-        arshLoader.choosedColor = color;
     },
 
     startGame: function (lang, wordsType) {
+        wordsType = wordsType.split("-");
         jRun.init(
             [
                 {
@@ -308,9 +313,13 @@ var arshLoader = {
                     waitLoading: false
                 },
                 {
-                    url: "words/" + lang + "/" + wordsType, kind: "Fanavard"
+                    url: "words/" + lang + "/" + wordsType[0], kind: "Fanavard"
                 }
             ], function () {
+                TetrisGame.initValues.chooseedWordKind = {
+                    persianTitle : wordsType[1],
+                    englishTitle : wordsType[0]
+                };
                 TetrisGame.build();
             }
         );
