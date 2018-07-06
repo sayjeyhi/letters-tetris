@@ -20,4 +20,14 @@ class Sounds {
         };
         return new Audio(sounds[name]).play();
     }
+
+
+    /**
+     * Play an audio from url
+     * @param name
+     */
+    static playFromUrl(name){
+        let audio = new Audio('public/Mp3/' + name + '.mp3');
+        audio.play();
+    }
 }

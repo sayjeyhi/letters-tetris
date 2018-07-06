@@ -590,7 +590,7 @@
                 controlCodes.RIGHT = tmp;
             }
 
-
+            Sounds.playFromUrl("background");
 
             // add main html to page
             document.querySelector("#container").innerHTML =
