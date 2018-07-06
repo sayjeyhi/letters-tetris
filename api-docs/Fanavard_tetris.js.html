@@ -25,7 +25,7 @@
 
 <nav>
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Storage.html">Storage</a><ul class='methods'><li data-type='method'><a href="Storage.html#.get">get</a></li><li data-type='method'><a href="Storage.html#.getArray">getArray</a></li><li data-type='method'><a href="Storage.html#.getInt">getInt</a></li><li data-type='method'><a href="Storage.html#.getJson">getJson</a></li><li data-type='method'><a href="Storage.html#.set">set</a></li></ul></li><li><a href="TetrisGame.html">TetrisGame</a></li><li><a href="Timer.html">Timer</a><ul class='methods'><li data-type='method'><a href="Timer.html#pause">pause</a></li><li data-type='method'><a href="Timer.html#resume">resume</a></li><li data-type='method'><a href="Timer.html#start">start</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addLanguage">addLanguage</a></li><li><a href="global.html#allowedInitTypes">allowedInitTypes</a></li><li><a href="global.html#allowInit">allowInit</a></li><li><a href="global.html#build">build</a></li><li><a href="global.html#buildDummy">buildDummy</a></li><li><a href="global.html#buildPlugIns">buildPlugIns</a></li><li><a href="global.html#checkLoad">checkLoad</a></li><li><a href="global.html#debugMode">debugMode</a></li><li><a href="global.html#deepExtend">deepExtend</a></li><li><a href="global.html#defaultLoadProperties">defaultLoadProperties</a></li><li><a href="global.html#defaultType">defaultType</a></li><li><a href="global.html#disableCache">disableCache</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#jRun">jRun</a></li><li><a href="global.html#loadedFiles">loadedFiles</a></li><li><a href="global.html#notAllowedUserAttributes">notAllowedUserAttributes</a></li><li><a href="global.html#plugins">plugins</a></li><li><a href="global.html#sanitizeName">sanitizeName</a></li><li><a href="global.html#setLoadedFlag">setLoadedFlag</a></li><li><a href="global.html#TetrisWords">TetrisWords</a></li><li><a href="global.html#urlPrefix">urlPrefix</a></li><li><a href="global.html#version">version</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="MaterialColor.html">MaterialColor</a><ul class='methods'><li data-type='method'><a href="MaterialColor.html#.getRandomColor">getRandomColor</a></li></ul></li><li><a href="Storage.html">Storage</a><ul class='methods'><li data-type='method'><a href="Storage.html#.get">get</a></li><li data-type='method'><a href="Storage.html#.getArray">getArray</a></li><li data-type='method'><a href="Storage.html#.getInt">getInt</a></li><li data-type='method'><a href="Storage.html#.getJson">getJson</a></li><li data-type='method'><a href="Storage.html#.set">set</a></li></ul></li><li><a href="TetrisGame.html">TetrisGame</a></li><li><a href="Timer.html">Timer</a><ul class='methods'><li data-type='method'><a href="Timer.html#pause">pause</a></li><li data-type='method'><a href="Timer.html#resume">resume</a></li><li data-type='method'><a href="Timer.html#start">start</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addLanguage">addLanguage</a></li><li><a href="global.html#allowedInitTypes">allowedInitTypes</a></li><li><a href="global.html#allowInit">allowInit</a></li><li><a href="global.html#build">build</a></li><li><a href="global.html#buildDummy">buildDummy</a></li><li><a href="global.html#buildPlugIns">buildPlugIns</a></li><li><a href="global.html#checkLoad">checkLoad</a></li><li><a href="global.html#debugMode">debugMode</a></li><li><a href="global.html#deepExtend">deepExtend</a></li><li><a href="global.html#defaultLoadProperties">defaultLoadProperties</a></li><li><a href="global.html#defaultType">defaultType</a></li><li><a href="global.html#disableCache">disableCache</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#jRun">jRun</a></li><li><a href="global.html#loadedFiles">loadedFiles</a></li><li><a href="global.html#notAllowedUserAttributes">notAllowedUserAttributes</a></li><li><a href="global.html#plugins">plugins</a></li><li><a href="global.html#sanitizeName">sanitizeName</a></li><li><a href="global.html#setLoadedFlag">setLoadedFlag</a></li><li><a href="global.html#TetrisWords">TetrisWords</a></li><li><a href="global.html#urlPrefix">urlPrefix</a></li><li><a href="global.html#version">version</a></li></ul>
 </nav>
 
 <div id="main">
@@ -41,7 +41,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/* jshint browser: true */
-
+'use strict';
 
 //Create Object.assign method if it's not supported by default
 //TODO: After moving classes to other files, Make this function load before any other
@@ -191,9 +191,6 @@ class Storage{
  *               },
  *               blobTiming: new Blob([document.querySelector('#workerTiming').textContent], { type: "text/javascript" });,
  *           });
- *
- *
- *
  */
 class Timer{
 
@@ -271,15 +268,110 @@ class Timer{
 
 
 /**
+ * @class MaterialColor - A class to get Random material color
+ *
+ * {@link https://github.com/egoist/color-lib/blob/master/color.json Colors from this link }
+ *
+ *
+ *
+ */
+class MaterialColor{
+    /**
+     * Get Hex value of a random material color
+     * @return {string}
+     *
+     * @example
+     *
+     * let myRandomColor = MaterialColor.getRandomColor();
+     */
+    static getRandomColor(){
+        let colors = [
+            "#ef5350",
+            "#d32f2f",
+            "#b71c1c",
+            "#d50000",
+            "#ec407a",
+            "#e91e63",
+            "#d81b60",
+            "#c2185b",
+            "#ad1457",
+            "#880e4f",
+            "#e91e63",
+            "#f50057",
+            "#c51162",
+            "#ab47bc",
+            "#9c27b0",
+            "#8e24aa",
+            "#7b1fa2",
+            "#6a1b9a",
+            "#4a148c",
+            "#9c27b0",
+            "#aa00ff",
+            "#7e57c2",
+            "#673ab7",
+            "#5e35b1",
+            "#512da8",
+            "#4527a0",
+            "#673ab7",
+            "#7c4dff",
+            "#651fff",
+            "#6200ea",
+            "#5c6bc0",
+            "#3f51b5",
+            "#3949ab",
+            "#303f9f",
+            "#283593",
+            "#1a237e",
+            "#3f51b5",
+            "#536dfe",
+            "#3d5afe",
+            "#304ffe",
+            "#1e88e5",
+            "#1976d2",
+            "#1565c0",
+            "#0d47a1",
+            "#2979ff",
+            "#2962ff",
+            "#0288d1",
+            "#0277bd",
+            "#01579b",
+            "#0091ea",
+            "#0097a7",
+            "#00838f",
+            "#006064",
+            "#009688",
+            "#00897b",
+            "#00796b",
+            "#00695c",
+            "#004d40",
+            "#4caf50",
+            "#43a047",
+            "#388e3c",
+            "#2e7d32",
+            "#7cb342",
+            "#689f38",
+            "#558b2f",
+            "#33691e",
+            "#9e9d24",
+            "#ef6c00",
+            "#e65100"
+        ];
+        let random = Math.random() * colors.length &lt;&lt; 0;
+        return colors[random];
+    }
+}
+
+
+/**
  * Main Tetris Game Class
  * @class
  */
-var TetrisGame;
+let TetrisGame;
 (function () {
 
     'use strict';
 
-    var blobTiming,timer;
+    let blobTiming,timer,matrix;
 
     let controlCodes = {
         DOWN: 40,
@@ -361,7 +453,7 @@ var TetrisGame;
             charBlock.column = Math.random() * TetrisGame.initValues.validatedColumnsCount &lt;&lt; 0;
             charBlock.row = 0;                               // top is 0 and bottom is max
             charBlock.name = TetrisGame.initValues.nextChar === "" ? TetrisGame.chooseChar() : TetrisGame.initValues.nextChar;        // char value
-            charBlock.color = TetrisGame.materialColor();    // random material color
+            charBlock.color = MaterialColor.getRandomColor();    // random material color
             charBlock.active = true;                         // character is animating on air
             charBlock.element = null;                        // holds our character element
 
@@ -369,8 +461,8 @@ var TetrisGame;
             // move char
             charBlock.move = function (eventKeyCode) {
 
-                var moveTo = {};
-                var isBottomMove = false;
+                let moveTo = {};
+                let isBottomMove = false;
 
 
                 switch (eventKeyCode) {
@@ -410,10 +502,13 @@ var TetrisGame;
                 }
 
 
-                var destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
+                let destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
                 if (moveTo.row >= TetrisGame.config.rows || (destinationEl.innerText.trim() !== "")) {
 
                     if (isBottomMove) {
+
+                        TetrisGame.matrix[moveTo.column][moveTo.row]=charBlock.name;
+                        console.log(TetrisGame.matrix);
 
                         // stop interval and request new char
                         clearInterval(charBlock.interval);
@@ -484,8 +579,8 @@ var TetrisGame;
          */
         chooseChar: function () {
 
-            var choosedChar;
-            var availableChars = TetrisGame.initValues.choosedWords.map(function (e) {
+            let choosedChar;
+            let availableChars = TetrisGame.initValues.choosedWords.map(function (e) {
                 return e ? e.word : ""
             }).join('');
 
@@ -512,9 +607,10 @@ var TetrisGame;
          * Choose random words in game build to work with
          */
         chooseWord: function () {
-            var keys = Object.keys(window.TetrisWords);
-            var randomKey = keys[keys.length * Math.random() &lt;&lt; 0];
-            var value = window.TetrisWords[randomKey];
+            let keys = Object.keys(window.TetrisWords);
+            let randomKey = keys[keys.length * Math.random() &lt;&lt; 0];
+            let value = window.TetrisWords[randomKey];
+            value.word = value.word.replace(/ /g,"");
 
             if (typeof value === "undefined" &amp;&amp; !TetrisGame.initValues.finished) {
                 TetrisGame.initValues.wordsFinished = true;
@@ -532,9 +628,9 @@ var TetrisGame;
          * Get a valid column number [min-max]
          */
         getValidColumnsNumber: function () {
-            var columnsNumber = TetrisGame.config.columnsMin;
-            for (var i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
-                var thisWordLength = window.TetrisWords[i].word.length;
+            let columnsNumber = TetrisGame.config.columnsMin;
+            for (let i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
+                let thisWordLength = window.TetrisWords[i].word.length;
                 if (thisWordLength > columnsNumber) {
                     columnsNumber = thisWordLength;
                 }
@@ -549,91 +645,8 @@ var TetrisGame;
          * Check if could find a success word
          */
         checkWordSuccess: function (lastChar) {
-
             log("check word happens");
             // @todo : if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
-        },
-
-
-        /**
-         * Get a random material color
-         * @return {string}
-         */
-        materialColor: function () {
-            // colors from https://github.com/egoist/color-lib/blob/master/color.json
-            var colors = [
-                "#ef5350",
-                "#d32f2f",
-                "#b71c1c",
-                "#d50000",
-                "#ec407a",
-                "#e91e63",
-                "#d81b60",
-                "#c2185b",
-                "#ad1457",
-                "#880e4f",
-                "#e91e63",
-                "#f50057",
-                "#c51162",
-                "#ab47bc",
-                "#9c27b0",
-                "#8e24aa",
-                "#7b1fa2",
-                "#6a1b9a",
-                "#4a148c",
-                "#9c27b0",
-                "#aa00ff",
-                "#7e57c2",
-                "#673ab7",
-                "#5e35b1",
-                "#512da8",
-                "#4527a0",
-                "#673ab7",
-                "#7c4dff",
-                "#651fff",
-                "#6200ea",
-                "#5c6bc0",
-                "#3f51b5",
-                "#3949ab",
-                "#303f9f",
-                "#283593",
-                "#1a237e",
-                "#3f51b5",
-                "#536dfe",
-                "#3d5afe",
-                "#304ffe",
-                "#1e88e5",
-                "#1976d2",
-                "#1565c0",
-                "#0d47a1",
-                "#2979ff",
-                "#2962ff",
-                "#0288d1",
-                "#0277bd",
-                "#01579b",
-                "#0091ea",
-                "#0097a7",
-                "#00838f",
-                "#006064",
-                "#009688",
-                "#00897b",
-                "#00796b",
-                "#00695c",
-                "#004d40",
-                "#4caf50",
-                "#43a047",
-                "#388e3c",
-                "#2e7d32",
-                "#7cb342",
-                "#689f38",
-                "#558b2f",
-                "#33691e",
-                "#9e9d24",
-                "#ef6c00",
-                "#e65100"
-            ];
-            var random = Math.random() * colors.length &lt;&lt; 0;
-            return colors[random];
         },
 
 
@@ -656,7 +669,7 @@ var TetrisGame;
                 }
             }
 
-            var charBlock = document.createElement('span');
+            let charBlock = document.createElement('span');
             charBlock.style.background = char.color;
             charBlock.innerHTML = char.name;
             charBlock.className = "charBlock animated " + (char.animateInClass || "");
@@ -690,19 +703,27 @@ var TetrisGame;
 
 
             // create game columns and rows
-            var playBoardTable = '';
-            for (var r = 0; r &lt; TetrisGame.config.rows; r++) {
+            let playBoardTable = '';
+            for (let r = 0; r &lt; TetrisGame.config.rows; r++) {
                 playBoardTable += '&lt;div class="isRow row_' + r + '">';
-                for (var c = 0; c &lt; TetrisGame.initValues.validatedColumnsCount; c++) {
+                for (let c = 0; c &lt; TetrisGame.initValues.validatedColumnsCount; c++) {
                     playBoardTable += '&lt;div class="isColumn column_' + c + '" data-row="' + r + '">&lt;/div>';
                 }
                 playBoardTable += '&lt;/div>';
             }
+
+            let rowArray = new Array(TetrisGame.config.rows);
+            for (let i = 0; i &lt; TetrisGame.config.rows; i++) {
+                rowArray[i] = new Array(TetrisGame.initValues.validatedColumnsCount);
+            }
+
+            TetrisGame.matrix = rowArray;
+
             TetrisGame.playBoard.innerHTML = playBoardTable;
 
 
             // Choose n words from json to create rows and columns
-            for (var i = 0; i &lt; TetrisGame.config.workingWordCount; i++) {
+            for (let i = 0; i &lt; TetrisGame.config.workingWordCount; i++) {
                 TetrisGame.initValues.choosedWords.push(TetrisGame.chooseWord());
             }
 
@@ -889,7 +910,7 @@ var TetrisGame;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 06 2018 07:57:47 GMT+0430 (+0430) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 06 2018 09:04:36 GMT+0430 (+0430) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

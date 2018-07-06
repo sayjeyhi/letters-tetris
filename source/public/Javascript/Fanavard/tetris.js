@@ -226,6 +226,101 @@ class Timer{
 
 
 /**
+ * @class MaterialColor - A class to get Random material color
+ *
+ * {@link https://github.com/egoist/color-lib/blob/master/color.json Colors from this link }
+ *
+ *
+ *
+ */
+class MaterialColor{
+    /**
+     * Get Hex value of a random material color
+     * @return {string}
+     *
+     * @example
+     *
+     * let myRandomColor = MaterialColor.getRandomColor();
+     */
+    static getRandomColor(){
+        let colors = [
+            "#ef5350",
+            "#d32f2f",
+            "#b71c1c",
+            "#d50000",
+            "#ec407a",
+            "#e91e63",
+            "#d81b60",
+            "#c2185b",
+            "#ad1457",
+            "#880e4f",
+            "#e91e63",
+            "#f50057",
+            "#c51162",
+            "#ab47bc",
+            "#9c27b0",
+            "#8e24aa",
+            "#7b1fa2",
+            "#6a1b9a",
+            "#4a148c",
+            "#9c27b0",
+            "#aa00ff",
+            "#7e57c2",
+            "#673ab7",
+            "#5e35b1",
+            "#512da8",
+            "#4527a0",
+            "#673ab7",
+            "#7c4dff",
+            "#651fff",
+            "#6200ea",
+            "#5c6bc0",
+            "#3f51b5",
+            "#3949ab",
+            "#303f9f",
+            "#283593",
+            "#1a237e",
+            "#3f51b5",
+            "#536dfe",
+            "#3d5afe",
+            "#304ffe",
+            "#1e88e5",
+            "#1976d2",
+            "#1565c0",
+            "#0d47a1",
+            "#2979ff",
+            "#2962ff",
+            "#0288d1",
+            "#0277bd",
+            "#01579b",
+            "#0091ea",
+            "#0097a7",
+            "#00838f",
+            "#006064",
+            "#009688",
+            "#00897b",
+            "#00796b",
+            "#00695c",
+            "#004d40",
+            "#4caf50",
+            "#43a047",
+            "#388e3c",
+            "#2e7d32",
+            "#7cb342",
+            "#689f38",
+            "#558b2f",
+            "#33691e",
+            "#9e9d24",
+            "#ef6c00",
+            "#e65100"
+        ];
+        let random = Math.random() * colors.length << 0;
+        return colors[random];
+    }
+}
+
+
+/**
  * Main Tetris Game Class
  * @class
  */
@@ -316,7 +411,7 @@ let TetrisGame;
             charBlock.column = Math.random() * TetrisGame.initValues.validatedColumnsCount << 0;
             charBlock.row = 0;                               // top is 0 and bottom is max
             charBlock.name = TetrisGame.initValues.nextChar === "" ? TetrisGame.chooseChar() : TetrisGame.initValues.nextChar;        // char value
-            charBlock.color = TetrisGame.materialColor();    // random material color
+            charBlock.color = MaterialColor.getRandomColor();    // random material color
             charBlock.active = true;                         // character is animating on air
             charBlock.element = null;                        // holds our character element
 
@@ -508,91 +603,8 @@ let TetrisGame;
          * Check if could find a success word
          */
         checkWordSuccess: function (lastChar) {
-
             log("check word happens");
             // @todo : if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
-        },
-
-
-        /**
-         * Get a random material color
-         * @return {string}
-         */
-        materialColor: function () {
-            // colors from https://github.com/egoist/color-lib/blob/master/color.json
-            let colors = [
-                "#ef5350",
-                "#d32f2f",
-                "#b71c1c",
-                "#d50000",
-                "#ec407a",
-                "#e91e63",
-                "#d81b60",
-                "#c2185b",
-                "#ad1457",
-                "#880e4f",
-                "#e91e63",
-                "#f50057",
-                "#c51162",
-                "#ab47bc",
-                "#9c27b0",
-                "#8e24aa",
-                "#7b1fa2",
-                "#6a1b9a",
-                "#4a148c",
-                "#9c27b0",
-                "#aa00ff",
-                "#7e57c2",
-                "#673ab7",
-                "#5e35b1",
-                "#512da8",
-                "#4527a0",
-                "#673ab7",
-                "#7c4dff",
-                "#651fff",
-                "#6200ea",
-                "#5c6bc0",
-                "#3f51b5",
-                "#3949ab",
-                "#303f9f",
-                "#283593",
-                "#1a237e",
-                "#3f51b5",
-                "#536dfe",
-                "#3d5afe",
-                "#304ffe",
-                "#1e88e5",
-                "#1976d2",
-                "#1565c0",
-                "#0d47a1",
-                "#2979ff",
-                "#2962ff",
-                "#0288d1",
-                "#0277bd",
-                "#01579b",
-                "#0091ea",
-                "#0097a7",
-                "#00838f",
-                "#006064",
-                "#009688",
-                "#00897b",
-                "#00796b",
-                "#00695c",
-                "#004d40",
-                "#4caf50",
-                "#43a047",
-                "#388e3c",
-                "#2e7d32",
-                "#7cb342",
-                "#689f38",
-                "#558b2f",
-                "#33691e",
-                "#9e9d24",
-                "#ef6c00",
-                "#e65100"
-            ];
-            let random = Math.random() * colors.length << 0;
-            return colors[random];
         },
 
 
