@@ -229,12 +229,12 @@ class Timer{
  * Main Tetris Game Class
  * @class
  */
-var TetrisGame;
+let TetrisGame;
 (function () {
 
     'use strict';
 
-    var blobTiming,timer;
+    let blobTiming,timer;
 
     let controlCodes = {
         DOWN: 40,
@@ -324,8 +324,8 @@ var TetrisGame;
             // move char
             charBlock.move = function (eventKeyCode) {
 
-                var moveTo = {};
-                var isBottomMove = false;
+                let moveTo = {};
+                let isBottomMove = false;
 
 
                 switch (eventKeyCode) {
@@ -365,7 +365,7 @@ var TetrisGame;
                 }
 
 
-                var destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
+                let destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
                 if (moveTo.row >= TetrisGame.config.rows || (destinationEl.innerText.trim() !== "")) {
 
                     if (isBottomMove) {
@@ -439,8 +439,8 @@ var TetrisGame;
          */
         chooseChar: function () {
 
-            var choosedChar;
-            var availableChars = TetrisGame.initValues.choosedWords.map(function (e) {
+            let choosedChar;
+            let availableChars = TetrisGame.initValues.choosedWords.map(function (e) {
                 return e ? e.word : ""
             }).join('');
 
@@ -467,9 +467,9 @@ var TetrisGame;
          * Choose random words in game build to work with
          */
         chooseWord: function () {
-            var keys = Object.keys(window.TetrisWords);
-            var randomKey = keys[keys.length * Math.random() << 0];
-            var value = window.TetrisWords[randomKey];
+            let keys = Object.keys(window.TetrisWords);
+            let randomKey = keys[keys.length * Math.random() << 0];
+            let value = window.TetrisWords[randomKey].replace(/ /g,"");
 
             if (typeof value === "undefined" && !TetrisGame.initValues.finished) {
                 TetrisGame.initValues.wordsFinished = true;
@@ -487,9 +487,9 @@ var TetrisGame;
          * Get a valid column number [min-max]
          */
         getValidColumnsNumber: function () {
-            var columnsNumber = TetrisGame.config.columnsMin;
-            for (var i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
-                var thisWordLength = window.TetrisWords[i].word.length;
+            let columnsNumber = TetrisGame.config.columnsMin;
+            for (let i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
+                let thisWordLength = window.TetrisWords[i].word.length;
                 if (thisWordLength > columnsNumber) {
                     columnsNumber = thisWordLength;
                 }
@@ -516,7 +516,7 @@ var TetrisGame;
          */
         materialColor: function () {
             // colors from https://github.com/egoist/color-lib/blob/master/color.json
-            var colors = [
+            let colors = [
                 "#ef5350",
                 "#d32f2f",
                 "#b71c1c",
@@ -587,7 +587,7 @@ var TetrisGame;
                 "#ef6c00",
                 "#e65100"
             ];
-            var random = Math.random() * colors.length << 0;
+            let random = Math.random() * colors.length << 0;
             return colors[random];
         },
 
@@ -611,7 +611,7 @@ var TetrisGame;
                 }
             }
 
-            var charBlock = document.createElement('span');
+            let charBlock = document.createElement('span');
             charBlock.style.background = char.color;
             charBlock.innerHTML = char.name;
             charBlock.className = "charBlock animated " + (char.animateInClass || "");
@@ -645,10 +645,10 @@ var TetrisGame;
 
 
             // create game columns and rows
-            var playBoardTable = '';
-            for (var r = 0; r < TetrisGame.config.rows; r++) {
+            let playBoardTable = '';
+            for (let r = 0; r < TetrisGame.config.rows; r++) {
                 playBoardTable += '<div class="isRow row_' + r + '">';
-                for (var c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
+                for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
                     playBoardTable += '<div class="isColumn column_' + c + '" data-row="' + r + '"></div>';
                 }
                 playBoardTable += '</div>';
@@ -657,7 +657,7 @@ var TetrisGame;
 
 
             // Choose n words from json to create rows and columns
-            for (var i = 0; i < TetrisGame.config.workingWordCount; i++) {
+            for (let i = 0; i < TetrisGame.config.workingWordCount; i++) {
                 TetrisGame.initValues.choosedWords.push(TetrisGame.chooseWord());
             }
 
