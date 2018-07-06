@@ -210,15 +210,8 @@ var arshLoader = {
 
                 loadingTextElement.innerHTML = '';
 
-
-
                 let chooseWordsKind = document.createElement('div');
-                chooseWordsKind.onclick = function (ev) {
-                    let openedStatus = this.dataset.opened || "no";
-                    let newDisplay = openedStatus === "yes" ? "none" : "inline-block";
-                    this.dataset.opened = openedStatus === "yes" ? "no" : "yes";
-                    document.querySelector(".chooseWordKindTooltip").style.display = newDisplay;
-                };
+
                 chooseWordsKind.innerHTML =
                     "<div data-choosedWordsKind='animals-حیوانات' class='wordsKind'>" +
                     '<div class="persianTitle">حیوانات</div>' +
@@ -226,6 +219,30 @@ var arshLoader = {
                     '<i class="linearicon linearicon-chevrons-expand-vertical"></i>' +
                     "</div>";
 
+                chooseWordsKind.querySelector(".wordsKind").onclick = function (ev) {
+                    ev.stopPropagation();
+                    let openedStatus = chooseWordsKind.dataset.opened || "no";
+                    let newDisplay = openedStatus === "yes" ? "none" : "inline-block";
+                    chooseWordsKind.dataset.opened = openedStatus === "yes" ? "no" : "yes";
+                    document.querySelector(".chooseWordKindTooltip").style.display = newDisplay;
+                };
+
+                window.onclick = function (ev) {
+                    if (!ev.target.matches('.wordsKind')) {
+                        chooseWordsKind.dataset.opened = "no";
+                        document.querySelector(".chooseWordKindTooltip").style.display = "none";
+                    }
+                }
+
+                // document.addEventListener("click", function (ev) {
+                //     if (!chooseWordsKind.is(e.target) && chooseWordsKind.has(e.target).length === 0) {
+                //         chooseWordsKind.hide();
+                //     }
+                //     if (ev.currentTarget != chooseWordsKind.querySelector(".wordsKind")) {
+                //         chooseWordsKind.dataset.opened = "no";
+                //         document.querySelector(".chooseWordKindTooltip").style.display = "none";
+                //     }
+                // })
 
                 var btnFa = document.createElement('div');
                 btnFa.onclick = function () {
@@ -292,6 +309,9 @@ var arshLoader = {
         chooserEl.querySelector(".persianTitle").innerHTML = choosedPersianTitle;
         chooserEl.querySelector(".englishTitle").innerHTML = choosedEnglishTitle;
         chooserEl.dataset.choosedwordskind = (name.toString() + "-" + choosedPersianTitle.toString());
+        // this.chooseWordKind.dataset.opened = "no";
+        document.querySelector(".wordsKind").parentElement.dataset.opened = "no";
+
     },
 
 
