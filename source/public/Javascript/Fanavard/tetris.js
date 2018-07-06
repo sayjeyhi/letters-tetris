@@ -1,341 +1,54 @@
 /* jshint browser: true */
-'use strict';
-
-//Create Object.assign method if it's not supported by default
-//TODO: After moving classes to other files, Make this function load before any other
-if (!Object.assign) {
-    Object.defineProperty(Object, 'assign', {
-        enumerable: false,
-        configurable: true,
-        writable: true,
-        value: function (target) {
-            'use strict';
-            if (target === undefined || target === null) {
-                throw new TypeError('Cannot convert first argument to object');
-            }
-
-            let to = Object(target);
-            for (let i = 1; i < arguments.length; i++) {
-                let nextSource = arguments[i];
-                if (nextSource === undefined || nextSource === null) {
-                    continue;
-                }
-                nextSource = Object(nextSource);
-
-                let keysArray = Object.keys(nextSource);
-                for (let nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
-                    let nextKey = keysArray[nextIndex];
-                    let desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
-                    if (desc !== undefined && desc.enumerable) {
-                        to[nextKey] = nextSource[nextKey];
-                    }
-                }
-            }
-            return to;
-        }
-    });
-}
-
-
-
-
-/**
- * Storage Class
- * @static
- * @class Storage
- *
- *
- */
-class Storage {
-
-    /**
-     * Returns a plain string of given key from localStorage
-     * @param {string} key
-     * @param {string} [default_value]
-     * @returns {string | null | * | string}
-     */
-    static get(key, default_value) {
-        default_value = default_value || "";
-        return localStorage.getItem(key) || default_value;
-    }
-
-    /**
-     * Returns an integer of given key from localStorage
-     * @param {string} key
-     * @param {string} default_value [default_value]
-     * @returns {number}
-     */
-    static getInt(key, default_value) {
-        default_value = default_value || 0;
-        return Number(get(key, default_value));
-    }
-
-    /**
-     * Returns an array of given key from localStorage
-     * @param {string} key
-     * @param {string} default_value [default_value]
-     * @returns {array}
-     */
-    static getArray(key, default_value) {
-        default_value = default_value || [];
-        return JSON.parse(get(key), default_value);
-    }
-
-    /**
-     * Returns an integer of given key from localStorage
-     * @param {string} key
-     * @param {string} default_value [default_value]
-     * @returns {Object}
-     */
-    static getJson(key, default_value) {
-        default_value = default_value || {};
-        return JSON.parse(get(key), default_value);
-    }
-
-    /**
-     * Saves an object in localStorage
-     * @param {string} key
-     * @param {Object} value
-     */
-    static set(key, value) {
-        if (typeof (value) === "object") {
-            value = JSON.stringify(value);
-        }
-        localStorage.setItem(key, value)
-    }
-}
-
-
-
-
-
-
-
-/**
- @typedef {Object} TimerConfig
- @property {string} [cssClass=".timerDisplay"] - CssClass selecor for setting time in timerDisplay.
- @property {function}   onStart     - Event when timer get's started.
- @property {function}   onPause     - Event when timer get's paused.
- @property {function}   onResume    - Event when timer get's resumed.
- @property {Object}     blobTiming  - Blob for feeding WebWorker.
- @property {function}   workerOnMessage(event) - Callback function for WebWorker.onmessage .
- @property {function}   beatifySecond(seconds) - Function to make time beatiful.
- */
-
-/**
- * A Timer class which use WebWorker to manage time.
- * @class Timer
- *
- * @constructor
- * @param {TimerConfig}
- *
- * @property timerWorker {WebWorker} WebWorker used in timer
- * @property config {TimerConfig}
- *
- *
- * @example
- *           let timer = new Timer({
- *               onStart: function(){
- *                   TetrisGame.initValues.paused = false;
- *               },
- *               workerOnMessage:function (event) {
- *                   Storage.set('seconds', event.data);
- *               },
- *               onPause:function () {
- *                   TetrisGame.initValues.paused = true;
- *               },
- *               onResume:function () {
- *                   TetrisGame.initValues.paused = false;
- *               },
- *               blobTiming: new Blob([document.querySelector('#workerTiming').textContent], { type: "text/javascript" });,
- *           });
- */
-class Timer {
-
-    constructor(config) {
-        this.timerWorker = null;
-        //Default config
-        let defaultConfig = {
-            cssClsss: ".timerDisplay",
-            onStart: () => { },
-            onPause: () => { },
-            onResume: () => { },
-            blobTiming: '',
-            workerOnMessage: (event) => { },
-            beautifySecond: (s) => {
-                if (s > 3600) {
-                    // 1 hour and 34 min
-                    return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
-                } else if (s > 60 && s <= 3600) {
-                    // 4 min and 3 s
-                    return (Math.ceil(s / 60) + lang.minute + lang.and + s % 60 + lang.second);
-                } else {
-                    return (s + lang.second);
-                }
-            }
-        };
-
-        //Extend config
-        this.config = Object.assign(defaultConfig, config);
-    }
-
-
-    /**
-     * Starts the timer
-     */
-
-    start() {
-        let timerDisplayEl = document.querySelector(this.config.cssClsss);
-        if (typeof (Worker) !== "undefined") {
-            if (!this.timerWorker) {
-                this.timerWorker = new Worker(window.URL.createObjectURL(this.config.blobTiming));
-            } else {
-                // stop timer if running already
-                this.pause();
-            }
-
-            this.timerWorker.onmessage = (event) => {
-                timerDisplayEl.innerHTML = this.config.beautifySecond(event.data);
-                this.config.workerOnMessage(event);
-            };
-            this.config.onStart();
-        } else {
-            timerDisplayEl.innerHTML = lang.webWorkerNotSupported;
-        }
-    };
-
-    /**
-     * Pauses the timer
-     */
-    pause() {
-        this.timerWorker.postMessage({ 'pause_flag': true });
-        this.config.onPause();
-    };
-
-
-    /**
-     * Resumes the timer
-     */
-
-    resume() {
-        this.timerWorker.postMessage({ 'pause_flag': false });
-        this.config.onResume();
-    };
-
-}
-
-
-/**
- * @class MaterialColor - A class to get Random material color
- *
- * {@link https://github.com/egoist/color-lib/blob/master/color.json Colors from this link }
- *
- *
- *
- */
-class MaterialColor {
-    /**
-     * Get Hex value of a random material color
-     * @return {string}
-     *
-     * @example
-     *
-     * let myRandomColor = MaterialColor.getRandomColor();
-     */
-    static getRandomColor() {
-        let colors = [
-            "#ef5350",
-            "#d32f2f",
-            "#b71c1c",
-            "#d50000",
-            "#ec407a",
-            "#e91e63",
-            "#d81b60",
-            "#c2185b",
-            "#ad1457",
-            "#880e4f",
-            "#e91e63",
-            "#f50057",
-            "#c51162",
-            "#ab47bc",
-            "#9c27b0",
-            "#8e24aa",
-            "#7b1fa2",
-            "#6a1b9a",
-            "#4a148c",
-            "#9c27b0",
-            "#aa00ff",
-            "#7e57c2",
-            "#673ab7",
-            "#5e35b1",
-            "#512da8",
-            "#4527a0",
-            "#673ab7",
-            "#7c4dff",
-            "#651fff",
-            "#6200ea",
-            "#5c6bc0",
-            "#3f51b5",
-            "#3949ab",
-            "#303f9f",
-            "#283593",
-            "#1a237e",
-            "#3f51b5",
-            "#536dfe",
-            "#3d5afe",
-            "#304ffe",
-            "#1e88e5",
-            "#1976d2",
-            "#1565c0",
-            "#0d47a1",
-            "#2979ff",
-            "#2962ff",
-            "#0288d1",
-            "#0277bd",
-            "#01579b",
-            "#0091ea",
-            "#0097a7",
-            "#00838f",
-            "#006064",
-            "#009688",
-            "#00897b",
-            "#00796b",
-            "#00695c",
-            "#004d40",
-            "#4caf50",
-            "#43a047",
-            "#388e3c",
-            "#2e7d32",
-            "#7cb342",
-            "#689f38",
-            "#558b2f",
-            "#33691e",
-            "#9e9d24",
-            "#ef6c00",
-            "#e65100"
-        ];
-        let random = Math.random() * colors.length << 0;
-        return colors[random];
-    }
-}
-
-
 /**
  * Main Tetris Game Class
  * @class
  */
-let TetrisGame;
 (function () {
 
     'use strict';
 
-    let blobTiming, timer, matrix;
+    let TetrisGame,blobTiming, timer, matrix;
 
     let controlCodes = {
         DOWN: 40,
         LEFT: 37,
         RIGHT: 39
     };
+
+    //Create Object.assign method if it's not supported by default
+    //TODO: After moving classes to other files, Make this function load before any other
+    if (!Object.assign) {
+        Object.defineProperty(Object, 'assign', {
+            enumerable: false,
+            configurable: true,
+            writable: true,
+            value: function (target) {
+                if (target === undefined || target === null) {
+                    throw new TypeError('Cannot convert first argument to object');
+                }
+
+                let to = Object(target);
+                for (let i = 1; i < arguments.length; i++) {
+                    let nextSource = arguments[i];
+                    if (nextSource === undefined || nextSource === null) {
+                        continue;
+                    }
+                    nextSource = Object(nextSource);
+
+                    let keysArray = Object.keys(nextSource);
+                    for (let nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+                        let nextKey = keysArray[nextIndex];
+                        let desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+                        if (desc !== undefined && desc.enumerable) {
+                            to[nextKey] = nextSource[nextKey];
+                        }
+                    }
+                }
+                return to;
+            }
+        });
+    }
+
 
     TetrisGame = {
 
@@ -874,7 +587,7 @@ let TetrisGame;
                 </div>
                 <footer class="page-footer">
                     <div class="container">
-                        <i class="linearicon linearicon-brain"></i>  ${lang.copyRight}
+                        <i class="linearicon linearicon-brain"></i> ${lang.copyRight}
                     </div>
                 </footer>`;
         }
