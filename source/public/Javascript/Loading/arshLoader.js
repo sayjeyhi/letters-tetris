@@ -230,7 +230,8 @@ var arshLoader = {
                 window.onclick = function (ev) {
                     if (!ev.target.matches('.wordsKind')) {
                         chooseWordsKind.dataset.opened = "no";
-                        document.querySelector(".chooseWordKindTooltip").style.display = "none";
+                        if (document.querySelector(".chooseWordKindTooltip"))
+                            document.querySelector(".chooseWordKindTooltip").style.display = "none";
                     }
                 }
 
