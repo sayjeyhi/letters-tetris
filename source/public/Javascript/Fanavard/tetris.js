@@ -8,7 +8,7 @@ if (!Object.assign) {
         enumerable: false,
         configurable: true,
         writable: true,
-        value: function(target) {
+        value: function (target) {
             'use strict';
             if (target === undefined || target === null) {
                 throw new TypeError('Cannot convert first argument to object');
@@ -46,7 +46,7 @@ if (!Object.assign) {
  *
  *
  */
-class Storage{
+class Storage {
 
     /**
      * Returns a plain string of given key from localStorage
@@ -78,7 +78,7 @@ class Storage{
      */
     static getArray(key, default_value) {
         default_value = default_value || [];
-        return JSON.parse(get(key),default_value);
+        return JSON.parse(get(key), default_value);
     }
 
     /**
@@ -87,9 +87,9 @@ class Storage{
      * @param {string} default_value [default_value]
      * @returns {Object}
      */
-    static getJson (key, default_value) {
+    static getJson(key, default_value) {
         default_value = default_value || {};
-        return JSON.parse(get(key),default_value);
+        return JSON.parse(get(key), default_value);
     }
 
     /**
@@ -98,7 +98,7 @@ class Storage{
      * @param {Object} value
      */
     static set(key, value) {
-        if (typeof (value)==="object"){
+        if (typeof (value) === "object") {
             value = JSON.stringify(value);
         }
         localStorage.setItem(key, value)
@@ -150,19 +150,19 @@ class Storage{
  *               blobTiming: new Blob([document.querySelector('#workerTiming').textContent], { type: "text/javascript" });,
  *           });
  */
-class Timer{
+class Timer {
 
-    constructor(config){
-        this.timerWorker=null;
+    constructor(config) {
+        this.timerWorker = null;
         //Default config
         let defaultConfig = {
             cssClsss: ".timerDisplay",
-            onStart: () => {},
-            onPause: () => {},
-            onResume:() => {},
+            onStart: () => { },
+            onPause: () => { },
+            onResume: () => { },
             blobTiming: '',
-            workerOnMessage: (event) =>{},
-            beautifySecond: (s) =>{
+            workerOnMessage: (event) => { },
+            beautifySecond: (s) => {
                 if (s > 3600) {
                     // 1 hour and 34 min
                     return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
@@ -176,7 +176,7 @@ class Timer{
         };
 
         //Extend config
-        this.config = Object.assign(defaultConfig,config);
+        this.config = Object.assign(defaultConfig, config);
     }
 
 
@@ -233,7 +233,7 @@ class Timer{
  *
  *
  */
-class MaterialColor{
+class MaterialColor {
     /**
      * Get Hex value of a random material color
      * @return {string}
@@ -242,7 +242,7 @@ class MaterialColor{
      *
      * let myRandomColor = MaterialColor.getRandomColor();
      */
-    static getRandomColor(){
+    static getRandomColor() {
         let colors = [
             "#ef5350",
             "#d32f2f",
@@ -329,7 +329,7 @@ let TetrisGame;
 
     'use strict';
 
-    let blobTiming,timer,matrix;
+    let blobTiming, timer, matrix;
 
     let controlCodes = {
         DOWN: 40,
@@ -466,7 +466,7 @@ let TetrisGame;
 
                     if (isBottomMove) {
 
-                        TetrisGame.matrix[moveTo.column][moveTo.row]=charBlock.name;
+                        TetrisGame.matrix[moveTo.column][moveTo.row] = charBlock.name;
                         console.log(TetrisGame.matrix);
 
                         // stop interval and request new char
@@ -569,7 +569,7 @@ let TetrisGame;
             let keys = Object.keys(window.TetrisWords);
             let randomKey = keys[keys.length * Math.random() << 0];
             let value = window.TetrisWords[randomKey];
-            value.word = value.word.replace(/ /g,"");
+            value.word = value.word.replace(/ /g, "");
 
             if (typeof value === "undefined" && !TetrisGame.initValues.finished) {
                 TetrisGame.initValues.wordsFinished = true;
@@ -646,7 +646,7 @@ let TetrisGame;
          * @param showClassed
          * @param hideClasses
          */
-        buttonManager: function (showClassed , hideClasses) {
+        buttonManager: function (showClassed, hideClasses) {
             let gameBtnControl = document.querySelector(".gameControlButtons");
             gameBtnControl.querySelectorAll(showClassed).forEach((item) => {
                 item.style.display = "inline-block";
@@ -710,7 +710,7 @@ let TetrisGame;
             });
 
 
-            TetrisGame.buttonManager('.pauseGame,.restartGame' , '.startGame,.resumeGame');
+            TetrisGame.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
         },
 
 
@@ -720,7 +720,7 @@ let TetrisGame;
          */
         pauseGamePlay: function () {
 
-            TetrisGame.buttonManager('.resumeGame,.restartGame' , '.startGame,.pauseGame');
+            TetrisGame.buttonManager('.resumeGame,.restartGame', '.startGame,.pauseGame');
 
             // stop timer [will stop whole game]
             TetrisGame.timer.pause();
@@ -733,7 +733,7 @@ let TetrisGame;
         resumeGamePlay: function () {
 
 
-            TetrisGame.buttonManager('.pauseGame,.restartGame' , '.startGame,.resumeGame');
+            TetrisGame.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
 
 
             // resume timer [will resume whole game]
@@ -770,7 +770,7 @@ let TetrisGame;
          */
         finishGame: function (mode) {
 
-            TetrisGame.buttonManager('.restartGame' , '.startGame,.pauseGame,.resumeGame');
+            TetrisGame.buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');
 
             TetrisGame.initValues.finished = true;
             TetrisGame.timer.pause();
@@ -802,17 +802,17 @@ let TetrisGame;
 
 
             TetrisGame.timer = new Timer({
-                blobTiming:blobTiming,
-                onStart: function(){
+                blobTiming: blobTiming,
+                onStart: function () {
                     TetrisGame.initValues.paused = false;
                 },
-                workerOnMessage:function (event) {
+                workerOnMessage: function (event) {
                     Storage.set('seconds', event.data);
                 },
-                onPause:function () {
+                onPause: function () {
                     TetrisGame.initValues.paused = true;
                 },
-                onResume:function () {
+                onResume: function () {
                     TetrisGame.initValues.paused = false;
                 }
             });
