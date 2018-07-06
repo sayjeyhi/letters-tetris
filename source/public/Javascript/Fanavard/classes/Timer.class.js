@@ -1,6 +1,3 @@
-
-
-
 /**
  @typedef {Object} TimerConfig
  @property {string} [cssClass=".timerDisplay"] - CssClass selecor for setting time in timerDisplay.
@@ -86,7 +83,7 @@ class Timer {
             this.timerWorker.onmessage = (event) => {
                 timerDisplayEl.innerHTML = this.config.beautifySecond(event.data);
                 this.config.workerOnMessage(event);
-            };
+            }
             this.config.onStart();
         } else {
             timerDisplayEl.innerHTML = lang.webWorkerNotSupported;

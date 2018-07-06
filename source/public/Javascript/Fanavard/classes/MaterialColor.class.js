@@ -1,6 +1,3 @@
-
-
-
 /**
  * @class MaterialColor - A class to get Random material color
  *

@@ -1,11 +1,7 @@
-
-
 /**
  * Storage Class
  * @static
  * @class Storage
- *
- *
  */
 class Storage {
 

@@ -50,6 +50,10 @@
     }
 
 
+    /**
+     * Tetris game
+     * @type {{version: string, config: {rows: number, columnsMin: number, columnsMax: number, workingWordCount: number, charSpeed: number, checkInRow: boolean, checkInColumn: boolean, animateHiding: boolean, playSoundOnSuccess: boolean, playSoundOnFailure: boolean, useLowercase: boolean, animateCharSpeed: number}, initValues: {paused: boolean, finished: boolean, wordsFinished: boolean, chooseedWordKind: {}, validatedColumnsCount: number, nextChar: string, activeChar: {}, choosedWords: Array, choosedWordsUsedChars: Array}, isBrowser: boolean, playBoard: null, charBlock: charBlock, showUpCommingChar: showUpCommingChar, chooseChar: chooseChar, chooseWord: chooseWord, getValidColumnsNumber: getValidColumnsNumber, checkWordSuccess: checkWordSuccess, characterFactory: characterFactory, buttonManager: buttonManager, startGamePlay: startGamePlay, pauseGamePlay: pauseGamePlay, resumeGamePlay: resumeGamePlay, restartGamePlay: restartGamePlay, finishGame: finishGame, build: build}}
+     */
     TetrisGame = {
 
         /**
