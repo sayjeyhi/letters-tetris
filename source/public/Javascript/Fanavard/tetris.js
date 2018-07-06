@@ -234,7 +234,7 @@ let TetrisGame;
 
     'use strict';
 
-    let blobTiming,timer;
+    let blobTiming,timer,matrix;
 
     let controlCodes = {
         DOWN: 40,
@@ -369,6 +369,9 @@ let TetrisGame;
                 if (moveTo.row >= TetrisGame.config.rows || (destinationEl.innerText.trim() !== "")) {
 
                     if (isBottomMove) {
+
+                        TetrisGame.matrix[moveTo.column][moveTo.row]=charBlock.name;
+                        console.log(TetrisGame.matrix);
 
                         // stop interval and request new char
                         clearInterval(charBlock.interval);
@@ -654,6 +657,14 @@ let TetrisGame;
                 }
                 playBoardTable += '</div>';
             }
+
+            let rowArray = new Array(TetrisGame.config.rows);
+            for (let i = 0; i < TetrisGame.config.rows; i++) {
+                rowArray[i] = new Array(TetrisGame.initValues.validatedColumnsCount);
+            }
+
+            TetrisGame.matrix = rowArray;
+
             TetrisGame.playBoard.innerHTML = playBoardTable;
 
 
