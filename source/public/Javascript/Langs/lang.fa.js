@@ -10,7 +10,7 @@ var lang = {
     restartGame: "شروع دوباره",
     nextLetter: "کاراکتر بعدی",
     clickStartGame: "برای شروع بر روی دکمه شروع بازی کلیک کنید",
-    copyRight: "کپی رایت برای تیم عرش محفوظ می باشد.",
+    copyRight: "کپی رایت برای تیم عرش محفوظ می باشد ، موسیقی @mimrasouli",
     settings: "تنظیمات",
     save: "ذخیره",
 

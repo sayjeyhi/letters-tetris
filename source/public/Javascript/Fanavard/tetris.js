@@ -224,7 +224,7 @@
 
 
             // interval
-            charBlock.interval = setInterval(function () {
+            charBlock.interval = setInterval(() => {
                 if (!TetrisGame.initValues.paused) {
                     charBlock.move(40);
                 }
@@ -234,7 +234,7 @@
             // destroy current character
             charBlock.destroy = function (workingElement, outgoingAnimation) {
                 workingElement.className += " animated " + outgoingAnimation;
-                setTimeout(function () {
+                setTimeout(() => {
                     // remove current char
                     workingElement.parentNode.removeChild(workingElement);
                 }, 200);
@@ -325,9 +325,11 @@
         getValidColumnsNumber: function () {
             let columnsNumber = TetrisGame.config.columnsMin;
             for (let i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
-                let thisWordLength = window.TetrisWords[i].word.length;
-                if (thisWordLength > columnsNumber) {
-                    columnsNumber = thisWordLength;
+                if(window.TetrisWords[i]) {
+                    let thisWordLength = window.TetrisWords[i].word.length;
+                    if (thisWordLength > columnsNumber) {
+                        columnsNumber = thisWordLength;
+                    }
                 }
             }
             columnsNumber = TetrisGame.config.columnsMax < columnsNumber ? TetrisGame.config.columnsMax : columnsNumber;
@@ -507,7 +509,6 @@
                 choosedWords: [],               // Choosed words to work with them
                 choosedWordsUsedChars: []      // Chars that used from choosed words
             };
-
 
             // play resume sound
             Sounds.play('pause');

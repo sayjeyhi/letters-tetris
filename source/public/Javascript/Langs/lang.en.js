@@ -10,7 +10,7 @@ var lang = {
     restartGame: "Restart Game",
     nextLetter: "Next letter",
     clickStartGame: "Click Start game to begin",
-    copyRight: "All right reserved for Arsh Team",
+    copyRight: "All right reserved for Arsh Team , music @mimrasouli",
     settings: "Settings",
     save: "Save",
 
