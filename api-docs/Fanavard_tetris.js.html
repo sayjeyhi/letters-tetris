@@ -1,5 +1,47 @@
-/* jshint browser: true */
-'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Fanavard/tetris.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Storage.html">Storage</a><ul class='methods'><li data-type='method'><a href="Storage.html#.get">get</a></li><li data-type='method'><a href="Storage.html#.getArray">getArray</a></li><li data-type='method'><a href="Storage.html#.getInt">getInt</a></li><li data-type='method'><a href="Storage.html#.getJson">getJson</a></li><li data-type='method'><a href="Storage.html#.set">set</a></li></ul></li><li><a href="TetrisGame.html">TetrisGame</a></li><li><a href="Timer.html">Timer</a><ul class='methods'><li data-type='method'><a href="Timer.html#pause">pause</a></li><li data-type='method'><a href="Timer.html#resume">resume</a></li><li data-type='method'><a href="Timer.html#start">start</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#addLanguage">addLanguage</a></li><li><a href="global.html#allowedInitTypes">allowedInitTypes</a></li><li><a href="global.html#allowInit">allowInit</a></li><li><a href="global.html#build">build</a></li><li><a href="global.html#buildDummy">buildDummy</a></li><li><a href="global.html#buildPlugIns">buildPlugIns</a></li><li><a href="global.html#checkLoad">checkLoad</a></li><li><a href="global.html#debugMode">debugMode</a></li><li><a href="global.html#deepExtend">deepExtend</a></li><li><a href="global.html#defaultLoadProperties">defaultLoadProperties</a></li><li><a href="global.html#defaultType">defaultType</a></li><li><a href="global.html#disableCache">disableCache</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#jRun">jRun</a></li><li><a href="global.html#loadedFiles">loadedFiles</a></li><li><a href="global.html#notAllowedUserAttributes">notAllowedUserAttributes</a></li><li><a href="global.html#plugins">plugins</a></li><li><a href="global.html#sanitizeName">sanitizeName</a></li><li><a href="global.html#setLoadedFlag">setLoadedFlag</a></li><li><a href="global.html#TetrisWords">TetrisWords</a></li><li><a href="global.html#urlPrefix">urlPrefix</a></li><li><a href="global.html#version">version</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Fanavard/tetris.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* jshint browser: true */
+
 
 //Create Object.assign method if it's not supported by default
 //TODO: After moving classes to other files, Make this function load before any other
@@ -15,7 +57,7 @@ if (!Object.assign) {
             }
 
             let to = Object(target);
-            for (let i = 1; i < arguments.length; i++) {
+            for (let i = 1; i &lt; arguments.length; i++) {
                 let nextSource = arguments[i];
                 if (nextSource === undefined || nextSource === null) {
                     continue;
@@ -23,10 +65,10 @@ if (!Object.assign) {
                 nextSource = Object(nextSource);
 
                 let keysArray = Object.keys(nextSource);
-                for (let nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+                for (let nextIndex = 0, len = keysArray.length; nextIndex &lt; len; nextIndex++) {
                     let nextKey = keysArray[nextIndex];
                     let desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
-                    if (desc !== undefined && desc.enumerable) {
+                    if (desc !== undefined &amp;&amp; desc.enumerable) {
                         to[nextKey] = nextSource[nextKey];
                     }
                 }
@@ -149,6 +191,9 @@ class Storage{
  *               },
  *               blobTiming: new Blob([document.querySelector('#workerTiming').textContent], { type: "text/javascript" });,
  *           });
+ *
+ *
+ *
  */
 class Timer{
 
@@ -166,7 +211,7 @@ class Timer{
                 if (s > 3600) {
                     // 1 hour and 34 min
                     return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
-                } else if (s > 60 && s <= 3600) {
+                } else if (s > 60 &amp;&amp; s &lt;= 3600) {
                     // 4 min and 3 s
                     return (Math.ceil(s / 60) + lang.minute + lang.and + s % 60 + lang.second);
                 } else {
@@ -313,7 +358,7 @@ var TetrisGame;
             let charBlock = {};
 
             // choose random column to init char
-            charBlock.column = Math.random() * TetrisGame.initValues.validatedColumnsCount << 0;
+            charBlock.column = Math.random() * TetrisGame.initValues.validatedColumnsCount &lt;&lt; 0;
             charBlock.row = 0;                               // top is 0 and bottom is max
             charBlock.name = TetrisGame.initValues.nextChar === "" ? TetrisGame.chooseChar() : TetrisGame.initValues.nextChar;        // char value
             charBlock.color = TetrisGame.materialColor();    // random material color
@@ -360,7 +405,7 @@ var TetrisGame;
 
 
                 // if move to is out of range
-                if (moveTo.column >= TetrisGame.initValues.validatedColumnsCount || moveTo.column < 0) {
+                if (moveTo.column >= TetrisGame.initValues.validatedColumnsCount || moveTo.column &lt; 0) {
                     return false;
                 }
 
@@ -455,7 +500,7 @@ var TetrisGame;
                     return TetrisGame.chooseChar();
                 }
             } else {
-                choosedChar = availableChars[Math.random() * availableChars.length << 0];
+                choosedChar = availableChars[Math.random() * availableChars.length &lt;&lt; 0];
                 TetrisGame.initValues.choosedWordsUsedChars.push(choosedChar);
 
                 return choosedChar;
@@ -468,10 +513,10 @@ var TetrisGame;
          */
         chooseWord: function () {
             var keys = Object.keys(window.TetrisWords);
-            var randomKey = keys[keys.length * Math.random() << 0];
+            var randomKey = keys[keys.length * Math.random() &lt;&lt; 0];
             var value = window.TetrisWords[randomKey];
 
-            if (typeof value === "undefined" && !TetrisGame.initValues.finished) {
+            if (typeof value === "undefined" &amp;&amp; !TetrisGame.initValues.finished) {
                 TetrisGame.initValues.wordsFinished = true;
                 return false;
             }
@@ -494,7 +539,7 @@ var TetrisGame;
                     columnsNumber = thisWordLength;
                 }
             }
-            columnsNumber = TetrisGame.config.columnsMax < columnsNumber ? TetrisGame.config.columnsMax : columnsNumber;
+            columnsNumber = TetrisGame.config.columnsMax &lt; columnsNumber ? TetrisGame.config.columnsMax : columnsNumber;
             return columnsNumber % 2 === 0 ? columnsNumber : columnsNumber + 1;
         },
 
@@ -587,7 +632,7 @@ var TetrisGame;
                 "#ef6c00",
                 "#e65100"
             ];
-            var random = Math.random() * colors.length << 0;
+            var random = Math.random() * colors.length &lt;&lt; 0;
             return colors[random];
         },
 
@@ -646,18 +691,18 @@ var TetrisGame;
 
             // create game columns and rows
             var playBoardTable = '';
-            for (var r = 0; r < TetrisGame.config.rows; r++) {
-                playBoardTable += '<div class="isRow row_' + r + '">';
-                for (var c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
-                    playBoardTable += '<div class="isColumn column_' + c + '" data-row="' + r + '"></div>';
+            for (var r = 0; r &lt; TetrisGame.config.rows; r++) {
+                playBoardTable += '&lt;div class="isRow row_' + r + '">';
+                for (var c = 0; c &lt; TetrisGame.initValues.validatedColumnsCount; c++) {
+                    playBoardTable += '&lt;div class="isColumn column_' + c + '" data-row="' + r + '">&lt;/div>';
                 }
-                playBoardTable += '</div>';
+                playBoardTable += '&lt;/div>';
             }
             TetrisGame.playBoard.innerHTML = playBoardTable;
 
 
             // Choose n words from json to create rows and columns
-            for (var i = 0; i < TetrisGame.config.workingWordCount; i++) {
+            for (var i = 0; i &lt; TetrisGame.config.workingWordCount; i++) {
                 TetrisGame.initValues.choosedWords.push(TetrisGame.chooseWord());
             }
 
@@ -797,36 +842,59 @@ var TetrisGame;
 
             // add main html to page
             document.querySelector("#container").innerHTML =
-                `<div class="gameHolder ${ltrClass}">
-                    <div class="behindPlayBoard">
-                       <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
-                       <div class="gameControlButtons" >
-                            <div onclick="TetrisGame.startGamePlay();" class="startGame">${lang.startGame}</div>
-                            <div onclick="TetrisGame.pauseGamePlay();" class="pauseGame" style="display: none">${lang.pauseGame}</div>
-                            <div onclick="TetrisGame.resumeGamePlay();" class="resumeGame" style="display: none">${lang.resumeGame}</div>
-                            <div onclick="TetrisGame.restartGamePlay();" class="restartGame" style="display: none">${lang.restartGame}</div>
-                       </div>
-                       <div class="courseArea">
-                           <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div>
-                           <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
-                           <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
-                       </div>
-                   </div>
-                   <div class="playBoard"><span class="emptyPlayBoard">${lang.clickStartGame}</span></div>
-                </div>
-                <footer class="page-footer">
-                    <div class="container">
-                        <i class="linearicon linearicon-brain"></i>  ${lang.copyRight}
-                    </div>
-                </footer>`;
+                `&lt;div class="gameHolder ${ltrClass}">
+                    &lt;div class="behindPlayBoard">
+                       &lt;div class="showUpComingLetter" title="${lang.nextLetter}:">&lt;/div>
+                       &lt;div class="gameControlButtons" >
+                            &lt;div onclick="TetrisGame.startGamePlay();" class="startGame">${lang.startGame}&lt;/div>
+                            &lt;div onclick="TetrisGame.pauseGamePlay();" class="pauseGame" style="display: none">${lang.pauseGame}&lt;/div>
+                            &lt;div onclick="TetrisGame.resumeGamePlay();" class="resumeGame" style="display: none">${lang.resumeGame}&lt;/div>
+                            &lt;div onclick="TetrisGame.restartGamePlay();" class="restartGame" style="display: none">${lang.restartGame}&lt;/div>
+                       &lt;/div>
+                       &lt;div class="courseArea">
+                           &lt;div >&lt;i class="linearicon linearicon-bag-pound">&lt;/i> ${lang.score} : 0&lt;/div>
+                           &lt;div >&lt;i class="linearicon linearicon-mustache-glasses">&lt;/i> ${lang.createdWords} : 0&lt;/div>
+                           &lt;div >&lt;i class="linearicon linearicon-clock">&lt;/i> ${lang.spentTime} : &lt;span class="timerDisplay">0&lt;/span>&lt;/div>
+                       &lt;/div>
+                   &lt;/div>
+                   &lt;div class="playBoard">&lt;span class="emptyPlayBoard">${lang.clickStartGame}&lt;/span>&lt;/div>
+                &lt;/div>
+                &lt;footer class="page-footer">
+                    &lt;div class="container">
+                        &lt;i class="linearicon linearicon-brain">&lt;/i>  ${lang.copyRight}
+                    &lt;/div>
+                &lt;/footer>`;
         }
     };
 
 
-    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    if (typeof module !== 'undefined' &amp;&amp; typeof module.exports !== 'undefined') {
         module.exports = TetrisGame;
     } else if (TetrisGame.isBrowser) {
         window.TetrisGame = TetrisGame;
     }
 
 })();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 06 2018 07:57:47 GMT+0430 (+0430) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+
+</body>
+</html>
