@@ -448,11 +448,11 @@ const CONTROL_CODES = {
             Sounds.play('start');
 
             // arrow keys press
-            document.addEventListener("keydown", function (e) {
+            document.onkeydown = function (e) {
                 if(!TetrisGame.initValues.paused) {
                     TetrisGame.initValues.activeChar.move(e.keyCode);
                 }
-            });
+            }
 
             TetrisGame.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
         },
