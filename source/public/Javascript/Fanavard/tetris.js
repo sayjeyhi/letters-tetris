@@ -68,7 +68,7 @@ let isFirstRun=true;
          * Base config for game
          */
         config: {
-            rows: 11,
+            rows: 3,
             columnsMin: 6,
             columnsMax: 12,
             workingWordCount: 2,
@@ -547,16 +547,33 @@ let isFirstRun=true;
 
             TetrisGame.initValues.finished = true;
             TetrisGame.timer.pause();
+
+            let modalHeader = "", modalContent = "";
             if (mode === "gameOver") {
-                let modal = new Modal("Game Over!",TetrisGame.isRtl);
-                modal.show();
+                modalHeader = lang.gameOverModalTitle;
+                modalContent = lang.gameOverModalContent;
             } else {
-                let modal = new Modal("Finished words.",TetrisGame.isRtl);
-                modal.show();
+                modalHeader = lang.noExtraWordModalTitle;
+                modalContent = lang.noExtraWordModalContent;
             }
 
+            let modal = new Modal({
+                header : modalHeader,
+                content : modalContent,
+                buttons : [
+                    {
+                        text : lang.modalOkButton,
+                        isOk : true,
+                        onclick : function () {
+                            this.destroy();
+                        }
+                    }
+                ]
+            }, lang.rtl );
 
-            // @todo : show modal
+            setTimeout(function () {
+                modal.show();
+            } , 200);
 
         },
 
@@ -621,7 +638,7 @@ let isFirstRun=true;
                 let sound = new Sound("background");
                 sound.play();
 
-                isFirstRun=false;
+                isFirstRun = false;
             }
 
 

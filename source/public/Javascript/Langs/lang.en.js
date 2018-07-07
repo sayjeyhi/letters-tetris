@@ -13,7 +13,11 @@ var lang = {
     copyRight: "All right reserved for Arsh Team , music @mimrasouli",
     settings: "Settings",
     save: "Save",
-
+    gameOverModalTitle : "Game Over",
+    gameOverModalContent : "You loose , but it is okay <br/> You could have another try and learn some thing.",
+    noExtraWordModalTitle : "Words Finished !",
+    noExtraWordModalContent : "You are a big hero, as you finished all of our words in this category .<br/> You could start gaming other categories !",
+    modalOkButton : "Ok",
 
     hour: " hour ",
     minute: " min ",
