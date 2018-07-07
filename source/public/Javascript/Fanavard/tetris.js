@@ -1,18 +1,21 @@
 /* jshint browser: true */
+
+
+const CONTROL_CODES = {
+    DOWN: 40,
+    LEFT: 37,
+    RIGHT: 39
+};
+
+
 (function () {
 
     'use strict';
 
     let TetrisGame,blobTiming, timer, matrix;
 
-    let controlCodes = {
-        DOWN: 40,
-        LEFT: 37,
-        RIGHT: 39
-    };
-
-
     /**
+     * //TODO: Execute this before anything else
      * Create Object.assign method if it's not supported by default
      */
     if (!Object.assign) {
@@ -140,7 +143,7 @@
 
 
                 switch (eventKeyCode) {
-                    case controlCodes.LEFT:  // left
+                    case TetrisGame.controlCodes.LEFT:  // left
                         moveTo = {
                             row: charBlock.row,
                             column: charBlock.column + 1,
@@ -148,7 +151,7 @@
                             animateInClass: (lang.rtl ? "fadeInRight" : "fadeInLeft")
                         };
                         break;
-                    case controlCodes.RIGHT:  // right
+                    case TetrisGame.controlCodes.RIGHT:  // right
                         moveTo = {
                             row: charBlock.row,
                             column: charBlock.column - 1,
@@ -156,7 +159,7 @@
                             animateInClass: (lang.rtl ? "fadeInLeft" : "fadeInRight")
                         };
                         break;
-                    case controlCodes.DOWN:  // down
+                    case TetrisGame.controlCodes.DOWN:  // down
                         moveTo = {
                             row: charBlock.row + 1,
                             column: charBlock.column,
@@ -451,7 +454,6 @@
                 }
             });
 
-
             TetrisGame.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
         },
 
@@ -512,6 +514,10 @@
 
             // play resume sound
             Sounds.play('pause');
+
+            //Remove old listener of keydown which causes multiple moves
+            document.onkeydown=null;
+
 
             // re-build game
             TetrisGame.build();
@@ -582,15 +588,24 @@
 
             // make ltr if used lang is ltr
             let ltrClass = "";
+
+            TetrisGame.controlCodes = {
+                LEFT:   CONTROL_CODES.LEFT,
+                RIGHT:  CONTROL_CODES.RIGHT,
+                DOWN:   CONTROL_CODES.DOWN
+            };
+
             if (!lang.rtl) {
                 ltrClass = "isLtr";
 
                 // In LTR languages, Left and Right should be swapped
-                let tmp = controlCodes.LEFT;
-                controlCodes.LEFT = controlCodes.RIGHT;
-                controlCodes.RIGHT = tmp;
+                TetrisGame.controlCodes = {
+                    RIGHT:  CONTROL_CODES.LEFT,
+                    LEFT:   CONTROL_CODES.RIGHT,
+                    DOWN:   CONTROL_CODES.DOWN
+                }
             }
-
+            console.log(TetrisGame.controlCodes);
             Sounds.playFromUrl("background");
 
             // add main html to page
