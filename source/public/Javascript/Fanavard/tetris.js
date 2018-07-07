@@ -407,6 +407,39 @@ let isFirstRun=true;
 
 
         /**
+         * Show game settings
+         */
+        showSetting: function () {
+
+            log("sdsadas");
+
+            let content = '<div class="">تنظیمات</div>';
+
+            let modal = new Modal({
+                header : lang.settingModalTitle,
+                content : content,
+                buttons : [
+                    {
+                        text : lang.save,
+                        notOk : true,
+                        onclick : function () {
+                            modal.destroy();
+                            TetrisGame.restartGamePlay();
+                        }
+                    },
+                    {
+                        text : lang.close,
+                        isOk : true,
+                        onclick : function () {
+                            modal.destroy();
+                        }
+                    }
+                ]
+            }, lang.rtl );
+        },
+
+
+        /**
          * Start Game playByKey
          */
         startGamePlay: function () {
@@ -420,7 +453,7 @@ let isFirstRun=true;
             TetrisGame.playBoard.classList.add('is' + TetrisGame.initValues.validatedColumnsCount + 'Column');
 
 
-            // create game columns and rows
+            // create game columns and rows - matrix
             let playBoardTable = '';
             let rowArray = [];
             for (let r = 0; r < TetrisGame.config.rows; r++) {
@@ -538,7 +571,7 @@ let isFirstRun=true;
         finishGame: function (mode) {
 
 
-            // playByKey finish sound
+            // play finish sound
             Sound.playByKey('finishGame');
 
 
@@ -663,7 +696,7 @@ let isFirstRun=true;
                             <div onclick="TetrisGame.restartGamePlay();" class="restartGame" style="display: none">${lang.restartGame}</div>
                         </div>
                        <div class="courseArea">
-                           <div class="setting"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
+                           <div class="setting" onclick="TetrisGame.showSetting();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
                            <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div>
                            <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
                            <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>

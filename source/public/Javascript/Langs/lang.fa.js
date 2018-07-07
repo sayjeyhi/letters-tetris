@@ -13,6 +13,7 @@ var lang = {
     copyRight: "کپی رایت برای تیم عرش محفوظ می باشد ، موسیقی @mimrasouli",
     settings: "تنظیمات",
     save: "ذخیره",
+    close: "بستن",
     gameOverModalTitle : "پایان بازی",
     gameOverModalContent : "بازی به پایان رسیده است ، نمایش امتیازها در این بخش",
     noExtraWordModalTitle : "پایان کلمات بازی!",
