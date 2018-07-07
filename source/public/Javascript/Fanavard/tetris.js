@@ -68,7 +68,7 @@ let isFirstRun=true;
          * Base config for game
          */
         config: {
-            rows: 3,
+            rows: 11,
             columnsMin: 6,
             columnsMax: 12,
             workingWordCount: 2,
