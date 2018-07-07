@@ -79,7 +79,7 @@ let isFirstRun=true;
             playSoundOnSuccess: false,
             playSoundOnFailure: false,
             useLowercase: false,
-            animateCharSpeed: 20
+            level: 1                        // up to 3 - if it is big it is hard to play
         },
 
 
@@ -279,7 +279,13 @@ let isFirstRun=true;
             let keys = Object.keys(window.TetrisWords);
             let randomKey = keys[keys.length * Math.random() << 0];
             let value = window.TetrisWords[randomKey];
-            value.word = value.word.replace(/\s/g, "");
+            value.word = value.word.replace(/[^a-zA-Zآ-ی]/g, "");
+
+
+            // use lower case of characters
+            if(TetrisGame.config.useLowercase){
+                value.word = value.word.toLowerCase();
+            }
 
             if (typeof value === "undefined" && !TetrisGame.initValues.finished) {
                 TetrisGame.initValues.wordsFinished = true;
