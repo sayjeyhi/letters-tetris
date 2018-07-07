@@ -142,7 +142,7 @@ class Modal {
                 // create button
                 let button = document.createElement("div");
                 button.innerHTML = optionBtn.text || "";
-                button.className = "buttonModal " + (options.buttons.isOk ? "isOk" : (options.buttons.notOk ? "notOk" : ""));
+                button.className = "buttonModal " + (optionBtn.isOk ? "isOk" : (optionBtn.notOk ? "notOk" : ""));
                 button.onclick = optionBtn.onclick || (() => {});
 
                 // add button to footer

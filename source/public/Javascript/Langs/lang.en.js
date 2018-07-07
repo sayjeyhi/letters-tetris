@@ -14,10 +14,22 @@ var lang = {
     settings: "Settings",
     save: "Save",
     close: "Close",
+
+    simple:"Simple",
+    medium:"Medium",
+    expert:"Expert",
+    gameLevel:"Level",
+    active:"Active",
+    deActive:"Deactive",
+    animation:"Animation",
+    backgroundMusic : "Background music",
+    eventsMusic : "Events music",
+
     gameOverModalTitle : "Game Over",
     gameOverModalContent : "You loose , but it is okay <br/> You could have another try and learn some thing.",
     noExtraWordModalTitle : "Words Finished !",
     noExtraWordModalContent : "You are a big hero, as you finished all of our words in this category .<br/> You could start gaming other categories !",
+    settingModalTitle: "Settings :",
     modalOkButton : "Ok",
 
     hour: " hour ",

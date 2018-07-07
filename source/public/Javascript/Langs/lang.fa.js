@@ -14,10 +14,22 @@ var lang = {
     settings: "تنظیمات",
     save: "ذخیره",
     close: "بستن",
+
+    simple:"ساده",
+    medium:"متوسط",
+    expert:"پیشرفته",
+    gameLevel:"سطح بازی",
+    active:"فعال",
+    deActive:"غیرفعال",
+    animation:"انیمیشن",
+    backgroundMusic : "موسیقی پس زمینه",
+    eventsMusic : "صداهای رخدادها",
+
     gameOverModalTitle : "پایان بازی",
     gameOverModalContent : "بازی به پایان رسیده است ، نمایش امتیازها در این بخش",
     noExtraWordModalTitle : "پایان کلمات بازی!",
     noExtraWordModalContent : "شما تمام کلمات موجود در این دسته بندی را یافته و به پایان رساندید<br/> برای ادامه می توانید سایر دسته بندی ها را تست کنید !",
+    settingModalTitle: "تنظیمات :",
     modalOkButton : "بستن پنجره",
 
 

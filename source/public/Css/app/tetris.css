@@ -728,6 +728,16 @@ svg :not(.doNotUnfill){stroke:currentColor}
         font-size: 11px;
     }
 
+    .modal{
+        width:70%;
+    }
+
+}
+
+@media (max-width: 868px) {
+    .modal{
+        width:85%;
+    }
 }
 
 
@@ -802,3 +812,22 @@ svg :not(.doNotUnfill){stroke:currentColor}
     direction: rtl;
     text-align: right;
 }
+
+
+#settingForm .formLabel{display: inline-block;width: 25%;font-size: 14px;color: #515151;position: relative;margin-right: 12px;}
+#settingForm .formLabel .linearicon{position: absolute;right: -28px;font-size: 32px;transform: rotate(-14deg);top: -9px;color: #d1d1d1b3;}
+#settingForm .formData{display: inline-block;}
+
+.modal.ltr #settingForm .formLabel .linearicon{
+    left: -28px;
+    right: auto !important;
+}
+.modal.ltr #settingForm .formLabel{
+    margin-left: 12px !important;
+    margin-right: 0 !important;
+}
+
+.cssRadio input[type="radio"]{display:none}
+.cssRadio input[type="radio"] + label span{cursor:pointer;-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;padding:8px 22px;font-size:13px;font-family:'BYekan';display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383;}
+.cssRadio input[type="radio"]:checked + label span{cursor:default;color:#fff;background:#6e8ff0 !important;}
+
