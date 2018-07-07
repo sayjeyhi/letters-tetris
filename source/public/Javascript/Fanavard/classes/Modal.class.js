@@ -56,7 +56,7 @@ class Modal {
         modalHolder.className="modalHolder";
 
         let modal = document.createElement('div');
-        modal.className="modal " + (isRtl ? "rtl" : "ltr");
+        modal.className="animated bounceIn modal " + (isRtl ? "rtl" : "ltr");
 
 
         // create title
@@ -143,7 +143,7 @@ class Modal {
                 let button = document.createElement("div");
                 button.innerHTML = optionBtn.text || "";
                 button.className = "buttonModal " + (options.buttons.isOk ? "isOk" : (options.buttons.notOk ? "notOk" : ""));
-                button.onclick = button.onclick || (() => {});
+                button.onclick = optionBtn.onclick || (() => {});
 
                 // add button to footer
                 footer.appendChild(button);
@@ -167,9 +167,13 @@ class Modal {
      * Removes modal from page
      */
     destroy() {
-        log(this.node);
-        this.node.parentNode.removeChild(this.node);
-        document.getElementById("container").classList.remove('blur');
+        this.node.classList.add("bounceOut");
+        setTimeout(
+            () => {
+                this.node.parentNode.removeChild(this.node);
+                document.getElementById("container").classList.remove('blur');
+            }, 310
+        );
     }
 
 }

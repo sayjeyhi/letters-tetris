@@ -7,7 +7,7 @@ var lang = {
     startGame: "شروع بازی",
     pauseGame: "توقف بازی",
     resumeGame: "ادامه بازی",
-    restartGame: "شروع دوباره",
+    restartGame: "ریستارت بازی",
     nextLetter: "کاراکتر بعدی",
     clickStartGame: "برای شروع بر روی دکمه شروع بازی کلیک کنید",
     copyRight: "کپی رایت برای تیم عرش محفوظ می باشد ، موسیقی @mimrasouli",
@@ -17,7 +17,7 @@ var lang = {
     gameOverModalContent : "بازی به پایان رسیده است ، نمایش امتیازها در این بخش",
     noExtraWordModalTitle : "پایان کلمات بازی!",
     noExtraWordModalContent : "شما تمام کلمات موجود در این دسته بندی را یافته و به پایان رساندید<br/> برای ادامه می توانید سایر دسته بندی ها را تست کنید !",
-    modalOkButton : "تایید",
+    modalOkButton : "بستن پنجره",
 
 
     hour: " ساعت ",

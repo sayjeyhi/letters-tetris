@@ -279,7 +279,7 @@ var arshLoader = {
             arshLoader.setRandomColor();
 
             this.classList.remove("finished");
-            hi_jRun.reset().playByKey();
+            hi_jRun.reset().play();
         });
     }
 

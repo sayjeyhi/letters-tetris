@@ -562,18 +562,26 @@ let isFirstRun=true;
                 content : modalContent,
                 buttons : [
                     {
+                        text : lang.restartGame,
+                        notOk : true,
+                        onclick : function () {
+                            modal.destroy();
+                            TetrisGame.restartGamePlay();
+                        }
+                    },
+                    {
                         text : lang.modalOkButton,
                         isOk : true,
                         onclick : function () {
-                            this.destroy();
+                            modal.destroy();
                         }
                     }
                 ]
             }, lang.rtl );
 
-            setTimeout(function () {
+            setTimeout(() => {
                 modal.show();
-            } , 200);
+            } , 300);
 
         },
 
