@@ -13,68 +13,167 @@
  *
  * @example
  *  //Create a new instance
- *  let modal = new Modal("This is a modal",false,()=>{alert('ok')},()=>{alert('no')});
+ *  let modal = new Modal({
+ *       header : "Our Title goes here" ,
+ *       content : "It is a message from our game to say yes you loose game !",
+ *       buttons : [
+ *           {
+ *               text : "Ok",
+ *               isOk : true,
+ *               onclick : function () {
+ *                   this.destroy();
+ *               }
+ *           },
+ *           {
+ *               text : "Do not",
+ *               notOk : true,
+ *               onclick : function () {
+ *                   alert("say why?!");
+ *               }
+ *           }
+ *       ]
+ *   }, true );
  *
  *  //Show modal
- *  m.show();
+ *  modal.show();
  *
  *  //Destory instance
- *  m.destroy();
+ *  modal.destroy();
  *
  */
 class Modal {
 
-    constructor(text,isRtl,onOk,onNo) {
-        this.text = text;
-        this.isRtl= isRtl || false;
-        this.onOk = onOk || (()=>{});
-        this.onNo = onNo || (()=>{});
+    /**
+     * Constructor of modal class
+     * @param options
+     * @param isRtl
+     */
+    constructor(options, isRtl) {
 
+        this.isRtl= isRtl || false;
 
         let modalHolder = document.createElement('div');
         modalHolder.className="modalHolder";
 
         let modal = document.createElement('div');
-        modal.className="modal " + (isRtl ? "rtl" : "ltr");
-        modal.innerHTML = text;
+        modal.className="animated bounceIn modal " + (isRtl ? "rtl" : "ltr");
+
+
+        // create title
+        modal.appendChild(this.createHeader(options));
+
+        // create content
+        modal.appendChild(this.createContent(options));
+
+
+        // create footer
+        let footer = this.createFooter(options);
+        if(footer !== false){
+            modal.appendChild(footer);
+        }
+
 
         modalHolder.appendChild(modal);
         document.body.appendChild(modalHolder);
+
+
         this.node = modalHolder;
 
 
         // Detect all clicks on the document
-        modalHolder.addEventListener("click", (event) =>{
+        modalHolder.addEventListener("click", (event) => {
 
-            // If user clicks inside the element, do nothing
-            if (event.target.closest(".modal")){
-                this.onOk();
-                return;
+            if(event.target.classList.contains("closeModal")){
+                this.destroy()
             }
-
-
-            // If user clicks outside the element, hide it!
-            this.onNo();
-            this.destroy();
-
-        });
+        })
     };
+
+
+    /**
+     * Create modal header
+     * @param options
+     * @return {HTMLDivElement}
+     */
+    createHeader(options){
+        let modalTitle = document.createElement("div");
+        let HeaderHtml = options.header || "";
+
+        HeaderHtml += '<i class="linearicon linearicon-cross-circle closeModal"></i>';
+
+        modalTitle.className = "titleModal";
+        modalTitle.innerHTML = HeaderHtml;
+
+        return modalTitle;
+    }
+
+
+    /**
+     * Create modal content
+     * @param options
+     * @return {HTMLDivElement}
+     */
+    createContent(options){
+        let modalContent = document.createElement("div");
+        modalContent.className = "contentModal";
+        modalContent.innerHTML = options.content;
+
+        return modalContent;
+    }
+
+
+    /**
+     * Create modal footer and its buttons
+     * @param options
+     * @return {*}
+     */
+    createFooter(options){
+
+        // Do we have footer for modals , create it and buttons
+        if(options.buttons.length > 0){
+
+            let footer = document.createElement("div");
+            footer.className = "footerModal";
+
+
+            // create buttons on footer
+            options.buttons.forEach(function (optionBtn) {
+
+                // create button
+                let button = document.createElement("div");
+                button.innerHTML = optionBtn.text || "";
+                button.className = "buttonModal " + (optionBtn.isOk ? "isOk" : (optionBtn.notOk ? "notOk" : ""));
+                button.onclick = optionBtn.onclick || (() => {});
+
+                // add button to footer
+                footer.appendChild(button);
+            });
+
+            return footer;
+        }else{
+            return false;
+        }
+    }
 
 
     /**
      * Show modal
      */
     show() {
-        // this.node.style.display="block";
-        document.getElementById("container").className+="blur";
+        document.getElementById("container").classList.add('blur');
     }
 
     /**
      * Removes modal from page
      */
     destroy() {
-        this.node.parentNode.removeChild(this.node);
-        document.getElementById("container").classList.remove('blur');
+        this.node.classList.add("bounceOut");
+        setTimeout(
+            () => {
+                this.node.parentNode.removeChild(this.node);
+                document.getElementById("container").classList.remove('blur');
+            }, 310
+        );
     }
 
 }

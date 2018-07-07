@@ -582,6 +582,52 @@ svg :not(.doNotUnfill){stroke:currentColor}
     animation-name: bounceIn;
 }
 
+@-webkit-keyframes bounceOut {
+    20% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9);
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+
+    50%,
+    55% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.1, 1.1, 1.1);
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+}
+
+@keyframes bounceOut {
+    20% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9);
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+
+    50%,
+    55% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.1, 1.1, 1.1);
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+}
+
+.bounceOut {
+    -webkit-animation-duration: 0.75s;
+    animation-duration: 0.75s;
+    -webkit-animation-name: bounceOut;
+    animation-name: bounceOut;
+}
 
 
 
@@ -682,6 +728,16 @@ svg :not(.doNotUnfill){stroke:currentColor}
         font-size: 11px;
     }
 
+    .modal{
+        width:70%;
+    }
+
+}
+
+@media (max-width: 868px) {
+    .modal{
+        width:85%;
+    }
 }
 
 
@@ -714,36 +770,64 @@ svg :not(.doNotUnfill){stroke:currentColor}
     right: 0;
     top: 0;
     bottom: 0;
-
 }
 
 
 .modal{
     position: relative;
-    text-align: center;
     background-color: #fff;
     color: #444;
-    border: solid #999 1px;
-    font-size: 24px;
-    border-radius: 4px;
+    border: none;
+    font-size: 20px;
+    border-radius: 12px;
     min-width: 50%;
     max-width: 85%;
-    display: inline-block;
     padding: 10px 15px;
     min-height: 20%;
-    max-height: 80%;
-    transition: height .5s;
-    display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 12px 20px -10px rgba(173, 104, 185, 0.3),0 4px 20px 0 rgba(0,0,0,0.12),0 7px 8px -5px rgba(183, 183, 183, 0.2);
 }
 
-.rtl{
+.modal .titleModal{display: block;font-size: 15px;margin: 10px 0 20px 0;}
+.modal .titleModal .closeModal{float: right;font-size: 17px;padding: 6px 4px;cursor: pointer;color: #a5611f;position: relative;right: -3px;}
+.modal .contentModal{font-size: 14px;padding: 7px;}
+.modal .footerModal{padding: 8px;margin-top: 10px;}
+.modal .footerModal .buttonModal {display: inline-block;background: #f0efef;cursor: pointer;padding: 4px 12px;font-size: 13px;border-radius: 6px;margin: 0 2px;}
+.modal .footerModal .buttonModal:first-child{margin: 0 !important}
+.modal .footerModal .buttonModal.isOk {background: #6bd849;color: #fff;}
+.modal .footerModal .buttonModal.notOk {background: #f96e6e;color: #fff;}
+
+.modal.rtl .titleModal{text-align: right !important;}
+.modal.rtl .titleModal .closeModal{
+    float:left;
+    left: -3;
+    right: auto;
+}
+
+.modal.rtl .footerModal .buttonModal{
+    padding: 8px 12px !important;
+}
+.modal.rtl {
     direction: rtl;
-    text-align: center;
+    text-align: right;
 }
 
-.ltr{
-    direction: ltr;
-    text-align: center;
+
+#settingForm .formLabel{display: inline-block;width: 25%;font-size: 14px;color: #515151;position: relative;margin-right: 12px;}
+#settingForm .formLabel .linearicon{position: absolute;right: -28px;font-size: 32px;transform: rotate(-14deg);top: -9px;color: #d1d1d1b3;}
+#settingForm .formData{display: inline-block;}
+
+.modal.ltr #settingForm .formLabel .linearicon{
+    left: -28px;
+    right: auto !important;
 }
+.modal.ltr #settingForm .formLabel{
+    margin-left: 12px !important;
+    margin-right: 0 !important;
+}
+
+.cssRadio input[type="radio"]{display:none}
+.cssRadio input[type="radio"] + label span{cursor:pointer;-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;padding:8px 22px;font-size:13px;font-family:'BYekan';display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383;}
+.cssRadio input[type="radio"]:checked + label span{cursor:default;color:#fff;background:#6e8ff0 !important;}
+

@@ -190,7 +190,8 @@ var arshLoader = {
                     waitLoading: false
                 },
                 {
-                    url: "words/" + lang + "/" + wordsType[0], kind: "Fanavard"
+                    url: "words/" + lang + "/" + wordsType[0],
+                    kind: "Fanavard"
                 }
             ], function () {
                 TetrisGame.initValues.chooseedWordKind = {
@@ -271,7 +272,7 @@ var arshLoader = {
         );
 
 
-        // playByKey loading sound
+        // play loading sound
         Sound.playByKey('loading');
 
         document.getElementById("jafarRezaeiAnimate").addEventListener("click", function () {
@@ -279,7 +280,7 @@ var arshLoader = {
             arshLoader.setRandomColor();
 
             this.classList.remove("finished");
-            hi_jRun.reset().playByKey();
+            hi_jRun.reset().play();
         });
     }
 

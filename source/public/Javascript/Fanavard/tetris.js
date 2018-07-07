@@ -79,7 +79,8 @@ let isFirstRun=true;
             playSoundOnSuccess: false,
             playSoundOnFailure: false,
             useLowercase: false,
-            level: 1                        // up to 3 - if it is big it is hard to play
+            level: 1 ,                      // up to 3 - if it is big it is hard to play
+            useAnimationFlag : true         // make animate or not
         },
 
 
@@ -412,6 +413,84 @@ let isFirstRun=true;
 
 
         /**
+         * Show game settings
+         */
+        showSetting: function () {
+
+            let content =
+                '<form id="settingForm" class="cssRadio">' +
+                    '<div class="formRow">' +
+                        '<div class="formLabel"><i class="linearicon linearicon-music-note2"></i> ' + lang.backgroundMusic + '</div>' +
+                        '<div class="formData">' +
+                            '<input id="soundPlayYes" type="radio" name="soundPlay" value="1" checked />' +
+                            '<label for="soundPlayYes"><span>' + lang.active + '</span></label>' +
+                            '<input id="soundPlayNo" type="radio" name="soundPlay" value="1"/>' +
+                            '<label for="soundPlayNo"><span>' + lang.deActive + '</span></label>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="formRow">' +
+                        '<div class="formLabel"><i class="linearicon linearicon-music-note"></i> ' + lang.eventsMusic + '</div>' +
+                        '<div class="formData">' +
+                            '<input id="eventSoundsYes" type="radio" name="eventSounds" value="1" checked />' +
+                            '<label for="eventSoundsYes"><span>' + lang.active + '</span></label>' +
+                            '<input id="eventSoundsNo" type="radio" name="eventSounds" value="1"/>' +
+                            '<label for="eventSoundsNo"><span>' + lang.deActive + '</span></label>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="formRow">' +
+                        '<div class="formLabel"><i class="linearicon linearicon-magic-wand"></i> ' + lang.animation + '</div>' +
+                        '<div class="formData">' +
+                            '<input id="useAnimationYes" type="radio" name="useAnimation" value="1" checked />' +
+                            '<label for="useAnimationYes"><span>' + lang.active + '</span></label>' +
+                            '<input id="useAnimationNo" type="radio" name="useAnimation" value="1"/>' +
+                            '<label for="useAnimationNo"><span>' + lang.deActive + '</span></label>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="formRow">' +
+                        '<div class="formLabel"><i class="linearicon linearicon-game"></i> ' + lang.gameLevel + '</div>' +
+                        '<div class="formData">' +
+                            '<input id="gameLevelEasy" type="radio" name="gameLevel" value="1" checked />' +
+                            '<label for="gameLevelEasy"><span>'+ lang.simple + '</span></label>' +
+                            '<input id="gameLevelMedium" type="radio" name="gameLevel" value="2"/>' +
+                            '<label for="gameLevelMedium"><span>'+ lang.medium + '</span></label>' +
+                            '<input id="gameLevelExpert" type="radio" name="gameLevel" value="3"/>' +
+                            '<label for="gameLevelExpert"><span>' + lang.expert + '</span></label>' +
+                        '</div>' +
+                    '</div>' +
+
+                '</form>';
+
+            let settingModal = new Modal({
+                header : lang.settingModalTitle,
+                content : content,
+                buttons : [
+                    {
+                        text : lang.save,
+                        isOk : true,
+                        onclick : function () {
+
+                            // @todo : save setting form serialize and write it on Storage
+
+                            settingModal.destroy();
+                        }
+                    },
+                    {
+                        text : lang.close,
+                        onclick : function () {
+                            settingModal.destroy();
+                        }
+                    }
+                ]
+            }, lang.rtl );
+
+            settingModal.show();
+        },
+
+
+        /**
          * Start Game playByKey
          */
         startGamePlay: function () {
@@ -425,7 +504,7 @@ let isFirstRun=true;
             TetrisGame.playBoard.classList.add('is' + TetrisGame.initValues.validatedColumnsCount + 'Column');
 
 
-            // create game columns and rows
+            // create game columns and rows - matrix
             let playBoardTable = '';
             let matrixRowArray = [];
             for (let r = 0; r < TetrisGame.config.rows; r++) {
@@ -543,7 +622,7 @@ let isFirstRun=true;
         finishGame: function (mode) {
 
 
-            // playByKey finish sound
+            // play finish sound
             Sound.playByKey('finishGame');
 
 
@@ -552,16 +631,40 @@ let isFirstRun=true;
 
             TetrisGame.initValues.finished = true;
             TetrisGame.timer.pause();
+
+            let modalHeader = "", modalContent = "";
             if (mode === "gameOver") {
-                let modal = new Modal("Game Over!",TetrisGame.isRtl);
-                modal.show();
+                modalHeader = lang.gameOverModalTitle;
+                modalContent = lang.gameOverModalContent;
             } else {
-                let modal = new Modal("Finished words.",TetrisGame.isRtl);
-                modal.show();
+                modalHeader = lang.noExtraWordModalTitle;
+                modalContent = lang.noExtraWordModalContent;
             }
 
+            let modal = new Modal({
+                header : modalHeader,
+                content : modalContent,
+                buttons : [
+                    {
+                        text : lang.restartGame,
+                        isOk : true,
+                        onclick : function () {
+                            modal.destroy();
+                            TetrisGame.restartGamePlay();
+                        }
+                    },
+                    {
+                        text : lang.modalOkButton,
+                        onclick : function () {
+                            modal.destroy();
+                        }
+                    }
+                ]
+            }, lang.rtl );
 
-            // @todo : show modal
+            setTimeout(() => {
+                modal.show();
+            } , 300);
 
         },
 
@@ -626,7 +729,7 @@ let isFirstRun=true;
                 let sound = new Sound("background");
                 sound.play();
 
-                isFirstRun=false;
+                isFirstRun = false;
             }
 
 
@@ -643,7 +746,7 @@ let isFirstRun=true;
                             <div onclick="TetrisGame.restartGamePlay();" class="restartGame" style="display: none">${lang.restartGame}</div>
                         </div>
                        <div class="courseArea">
-                           <div class="setting"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
+                           <div class="setting" onclick="TetrisGame.showSetting();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
                            <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div>
                            <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
                            <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>

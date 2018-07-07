@@ -89,7 +89,7 @@ var jRun = {
     /**
      * Do not let files to be cached
      */
-    disableCache: false,
+    disableCache: true,
 
 
     /**
