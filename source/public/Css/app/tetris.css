@@ -6,7 +6,18 @@ body{margin:0 0 40px;font-family:'BYekan','SDF','Tahoma',sans-serif;font-weight:
 .byekan,fieldset,legend,strong,.btn,.smalltext,table,.tooltip{font-family:'BYekan','SDF','Tahoma',sans-serif}
 .sdf{font-family:'SDF','BYekan','Tahoma',sans-serif}
 a{color:#5b57ef;text-decoration:none}
-#container{direction:rtl;text-align:right;background:#fff}
+#container{
+    direction:rtl;
+    text-align:right;
+    background:#fff;
+    transition: all 1s;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+    filter: blur(0px);
+}
+
 .content{position:relative;border-radius:20px!important;padding:10px 10%}
 #topContainer .parallax{position:relative;padding:5em 0;text-align:center;color:#fff!important;background:#DA4453;background:-webkit-linear-gradient(to right,#89216B,#DA4453);background:linear-gradient(to right,#89216B,#DA4453)}
 .page-footer div{text-align:center;font-size:12px;margin-top:40px}
@@ -671,4 +682,68 @@ svg :not(.doNotUnfill){stroke:currentColor}
         font-size: 11px;
     }
 
+}
+
+
+.blur{
+    position: fixed;
+    left:0;
+    right: 0;
+    top:0;
+    bottom: 0;
+    -webkit-filter: blur(4px) !important;
+    -moz-filter: blur(4px) !important;;
+    -o-filter: blur(4px) !important;;
+    -ms-filter: blur(4px) !important;;
+    filter: blur(4px) !important;;
+    /*filter: url("/public/Images/blur".svg#blur);*/
+    filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' ><filter id='blur5'><feGaussianBlur in='SourceGraphic' stdDeviation='5' /></filter></svg>#blur5") !important;
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4') !important;
+    z-index: 85;
+    text-align: center;
+}
+
+
+.modalHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+}
+
+
+.modal{
+    position: relative;
+    text-align: center;
+    background-color: #fff;
+    color: #444;
+    border: solid #999 1px;
+    font-size: 24px;
+    border-radius: 4px;
+    min-width: 50%;
+    max-width: 85%;
+    display: inline-block;
+    padding: 10px 15px;
+    min-height: 20%;
+    max-height: 80%;
+    transition: height .5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rtl{
+    direction: rtl;
+    text-align: center;
+}
+
+.ltr{
+    direction: ltr;
+    text-align: center;
 }

@@ -1,7 +1,7 @@
 /**
- * Storage Class
  * @static
- * @class Storage
+ * @class
+ * Storage class is a wrapper for LocalStrage and manages setting and getting items from/to LocalStorage with type casting
  */
 class Storage {
 

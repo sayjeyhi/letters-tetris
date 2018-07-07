@@ -534,12 +534,12 @@
 
             TetrisGame.initValues.finished = true;
             TetrisGame.timer.pause();
-
-
             if (mode === "gameOver") {
-                alert("Game Over!");
+                let modal = new Modal("Game Over!",TetrisGame.isRtl);
+                modal.show();
             } else {
-                alert("Finished words.");
+                let modal = new Modal("Finished words.",TetrisGame.isRtl);
+                modal.show();
             }
 
 

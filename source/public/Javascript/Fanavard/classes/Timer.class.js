@@ -10,9 +10,8 @@
  */
 
 /**
- * A Timer class which use WebWorker to manage time.
- * @class Timer
- *
+ * @class
+ * A class which use WebWorker to manage time.
  * @constructor
  * @param {TimerConfig}
  *
