@@ -170,6 +170,7 @@ let isFirstRun=true;
                         isBottomMove = true;
                         break;
                     default:
+                        console.log("Unable to determine move !");
                         return false;
                 }
 
@@ -184,8 +185,8 @@ let isFirstRun=true;
                 if (moveTo.row >= TetrisGame.config.rows || (destinationEl.innerText.trim() !== "")) {
 
                     if (isBottomMove) {
-
-                        TetrisGame.matrix[moveTo.column][moveTo.row] = charBlock.name;
+                        log(moveTo);
+                        TetrisGame.matrix[moveTo.row-1][moveTo.column] = charBlock.name;
                         console.log(TetrisGame.matrix);
 
                         // stop interval and request new char
@@ -421,17 +422,16 @@ let isFirstRun=true;
 
             // create game columns and rows
             let playBoardTable = '';
+            let rowArray = [];
             for (let r = 0; r < TetrisGame.config.rows; r++) {
+                let row = [];
                 playBoardTable += '<div class="isRow row_' + r + '">';
                 for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
                     playBoardTable += '<div class="isColumn column_' + c + '" data-row="' + r + '"></div>';
+                    row[c]='';
                 }
+                rowArray[r] = row;
                 playBoardTable += '</div>';
-            }
-
-            let rowArray = new Array(TetrisGame.config.rows);
-            for (let i = 0; i < TetrisGame.config.rows; i++) {
-                rowArray[i] = new Array(TetrisGame.initValues.validatedColumnsCount);
             }
 
             TetrisGame.matrix = rowArray;
