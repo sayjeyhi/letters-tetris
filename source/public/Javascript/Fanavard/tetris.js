@@ -344,11 +344,16 @@ let isFirstRun=true;
 
         /**
          * Check if could find a success word
-         * @param lastChar
+         * @param {charBlock} lastChar
          */
         checkWordSuccess: function (lastChar) {
-            log("check word happens");
-            // @todo : if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
+            log(lastChar);
+            let sampleWords = [
+                'asd'
+
+            ];
+
+            // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
         },
 
 
@@ -416,19 +421,19 @@ let isFirstRun=true;
 
             // create game columns and rows
             let playBoardTable = '';
-            let rowArray = [];
+            let matrixRowArray = [];
             for (let r = 0; r < TetrisGame.config.rows; r++) {
-                let row = [];
+                let matrixColumn = [];
                 playBoardTable += '<div class="isRow row_' + r + '">';
                 for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
                     playBoardTable += '<div class="isColumn column_' + c + '" data-row="' + r + '"></div>';
-                    row[c]='';
+                    matrixColumn[c]=' ';
                 }
-                rowArray[r] = row;
+                matrixRowArray[r] = matrixColumn;
                 playBoardTable += '</div>';
             }
 
-            TetrisGame.matrix = rowArray;
+            TetrisGame.matrix = matrixRowArray;
 
             TetrisGame.playBoard.innerHTML = playBoardTable;
 
