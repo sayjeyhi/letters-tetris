@@ -7,6 +7,7 @@ const CONTROL_CODES = {
     RIGHT: 39
 };
 
+let isFirstRun=true;
 
 (function () {
 
@@ -106,7 +107,7 @@ const CONTROL_CODES = {
 
 
         /**
-         * Game play board
+         * Game playByKey board
          */
         playBoard: null,
 
@@ -220,8 +221,8 @@ const CONTROL_CODES = {
                     TetrisGame.characterFactory(charBlock, destinationEl);
                 }
 
-                // play move char
-                Sounds.play('moveChar');
+                // playByKey move char
+                Sound.playByKey('moveChar');
 
             };
 
@@ -399,7 +400,7 @@ const CONTROL_CODES = {
 
 
         /**
-         * Start Game play
+         * Start Game playByKey
          */
         startGamePlay: function () {
 
@@ -444,27 +445,27 @@ const CONTROL_CODES = {
             // create first char block
             TetrisGame.characterFactory();
 
-            // play start sound
-            Sounds.play('start');
+            // playByKey start sound
+            Sound.playByKey('start');
 
             // arrow keys press
             document.onkeydown = function (e) {
                 if(!TetrisGame.initValues.paused) {
                     TetrisGame.initValues.activeChar.move(e.keyCode);
                 }
-            }
+            };
 
             TetrisGame.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
         },
 
 
         /**
-         * Pause Game play
+         * Pause Game playByKey
          */
         pauseGamePlay: function () {
 
-            // play resume sound
-            Sounds.play('pause');
+            // playByKey resume sound
+            Sound.playByKey('pause');
 
             // manage game buttons
             TetrisGame.buttonManager('.resumeGame,.restartGame', '.startGame,.pauseGame');
@@ -475,12 +476,12 @@ const CONTROL_CODES = {
 
 
         /**
-         * Resume Game play
+         * Resume Game playByKey
          */
         resumeGamePlay: function () {
 
-            // play resume sound
-            Sounds.play('pause');
+            // playByKey resume sound
+            Sound.playByKey('pause');
 
             // manage game buttons
             TetrisGame.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
@@ -491,7 +492,7 @@ const CONTROL_CODES = {
 
 
         /**
-         * Reset Game play
+         * Reset Game playByKey
          */
         restartGamePlay: function () {
 
@@ -512,8 +513,8 @@ const CONTROL_CODES = {
                 choosedWordsUsedChars: []      // Chars that used from choosed words
             };
 
-            // play resume sound
-            Sounds.play('pause');
+            // playByKey resume sound
+            Sound.playByKey('pause');
 
             //Remove old listener of keydown which causes multiple moves
             document.onkeydown=null;
@@ -531,8 +532,8 @@ const CONTROL_CODES = {
         finishGame: function (mode) {
 
 
-            // play finish sound
-            Sounds.play('finishGame');
+            // playByKey finish sound
+            Sound.playByKey('finishGame');
 
 
             // manage game buttons
@@ -589,11 +590,14 @@ const CONTROL_CODES = {
             // make ltr if used lang is ltr
             let ltrClass = "";
 
+
+
             TetrisGame.controlCodes = {
                 LEFT:   CONTROL_CODES.LEFT,
                 RIGHT:  CONTROL_CODES.RIGHT,
                 DOWN:   CONTROL_CODES.DOWN
             };
+
 
             if (!lang.rtl) {
                 ltrClass = "isLtr";
@@ -605,8 +609,15 @@ const CONTROL_CODES = {
                     DOWN:   CONTROL_CODES.DOWN
                 }
             }
-            console.log(TetrisGame.controlCodes);
-            Sounds.playFromUrl("background");
+
+
+            if(isFirstRun){
+                let sound = new Sound("background");
+                sound.play();
+
+                isFirstRun=false;
+            }
+
 
             // add main html to page
             document.querySelector("#container").innerHTML =

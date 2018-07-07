@@ -271,15 +271,15 @@ var arshLoader = {
         );
 
 
-        // play loading sound
-        Sounds.play('loading');
+        // playByKey loading sound
+        Sound.playByKey('loading');
 
         document.getElementById("jafarRezaeiAnimate").addEventListener("click", function () {
 
             arshLoader.setRandomColor();
 
             this.classList.remove("finished");
-            hi_jRun.reset().play();
+            hi_jRun.reset().playByKey();
         });
     }
 
