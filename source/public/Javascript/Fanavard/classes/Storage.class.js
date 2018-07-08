@@ -8,11 +8,11 @@ class Storage {
     /**
      * Returns a plain string of given key from localStorage
      * @param {string} key
-     * @param {string} [default_value]
+     * @param {string|object} [default_value]
      * @returns {string | null | * | string}
      */
     static get(key, default_value) {
-        default_value = default_value || "";
+        default_value = typeof default_value === "undefined" ? "" : default_value;
         return localStorage.getItem(key) || default_value;
     }
 
@@ -23,31 +23,22 @@ class Storage {
      * @returns {number}
      */
     static getInt(key, default_value) {
-        default_value = default_value || 0;
+        default_value = typeof default_value === "undefined" ? 0 : default_value;
         return Number(get(key, default_value));
     }
 
     /**
-     * Returns an array of given key from localStorage
-     * @param {string} key
-     * @param {string} default_value [default_value]
-     * @returns {array}
+     * Returns an integer of given key from localStorage
+     * @param key
+     * @param default_value
+     * @return {any}
      */
-    static getArray(key, default_value) {
-        default_value = default_value || [];
-        return JSON.parse(get(key), default_value);
+    static getJson(key , default_value) {
+        default_value = typeof default_value === "undefined" ? {} : default_value;
+        let data = Storage.get(key , false);
+        return (!data) ? default_value : JSON.parse(data);
     }
 
-    /**
-     * Returns an integer of given key from localStorage
-     * @param {string} key
-     * @param {string} default_value [default_value]
-     * @returns {Object}
-     */
-    static getJson(key, default_value) {
-        default_value = default_value || {};
-        return JSON.parse(get(key), default_value);
-    }
 
     /**
      * Saves an object in localStorage
@@ -57,7 +48,10 @@ class Storage {
     static set(key, value) {
         if (typeof (value) === "object") {
             value = JSON.stringify(value);
+        }else{
+            value = value.toString();
         }
+
         localStorage.setItem(key, value)
     }
 }

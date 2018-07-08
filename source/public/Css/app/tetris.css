@@ -10,12 +10,19 @@ a{color:#5b57ef;text-decoration:none}
     direction:rtl;
     text-align:right;
     background:#fff;
-    transition: all 1s;
     -webkit-filter: blur(0px);
     -moz-filter: blur(0px);
     -o-filter: blur(0px);
     -ms-filter: blur(0px);
     filter: blur(0px);
+}
+
+body.isExpert,body.isExpert #container {
+    background-color: #000 !important;
+}
+
+body.isMedium,body.isMedium #container {
+    background-color: #b0cefc !important;
 }
 
 .content{position:relative;border-radius:20px!important;padding:10px 10%}
@@ -191,8 +198,15 @@ svg :not(.doNotUnfill){stroke:currentColor}
     width: 10%;
 }
 .gameHolder .playBoard.is12Column .isColumn {
-    width: 8.33%;
+    width: 8.32%;
 }
+.gameHolder .playBoard.is14Column .isColumn {
+    width: 7.13%;
+}
+.gameHolder .playBoard.is16Column .isColumn {
+    width: 6.24%;
+}
+
 
 
 
@@ -309,7 +323,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .gameHolder.isLtr .behindPlayBoard .courseArea {text-align: left;margin-left:5px}
 
 
-.noselect,.wordsKind {
+.noselect,.wordsKind,.gameControlButtons {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
@@ -742,21 +756,20 @@ svg :not(.doNotUnfill){stroke:currentColor}
 
 
 .blur{
-    position: fixed;
-    left:0;
-    right: 0;
-    top:0;
-    bottom: 0;
     -webkit-filter: blur(4px) !important;
     -moz-filter: blur(4px) !important;;
     -o-filter: blur(4px) !important;;
     -ms-filter: blur(4px) !important;;
     filter: blur(4px) !important;;
     /*filter: url("/public/Images/blur".svg#blur);*/
-    filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' ><filter id='blur5'><feGaussianBlur in='SourceGraphic' stdDeviation='5' /></filter></svg>#blur5") !important;
     filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4') !important;
-    z-index: 85;
     text-align: center;
+    transform: translateZ(1px);
+    position: fixed;
+    left:0;
+    right: 0;
+    top:0;
+    bottom: 0;
 }
 
 
@@ -784,6 +797,8 @@ svg :not(.doNotUnfill){stroke:currentColor}
     max-width: 85%;
     padding: 10px 15px;
     min-height: 20%;
+    max-height: 90%;
+    overflow: auto;
     justify-content: center;
     align-items: center;
     box-shadow: 0 12px 20px -10px rgba(173, 104, 185, 0.3),0 4px 20px 0 rgba(0,0,0,0.12),0 7px 8px -5px rgba(183, 183, 183, 0.2);
@@ -828,6 +843,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 }
 
 .cssRadio input[type="radio"]{display:none}
-.cssRadio input[type="radio"] + label span{cursor:pointer;-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;padding:8px 22px;font-size:13px;font-family:'BYekan','SDF','Tahoma',sans-serif, ;display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383;}
+.cssRadio input[type="radio"] + label span{cursor:pointer;padding:8px 22px;font-size:13px;font-family:'BYekan','SDF','Tahoma',sans-serif, ;display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383;}
+.cssRadio.animatedSpan input[type="radio"] + label span{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;}
 .cssRadio input[type="radio"]:checked + label span{cursor:default;color:#fff;background:#6e8ff0 !important;}
 

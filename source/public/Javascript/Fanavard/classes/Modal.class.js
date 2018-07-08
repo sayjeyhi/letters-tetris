@@ -50,13 +50,20 @@ class Modal {
      */
     constructor(options, isRtl) {
 
-        this.isRtl= isRtl || false;
+        this.onDestroy = options.onDestroy || (() => {});
+        this.isRtl = typeof isRtl === "undefined" ? false : isRtl;
+        this.animate = typeof options.animate === "undefined" ? false : options.animate;
+
 
         let modalHolder = document.createElement('div');
+        let modal = document.createElement('div');
+        let modalAnimateClass = this.animate ? "animated bounceIn" : "";
+
+
         modalHolder.className="modalHolder";
 
-        let modal = document.createElement('div');
-        modal.className="animated bounceIn modal " + (isRtl ? "rtl" : "ltr");
+        // add modal classes
+        modal.className = modalAnimateClass + " modal " + (isRtl ? "rtl" : "ltr");
 
 
         // create title
@@ -84,7 +91,7 @@ class Modal {
         modalHolder.addEventListener("click", (event) => {
 
             if(event.target.classList.contains("closeModal")){
-                this.destroy()
+                this.destroy();
             }
         })
     };
@@ -167,13 +174,18 @@ class Modal {
      * Removes modal from page
      */
     destroy() {
-        this.node.classList.add("bounceOut");
+        if(this.animate) {
+            this.node.classList.add("bounceOut");
+        }
+
         setTimeout(
             () => {
-                this.node.parentNode.removeChild(this.node);
                 document.getElementById("container").classList.remove('blur');
-            }, 310
+                this.node.parentNode.removeChild(this.node);
+            }, (this.animate ? 310 : 0)
         );
+
+        this.onDestroy();
     }
 
 }

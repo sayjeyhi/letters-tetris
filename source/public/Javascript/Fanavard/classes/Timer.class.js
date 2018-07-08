@@ -93,8 +93,11 @@ class Timer {
      * Pauses the timer
      */
     pause() {
-        this.timerWorker.postMessage({ 'pause_flag': true });
+        if(this.timerWorker) {
+            this.timerWorker.postMessage({'pause_flag': true});
+        }
         this.config.onPause();
+
     }
 
 
@@ -102,7 +105,9 @@ class Timer {
      * Resumes the timer
      */
     resume() {
-        this.timerWorker.postMessage({ 'pause_flag': false });
+        if(this.timerWorker) {
+            this.timerWorker.postMessage({'pause_flag': false});
+        }
         this.config.onResume();
     }
 

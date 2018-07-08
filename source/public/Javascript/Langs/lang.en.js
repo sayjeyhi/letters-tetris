@@ -4,7 +4,7 @@ var lang = {
     score: "Score",
     createdWords: "Found words",
     spentTime: "Time",
-    startGame: "Start Game",
+    startGame: "🎮 Start Game",
     pauseGame: "Pause Game",
     resumeGame: "Resume Game",
     restartGame: "Restart Game",
@@ -26,9 +26,9 @@ var lang = {
     eventsMusic : "Events music",
 
     gameOverModalTitle : "Game Over",
-    gameOverModalContent : "You loose , but it is okay <br/> You could have another try and learn some thing.",
+    gameOverModalContent : "😞 You loose , but it is okay <br/> You could have another try and learn some thing.",
     noExtraWordModalTitle : "Words Finished !",
-    noExtraWordModalContent : "You are a big hero, as you finished all of our words in this category .<br/> You could start gaming other categories !",
+    noExtraWordModalContent : "😎 You are a big hero, as you finished all of our words in this category .<br/> You could start gaming other categories !",
     settingModalTitle: "Settings :",
     modalOkButton : "Ok",
 

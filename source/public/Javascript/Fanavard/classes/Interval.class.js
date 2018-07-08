@@ -31,7 +31,5 @@ class Interval {
         while ( len --> 0 ) {
             clearInterval( all.shift() );
         }
-
-        log(this.intervals);
     }
 }
