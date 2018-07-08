@@ -21,7 +21,7 @@ class Interval {
 
     //clear a single interval
     clear( id ) {
-        return clearInterval( this.intervals[id] );
+        return clearInterval(id);
     }
 
     //clear all intervals
