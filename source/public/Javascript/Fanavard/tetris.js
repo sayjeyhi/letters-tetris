@@ -138,7 +138,7 @@ let isFirstRun=true;
 
 
             // move char
-            charBlock.move = function (eventKeyCode) {
+            charBlock.move = function (eventKeyCode , position) {
 
                 let moveTo = {};
                 let isBottomMove = false;
@@ -171,8 +171,19 @@ let isFirstRun=true;
                         isBottomMove = true;
                         break;
                     default:
-                        console.log("Unable to determine move !");
-                        return false;
+
+                        // do we have forced position
+                        if(typeof position !== "undefined"){
+                            moveTo = {
+                                row: position.x,
+                                column: position.y ,
+                                animateOutClass: "fadeOutDown",
+                                animateInClass: "fadeInDown"
+                            };
+                        }else {
+                            console.log("Unable to determine move !");
+                            return false;
+                        }
                 }
 
 
