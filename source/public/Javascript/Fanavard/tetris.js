@@ -13,7 +13,7 @@ let isFirstRun=true;
 
     'use strict';
 
-    let TetrisGame,blobTiming, timer, matrix;
+    let TetrisGame,blobTiming, timer, matrix, interval;
 
     /**
      * //TODO: Execute this before anything else
@@ -138,7 +138,7 @@ let isFirstRun=true;
 
 
             // move char
-            charBlock.move = function (eventKeyCode) {
+            charBlock.move = function (eventKeyCode , position) {
 
                 let moveTo = {};
                 let isBottomMove = false;
@@ -171,8 +171,19 @@ let isFirstRun=true;
                         isBottomMove = true;
                         break;
                     default:
-                        console.log("Unable to determine move !");
-                        return false;
+
+                        // do we have forced position
+                        if(typeof position !== "undefined"){
+                            moveTo = {
+                                row: position.x,
+                                column: position.y ,
+                                animateOutClass: "fadeOutDown",
+                                animateInClass: "fadeInDown"
+                            };
+                        }else {
+                            console.log("Unable to determine move !");
+                            return false;
+                        }
                 }
 
 
@@ -191,7 +202,7 @@ let isFirstRun=true;
                         console.log(TetrisGame.matrix);
 
                         // stop interval and request new char
-                        clearInterval(charBlock.interval);
+                        TetrisGame.interval.clear(charBlock.interval);
 
                         // check words
                         TetrisGame.checkWordSuccess(charBlock);
@@ -230,7 +241,7 @@ let isFirstRun=true;
 
 
             // interval
-            charBlock.interval = setInterval(() => {
+            charBlock.interval = TetrisGame.interval.make(() => {
                 if (!TetrisGame.initValues.paused) {
                     charBlock.move(40);
                 }
@@ -535,6 +546,11 @@ let isFirstRun=true;
             TetrisGame.timer.start();
 
 
+
+
+            // kill all intervals
+            TetrisGame.interval.clearAll();
+
             // create first char block
             TetrisGame.characterFactory();
 
@@ -610,8 +626,7 @@ let isFirstRun=true;
             Sound.playByKey('pause');
 
             //Remove old listener of keydown which causes multiple moves
-            document.onkeydown=null;
-
+            document.onkeydown =null;
 
             // re-build game
             TetrisGame.build();
@@ -701,6 +716,9 @@ let isFirstRun=true;
                     TetrisGame.initValues.paused = false;
                 }
             });
+
+
+            TetrisGame.interval = new Interval();
 
 
 
