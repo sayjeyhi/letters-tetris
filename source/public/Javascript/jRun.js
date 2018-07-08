@@ -2,8 +2,8 @@
  * Main JavaScript file to manage pages js
  *
  * @author    : jafar rezaei <bomber.man87@yahoo.com>
- * @website   : http://jrjs.ir
- * @updated   : 2018/06/08
+ * @link   : http://jrjs.ir
+ * @date   : 2018/06/08
  */
 var jRun = {
 
@@ -16,7 +16,8 @@ var jRun = {
 
     /**
      *  Main plugIns that you want to load at page load
-     *  @note : add only main plugIns here and use init
+     *  add only main plugIns here and use init
+     *  @example :
      *     jRun.plugins = [{
      *        url : "jquery/jquery.min" ,
      *        kind : "PlugIn"
@@ -37,7 +38,7 @@ var jRun = {
 
     /**
      * Files url prefix string link : 'public/'
-     * @note : add `/` at the end of string
+     * @summary : add `/` at the end of string
      */
     urlPrefix: '',
 
