@@ -724,10 +724,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
 
 
-
-            // kill all intervals
-            TetrisGame.interval.clearAll();
-
             // create first char block
             TetrisGame.characterFactory();
 
@@ -781,6 +777,10 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
          * Reset Game playByKey
          */
         restartGamePlay: function () {
+
+
+            // kill all intervals
+            TetrisGame.interval.clearAll();
 
             // make game variables that variables was on start
             TetrisGame.initValues = {
