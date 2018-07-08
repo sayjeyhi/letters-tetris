@@ -9,6 +9,189 @@ const CONTROL_CODES = {
 
 let isFirstRun=true;
 
+
+
+
+
+
+
+
+//==================[WORD FINDING RELATED FUNCTIONS]=========================
+
+
+//Row     -> y
+//Column  -> x
+function getRailingChars(matrix,y,x,direction){
+    const width = matrix[0].length;
+    const height = matrix.length;
+
+    let railingChars='';
+    let from=-1,to=-1;//from and to determines location from
+
+
+    let i=1;//i is just the iterator in loops
+    switch(direction){
+        case 'R':
+            //Go in Right direction
+            //i starts with 1 because we dont want the current character
+            //This loop will go to right until it reaches the border OR next character is ' '
+            //Rest of cases are just like this method but with differnt direction
+            from=1+x;
+            for(i=1;i+x<width && matrix[y][i+x]!=' ';i++){
+                railingChars+=matrix[y][i+x];
+                to=i+x;
+            }
+            break;
+        case 'L':
+            from=x-1;
+            for(i=1;x-i>=0 && matrix[y][x-i]!=' ';i++){
+                railingChars=matrix[y][x-i] + railingChars;
+                to=x-i;
+            }
+            break;
+        case 'T':
+            from=y-1;
+            for(i=1;y-i>=0 && matrix[y-i][x]!=' ';i++){
+                railingChars+=matrix[y-i][x];
+                to=y-i;
+            }
+            break;
+        case 'D':
+            from=y+1;
+            for(i=1;y+i<height && matrix[y+i][x]!=' ';i++){
+                railingChars+=matrix[y+i][x];
+                to=y+i;
+            }
+            break;
+    }
+
+    return {
+        chars:railingChars,
+        to:to,
+        from:from
+    }
+}
+
+
+
+
+
+/**
+ Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
+ For example this string: 'foo 𝌆 bar mañana mañana' will be corrupt if used string.split("").reverse().join("");
+ We'll use following code from mathiasbynens to reverse a string properly
+ https://github.com/mathiasbynens/esrever/blob/master/src/esrever.js
+ */
+function reverse(string) {
+    let regexSymbolWithCombiningMarks = /(<%= allExceptCombiningMarks %>)(<%= combiningMarks %>+)/g;
+    let regexSurrogatePair = /([\uD800-\uDBFF])([\uDC00-\uDFFF])/g;
+    // Step 1: deal with combining marks and astral symbols (surrogate pairs)
+    string = string
+    // Swap symbols with their combining marks so the combining marks go first
+        .replace(regexSymbolWithCombiningMarks, function($0, $1, $2) {
+            // Reverse the combining marks so they will end up in the same order
+            // later on (after another round of reversing)
+            return reverse($2) + $1;
+        })
+        // Swap high and low surrogates so the low surrogates go first
+        .replace(regexSurrogatePair, '$2$1');
+    // Step 2: reverse the code units in the string
+    let result = [];
+    let index = string.length;
+    while (index--) {
+        result.push(string.charAt(index));
+    }
+    return result.join('');
+}
+
+function checkSuccess(matrix,words,rowId,colId){
+
+    let rights = getRailingChars(matrix,rowId,colId,'R');
+    let lefts = getRailingChars(matrix,rowId,colId,'L');
+    let tops = getRailingChars(matrix,rowId,colId,'T');
+    let downs = getRailingChars(matrix,rowId,colId,'D');
+
+    // const sentenceLTR = excapeRegex(lefts + matrix[9][2] + rights);
+    // const sentenceTTD = excapeRegex(tops  + matrix[9][2] + downs);
+    // const sentenceRTL = excapeRegex(reverse(sentenceLTR));
+    // const sentenceDDT = excapeRegex(reverse(sentenceTTD));
+    const sentenceLTR = (lefts.chars + matrix[rowId][colId] + rights.chars);
+    const sentenceTTD = (tops.chars  + matrix[rowId][colId] + downs.chars);
+    const sentenceRTL = (reverse(sentenceLTR));
+    const sentenceDTT = (reverse(sentenceTTD));
+
+    //
+    // const regexLTR = new RegExp(sentenceLTR,'i');
+    // const regexTTD = new RegExp(sentenceTTD,'i');
+    // const regexRTL = new RegExp(sentenceRTL,'i');
+    // const regexDDT = new RegExp(sentenceDDT,'i');
+
+    let checkType={rtl:false,ltr:true,ttd:false,dtt:false};
+
+    //TODO: Search for real words instead of these :|
+    words.map((word)=>{
+        let pos;
+        if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
+            console.log("Found valid word:"+ word +" In:" + sentenceLTR)
+            pos--;
+            deleteCharacters(matrix,rowId,colId,'ltr',lefts.from+pos,word.length)
+        }else if (checkType.ttd && sentenceTTD.indexOf(word) !== -1){
+            console.log("Found valid word:"+ word +" In:" + sentenceTTD)
+        }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
+            console.log("Found valid word:"+ word +" In:" + sentenceRTL)
+        }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
+            console.log("Found valid word:"+ word +" In:" + sentenceDTT)
+        }
+    });
+}
+
+
+
+function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occurancePositionLenght){
+
+    if(checkType==='ltr'){
+
+        console.log(matrix);
+        console.log("");
+
+        //Clear characters in matrix
+        for(let i=occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++){
+            matrix[rowId][i]=' ';
+            //TODO: Apply word Found animations for (rowId,i)
+
+            //Move upper blocks to bottom
+            for(let upIndex=rowId;matrix[upIndex-1][i] != ' ' && upIndex>=0;upIndex--){
+                matrix[upIndex][i] = matrix[upIndex-1][i];
+                matrix[upIndex-1][i] = ' ';
+                //TODO: Apply falling animations on (upIndex-1,i)
+            }
+        }
+
+        console.log("");
+        console.log(matrix);
+    }else if (checkType==='rtl'){
+        //TODO: Implement these conditions
+    }else if (checkType==='ttd'){
+
+    }else if (checkType==='dtt'){
+
+    }
+}
+
+//==================[END OF WORD FINDING RELATED FUNCTIONS]=====================
+
+
+
+
+
+
+
+
+
+
+
+
+
 (function () {
 
     'use strict';
@@ -197,7 +380,7 @@ let isFirstRun=true;
                 if (moveTo.row >= TetrisGame.config.rows || (destinationEl.innerText.trim() !== "")) {
 
                     if (isBottomMove) {
-                        log(moveTo);
+
                         TetrisGame.matrix[moveTo.row-1][moveTo.column] = charBlock.name;
                         console.log(TetrisGame.matrix);
 
@@ -365,15 +548,9 @@ let isFirstRun=true;
          * @param {charBlock} lastChar
          */
         checkWordSuccess: function (lastChar) {
-
-
             log(TetrisGame.initValues.choosedWords);
-
-
-            let sampleWords = [
-                'asd'
-            ];
-
+            console.log(TetrisGame.matrix);
+            checkSuccess(TetrisGame.matrix,TetrisGame.initValues.choosedWords,lastChar.row,lastChar.column);
             // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
         },
 

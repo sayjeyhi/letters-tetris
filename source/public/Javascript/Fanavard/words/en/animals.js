@@ -4,6 +4,31 @@
  */
 var TetrisWords = [
     {
+        "word": "aa",
+        "unidoce": "123123"
+    },{
+        "word": "bb",
+        "unidoce": "123123"
+    },{
+        "word": "cc",
+        "unidoce": "123123"
+    },{
+        "word": "dd",
+        "unidoce": "123123"
+    },{
+        "word": "ee",
+        "unidoce": "123123"
+    },{
+        "word": "ff",
+        "unidoce": "123123"
+    },{
+        "word": "gg",
+        "unidoce": "123123"
+    },{
+        "word": "hh",
+        "unidoce": "123123"
+    },
+    {
         "word": "bull",
         "unidoce": "123123"
     }, {
@@ -175,7 +200,7 @@ var TetrisWords = [
         "word": "deer",
         "unidoce": "123123"
     }, {
-        "word": "rat/ vole",
+        "word": "rat",
         "unidoce": "123123"
     }, {
         "word": "antelope",
