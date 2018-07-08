@@ -354,10 +354,13 @@ let isFirstRun=true;
          * @param {charBlock} lastChar
          */
         checkWordSuccess: function (lastChar) {
-            log(lastChar);
+
+
+            log(TetrisGame.initValues.choosedWords);
+
+
             let sampleWords = [
                 'asd'
-
             ];
 
             // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
