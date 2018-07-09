@@ -1,10 +1,10 @@
 /**
- *
- * @param string - An string to reverse
- *  Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
+ * Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
  * For example this string: 'foo 𝌆 bar mañana mañana' will be corrupt if used string.split("").reverse().join("");
  * We'll use following code from mathiasbynens to reverse a string properly
  * @link https://github.com/mathiasbynens/esrever/blob/master/src/esrever.js
+ *
+ * @param string - An string to reverse
  *
  * @example
  *  let str = 'foo 𝌆 bar mañana mañana';
@@ -44,28 +44,26 @@ function isFunction(possibleFunction) {
 }
 
 
-
-
 /**
- * @class Matrix
+ *
  * This class will hold values of characters, find successful created words, delete them and etc
  *
- * @constructor
- * @param matrix {2DArray} Matrix of characters
-
  *
- * @property matrix {2DArray} Matrix of characters
- *
- *
- * @example
- *  //Create a new instance
- *  let matrix = new Matrix([[' ',' ',' ',' '],
- *                          [' ',' ',' ',' '],
- *                          [' ',' ',' ',' '],
- *                          [' ',' ',' ',' ']]
- *                          );
  */
 class Matrix {
+    /**
+     *
+     * @param matrix {2DArray} Matrix of characters
+     * @property matrix {2DArray} Matrix of characters
+     *
+     *
+     * @example
+     *  let matrix = new Matrix([[' ',' ',' ',' '],
+     *                          [' ',' ',' ',' '],
+     *                          [' ',' ',' ',' '],
+     *                          [' ',' ',' ',' ']]
+     *                          );
+     */
     constructor(matrix) {
         this.matrix = matrix;
         this.width = matrix[0].length;
@@ -75,16 +73,79 @@ class Matrix {
 
 
     /**
+     *
+     * @param y {Number} - Column of matrix
+     * @param x {Number} - Row of matrix
+     * @param char {String} - Character to place in matrix
+     */
+    setCharacter(y,x,char){
+        this.matrix[y][x]=char;
+    }
+
+
+    /**
+     * @return {RailingChars}
+     * @param {String[]} words - To search in strings
+     * @param {Number} rowId - Index of row in matrix
+     * @param {Number} colId - Index of column in matrix
+     * @param {checkTypes} checkTypes to search for strings in matrix from x,y point can have any of these values: L|R|T|D
+     */
+    checkWords(words,rowId,colId,checkTypes,successCallback){
+
+        let rights = this._getRailingChars(rowId,colId,'R');
+        let lefts = this._getRailingChars(rowId,colId,'L');
+        let tops = this._getRailingChars(rowId,colId,'T');
+        let downs = this._getRailingChars(rowId,colId,'D');
+
+        const sentenceLTR = (lefts.chars + this.matrix[rowId][colId] + rights.chars); //Create valid sentence from left characters + current character + right characters
+        const sentenceTTD = (tops.chars  + this.matrix[rowId][colId] + downs.chars);  //Create valid sentence from left characters + current character + right characters
+        const sentenceRTL = (reverse(sentenceLTR)); //Reverse it to get
+        const sentenceDTT = (reverse(sentenceTTD));
+
+        let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
+
+        for(let i=0, len=words.length; i < len; i++){
+            let pos,
+                word = words[i].word
+            ;
+            if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
+                console.log("LTR: Found valid word:"+ word +" In:" + sentenceLTR);
+                let startFrom = colId-lefts.len+pos;
+                this._deleteCharacters(rowId,colId,i,{ltr:true},startFrom,word.length,successCallback);
+                Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
+                //TODO: Increase Score
+                //TODO: Remove Chars from TetrisGame.initValues.choosedWordsUsedChars
+                //TODO: Remove Words from TetrisGame.initValues.choosedWords
+            }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
+                console.log("RTL: Found valid word:"+ word +" In:" + sentenceRTL);
+
+                let startFrom = colId+rights.len-pos;
+                this._deleteCharacters(rowId,colId,i,{rtl:true},startFrom,word.length,successCallback);
+                Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
+
+            }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
+                console.log("Found valid word:"+ word +" In:" + sentenceRTL)
+            }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
+                console.log("Found valid word:"+ word +" In:" + sentenceDTT)
+            }
+        }
+    }
+
+
+
+    /**
      * @typedef {Object} RailingChars
      * @property {Number} len  - Length to show how much did we walked in each direction to either reach to border or whiteSpace
      * @property {String} chars - String which shows which chars did we found
-     *
+     */
+
+    /**
      * @return {RailingChars}
      * @param {Number} y - Index of row in matrix
      * @param {Number} x - Index of column in matrix
      * @param {String} direction to search for strings in matrix from x,y point can have any of these values: L|R|T|D
      */
-    getRailingChars(y,x,direction){
+    _getRailingChars(y,x,direction){
         let railingChars='';//Found characters in each directions
         let len=0;//Determines how much did we move in each direction to get to space or end of direction
 
@@ -127,89 +188,71 @@ class Matrix {
         }
     }
 
-
     /**
      * @typedef {Object} checkTypes - An object representing in which direction should function search for words
      * @property {Boolean} rtl - Determines if should check Right To Left direction
      * @property {Boolean} ltr - Determines if should check Left To Right direction
      * @property {Boolean} ttd - Determines if should check Top To Down direction
      * @property {Boolean} dtt - Determines if should check Down To Top direction
-     *
-     * @return {RailingChars}
-     * @param {String[]} words - To search in strings
-     * @param {Number} rowId - Index of row in matrix
-     * @param {Number} colId - Index of column in matrix
-     * @param {checkTypes} checkTypes to search for strings in matrix from x,y point can have any of these values: L|R|T|D
      */
-    checkSuccessWords(words,rowId,colId,checkTypes,successCallback){
 
-        let rights = this._getRailingChars(rowId,colId,'R');
-        let lefts = this._getRailingChars(rowId,colId,'L');
-        let tops = this._getRailingChars(rowId,colId,'T');
-        let downs = this._getRailingChars(rowId,colId,'D');
+    /**
+     *
+     * @param rowId {Number} - Row id of last checking character in matrix
+     * @param colId {Number} - col id of last checking character in matrix
+     * @param wordId {Number} - Id of founded word
+     * @param checkType {checkTypes} - An checkType Object to find direction
+     * @param occurancePositionFrom {Number} - Start position of word
+     * @param occurancePositionLenght {Number} - Length of word
+     * @param deleteCallBack {Function} - Function to callback when foundWord and Falling words has been found
+     */
+    _deleteCharacters(rowId,colId,wordId,checkType,occurancePositionFrom,occurancePositionLenght,deleteCallBack){
 
-        const sentenceLTR = (lefts.chars + this.matrix[rowId][colId] + rights.chars); //Create valid sentence from left characters + current character + right characters
-        const sentenceTTD = (tops.chars  + this.matrix[rowId][colId] + downs.chars);  //Create valid sentence from left characters + current character + right characters
-        const sentenceRTL = (reverse(sentenceLTR)); //Reverse it to get
-        const sentenceDTT = (reverse(sentenceTTD));
+        //Determines if we need to store date to call the callback function if it exists
+        let hasCallback = isFunction(deleteCallBack);
+        // successCallback(rowId,i,,c);
+        let callbackObject = {
+            wordId: wordId,
+            wordCharacterPositions:[],//Array of {x,y}
+            fallingCharacters:[]//Array of {oldX,oldY,newX,newY}
+        };
 
-        let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
-
-        for(let i=0, len=words.length; i < len; i++){
-            let pos,
-                word = words[i].word
-            ;
-            if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
-                console.log("LTR: Found valid word:"+ word +" In:" + sentenceLTR);
-                let startFrom = colId-lefts.len+pos;
-                deleteCharacters(rowId,colId,{ltr:true},startFrom,word.length);
-                Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
-                //TODO: Increase Score
-                //TODO: Remove Chars from TetrisGame.initValues.choosedWordsUsedChars
-                //TODO: Remove Words from TetrisGame.initValues.choosedWords
-            }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
-                console.log("RTL: Found valid word:"+ word +" In:" + sentenceRTL);
-
-                let startFrom = colId+rights.len-pos;
-                deleteCharacters(rowId,colId,{rtl:true},startFrom,word.length);
-                Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
-
-            }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
-                console.log("Found valid word:"+ word +" In:" + sentenceRTL)
-            }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
-                console.log("Found valid word:"+ word +" In:" + sentenceDTT)
-            }
-        }
-    }
-
-    _deleteCharacters(rowId,colId,checkType,occurancePositionFrom,occurancePositionLenght,deleteCallBack){
         if(checkType.rtl){
             //Clear characters in matrix
             for(let c=0,i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++,c++){
                 this.matrix[rowId][i]=' ';
-                if(typeof(deleteCallBack))
-                setTimeout(()=>{deleteNode(rowId , i)},c*200);
+
+                if(hasCallback){
+                    callbackObject.wordCharacterPositions.push({y:rowId,x:i});
+                }
+                // setTimeout(()=>{deleteNode(rowId , i)},c*200);
 
                 //Move upper blocks to bottom
                 for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
                     this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
                     this.matrix[upIndex-1][i] = ' ';
-                    //TODO: Apply falling animations for moving chars from [upIndex-1][i] to [upIndex][i]
+                    if(hasCallback){
+                        callbackObject.fallingCharacters.push({oldX:upIndex-1,oldY:i,newX:upIndex,newY:i});
+                    }
                 }
             }
         }else if (checkType.rtl){
             //Clear characters in matrix
             for(let c=0,i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i,++c){
                 this.matrix[rowId][i]=' ';
-
-                setTimeout(()=>{deleteNode(rowId , i)},c*200);
+                if(hasCallback){
+                    callbackObject.wordCharacterPositions.push({y:rowId,x:i});
+                }
+                // setTimeout(()=>{deleteNode(rowId , i)},c*200);
                 // deleteNode(rowId , i,c*200);
 
                 //Move upper blocks to bottom
                 for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
                     this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
                     this.matrix[upIndex-1][i] = ' ';
-                    //TODO: Apply falling animations for moving chars from [upIndex-1][i] to [upIndex][i]
+                    if(hasCallback){
+                        callbackObject.fallingCharacters.push({oldX:upIndex-1,oldY:i,newX:upIndex,newY:i});
+                    }
                 }
             }
         }else if (checkType.ttd){
