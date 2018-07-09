@@ -7,8 +7,6 @@ const CONTROL_CODES = {
     RIGHT: 39
 };
 
-let isFirstRun=true;
-
 
 /**
  * Delete node with animation
@@ -313,20 +311,21 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             checkInRow: true,
             checkInColumn: false,
             useLowercase: false,
-            expertFallDownAnimateSpeed : 200,
-            mediumFallDownAnimateSpeed : 500,
             simpleFallDownAnimateSpeed : 700,
+            mediumFallDownAnimateSpeed : 500,
+            expertFallDownAnimateSpeed : 200,
 
             // user setting values
             playBackgroundSound: true,
             playEventsSound: true,
             level: 1 ,                       // up to 3 - if it is big it is hard to play
-            useAnimationFlag : false         // make animate or not
+            useAnimationFlag : false,        // make animate or not
+            showGrids : true                 // show grids flag
         },
 
 
         /**
-         * Initialize variables
+         * We hold game variables here
          */
         initValues: {
             paused: false,                  // is game paused
@@ -334,7 +333,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             wordsFinished: false,           // do we run out of words
             chooseedWordKind: {},           // holds user words kind
             bgSound : null ,                // background sound instance
-
+            isFirstRun: true,               // is this my first run
 
             validatedColumnsCount: 0,       // Count of columns which are validated
             nextChar: '',                   // Next character
@@ -354,7 +353,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
          * Game play board
          */
         playBoard: null,
-
 
 
         /**
@@ -435,6 +433,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 }
 
 
+                //let destinationEl = document.getElementById("grid" + moveTo.row + "_" + moveTo.column) || null;
                 let destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
                 if (moveTo.row >= TetrisGame.config.rows || (destinationEl.innerText.trim() !== "")) {
 
@@ -701,6 +700,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             TetrisGame.config.useAnimationFlag = parseInt(settings.useAnimation) === 1;
             TetrisGame.config.playEventsSound = parseInt(settings.eventSounds) === 1;
             TetrisGame.config.playBackgroundSound = parseInt(settings.soundPlay) === 1;
+            TetrisGame.config.showGrids = parseInt(settings.showGrids) === 1;
             TetrisGame.config.level = parseInt(settings.gameLevel) || 1;
 
 
@@ -712,6 +712,15 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 TetrisGame.initValues.bgSound.play();
             }
 
+
+            // manage grids on play board
+            if(TetrisGame.playBoard) {
+                if (TetrisGame.config.showGrids) {
+                    TetrisGame.playBoard.classList.add("showGrids");
+                } else {
+                    TetrisGame.playBoard.classList.remove("showGrids");
+                }
+            }
 
             // add level class to body AND do staffs about leveling
             let bodyClass = "";
@@ -744,7 +753,8 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 soundPlay : 1,
                 eventSounds : 1,
                 useAnimation : 1,
-                gameLevel : 1
+                gameLevel : 1,
+                showGrids : 0
             });
 
             // pause game timer
@@ -777,6 +787,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                         '</div>' +
                     '</div>' +
 
+
                     '<div class="formRow">' +
                         '<div class="formLabel"><i class="linearicon linearicon-magic-wand"></i> ' + lang.animation + '</div>' +
                         '<div class="formData">' +
@@ -786,6 +797,17 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                             '<label for="useAnimationNo"><span>' + lang.deActive + '</span></label>' +
                         '</div>' +
                     '</div>' +
+
+                    '<div class="formRow">' +
+                        '<div class="formLabel"><i class="linearicon linearicon-grid"></i> ' + lang.showGrids + '</div>' +
+                        '<div class="formData">' +
+                            '<input id="showGridsYes" type="radio" name="showGrids" value="1" ' + (settings.showGrids === 1 ? "checked" : "") + ' />' +
+                            '<label for="showGridsYes"><span>' + lang.active + '</span></label>' +
+                            '<input id="showGridsNo" type="radio" name="showGrids" value="0" ' + (settings.showGrids === 0 ? "checked" : "") + ' />' +
+                            '<label for="showGridsNo"><span>' + lang.deActive + '</span></label>' +
+                        '</div>' +
+                    '</div>' +
+
 
                     '<div class="formRow">' +
                         '<div class="formLabel"><i class="linearicon linearicon-game"></i> ' + lang.gameLevel + '</div>' +
@@ -822,10 +844,11 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                             // catch data
                             let settingForm = document.querySelector("#settingForm");
                             let settingData = {};
-                            settingData.soundPlay = parseInt(settingForm.querySelector('[name="soundPlay"]:checked').value) || 0;
-                            settingData.eventSounds = parseInt(settingForm.querySelector('[name="eventSounds"]:checked').value) || 0;
-                            settingData.useAnimation = parseInt(settingForm.querySelector('[name="useAnimation"]:checked').value) || 0;
-                            settingData.gameLevel = parseInt(settingForm.querySelector('[name="gameLevel"]:checked').value) || 1;
+                            settingData.soundPlay = parseInt(settingForm.querySelector('[name="soundPlay"]:checked').value);
+                            settingData.eventSounds = parseInt(settingForm.querySelector('[name="eventSounds"]:checked').value);
+                            settingData.useAnimation = parseInt(settingForm.querySelector('[name="useAnimation"]:checked').value);
+                            settingData.gameLevel = parseInt(settingForm.querySelector('[name="gameLevel"]:checked').value);
+                            settingData.showGrids = parseInt(settingForm.querySelector('[name="showGrids"]:checked').value);
 
                             // apply setting and save it
                             TetrisGame.setSettings(settingData);
@@ -861,6 +884,12 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             TetrisGame.playBoard.classList.add('is' + TetrisGame.initValues.validatedColumnsCount + 'Column');
 
 
+            // show game play board girds
+            if(TetrisGame.config.showGrids){
+                TetrisGame.playBoard.classList.add("showGrids");
+            }
+
+
             // create game columns and rows - matrix
             let playBoardTable = '';
             let matrixRowArray = [];
@@ -868,7 +897,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 let matrixColumn = [];
                 playBoardTable += '<div class="isRow row_' + r + '">';
                 for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
-                    playBoardTable += '<div class="isColumn column_' + c + '" data-row="' + r + '"></div>';
+                    playBoardTable += '<div id="grid' + r + '_' + c +  '" class="isColumn column_' + c + '" data-row="' + r + '"></div>';
                     matrixColumn[c]=' ';
                 }
                 matrixRowArray[r] = matrixColumn;
@@ -908,6 +937,24 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                     TetrisGame.initValues.activeChar.move(e.keyCode);
                 }
             };
+
+            // mobile swipe detect
+            TetrisGame.swipe = new Swipe(TetrisGame.playBoard , function (dir) {
+
+                // simulate arrow press on swipe
+                switch (dir){
+                    case "left":
+                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.LEFT);
+                        break;
+                    case "right":
+                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.RIGHT);
+                        break;
+                    case "down":
+                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.DOWN);
+                        break;
+                }
+            });
+
 
             TetrisGame.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
         },
@@ -950,15 +997,15 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
          */
         restartGamePlay: function () {
 
-
             // kill all intervals
             TetrisGame.interval.clearAll();
 
             // make game variables that variables was on start
             TetrisGame.initValues = {
-                paused: false,                 // is game paused
-                finished: false,                // is game finished
-                wordsFinished: false,           // do we run out of words
+                paused: false,
+                finished: false,
+                wordsFinished: false,
+                isFirstRun: false,              // it is not first run
                 chooseedWordKind: {
                     persianTitle: TetrisGame.initValues.chooseedWordKind.persianTitle,
                     englishTitle: TetrisGame.initValues.chooseedWordKind.englishTitle
@@ -968,16 +1015,19 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
                 validatedColumnsCount: 0,       // Count of columns which are validated
                 nextChar: '',                   // Next character
-                activeChar: {},                // Active character [not stopped] Object index
+                activeChar: {},                 // Active character [not stopped] Object index
                 choosedWords: [],               // Choosed words to work with them
-                choosedWordsUsedChars: []      // Chars that used from choosed words
+                choosedWordsUsedChars: []       // Chars that used from choosed words
             };
+
+            // destroy swiper
+            TetrisGame.swipe.destroy();
 
             // play resume sound
             Sound.playByKey('pause' , TetrisGame.config.playEventsSound);
 
-            //Remove old listener of keydown which causes multiple moves
-            document.onkeydown =null;
+            // remove old listener of keydown which causes multiple moves
+            document.onkeydown = null;
 
             // re-build game
             TetrisGame.build();
@@ -1007,7 +1057,8 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 modalHeader = lang.gameOverModalTitle;
                 modalContent = lang.gameOverModalContent;
 
-                modalButtons.push({
+                modalButtons.push(
+                    {
                         text : lang.restartGame,
                         isOk : true,
                         onclick : function () {
@@ -1024,7 +1075,8 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             } else {
                 modalHeader = lang.noExtraWordModalTitle;
                 modalContent = lang.noExtraWordModalContent;
-                modalButtons.push({
+                modalButtons.push(
+                    {
                         text : lang.modalRefreshButton,
                         onclick : function () {
                             window.location.reload();
@@ -1106,9 +1158,9 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             }
 
 
-            if(isFirstRun){
+            if(TetrisGame.initValues.isFirstRun){
                 TetrisGame.initValues.bgSound = new Sound("background").play();
-                isFirstRun = false;
+                TetrisGame.initValues.isFirstRun = false;
             }
 
             // set game settings from local storage

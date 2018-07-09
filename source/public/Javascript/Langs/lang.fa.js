@@ -19,6 +19,7 @@ var lang = {
     medium:"متوسط",
     expert:"پیشرفته",
     gameLevel:"سطح بازی",
+    showGrids:"نمایش جداکننده",
     active:"فعال",
     deActive:"غیرفعال",
     animation:"انیمیشن",
