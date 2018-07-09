@@ -4,28 +4,28 @@
  */
 var TetrisWords = [
     {
-        "word": "aa",
+        "word": "da",
         "unidoce": "123123"
     },{
-        "word": "bb",
+        "word": "ba",
         "unidoce": "123123"
     },{
-        "word": "cc",
+        "word": "ca",
         "unidoce": "123123"
     },{
-        "word": "dd",
+        "word": "da",
         "unidoce": "123123"
     },{
-        "word": "ee",
+        "word": "ea",
         "unidoce": "123123"
     },{
-        "word": "ff",
+        "word": "fa",
         "unidoce": "123123"
     },{
-        "word": "gg",
+        "word": "ga",
         "unidoce": "123123"
     }, {
-        "word": "hh",
+        "word": "ha",
         "unidoce": "123123"
     }
     // },

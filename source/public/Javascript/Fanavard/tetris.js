@@ -28,8 +28,8 @@ function getRailingChars(matrix,y,x,direction){
     const height = matrix.length;
 
     let railingChars='';
-    let from=-1,to=-1;//from and to determines location from
-    let len=0;
+    // let from=-1,to=-1;//from and to determines location from
+    let len=0;//Determines how much did we move in each direction to get to space or end of direction
 
     let i=1;//i is just the iterator in loops
     switch(direction){
@@ -38,34 +38,34 @@ function getRailingChars(matrix,y,x,direction){
             //i starts with 1 because we dont want the current character
             //This loop will go to right until it reaches the border OR next character is ' '
             //Rest of cases are just like this method but with differnt direction
-            from=1+x;
+            // from=1+x;
             for(i=1;i+x<width && matrix[y][i+x]!==' ';i++){
                 railingChars+=matrix[y][i+x];
-                to=i+x;
+                // to=i+x;
                 len++;
             }
             break;
         case 'L':
-            from=x-1;
+            // from=x-1;
             for(i=1;x-i>=0 && matrix[y][x-i]!==' ';i++){
                 railingChars=matrix[y][x-i] + railingChars;
-                to=x-i;
+                // to=x-i;
                 len++;
             }
             break;
         case 'T':
-            from=y-1;
+            // from=y-1;
             for(i=1;y-i>=0 && matrix[y-i][x]!==' ';i++){
                 railingChars+=matrix[y-i][x];
-                to=y-i;
+                // to=y-i;
                 len++;
             }
             break;
         case 'D':
-            from=y+1;
+            // from=y+1;
             for(i=1;y+i<height && matrix[y+i][x]!==' ';i++){
                 railingChars+=matrix[y+i][x];
-                to=y+i;
+                // to=y+i;
                 len++;
             }
             break;
@@ -73,8 +73,8 @@ function getRailingChars(matrix,y,x,direction){
 
     return {
         chars:railingChars,
-        to:to,
-        from:from,
+        // to:to,
+        // from:from,
         len:len
     }
 }
@@ -119,9 +119,6 @@ function checkSuccess(matrix,words,rowId,colId,successCallback){
     let tops = getRailingChars(matrix,rowId,colId,'T');
     let downs = getRailingChars(matrix,rowId,colId,'D');
 
-    console.log(lefts);
-    console.log(rights);
-
     // const sentenceLTR = excapeRegex(lefts + matrix[9][2] + rights);
     // const sentenceTTD = excapeRegex(tops  + matrix[9][2] + downs);
     // const sentenceRTL = excapeRegex(reverse(sentenceLTR));
@@ -130,27 +127,35 @@ function checkSuccess(matrix,words,rowId,colId,successCallback){
     const sentenceTTD = (tops.chars  + matrix[rowId][colId] + downs.chars);
     const sentenceRTL = (reverse(sentenceLTR));
     const sentenceDTT = (reverse(sentenceTTD));
-    console.log(sentenceLTR);
+    // console.log(sentenceLTR);
+    console.log(sentenceRTL);
     //
     // const regexLTR = new RegExp(sentenceLTR,'i');
     // const regexTTD = new RegExp(sentenceTTD,'i');
     // const regexRTL = new RegExp(sentenceRTL,'i');
     // const regexDDT = new RegExp(sentenceDDT,'i');
 
-    let checkType={rtl:false,ltr:true,ttd:false,dtt:false};
+    let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
 
     for(let i=0, len=words.length; i < len; i++){
-        let pos;
-        if(checkType.ltr && (pos=sentenceLTR.indexOf(words[i].word)) !== -1){
-            console.log("Found valid word:"+ words[i].word +" In:" + sentenceLTR);
+        let pos,
+            word = words[i].word
+        ;
+        if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
+            console.log("LTR: Found valid word:"+ word +" In:" + sentenceLTR);
             let startFrom = colId-lefts.len+pos;
-            deleteCharacters(matrix,rowId,colId,'ltr',startFrom,words[i].word.length);
+            deleteCharacters(matrix,rowId,colId,'ltr',startFrom,word.length);
             Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
             //TODO: Increase Score
             //TODO: Remove Chars from TetrisGame.initValues.choosedWordsUsedChars
             //TODO: Remove Words from TetrisGame.initValues.choosedWords
-        }else if (checkType.ttd && sentenceTTD.indexOf(word) !== -1){
-            console.log("Found valid word:"+ word +" In:" + sentenceTTD)
+        }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
+            console.log("RTL: Found valid word:"+ word +" In:" + sentenceRTL);
+
+            let startFrom = colId+rights.len-pos;
+            deleteCharacters(matrix,rowId,colId,'rtl',startFrom,word.length);
+            Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
+
         }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
             console.log("Found valid word:"+ word +" In:" + sentenceRTL)
         }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
@@ -183,11 +188,27 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             }
         }
     }else if (checkType==='rtl'){
-        //TODO: Implement these conditions
+        //Clear characters in matrix
+        for(let i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i){
+            matrix[rowId][i]=' ';
+            //TODO: Apply word Found animations for (rowId,i)
+            let domToDelete= document.querySelector(`.row_${rowId} .column_${i} .charBlock`);
+            domToDelete.classList.add(["animated","lightSpeedOut"]); //TODO: Fix this animation
+            setTimeout(function () {
+                deleteNode(domToDelete);
+            },300+(i*100));
+
+            //Move upper blocks to bottom
+            for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
+                matrix[upIndex][i] = matrix[upIndex-1][i];
+                matrix[upIndex-1][i] = ' ';
+                //TODO: Apply falling animations for moving chars from [upIndex-1][i] to [upIndex][i]
+            }
+        }
     }else if (checkType==='ttd'){
-
+        //TODO
     }else if (checkType==='dtt'){
-
+        //TODO
     }
 }
 
