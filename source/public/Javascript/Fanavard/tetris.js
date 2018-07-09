@@ -7,8 +7,6 @@ const CONTROL_CODES = {
     RIGHT: 39
 };
 
-let isFirstRun=true;
-
 
 /**
  * Delete node with animation
@@ -316,18 +314,18 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             simpleFallDownAnimateSpeed : 700,
             mediumFallDownAnimateSpeed : 500,
             expertFallDownAnimateSpeed : 200,
-            showGrids : true,
 
             // user setting values
             playBackgroundSound: true,
             playEventsSound: true,
             level: 1 ,                       // up to 3 - if it is big it is hard to play
-            useAnimationFlag : false         // make animate or not
+            useAnimationFlag : false,        // make animate or not
+            showGrids : true                 // show grids flag
         },
 
 
         /**
-         * Initialize variables
+         * We hold game variables here
          */
         initValues: {
             paused: false,                  // is game paused
@@ -335,6 +333,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             wordsFinished: false,           // do we run out of words
             chooseedWordKind: {},           // holds user words kind
             bgSound : null ,                // background sound instance
+            isFirstRun: true,               // is this my first run
 
 
             validatedColumnsCount: 0,       // Count of columns which are validated
@@ -987,9 +986,10 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
             // make game variables that variables was on start
             TetrisGame.initValues = {
-                paused: false,                 // is game paused
-                finished: false,                // is game finished
-                wordsFinished: false,           // do we run out of words
+                paused: false,
+                finished: false,
+                wordsFinished: false,
+                isFirstRun: false,              // it is not first run
                 chooseedWordKind: {
                     persianTitle: TetrisGame.initValues.chooseedWordKind.persianTitle,
                     englishTitle: TetrisGame.initValues.chooseedWordKind.englishTitle
@@ -999,9 +999,9 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
                 validatedColumnsCount: 0,       // Count of columns which are validated
                 nextChar: '',                   // Next character
-                activeChar: {},                // Active character [not stopped] Object index
+                activeChar: {},                 // Active character [not stopped] Object index
                 choosedWords: [],               // Choosed words to work with them
-                choosedWordsUsedChars: []      // Chars that used from choosed words
+                choosedWordsUsedChars: []       // Chars that used from choosed words
             };
 
             // play resume sound
@@ -1137,9 +1137,9 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             }
 
 
-            if(isFirstRun){
+            if(TetrisGame.initValues.isFirstRun){
                 TetrisGame.initValues.bgSound = new Sound("background").play();
-                isFirstRun = false;
+                TetrisGame.initValues.isFirstRun = false;
             }
 
             // set game settings from local storage

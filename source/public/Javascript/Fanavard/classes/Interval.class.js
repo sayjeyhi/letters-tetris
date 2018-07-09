@@ -1,12 +1,23 @@
+/**
+ * @class Interval setting control - Better way to manage setInterval and make it easily to destroy
+ */
 class Interval {
 
+    /**
+     * Constructor of interval class - register intervals field here.
+     */
     constructor() {
         //to keep a reference to all the intervals
         this.intervals = {};
     }
 
 
-    //create another interval
+    /**
+     * Create another interval
+     * @param usedFunction
+     * @param delay
+     * @return {number}
+     */
     make( usedFunction , delay ) {
         //see explanation after the code
         let newInterval = setInterval.apply(
@@ -19,12 +30,17 @@ class Interval {
         return newInterval;
     }
 
-    //clear a single interval
+    /**
+     * Clear a single interval
+     * @param id
+     */
     clear( id ) {
         return clearInterval(id);
     }
 
-    //clear all intervals
+    /**
+     * Clear all intervals
+     */
     clearAll() {
         let all = Object.keys( this.intervals ), len = all.length;
 
