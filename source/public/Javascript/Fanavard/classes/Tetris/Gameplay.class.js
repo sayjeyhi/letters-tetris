@@ -49,7 +49,7 @@ class Gameplay extends TetrisGame {
         for (let i = 0; i < TetrisGame.config.workingWordCount; i++) {
             let choosedWord = WordsHelper.chooseWord();
             if(!choosedWord){
-                TetrisGame.finishGame("finishWords");
+                Gameplay.finish("finishWords");
             }else {
                 TetrisGame.initValues.choosedWords.push(choosedWord);
             }

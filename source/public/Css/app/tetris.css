@@ -6,25 +6,10 @@ body{margin:0 0 40px;font-family:'BYekan','SDF','Tahoma',sans-serif;font-weight:
 .byekan,fieldset,legend,strong,.btn,.smalltext,table,.tooltip{font-family:'BYekan','SDF','Tahoma',sans-serif}
 .sdf{font-family:'SDF','BYekan','Tahoma',sans-serif}
 a{color:#5b57ef;text-decoration:none}
-#container{
-    direction:rtl;
-    text-align:right;
-    background:#fff;
-    -webkit-filter: blur(0px);
-    -moz-filter: blur(0px);
-    -o-filter: blur(0px);
-    -ms-filter: blur(0px);
-    filter: blur(0px);
-}
-
-body.isExpert,body.isExpert #container {
-    background-color: #000 !important;
-}
-
-body.isMedium,body.isMedium #container {
-    background-color: #b0cefc !important;
-}
-
+#container{direction:rtl;text-align:right;background:#fff;-webkit-filter:blur(0px);-moz-filter:blur(0px);-o-filter:blur(0px);-ms-filter:blur(0px);filter:blur(0px)}
+body{background:#fff;overflow-x:hidden}
+body.isExpert,body.isExpert #container{background-color:#000!important}
+body.isMedium,body.isMedium #container{background-color:#b0cefc!important}
 .content{position:relative;border-radius:20px!important;padding:10px 10%}
 #topContainer .parallax{position:relative;padding:5em 0;text-align:center;color:#fff!important;background:#DA4453;background:-webkit-linear-gradient(to right,#89216B,#DA4453);background:linear-gradient(to right,#89216B,#DA4453)}
 .page-footer div{text-align:center;font-size:12px;margin-top:40px}
@@ -63,7 +48,6 @@ svg :not(.doNotUnfill){stroke:currentColor}
     100%{-webkit-transform:scale(1.0);transform:scale(1.0);opacity:0}
 }
 .center{display:block;position:absolute;left:0;bottom:-10px;right:0;margin:auto}
-
 .wordsKind{cursor:pointer;background:#fff;border-radius:8px;padding:7px 27px;display:inline-block;border:1px solid #efefef;margin:10px 15px 35px;font-size:13px;position:relative;width:125px;line-height:27px}
 .wordsKind .linearicon{font-size:16px;position:relative;bottom:-5px;margin:0 13px;color:#9878e1;left:5px}
 .loadingText{position:relative;margin-bottom:20px}
@@ -74,434 +58,89 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .chooseWordKindTooltip ul > li .englishTitle,.wordsKind .englishTitle{position:absolute;left:7px}
 .chooseWordKindTooltip ul > li .persianTitle,.wordsKind .persianTitle{position:absolute;right:7px}
 .chooseWordKindTooltip ul > li .linearicon{font-size:16px;position:relative;bottom:-3px;margin:0 13px;color:#26a718;left:5px}
-
-
-.gameHolder{
-    background: #f6f6f6;
-    padding: 8px;
-    box-shadow: 0 25px 20px -21px rgba(153, 153, 153, 0.3);
-    border-radius: 10px !important;
-    position: relative;
-    width: 800px;
-    right: 50%;
-    margin-right: -400px;
-    margin-top: 20px ;
-}
-
-
-.gameHolder .playBoard{
-    width: 75%;
-    display: inline-block;
-    background: #fff;
-    padding: 3px;
-    min-height: 460px;
-    position: relative;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
-}
-
-.gameHolder .playBoard .emptyPlayBoard{
-    font-size: 17px;
-    color: rgba(186, 183, 183, 0.5);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    text-align: center;
-}
-
-.gameHolder .playBoard .charBlock {
-    border-radius: 5px;
-    text-align: center;
-    color: #fff !important;
-    position: absolute;
-    width: 99%;
-    height: 99%;
-    line-height: 44px;
-    left:0;
-    top:0;
-}
-
-.gameHolder .playBoard .isRow{
-    height: 40px;
-    margin-bottom:1px;
-}
-
-.playBoard.showGrids .isRow{
-    border-bottom: 1px dashed #efefef;
-}
-.playBoard.showGrids .isRow:last-child{
-    border:none
-}
-
-
-.gameHolder .playBoard .isColumn{
-    position: relative;
-    display: inline-block;
-    height:100%;
-}
-
-.gameHolder .playBoard.is6Column .isColumn{
-    width: 16.66%;
-}
-.gameHolder .playBoard.is8Column .isColumn{
-    width: 12.5%;
-}
-.gameHolder .playBoard.is10Column .isColumn {
-    width: 10%;
-}
-.gameHolder .playBoard.is12Column .isColumn {
-    width: 8.32%;
-}
-.gameHolder .playBoard.is14Column .isColumn {
-    width: 7.13%;
-}
-.gameHolder .playBoard.is16Column .isColumn {
-    width: 6.24%;
-}
-
-
-
-
-
-.gameHolder .behindPlayBoard{
-    position: absolute;
-    left:0;
-    width: 24%;
-    height: 100%;
-}
-
-.gameHolder .behindPlayBoard .courseArea {
-    display: inline-block;
-    font-size: 13px;
-    text-align: right;
-    position: absolute;
-    left: 0;
-    bottom: 19px;
-    width: 100%;
-}
-
-.gameHolder .behindPlayBoard .courseArea div {
-    margin-top:2px
-}
-
-.gameHolder .behindPlayBoard .courseArea .setting{
-    margin: 0 0 10px 0;
-    color: #2aad1c;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.gameHolder .behindPlayBoard .courseArea .linearicon{
-    position: relative;
-    bottom: -2px;
-    margin-left: 4px;
-}
-
-.gameHolder .behindPlayBoard  .gamingKind{
-
-    background: #ededed80;
-    margin: auto 9px;
-    padding: 8px;
-    font-size: 12px;
-    border-radius: 5px;
-    line-height: 18px;
-}
-
-.gameHolder .behindPlayBoard  .gamingKind .english{
-    float: left;
-}
-
-.gameHolder .behindPlayBoard  .gamingKind .persian{
-}
-
-.gameHolder .behindPlayBoard .showUpComingLetter{
-    background: #ffffff;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    width: 140px;
-    left: 31px;
-    top: 75px;
-    text-align: center;
-    height: 150px;
-    font-size: 44px;
-    line-height: 155px;
-    color: #314e81;
-    position: absolute;
-}
-.gameHolder .behindPlayBoard .showUpComingLetter::before {
-    content: attr(title);
-    font-size: 12px;
-    top: -86px;
-    position: absolute;
-    right: 0;
-}
-
-
-.gameHolder .behindPlayBoard .gameControlButtons{
-    left: 0;
-    top: 220px;
-    text-align: center;
-    width: 100%;
-    position: relative;
-}
-
-.gameHolder .behindPlayBoard .gameControlButtons > div{
-    display: inline-block;
-    border: none;
-    padding: 6px 10px;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px !important;
-    position: relative;
-    font-size: 14px;
-    margin: 1px !important;
-    background: #6180ff;
-}
-
-.gameHolder .behindPlayBoard .gameControlButtons .startGame{
-    background: #37c328;
-
-}
-.gameHolder .behindPlayBoard .gameControlButtons .restartGame{
-    background: #c3450e;
-    font-size: 13px;
-}
-
-
-/* For ltr */
-.gameHolder.isLtr{direction: ltr;}
-.gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before {left: -10px;}
-.gameHolder.isLtr .behindPlayBoard .courseArea {text-align: left;margin-left:5px}
-
-
-.noselect,.wordsKind,.gameControlButtons {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-}
-
-
-
-
-.blur{
-    -webkit-filter: blur(4px) !important;
-    -moz-filter: blur(4px) !important;;
-    -o-filter: blur(4px) !important;;
-    -ms-filter: blur(4px) !important;;
-    filter: blur(4px) !important;;
-    /*filter: url("/public/Images/blur".svg#blur);*/
-    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4') !important;
-    text-align: center;
-    transform: translateZ(1px);
-    position: fixed;
-    left:0;
-    right: 0;
-    top:0;
-    bottom: 0;
-}
-
-
-.modalHolder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
-
-
-.modal{
-    position: relative;
-    background-color: #fff;
-    color: #444;
-    border: none;
-    font-size: 20px;
-    border-radius: 12px;
-    min-width: 50%;
-    max-width: 85%;
-    padding: 10px 15px;
-    min-height: 20%;
-    max-height: 90%;
-    overflow: auto;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 12px 20px -10px rgba(173, 104, 185, 0.3),0 4px 20px 0 rgba(0,0,0,0.12),0 7px 8px -5px rgba(183, 183, 183, 0.2);
-}
-
-.modal .titleModal{display: block;font-size: 15px;margin: 10px 0 20px 0;}
-.modal .titleModal .closeModal{float: right;font-size: 17px;padding: 6px 4px;cursor: pointer;color: #a5611f;position: relative;right: -3px;}
-.modal .contentModal{font-size: 14px;padding: 7px;}
-.modal .footerModal{padding: 8px;margin-top: 10px;}
-.modal .footerModal .buttonModal {display: inline-block;background: #f0efef;cursor: pointer;padding: 4px 12px;font-size: 13px;border-radius: 6px;margin: 0 2px;}
-.modal .footerModal .buttonModal:first-child{margin: 0 !important}
-.modal .footerModal .buttonModal.isOk {background: #6bd849;color: #fff;}
-.modal .footerModal .buttonModal.notOk {background: #f96e6e;color: #fff;}
-
-.modal.rtl .titleModal{text-align: right !important;}
-.modal.rtl .titleModal .closeModal{
-    float:left;
-    left: -3;
-    right: auto;
-}
-
-.modal.rtl .footerModal .buttonModal{
-    padding: 8px 12px !important;
-}
-.modal.rtl {
-    direction: rtl;
-    text-align: right;
-}
-
-
-#settingForm .formLabel{display: inline-block;width: 25%;font-size: 14px;color: #515151;position: relative;margin-right: 12px;}
-#settingForm .formLabel .linearicon{position: absolute;right: -28px;font-size: 32px;transform: rotate(-14deg);top: -9px;color: #d1d1d1b3;}
-#settingForm .formData{display: inline-block;}
-
-.modal.ltr #settingForm .formLabel .linearicon{
-    left: -28px;
-    right: auto !important;
-}
-.modal.ltr #settingForm .formLabel{
-    margin-left: 12px !important;
-    margin-right: 0 !important;
-}
-
+.gameHolder{background:#f6f6f6;padding:8px;box-shadow:0 25px 20px -21px rgba(153,153,153,0.3);border-radius:10px!important;position:relative;width:800px;right:50%;margin-right:-400px;margin-top:20px}
+.gameHolder .playBoard{width:75%;display:inline-block;background:#fff;padding:3px;min-height:460px;position:relative;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px}
+.gameHolder .playBoard .emptyPlayBoard{font-size:17px;color:rgba(186,183,183,0.5);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.gameHolder .playBoard .charBlock{border-radius:5px;text-align:center;color:#fff!important;position:absolute;width:99%;height:99%;line-height:44px;left:0;top:0}
+.gameHolder .playBoard .isRow{height:40px;margin-bottom:1px}
+.playBoard.showGrids .isRow{border-bottom:1px dashed #efefef}
+.playBoard.showGrids .isRow:last-child{border:none}
+.gameHolder .playBoard .isColumn{position:relative;display:inline-block;height:100%}
+.gameHolder .playBoard.is6Column .isColumn{width:16.66%}
+.gameHolder .playBoard.is8Column .isColumn{width:12.5%}
+.gameHolder .playBoard.is10Column .isColumn{width:10%}
+.gameHolder .playBoard.is12Column .isColumn{width:8.32%}
+.gameHolder .playBoard.is14Column .isColumn{width:7.13%}
+.gameHolder .playBoard.is16Column .isColumn{width:6.24%}
+.gameHolder .behindPlayBoard{position:absolute;left:0;width:24%;height:100%}
+.gameHolder .behindPlayBoard .courseArea{display:inline-block;font-size:13px;text-align:right;position:absolute;left:0;bottom:19px;width:100%}
+.gameHolder .behindPlayBoard .courseArea div{margin-top:2px}
+.gameHolder .behindPlayBoard .courseArea .setting{margin:0 0 10px;color:#2aad1c;cursor:pointer;font-size:14px}
+.gameHolder .behindPlayBoard .courseArea .linearicon{position:relative;bottom:-2px;margin-left:4px}
+.gameHolder .behindPlayBoard .gamingKind{background:#ededed80;margin:auto 9px;padding:8px;font-size:12px;border-radius:5px;line-height:18px}
+.gameHolder .behindPlayBoard .gamingKind .english{float:left}
+.gameHolder .behindPlayBoard .showUpComingLetter{background:#fff;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;width:140px;left:31px;top:75px;text-align:center;height:150px;font-size:44px;line-height:155px;color:#314e81;position:absolute}
+.gameHolder .behindPlayBoard .showUpComingLetter::before{content:attr(title);font-size:12px;top:-86px;position:absolute;right:0}
+.gameHolder .behindPlayBoard .gameControlButtons{left:0;top:220px;text-align:center;width:100%;position:relative}
+.gameHolder .behindPlayBoard .gameControlButtons > div{display:inline-block;border:none;padding:6px 10px;color:#fff;cursor:pointer;border-radius:5px!important;position:relative;font-size:14px;margin:1px!important;background:#6180ff}
+.gameHolder .behindPlayBoard .gameControlButtons .startGame{background:#37c328}
+.gameHolder .behindPlayBoard .gameControlButtons .restartGame{background:#c3450e;font-size:13px}
+.gameHolder.isLtr{direction:ltr}
+.gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before{left:-10px}
+.gameHolder.isLtr .behindPlayBoard .courseArea{text-align:left;margin-left:5px}
+.noselect,.wordsKind,.gameControlButtons{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.blur{-webkit-filter:blur(4px)!important;-moz-filter:blur(4px)!important;-o-filter:blur(4px)!important;-ms-filter:blur(4px)!important;filter:blur(4px)!important;filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4')!important;text-align:center;transform:translateZ(1px);position:fixed;left:0;right:0;top:0;bottom:0}
+.modalHolder{display:flex;justify-content:center;align-items:center;z-index:100;position:fixed;left:0;right:0;top:0;bottom:0}
+.modal{position:relative;background-color:#fff;color:#444;border:none;font-size:20px;border-radius:12px;min-width:50%;max-width:85%;padding:10px 15px;min-height:20%;max-height:90%;overflow:auto;justify-content:center;align-items:center;box-shadow:0 12px 20px -10px rgba(173,104,185,0.3),0 4px 20px 0 rgba(0,0,0,0.12),0 7px 8px -5px rgba(183,183,183,0.2)}
+.modal .titleModal{display:block;font-size:15px;margin:10px 0 20px}
+.modal .titleModal .closeModal{float:right;font-size:17px;padding:6px 4px;cursor:pointer;color:#a5611f;position:relative;right:-3px}
+.modal .contentModal{font-size:14px;padding:7px}
+.modal .footerModal{padding:8px;margin-top:10px}
+.modal .footerModal .buttonModal{display:inline-block;background:#f0efef;cursor:pointer;padding:4px 12px;font-size:13px;border-radius:6px;margin:0 2px}
+.modal .footerModal .buttonModal:first-child{margin:0!important}
+.modal .footerModal .buttonModal.isOk{background:#6bd849;color:#fff}
+.modal .footerModal .buttonModal.notOk{background:#f96e6e;color:#fff}
+.modal.rtl .titleModal{text-align:right!important}
+.modal.rtl .titleModal .closeModal{float:left;left:-3px;right:auto}
+.modal.rtl .footerModal .buttonModal{padding:8px 12px!important}
+.modal.rtl{direction:rtl;text-align:right}
+#settingForm .formLabel{display:inline-block;width:25%;font-size:14px;color:#515151;position:relative;margin-right:12px}
+#settingForm .formLabel .linearicon{position:absolute;right:-28px;font-size:32px;transform:rotate(-14deg);top:-9px;color:#d1d1d1b3}
+#settingForm .formData{display:inline-block}
+.modal.ltr #settingForm .formLabel .linearicon{left:-28px;right:auto!important}
+.modal.ltr #settingForm .formLabel{margin-left:12px!important;margin-right:0!important}
 .cssRadio input[type="radio"]{display:none}
-.cssRadio input[type="radio"] + label span{cursor:pointer;padding:8px 22px;font-size:13px;font-family:'BYekan','SDF','Tahoma',sans-serif, ;display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383;}
-.cssRadio.animatedSpan input[type="radio"] + label span{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;}
-.cssRadio input[type="radio"]:checked + label span{cursor:default;color:#fff;background:#6e8ff0 !important;}
-
-
-
-
-
-/* Make RESPONSIVE */
-
+.cssRadio input[type="radio"] + label span{cursor:pointer;padding:8px 22px;font-size:13px;font-family:'BYekan','SDF','Tahoma',sans-serif,;display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383}
+.cssRadio.animatedSpan input[type="radio"] + label span{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out}
+.cssRadio input[type="radio"]:checked + label span{cursor:default;color:#fff;background:#6e8ff0!important}
 @media (max-width: 868px) {
-
-    .page-footer div {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .gameHolder{
-        width:96%;
-        left: 0;
-        right: 0;
-        transform: none !important;
-        margin: 1%;
-    }
-
-    .gameHolder .behindPlayBoard {
-        position: relative;
-        width: auto;
-        display: block;
-    }
-    .gameHolder .playBoard{
-        width: auto !important;
-        display: block;
-    }
-
-
-    .gameHolder .behindPlayBoard .showUpComingLetter{
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        top: 58px;
-        left: 0;
-        line-height: 98px;
-    }
-    .gameHolder .behindPlayBoard .showUpComingLetter::before{
-        top:-56px
-    }
-
-
-    .gameHolder .behindPlayBoard .gameControlButtons{
-        right: 0;
-        text-align: right;
-        width: auto;
-        position: relative;
-        top: auto;
-        margin: 10px 0;
-        display: block;
-    }
-
-    .gameHolder .behindPlayBoard .gameControlButtons > div{
-
-    }
-
-    .gameHolder .behindPlayBoard .courseArea{
-        text-align: right;
-        margin-right: 5px;
-        position: relative;
-        bottom: 5px;
-    }
-    .gameHolder .behindPlayBoard .courseArea .setting{
-        font-size:13px !important;
-    }
-
-    .gameHolder .behindPlayBoard .gamingKind{
-        margin: 0;
-    }
-
-
-    /* For ltr */
-    .gameHolder.isLtr .behindPlayBoard .showUpComingLetter {
-        right: 0;
-        float: right;
-        left: auto !important;
-        top: 74px;
-    }
-    .gameHolder.isLtr .behindPlayBoard .gameControlButtons{
-        left: 0;
-        text-align: left;
-    }
-    .gameHolder.isLtr .behindPlayBoard .courseArea{
-        text-align: left !important;
-        margin-left: 5px;
-    }
-    .gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before {
-        left: -10px;
-    }
-    .gameHolder.isLtr .behindPlayBoard .courseArea {
-        text-align: left;
-        margin-left:5px;
-        position: relative;
-        bottom: 5px;
-        font-size: 11px;
-    }
-
-    .modal{
-        width:70%;
-    }
-
+    .page-footer div{text-align:center;margin-top:20px}
+    .gameHolder{width:96%;left:0;right:0;transform:none!important;margin:1%}
+    .gameHolder .behindPlayBoard{position:relative;width:auto;display:block}
+    .gameHolder .playBoard{width:auto!important;display:block}
+    .gameHolder .behindPlayBoard .showUpComingLetter{position:absolute;width:100px;height:100px;top:58px;left:0;line-height:98px}
+    .gameHolder .behindPlayBoard .showUpComingLetter::before{top:-56px}
+    .gameHolder .behindPlayBoard .gameControlButtons{right:0;text-align:right;width:auto;position:relative;top:auto;margin:10px 0;display:block}
+    .gameHolder .behindPlayBoard .courseArea{text-align:right;margin-right:5px;position:relative;bottom:5px}
+    .gameHolder .behindPlayBoard .courseArea .setting{font-size:13px!important}
+    .gameHolder .behindPlayBoard .gamingKind{margin:0}
+    .gameHolder.isLtr .behindPlayBoard .showUpComingLetter{right:0;float:right;left:auto!important;top:74px}
+    .gameHolder.isLtr .behindPlayBoard .gameControlButtons{left:0;text-align:left}
+    .gameHolder.isLtr .behindPlayBoard .courseArea{text-align:left!important;margin-left:5px}
+    .gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before{left:-10px}
+    .gameHolder.isLtr .behindPlayBoard .courseArea{text-align:left;margin-left:5px;position:relative;bottom:5px;font-size:11px}
+    .modal{width:70%;}
 }
-
 @media (max-width: 868px) {
-    .modal{
-        width:85%;
-    }
+    .modal{width:85%;}
 }
 
 
-/* ANIMATING PART */
-
+/* ANIMATION PART */
 .animated{-webkit-animation-duration:.2s;animation-duration:.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedHalfSecond{-webkit-animation-duration:.5s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedOneSecond{-webkit-animation-duration:.7s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}
-
 .arshLoadingAnimation{height:32px;width:32px;-webkit-animation:arshLoadingAnimation-1 2s cubic-bezier(0.770,0.000,0.175,1.000) infinite;animation:arshLoadingAnimation-1 2s cubic-bezier(0.770,0.000,0.175,1.000) infinite}
 @-webkit-keyframes arshLoadingAnimation-1 {
     0%{-webkit-transform:rotate(0deg)}
@@ -718,191 +357,42 @@ svg :not(.doNotUnfill){stroke:currentColor}
     to{opacity:0;-webkit-transform:translate3d(0,-2000px,0);transform:translate3d(0,-2000px,0)}
 }
 .fadeOutUpBig{-webkit-animation-name:fadeOutUpBig;animation-name:fadeOutUpBig}
-
 @-webkit-keyframes bounceIn {
-    from,
-    20%,
-    40%,
-    60%,
-    80%,
-    to {
-        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-
-    0% {
-        opacity: 0;
-        -webkit-transform: scale3d(0.3, 0.3, 0.3);
-        transform: scale3d(0.3, 0.3, 0.3);
-    }
-
-    20% {
-        -webkit-transform: scale3d(1.1, 1.1, 1.1);
-        transform: scale3d(1.1, 1.1, 1.1);
-    }
-
-    40% {
-        -webkit-transform: scale3d(0.9, 0.9, 0.9);
-        transform: scale3d(0.9, 0.9, 0.9);
-    }
-
-    60% {
-        opacity: 1;
-        -webkit-transform: scale3d(1.03, 1.03, 1.03);
-        transform: scale3d(1.03, 1.03, 1.03);
-    }
-
-    80% {
-        -webkit-transform: scale3d(0.97, 0.97, 0.97);
-        transform: scale3d(0.97, 0.97, 0.97);
-    }
-
-    to {
-        opacity: 1;
-        -webkit-transform: scale3d(1, 1, 1);
-        transform: scale3d(1, 1, 1);
-    }
+    from,20%,40%,60%,80%,to{-webkit-animation-timing-function:cubic-bezier(0.215,0.61,0.355,1);animation-timing-function:cubic-bezier(0.215,0.61,0.355,1)}
+    0%{opacity:0;-webkit-transform:scale3d(0.3,0.3,0.3);transform:scale3d(0.3,0.3,0.3)}
+    20%{-webkit-transform:scale3d(1.1,1.1,1.1);transform:scale3d(1.1,1.1,1.1)}
+    40%{-webkit-transform:scale3d(0.9,0.9,0.9);transform:scale3d(0.9,0.9,0.9)}
+    60%{opacity:1;-webkit-transform:scale3d(1.03,1.03,1.03);transform:scale3d(1.03,1.03,1.03)}
+    80%{-webkit-transform:scale3d(0.97,0.97,0.97);transform:scale3d(0.97,0.97,0.97)}
+    to{opacity:1;-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}
 }
-
 @keyframes bounceIn {
-    from,
-    20%,
-    40%,
-    60%,
-    80%,
-    to {
-        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-
-    0% {
-        opacity: 0;
-        -webkit-transform: scale3d(0.3, 0.3, 0.3);
-        transform: scale3d(0.3, 0.3, 0.3);
-    }
-
-    20% {
-        -webkit-transform: scale3d(1.1, 1.1, 1.1);
-        transform: scale3d(1.1, 1.1, 1.1);
-    }
-
-    40% {
-        -webkit-transform: scale3d(0.9, 0.9, 0.9);
-        transform: scale3d(0.9, 0.9, 0.9);
-    }
-
-    60% {
-        opacity: 1;
-        -webkit-transform: scale3d(1.03, 1.03, 1.03);
-        transform: scale3d(1.03, 1.03, 1.03);
-    }
-
-    80% {
-        -webkit-transform: scale3d(0.97, 0.97, 0.97);
-        transform: scale3d(0.97, 0.97, 0.97);
-    }
-
-    to {
-        opacity: 1;
-        -webkit-transform: scale3d(1, 1, 1);
-        transform: scale3d(1, 1, 1);
-    }
+    from,20%,40%,60%,80%,to{-webkit-animation-timing-function:cubic-bezier(0.215,0.61,0.355,1);animation-timing-function:cubic-bezier(0.215,0.61,0.355,1)}
+    0%{opacity:0;-webkit-transform:scale3d(0.3,0.3,0.3);transform:scale3d(0.3,0.3,0.3)}
+    20%{-webkit-transform:scale3d(1.1,1.1,1.1);transform:scale3d(1.1,1.1,1.1)}
+    40%{-webkit-transform:scale3d(0.9,0.9,0.9);transform:scale3d(0.9,0.9,0.9)}
+    60%{opacity:1;-webkit-transform:scale3d(1.03,1.03,1.03);transform:scale3d(1.03,1.03,1.03)}
+    80%{-webkit-transform:scale3d(0.97,0.97,0.97);transform:scale3d(0.97,0.97,0.97)}
+    to{opacity:1;-webkit-transform:scale3d(1,1,1);transform:scale3d(1,1,1)}
 }
-
-.bounceIn {
-    -webkit-animation-duration: 0.75s;
-    animation-duration: 0.75s;
-    -webkit-animation-name: bounceIn;
-    animation-name: bounceIn;
-}
-
+.bounceIn{-webkit-animation-duration:.75s;animation-duration:.75s;-webkit-animation-name:bounceIn;animation-name:bounceIn}
 @-webkit-keyframes bounceOut {
-    20% {
-        -webkit-transform: scale3d(0.9, 0.9, 0.9);
-        transform: scale3d(0.9, 0.9, 0.9);
-    }
-
-    50%,
-    55% {
-        opacity: 1;
-        -webkit-transform: scale3d(1.1, 1.1, 1.1);
-        transform: scale3d(1.1, 1.1, 1.1);
-    }
-
-    to {
-        opacity: 0;
-        -webkit-transform: scale3d(0.3, 0.3, 0.3);
-        transform: scale3d(0.3, 0.3, 0.3);
-    }
+    20%{-webkit-transform:scale3d(0.9,0.9,0.9);transform:scale3d(0.9,0.9,0.9)}
+    50%,55%{opacity:1;-webkit-transform:scale3d(1.1,1.1,1.1);transform:scale3d(1.1,1.1,1.1)}
+    to{opacity:0;-webkit-transform:scale3d(0.3,0.3,0.3);transform:scale3d(0.3,0.3,0.3)}
 }
-
 @keyframes bounceOut {
-    20% {
-        -webkit-transform: scale3d(0.9, 0.9, 0.9);
-        transform: scale3d(0.9, 0.9, 0.9);
-    }
-
-    50%,
-    55% {
-        opacity: 1;
-        -webkit-transform: scale3d(1.1, 1.1, 1.1);
-        transform: scale3d(1.1, 1.1, 1.1);
-    }
-
-    to {
-        opacity: 0;
-        -webkit-transform: scale3d(0.3, 0.3, 0.3);
-        transform: scale3d(0.3, 0.3, 0.3);
-    }
+    20%{-webkit-transform:scale3d(0.9,0.9,0.9);transform:scale3d(0.9,0.9,0.9)}
+    50%,55%{opacity:1;-webkit-transform:scale3d(1.1,1.1,1.1);transform:scale3d(1.1,1.1,1.1)}
+    to{opacity:0;-webkit-transform:scale3d(0.3,0.3,0.3);transform:scale3d(0.3,0.3,0.3)}
 }
-
-.bounceOut {
-    -webkit-animation-duration: 0.75s;
-    animation-duration: 0.75s;
-    -webkit-animation-name: bounceOut;
-    animation-name: bounceOut;
-}
+.bounceOut{-webkit-animation-duration:.75s;animation-duration:.75s;-webkit-animation-name:bounceOut;animation-name:bounceOut}
 @-webkit-keyframes zoomOutDown {
-    40% {
-        opacity: 1;
-        -webkit-transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);
-        transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);
-        -webkit-animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-    }
-
-    to {
-        opacity: 0;
-        -webkit-transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 2000px, 0);
-        transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 2000px, 0);
-        -webkit-transform-origin: center bottom;
-        transform-origin: center bottom;
-        -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
-        animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
-    }
+    40%{opacity:1;-webkit-transform:scale3d(0.475,0.475,0.475) translate3d(0,-60px,0);transform:scale3d(0.475,0.475,0.475) translate3d(0,-60px,0);-webkit-animation-timing-function:cubic-bezier(0.55,0.055,0.675,0.19);animation-timing-function:cubic-bezier(0.55,0.055,0.675,0.19)}
+    to{opacity:0;-webkit-transform:scale3d(0.1,0.1,0.1) translate3d(0,2000px,0);transform:scale3d(0.1,0.1,0.1) translate3d(0,2000px,0);-webkit-transform-origin:center bottom;transform-origin:center bottom;-webkit-animation-timing-function:cubic-bezier(0.175,0.885,0.32,1);animation-timing-function:cubic-bezier(0.175,0.885,0.32,1)}
 }
-
 @keyframes zoomOutDown {
-    40% {
-        opacity: 1;
-        -webkit-transform: scale3d(0.675, 0.675, 0.675) translate3d(0, -20px, 0);
-        transform: scale3d(0.675, 0.675, 0.675) translate3d(0, -20px, 0);
-        -webkit-animation-timing-function: cubic-bezier(0.75, 0.075, 0.675, 0.19);
-        animation-timing-function: cubic-bezier(0.75, 0.075, 0.675, 0.19);
-    }
-
-    to {
-        opacity: 0;
-        -webkit-transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 100px, 0);
-        transform: scale3d(0.1, 0.1, 0.1) translate3d(0, 100px, 0);
-        -webkit-transform-origin: center bottom;
-        transform-origin: center bottom;
-        -webkit-animation-timing-function: cubic-bezier(0.325, 0.885, 0.43, 1);
-        animation-timing-function: cubic-bezier(0.325, 0.885, 0.43, 1);
-    }
+    40%{opacity:1;-webkit-transform:scale3d(0.675,0.675,0.675) translate3d(0,-20px,0);transform:scale3d(0.675,0.675,0.675) translate3d(0,-20px,0);-webkit-animation-timing-function:cubic-bezier(0.75,0.075,0.675,0.19);animation-timing-function:cubic-bezier(0.75,0.075,0.675,0.19)}
+    to{opacity:0;-webkit-transform:scale3d(0.1,0.1,0.1) translate3d(0,100px,0);transform:scale3d(0.1,0.1,0.1) translate3d(0,100px,0);-webkit-transform-origin:center bottom;transform-origin:center bottom;-webkit-animation-timing-function:cubic-bezier(0.325,0.885,0.43,1);animation-timing-function:cubic-bezier(0.325,0.885,0.43,1)}
 }
-
-.zoomOutDown {
-    -webkit-animation-name: zoomOutDown;
-    animation-name: zoomOutDown;
-}
+.zoomOutDown{-webkit-animation-name:zoomOutDown;animation-name:zoomOutDown}
