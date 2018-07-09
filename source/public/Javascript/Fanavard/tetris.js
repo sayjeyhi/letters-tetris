@@ -249,7 +249,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
     /**
      * Tetris game
-     * @type {{version: string, config: {rows: number, columnsMin: number, columnsMax: number, workingWordCount: number, charSpeed: number, checkInRow: boolean, checkInColumn: boolean, animateHiding: boolean, playSoundOnSuccess: boolean, playSoundOnFailure: boolean, useLowercase: boolean, animateCharSpeed: number}, initValues: {paused: boolean, finished: boolean, wordsFinished: boolean, chooseedWordKind: {}, validatedColumnsCount: number, nextChar: string, activeChar: {}, choosedWords: Array, choosedWordsUsedChars: Array}, isBrowser: boolean, playBoard: null, charBlock: charBlock, showUpCommingChar: showUpCommingChar, chooseChar: chooseChar, chooseWord: chooseWord, getValidColumnsNumber: getValidColumnsNumber, checkWordSuccess: checkWordSuccess, characterFactory: characterFactory, buttonManager: buttonManager, startGamePlay: startGamePlay, pauseGamePlay: pauseGamePlay, resumeGamePlay: resumeGamePlay, restartGamePlay: restartGamePlay, finishGame: finishGame, build: build}}
      */
     TetrisGame = {
 
@@ -266,11 +265,10 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             rows: 11,
             columnsMin: 6,
             columnsMax: 16,
-            workingWordCount: 2,
-            charSpeed: 1000,                // 1 second - get division to level when making game harder
+            workingWordCount: 1,
+            charSpeed: 1000,                 // 1 second - get division to level when making game harder
             checkInRow: true,
             checkInColumn: false,
-            animateHiding: true,
             useLowercase: false,
 
             // user setting values
@@ -339,8 +337,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             // move char
             charBlock.move = function (eventKeyCode , position) {
 
-                let moveTo = {};
-                let isBottomMove = false;
+                let moveTo = {},isBottomMove = false;
 
 
                 switch (eventKeyCode) {
@@ -459,7 +456,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                         // remove current char
                         workingElement.parentNode.removeChild(workingElement);
                     },
-                    (TetrisGame.config.useAnimationFlag ? 200 : 0)
+                    (TetrisGame.config.useAnimationFlag ? 200/TetrisGame.config.level : 0)
                 );
             };
 
@@ -517,6 +514,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
             log(value);
 
+            // delete choosed word form list
             delete window.TetrisWords[randomKey];
             return value;
         },
@@ -627,10 +625,10 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             let gameBtnControl = document.querySelector(".gameControlButtons");
             gameBtnControl.querySelectorAll(showClassed).forEach((item) => {
                 item.style.display = "inline-block";
-            })
+            });
             gameBtnControl.querySelectorAll(hideClasses).forEach((item) => {
                 item.style.display = "none";
-            })
+            });
         },
 
 
@@ -669,11 +667,15 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             }
 
 
-            // add level class to body
+            // add level class to body AND do staffs about leveling
             let bodyClass = "";
             switch(settings.gameLevel){
                 case "3":
                     bodyClass = "isExpert";
+
+                    // use two word  same time at hard mode
+                    TetrisGame.config.workingWordCount = 2;
+
                     break;
                 case "2":
                     bodyClass = "isMedium";
@@ -949,34 +951,42 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             TetrisGame.timer.pause();
 
             let modalHeader = "", modalContent = "";
+            let modalButtons = [];
             if (mode === "gameOver") {
                 modalHeader = lang.gameOverModalTitle;
                 modalContent = lang.gameOverModalContent;
-            } else {
-                modalHeader = lang.noExtraWordModalTitle;
-                modalContent = lang.noExtraWordModalContent;
-            }
 
-            let modal = new Modal({
-                animate : TetrisGame.config.useAnimationFlag,
-                header : modalHeader,
-                content : modalContent,
-                buttons : [
-                    {
+                modalButtons.push({
                         text : lang.restartGame,
                         isOk : true,
                         onclick : function () {
                             modal.destroy();
                             TetrisGame.restartGamePlay();
                         }
-                    },
-                    {
+                    },{
                         text : lang.modalOkButton,
                         onclick : function () {
                             modal.destroy();
                         }
                     }
-                ]
+                );
+            } else {
+                modalHeader = lang.noExtraWordModalTitle;
+                modalContent = lang.noExtraWordModalContent;
+                modalButtons.push({
+                        text : lang.modalRefreshButton,
+                        onclick : function () {
+                            window.location.reload();
+                        }
+                    }
+                );
+            }
+
+            let modal = new Modal({
+                animate : TetrisGame.config.useAnimationFlag,
+                header : modalHeader,
+                content : modalContent,
+                buttons : modalButtons
             }, lang.rtl );
 
             setTimeout(() => {
