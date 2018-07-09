@@ -190,11 +190,9 @@ class MaterialColor {
      * @return {*}
      */
     static pickRandomProperty(obj) {
-        let result;
-        let count = 0;
-        for (var prop in obj)
-            if (Math.random() < 1 / ++count)
-                result = prop;
+        let result,count = 0;
+        for (let prop in obj)
+            if (Math.random() < 1 / ++count) result = prop;
         return result;
     }
 }

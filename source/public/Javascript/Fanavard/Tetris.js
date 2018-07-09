@@ -335,7 +335,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             bgSound : null ,                // background sound instance
             isFirstRun: true,               // is this my first run
 
-
             validatedColumnsCount: 0,       // Count of columns which are validated
             nextChar: '',                   // Next character
             activeChar: {},                 // Active character [not stopped] Object index
@@ -354,7 +353,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
          * Game play board
          */
         playBoard: null,
-
 
 
         /**
@@ -435,6 +433,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 }
 
 
+                //let destinationEl = document.getElementById("grid" + moveTo.row + "_" + moveTo.column) || null;
                 let destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
                 if (moveTo.row >= TetrisGame.config.rows || (destinationEl.innerText.trim() !== "")) {
 
@@ -715,7 +714,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
 
             // manage grids on play board
-            log(TetrisGame.playBoard);
             if(TetrisGame.playBoard) {
                 if (TetrisGame.config.showGrids) {
                     TetrisGame.playBoard.classList.add("showGrids");
@@ -899,7 +897,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 let matrixColumn = [];
                 playBoardTable += '<div class="isRow row_' + r + '">';
                 for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
-                    playBoardTable += '<div class="isColumn column_' + c + '" data-row="' + r + '"></div>';
+                    playBoardTable += '<div id="grid' + r + '_' + c +  '" class="isColumn column_' + c + '" data-row="' + r + '"></div>';
                     matrixColumn[c]=' ';
                 }
                 matrixRowArray[r] = matrixColumn;
@@ -939,6 +937,24 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                     TetrisGame.initValues.activeChar.move(e.keyCode);
                 }
             };
+
+            // mobile swipe detect
+            TetrisGame.swipe = new Swipe(TetrisGame.playBoard , function (dir) {
+
+                // simulate arrow press on swipe
+                switch (dir){
+                    case "left":
+                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.LEFT);
+                        break;
+                    case "right":
+                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.RIGHT);
+                        break;
+                    case "down":
+                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.DOWN);
+                        break;
+                }
+            });
+
 
             TetrisGame.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
         },
@@ -1004,11 +1020,14 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 choosedWordsUsedChars: []       // Chars that used from choosed words
             };
 
+            // destroy swiper
+            TetrisGame.swipe.destroy();
+
             // play resume sound
             Sound.playByKey('pause' , TetrisGame.config.playEventsSound);
 
-            //Remove old listener of keydown which causes multiple moves
-            document.onkeydown =null;
+            // remove old listener of keydown which causes multiple moves
+            document.onkeydown = null;
 
             // re-build game
             TetrisGame.build();
@@ -1038,7 +1057,8 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 modalHeader = lang.gameOverModalTitle;
                 modalContent = lang.gameOverModalContent;
 
-                modalButtons.push({
+                modalButtons.push(
+                    {
                         text : lang.restartGame,
                         isOk : true,
                         onclick : function () {
@@ -1055,7 +1075,8 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             } else {
                 modalHeader = lang.noExtraWordModalTitle;
                 modalContent = lang.noExtraWordModalContent;
-                modalButtons.push({
+                modalButtons.push(
+                    {
                         text : lang.modalRefreshButton,
                         onclick : function () {
                             window.location.reload();
