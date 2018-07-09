@@ -439,7 +439,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
                     if (isBottomMove) {
 
-                        TetrisGame.matrix[moveTo.row-1][moveTo.column] = charBlock.name;
+                        TetrisGame.matrix[moveTo.row-1][moveTo.column] = charBlock.char;
                         console.log(TetrisGame.matrix);
 
                         // stop interval and request new char

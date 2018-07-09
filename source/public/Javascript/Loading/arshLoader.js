@@ -194,6 +194,7 @@ let arshLoader = {
                     kind: "Fanavard"
                 }
             ], function () {
+                TetrisGame.init();
                 TetrisGame.initValues.chooseedWordKind = {
                     persianTitle: wordsType[1],
                     englishTitle: wordsType[0]
