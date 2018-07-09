@@ -18,77 +18,9 @@
  *                          );
  */
 class Matrix {
-
-    /**
-     * Constructor of modal class
-     * @param options
-     * @param isRtl
-     */
-    constructor(options, isRtl) {
-
-        this.onDestroy = options.onDestroy || (() => {});
-        this.isRtl = typeof isRtl === "undefined" ? false : isRtl;
-        this.animate = typeof options.animate === "undefined" ? false : options.animate;
-
-
-        let modalHolder = document.createElement('div');
-        let modal = document.createElement('div');
-        let modalAnimateClass = this.animate ? "animated bounceIn" : "";
-
-
-        modalHolder.className="modalHolder";
-
-        // add modal classes
-        modal.className = modalAnimateClass + " modal " + (isRtl ? "rtl" : "ltr");
-
-
-        // create title
-        modal.appendChild(this.createHeader(options));
-
-        // create content
-        modal.appendChild(this.createContent(options));
-
-
-        // create footer
-        let footer = this.createFooter(options);
-        if(footer !== false){
-            modal.appendChild(footer);
-        }
-
-
-        modalHolder.appendChild(modal);
-        document.body.appendChild(modalHolder);
-
-
-        this.node = modalHolder;
-
-
-        // Detect all clicks on the document
-        modalHolder.addEventListener("click", (event) => {
-
-            if(event.target.classList.contains("closeModal")){
-                this.destroy();
-            }
-        })
+    constructor(matrix) {
+        this.matrix = matrix;
     };
-
-
-    /**
-     * Create modal header
-     * @param options
-     * @return {HTMLDivElement}
-     */
-    createHeader(options){
-        let modalTitle = document.createElement("div");
-        let HeaderHtml = options.header || "";
-
-        HeaderHtml += '<i class="linearicon linearicon-cross-circle closeModal"></i>';
-
-        modalTitle.className = "titleModal";
-        modalTitle.innerHTML = HeaderHtml;
-
-        return modalTitle;
-    }
 
 
     /**
