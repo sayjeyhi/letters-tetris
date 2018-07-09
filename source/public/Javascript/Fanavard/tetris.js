@@ -719,7 +719,12 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
         showSetting: function () {
 
             // get defined settings
-            let settings = Storage.getJson('settings' , false);
+            let settings = Storage.getJson('settings' , {
+                soundPlay : 1,
+                eventSounds : 1,
+                useAnimation : 1,
+                gameLevel : 1
+            });
 
             // pause game timer
             TetrisGame.timer.pause();
