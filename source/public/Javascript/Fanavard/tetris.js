@@ -11,7 +11,9 @@ let isFirstRun=true;
 
 
 
-
+function deleteNode(dom){
+    dom.parentNode.removeChild(dom);
+}
 
 
 
@@ -27,7 +29,7 @@ function getRailingChars(matrix,y,x,direction){
 
     let railingChars='';
     let from=-1,to=-1;//from and to determines location from
-
+    let len=0;
 
     let i=1;//i is just the iterator in loops
     switch(direction){
@@ -37,30 +39,34 @@ function getRailingChars(matrix,y,x,direction){
             //This loop will go to right until it reaches the border OR next character is ' '
             //Rest of cases are just like this method but with differnt direction
             from=1+x;
-            for(i=1;i+x<width && matrix[y][i+x]!=' ';i++){
+            for(i=1;i+x<width && matrix[y][i+x]!==' ';i++){
                 railingChars+=matrix[y][i+x];
                 to=i+x;
+                len++;
             }
             break;
         case 'L':
             from=x-1;
-            for(i=1;x-i>=0 && matrix[y][x-i]!=' ';i++){
+            for(i=1;x-i>=0 && matrix[y][x-i]!==' ';i++){
                 railingChars=matrix[y][x-i] + railingChars;
                 to=x-i;
+                len++;
             }
             break;
         case 'T':
             from=y-1;
-            for(i=1;y-i>=0 && matrix[y-i][x]!=' ';i++){
+            for(i=1;y-i>=0 && matrix[y-i][x]!==' ';i++){
                 railingChars+=matrix[y-i][x];
                 to=y-i;
+                len++;
             }
             break;
         case 'D':
             from=y+1;
-            for(i=1;y+i<height && matrix[y+i][x]!=' ';i++){
+            for(i=1;y+i<height && matrix[y+i][x]!==' ';i++){
                 railingChars+=matrix[y+i][x];
                 to=y+i;
+                len++;
             }
             break;
     }
@@ -68,9 +74,11 @@ function getRailingChars(matrix,y,x,direction){
     return {
         chars:railingChars,
         to:to,
-        from:from
+        from:from,
+        len:len
     }
 }
+
 
 
 
@@ -111,6 +119,9 @@ function checkSuccess(matrix,words,rowId,colId){
     let tops = getRailingChars(matrix,rowId,colId,'T');
     let downs = getRailingChars(matrix,rowId,colId,'D');
 
+    console.log(lefts);
+    console.log(rights);
+
     // const sentenceLTR = excapeRegex(lefts + matrix[9][2] + rights);
     // const sentenceTTD = excapeRegex(tops  + matrix[9][2] + downs);
     // const sentenceRTL = excapeRegex(reverse(sentenceLTR));
@@ -119,7 +130,7 @@ function checkSuccess(matrix,words,rowId,colId){
     const sentenceTTD = (tops.chars  + matrix[rowId][colId] + downs.chars);
     const sentenceRTL = (reverse(sentenceLTR));
     const sentenceDTT = (reverse(sentenceTTD));
-
+    console.log(sentenceLTR);
     //
     // const regexLTR = new RegExp(sentenceLTR,'i');
     // const regexTTD = new RegExp(sentenceTTD,'i');
@@ -128,13 +139,13 @@ function checkSuccess(matrix,words,rowId,colId){
 
     let checkType={rtl:false,ltr:true,ttd:false,dtt:false};
 
-    //TODO: Search for real words instead of these :|
-    words.map((word)=>{
+    words.map((wordObject)=>{
+        let word = wordObject.word;
         let pos;
         if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
-            console.log("Found valid word:"+ word +" In:" + sentenceLTR)
-            pos--;
-            deleteCharacters(matrix,rowId,colId,'ltr',lefts.from+pos,word.length)
+            console.log("Found valid word:"+ word +" In:" + sentenceLTR);
+            let startFrom = colId-lefts.len+pos;
+            deleteCharacters(matrix,rowId,colId,'ltr',startFrom,word.length);
         }else if (checkType.ttd && sentenceTTD.indexOf(word) !== -1){
             console.log("Found valid word:"+ word +" In:" + sentenceTTD)
         }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
@@ -159,16 +170,19 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             matrix[rowId][i]=' ';
             //TODO: Apply word Found animations for (rowId,i)
 
+            let domToDelete= document.querySelector(`.row_${rowId} .column_${i} .charBlock`);
+            domToDelete.classList.add(["animated","lightSpeedOut"]);
+            setTimeout(function () {
+                deleteNode(domToDelete);
+            },300+(i*100));
+
             //Move upper blocks to bottom
-            for(let upIndex=rowId;matrix[upIndex-1][i] != ' ' && upIndex>=0;upIndex--){
+            for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
                 matrix[upIndex][i] = matrix[upIndex-1][i];
                 matrix[upIndex-1][i] = ' ';
                 //TODO: Apply falling animations on (upIndex-1,i)
             }
         }
-
-        console.log("");
-        console.log(matrix);
     }else if (checkType==='rtl'){
         //TODO: Implement these conditions
     }else if (checkType==='ttd'){
@@ -567,8 +581,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
          * @param {charBlock} lastChar
          */
         checkWordSuccess: function (lastChar) {
-            log(TetrisGame.initValues.choosedWords);
-            console.log(TetrisGame.matrix);
             checkSuccess(TetrisGame.matrix,TetrisGame.initValues.choosedWords,lastChar.row,lastChar.column);
             // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
         },
