@@ -944,13 +944,13 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 // simulate arrow press on swipe
                 switch (dir){
                     case "left":
-                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.LEFT);
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.LEFT);
                         break;
                     case "right":
-                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.RIGHT);
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.RIGHT);
                         break;
                     case "down":
-                        TetrisGame.initValues.activeChar.move(TetrisGame.controlCodes.DOWN);
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.DOWN);
                         break;
                 }
             });
@@ -1195,7 +1195,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 </footer>`;
         }
     };
-
 
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
         module.exports = TetrisGame;

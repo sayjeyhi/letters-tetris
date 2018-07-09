@@ -7,7 +7,7 @@
  *   });
  */
 
-class Swipe{
+class Swipe {
 
     /**
      * Make swipe config to

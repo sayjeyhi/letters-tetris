@@ -181,7 +181,10 @@ var TetrisWords = [
     },{
         "word": "فر",
         "unicode": "24123"
-    },
+    },{
+        "word": "در",
+        "unicode": "24123"
+    }
     // , {
     //     "word": "لاك‌ پشت‌",
     //     "unicode": "24123"
