@@ -122,7 +122,7 @@ class Charblock extends TetrisGame {
 
             if (isBottomMove) {
 
-                TetrisGame.matrix[moveTo.row-1][moveTo.column] = this.char;
+                TetrisGame.matrix[moveTo.row - 1][moveTo.column] = this.char;
                 console.log(TetrisGame.matrix);
 
                 // stop interval and request new char
@@ -147,7 +147,7 @@ class Charblock extends TetrisGame {
         } else {
 
             // remove char with animation
-            this.destroy(this.element, moveTo.animateOutClass);
+            Charblock.destroy(this.element, moveTo.animateOutClass);
 
             // update current char info
             this.row = moveTo.row;
