@@ -112,7 +112,7 @@ function reverse(string) {
     return result.join('');
 }
 
-function checkSuccess(matrix,words,rowId,colId){
+function checkSuccess(matrix,words,rowId,colId,successCallback){
 
     let rights = getRailingChars(matrix,rowId,colId,'R');
     let lefts = getRailingChars(matrix,rowId,colId,'L');
@@ -146,6 +146,8 @@ function checkSuccess(matrix,words,rowId,colId){
             console.log("Found valid word:"+ word +" In:" + sentenceLTR);
             let startFrom = colId-lefts.len+pos;
             deleteCharacters(matrix,rowId,colId,'ltr',startFrom,word.length);
+            Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
+            //TODO: Increase Score
         }else if (checkType.ttd && sentenceTTD.indexOf(word) !== -1){
             console.log("Found valid word:"+ word +" In:" + sentenceTTD)
         }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
@@ -161,18 +163,13 @@ function checkSuccess(matrix,words,rowId,colId){
 function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occurancePositionLenght){
 
     if(checkType==='ltr'){
-
-        console.log(matrix);
-        console.log("");
-
         //Clear characters in matrix
         for(let i=occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++){
             matrix[rowId][i]=' ';
             //TODO: Apply word Found animations for (rowId,i)
-
             let domToDelete= document.querySelector(`.row_${rowId} .column_${i} .charBlock`);
 
-            domToDelete.classList.add(["animated","lightSpeedOut"]);//TODO: Fix this animation
+            domToDelete.classList.add(["animated","lightSpeedOut"]); //TODO: Fix this animation
             setTimeout(function () {
                 deleteNode(domToDelete);
             },300+(i*100));
