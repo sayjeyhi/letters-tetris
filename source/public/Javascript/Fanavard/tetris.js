@@ -171,7 +171,8 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             //TODO: Apply word Found animations for (rowId,i)
 
             let domToDelete= document.querySelector(`.row_${rowId} .column_${i} .charBlock`);
-            domToDelete.classList.add(["animated","lightSpeedOut"]);
+
+            domToDelete.classList.add(["animated","lightSpeedOut"]);//TODO: Fix this animation
             setTimeout(function () {
                 deleteNode(domToDelete);
             },300+(i*100));
@@ -180,7 +181,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
                 matrix[upIndex][i] = matrix[upIndex-1][i];
                 matrix[upIndex-1][i] = ' ';
-                //TODO: Apply falling animations on (upIndex-1,i)
+                //TODO: Apply falling animations for moving chars from [upIndex-1][i] to [upIndex][i]
             }
         }
     }else if (checkType==='rtl'){
