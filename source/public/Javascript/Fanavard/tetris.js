@@ -164,15 +164,28 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
     if(checkType==='ltr'){
         //Clear characters in matrix
-        for(let i=occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++){
+        for(let i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++){
             matrix[rowId][i]=' ';
             //TODO: Apply word Found animations for (rowId,i)
-            let domToDelete= document.querySelector(`.row_${rowId} .column_${i} .charBlock`);
+            let domToDelete = document.querySelector(`.row_${rowId} .column_${i} .charBlock`);
 
-            domToDelete.classList.add(["animated","lightSpeedOut"]); //TODO: Fix this animation
-            setTimeout(function () {
-                deleteNode(domToDelete);
-            },300+(i*100));
+
+            let deleteTiming = 0;
+            if(TetrisGame.config.useAnimationFlag) {
+                let animateClass =  "animated";
+                deleteTiming = 700;
+                if(TetrisGame.config.level === 3){
+                    deleteTiming = 200;
+                    animateClass = "animatedOneSecond";
+                }
+                domToDelete.classList.add(animateClass , "zoomOutDown");
+            }
+
+            setTimeout(
+                () => {
+                    deleteNode(domToDelete);
+                }, deleteTiming
+            );
 
             //Move upper blocks to bottom
             for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
@@ -652,10 +665,10 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             }
 
 
-            TetrisGame.config.useAnimationFlag = settings.useAnimation === "1";
-            TetrisGame.config.playEventsSound = settings.eventSounds === "1";
-            TetrisGame.config.playBackgroundSound = settings.soundPlay === "1";
-            TetrisGame.config.level = settings.gameLevel || "1";
+            TetrisGame.config.useAnimationFlag = parseInt(settings.useAnimation) === "1";
+            TetrisGame.config.playEventsSound = parseInt(settings.eventSounds) === "1";
+            TetrisGame.config.playBackgroundSound = parseInt(settings.soundPlay) === "1";
+            TetrisGame.config.level = parseInt(settings.gameLevel) || 1;
 
 
 
@@ -771,10 +784,10 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                             // catch data
                             let settingForm = document.querySelector("#settingForm");
                             let settingData = {};
-                            settingData.soundPlay = settingForm.querySelector('[name="soundPlay"]:checked').value || "0";
-                            settingData.eventSounds = settingForm.querySelector('[name="eventSounds"]:checked').value || "0";
-                            settingData.useAnimation = settingForm.querySelector('[name="useAnimation"]:checked').value || "0";
-                            settingData.gameLevel = settingForm.querySelector('[name="gameLevel"]:checked').value || "1";
+                            settingData.soundPlay = parseInt(settingForm.querySelector('[name="soundPlay"]:checked').value) || 0;
+                            settingData.eventSounds = parseInt(settingForm.querySelector('[name="eventSounds"]:checked').value) || 0;
+                            settingData.useAnimation = parseInt(settingForm.querySelector('[name="useAnimation"]:checked').value) || 0;
+                            settingData.gameLevel = parseInt(settingForm.querySelector('[name="gameLevel"]:checked').value) || 1;
 
                             // apply setting and save it
                             TetrisGame.setSettings(settingData);
