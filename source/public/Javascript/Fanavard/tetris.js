@@ -139,15 +139,16 @@ function checkSuccess(matrix,words,rowId,colId,successCallback){
 
     let checkType={rtl:false,ltr:true,ttd:false,dtt:false};
 
-    words.map((wordObject)=>{
-        let word = wordObject.word;
+    for(let i=0, len=words.length; i < len; i++){
         let pos;
-        if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
-            console.log("Found valid word:"+ word +" In:" + sentenceLTR);
+        if(checkType.ltr && (pos=sentenceLTR.indexOf(words[i].word)) !== -1){
+            console.log("Found valid word:"+ words[i].word +" In:" + sentenceLTR);
             let startFrom = colId-lefts.len+pos;
-            deleteCharacters(matrix,rowId,colId,'ltr',startFrom,word.length);
+            deleteCharacters(matrix,rowId,colId,'ltr',startFrom,words[i].word.length);
             Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
             //TODO: Increase Score
+            //TODO: Remove Chars from TetrisGame.initValues.choosedWordsUsedChars
+            //TODO: Remove Words from TetrisGame.initValues.choosedWords
         }else if (checkType.ttd && sentenceTTD.indexOf(word) !== -1){
             console.log("Found valid word:"+ word +" In:" + sentenceTTD)
         }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
@@ -155,7 +156,7 @@ function checkSuccess(matrix,words,rowId,colId,successCallback){
         }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
             console.log("Found valid word:"+ word +" In:" + sentenceDTT)
         }
-    });
+    }
 }
 
 
