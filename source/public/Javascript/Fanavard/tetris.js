@@ -10,9 +10,35 @@ const CONTROL_CODES = {
 let isFirstRun=true;
 
 
+/**
+ * Delete node with animation
+ * @param row
+ * @param column
+ */
+function deleteNode(row , column){
 
-function deleteNode(dom){
-    dom.parentNode.removeChild(dom);
+    let deleteTiming = 0;
+    let domToDelete = document.querySelector(`.row_${row} .column_${column} .charBlock`);
+    let gameConfig = TetrisGame.config;
+
+    if(gameConfig.useAnimationFlag) {
+        let animateClass =  "animatedOneSecond";
+        deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
+        if(gameConfig.level === 3){
+            deleteTiming = gameConfig.expertFallDownAnimateSpeed;
+            animateClass = "animated";
+        }else if(gameConfig.level === 2){
+            deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
+            animateClass = "animatedHalfSecond";
+        }
+        domToDelete.classList.add(animateClass , "zoomOutDown");
+    }
+
+    setTimeout(
+        () => {
+            domToDelete.parentNode.removeChild(domToDelete);
+        }, deleteTiming
+    );
 }
 
 
@@ -162,30 +188,13 @@ function checkSuccess(matrix,words,rowId,colId,successCallback){
 
 function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occurancePositionLenght){
 
+
     if(checkType==='ltr'){
         //Clear characters in matrix
         for(let i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++){
             matrix[rowId][i]=' ';
-            //TODO: Apply word Found animations for (rowId,i)
-            let domToDelete = document.querySelector(`.row_${rowId} .column_${i} .charBlock`);
 
-
-            let deleteTiming = 0;
-            if(TetrisGame.config.useAnimationFlag) {
-                let animateClass =  "animated";
-                deleteTiming = 700;
-                if(TetrisGame.config.level === 3){
-                    deleteTiming = 200;
-                    animateClass = "animatedOneSecond";
-                }
-                domToDelete.classList.add(animateClass , "zoomOutDown");
-            }
-
-            setTimeout(
-                () => {
-                    deleteNode(domToDelete);
-                }, deleteTiming
-            );
+            deleteNode(rowId , i);
 
             //Move upper blocks to bottom
             for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
@@ -283,6 +292,9 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             checkInRow: true,
             checkInColumn: false,
             useLowercase: false,
+            expertFallDownAnimateSpeed : 200,
+            mediumFallDownAnimateSpeed : 500,
+            simpleFallDownAnimateSpeed : 700,
 
             // user setting values
             playBackgroundSound: true,
@@ -665,9 +677,9 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             }
 
 
-            TetrisGame.config.useAnimationFlag = parseInt(settings.useAnimation) === "1";
-            TetrisGame.config.playEventsSound = parseInt(settings.eventSounds) === "1";
-            TetrisGame.config.playBackgroundSound = parseInt(settings.soundPlay) === "1";
+            TetrisGame.config.useAnimationFlag = parseInt(settings.useAnimation) === 1;
+            TetrisGame.config.playEventsSound = parseInt(settings.eventSounds) === 1;
+            TetrisGame.config.playBackgroundSound = parseInt(settings.soundPlay) === 1;
             TetrisGame.config.level = parseInt(settings.gameLevel) || 1;
 
 

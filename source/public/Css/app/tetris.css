@@ -334,6 +334,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 }
 
 .animated{-webkit-animation-duration:.2s;animation-duration:.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
+.animatedHalfSecond{-webkit-animation-duration:.5s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedOneSecond{-webkit-animation-duration:.7s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}
 @-webkit-keyframes fadeIn {
