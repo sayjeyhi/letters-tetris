@@ -1,0 +1,25 @@
+{
+  "name": "fanavard_ui_97",
+  "version": "0.7.0",
+  "description": "Fanavard UI Develop Challenge - ArshTeam",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/jafar-rezaei/fanavard_Ui_97.git"
+  },
+  "author": "Arsh Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/jafar-rezaei/fanavard_Ui_97/issues"
+  },
+  "homepage": "https://gitlab.com/jafar-rezaei/fanavard_Ui_97#README",
+  "devDependencies": {
+    "tui-jsdoc-template": "1.2.2"
+  }
+}

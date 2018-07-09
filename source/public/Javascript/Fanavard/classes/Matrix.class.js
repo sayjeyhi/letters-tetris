@@ -84,13 +84,13 @@ class Matrix {
 
 
     /**
-     * @return {RailingChars}
      * @param {String[]} words - To search in strings
      * @param {Number} rowId - Index of row in matrix
      * @param {Number} colId - Index of column in matrix
-     * @param {checkTypes} checkTypes to search for strings in matrix from x,y point can have any of these values: L|R|T|D
+     * @param {CheckTypes} checkType to search for strings in matrix from x,y point can have any of these values: L|R|T|D
+     * @param {Function} successCallback - Returns founded characters, Falling characters and
      */
-    checkWords(words,rowId,colId,checkTypes,successCallback){
+    checkWords(words,rowId,colId,checkType,successCallback){
 
         let rights = this._getRailingChars(rowId,colId,'R');
         let lefts = this._getRailingChars(rowId,colId,'L');
@@ -102,7 +102,7 @@ class Matrix {
         const sentenceRTL = (reverse(sentenceLTR)); //Reverse it to get
         const sentenceDTT = (reverse(sentenceTTD));
 
-        let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
+        // let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
 
         for(let i=0, len=words.length; i < len; i++){
             let pos,
@@ -189,7 +189,7 @@ class Matrix {
     }
 
     /**
-     * @typedef {Object} checkTypes - An object representing in which direction should function search for words
+     * @typedef {Object} CheckTypes - An object representing in which direction should function search for words
      * @property {Boolean} rtl - Determines if should check Right To Left direction
      * @property {Boolean} ltr - Determines if should check Left To Right direction
      * @property {Boolean} ttd - Determines if should check Top To Down direction
@@ -201,7 +201,7 @@ class Matrix {
      * @param rowId {Number} - Row id of last checking character in matrix
      * @param colId {Number} - col id of last checking character in matrix
      * @param wordId {Number} - Id of founded word
-     * @param checkType {checkTypes} - An checkType Object to find direction
+     * @param checkType {CheckTypes} - An checkType Object to find direction
      * @param occurancePositionFrom {Number} - Start position of word
      * @param occurancePositionLenght {Number} - Length of word
      * @param deleteCallBack {Function} - Function to callback when foundWord and Falling words has been found
