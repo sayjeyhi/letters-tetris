@@ -20,21 +20,21 @@
  *
  *
  * @example
- *           let timer = new Timer({
- *               onStart: function(){
- *                   TetrisGame.initValues.paused = false;
- *               },
- *               workerOnMessage:function (event) {
- *                   Storage.set('seconds', event.data);
- *               },
- *               onPause:function () {
- *                   TetrisGame.initValues.paused = true;
- *               },
- *               onResume:function () {
- *                   TetrisGame.initValues.paused = false;
- *               },
- *               blobTiming: new Blob([document.querySelector('#workerTiming').textContent], { type: "text/javascript" });,
- *           });
+*    let timer = new Timer({
+*        onStart: function(){
+*            TetrisGame.initValues.paused = false;
+*        },
+*        workerOnMessage:function (event) {
+*            Storage.set('seconds', event.data);
+*        },
+*        onPause:function () {
+*            TetrisGame.initValues.paused = true;
+*        },
+*        onResume:function () {
+*            TetrisGame.initValues.paused = false;
+*        },
+*        blobTiming: new Blob([document.querySelector('#workerTiming').textContent], { type: "text/javascript" });,
+*    });
  */
 class Timer {
 

@@ -31,6 +31,7 @@ var lang = {
     noExtraWordModalContent : "😎 You are a big hero, as you finished all of our words in this category .<br/> You could start gaming other categories !",
     settingModalTitle: "Settings :",
     modalOkButton : "Ok",
+    modalRefreshButton : "Refresh",
 
     hour: " hour ",
     minute: " min ",
