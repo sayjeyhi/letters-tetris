@@ -38,28 +38,32 @@
  */
 class Timer {
 
+    /**
+     * Create instance for timing
+     * @param config
+     */
     constructor(config) {
         this.timerWorker = null;
         //Default config
         let defaultConfig = {
-                cssClsss: ".timerDisplay",
-                onStart: () => { },
+            cssClsss: ".timerDisplay",
+            onStart: () => { },
             onPause: () => { },
-        onResume: () => { },
-        blobTiming: '',
+            onResume: () => { },
+            blobTiming: '',
             workerOnMessage: (event) => { },
-        beautifySecond: (s) => {
-            if (s > 3600) {
-                // 1 hour and 34 min
-                return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
-            } else if (s > 60 && s <= 3600) {
-                // 4 min and 3 s
-                return (Math.ceil(s / 60) + lang.minute + lang.and + s % 60 + lang.second);
-            } else {
-                return (s + lang.second);
+            beautifySecond: (s) => {
+                if (s > 3600) {
+                    // 1 hour and 34 min
+                    return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
+                } else if (s > 60 && s <= 3600) {
+                    // 4 min and 3 s
+                    return (Math.ceil(s / 60) + lang.minute + lang.and + s % 60 + lang.second);
+                } else {
+                    return (s + lang.second);
+                }
             }
-        }
-    };
+        };
 
         //Extend config
         this.config = Object.assign(defaultConfig, config);

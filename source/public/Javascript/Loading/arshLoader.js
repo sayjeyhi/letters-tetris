@@ -2,7 +2,7 @@
  * Main class to load animation of game starting
  * @type {{filesLoading: boolean, animationLoading: boolean, isLoaded: boolean, timingProps: {type: string, duration: number, start: string}, _: arshLoader._, afterLoad: arshLoader.afterLoad, chooseWordKind: arshLoader.chooseWordKind, setRandomColor: arshLoader.setRandomColor, startGame: arshLoader.startGame, build: arshLoader.build}}
  */
-var arshLoader = {
+let arshLoader = {
 
     /**
      * Files loading flag
@@ -32,7 +32,7 @@ var arshLoader = {
     /**
      * Wrapper for query selector
      * @param selector
-     * @return {ElementTagNameMap[keyof ElementTagNameMap] | null | null}
+     * @return {null | object}
      * @private
      */
     _: function _(selector) {
@@ -45,7 +45,7 @@ var arshLoader = {
      */
     afterLoad: function () {
         if (arshLoader.animationLoading && !arshLoader.isLoaded) {
-            var loadingTextElement = arshLoader._('.loadingText');
+            let loadingTextElement = arshLoader._('.loadingText');
             loadingTextElement.querySelector(".archLoadingAnimation").className += " animated fadeOut";
 
             setTimeout(function () {
@@ -75,7 +75,7 @@ var arshLoader = {
                         if (document.querySelector(".chooseWordKindTooltip"))
                             document.querySelector(".chooseWordKindTooltip").style.display = "none";
                     }
-                }
+                };
 
                 // document.addEventListener("click", function (ev) {
                 //     if (!chooseWordsKind.is(e.target) && chooseWordsKind.has(e.target).length === 0) {
@@ -87,7 +87,7 @@ var arshLoader = {
                 //     }
                 // })
 
-                var btnFa = document.createElement('div');
+                let btnFa = document.createElement('div');
                 btnFa.onclick = function () {
                     let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
                     arshLoader.startGame("fa", wordsType);
@@ -96,7 +96,7 @@ var arshLoader = {
                 btnFa.innerHTML = "<i class='linearicon linearicon-gamepad'></i> ورود به بازی";
 
 
-                var btnEn = document.createElement('div');
+                let btnEn = document.createElement('div');
                 btnEn.onclick = function () {
                     let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
                     arshLoader.startGame("en", wordsType);
@@ -105,7 +105,7 @@ var arshLoader = {
                 btnEn.innerHTML = "<i class='linearicon linearicon-gamepad'></i> Enter Game";
 
 
-                var workKindChooser = document.createElement('div');
+                let workKindChooser = document.createElement('div');
                 workKindChooser.className = "chooseWordKindTooltip";
                 workKindChooser.innerHTML =
                     '<ul>' +
@@ -167,7 +167,7 @@ var arshLoader = {
      * Set random color for our loader svg
      */
     setRandomColor: function () {
-        var color = MaterialColor.getRandomColor();
+        let color = MaterialColor.getRandomColor();
         arshLoader._('.bloc').style.borderColor = color;
         arshLoader._('#jafarRezaeiAnimate').style.color = color;
         arshLoader._('#jafarRezaeiAnimate').style.fill = color;
@@ -250,7 +250,7 @@ var arshLoader = {
 
         arshLoader.setRandomColor();
 
-        var hi_jRun = new Vivus(
+        let hi_jRun = new Vivus(
             'jafarRezaeiAnimate',
             {
                 type: 'oneByOne',
@@ -260,7 +260,7 @@ var arshLoader = {
                 forceRender: false
             },
             function (obj) {
-                setTimeout(function () {
+                setTimeout( () => {
                     obj.el.classList.add('finished');
 
                     // load bundle of javascript pack here then do the job
@@ -273,9 +273,9 @@ var arshLoader = {
 
 
         // play loading sound
-        Sound.playByKey('loading');
+        Sound.playByKey('loading' , true);
 
-        document.getElementById("jafarRezaeiAnimate").addEventListener("click", function () {
+        document.getElementById("jafarRezaeiAnimate").addEventListener("click", () => {
 
             arshLoader.setRandomColor();
 

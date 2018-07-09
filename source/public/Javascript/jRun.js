@@ -2,10 +2,10 @@
  * Main JavaScript file to manage pages js
  *
  * @author    : jafar rezaei <bomber.man87@yahoo.com>
- * @link   : http://jrjs.ir
- * @date   : 2018/06/08
+ * @link      : http://jrjs.ir
+ * @version   : 2018/06/08
  */
-var jRun = {
+let jRun = {
 
 
     /**
@@ -148,14 +148,14 @@ var jRun = {
     deepExtend: function (out) {
         out = out || {};
 
-        for (var i = 1; i < arguments.length; i++) {
-            var obj = arguments[i];
+        for (let i = 1; i < arguments.length; i++) {
+            let obj = arguments[i];
 
             if (!obj)
                 continue;
 
             if (typeof obj === 'object') {
-                for (var key in obj) {
+                for (let key in obj) {
                     if (obj.hasOwnProperty(key)) {
                         if (typeof obj[key] === 'object')
                             out[key] = jRun.deepExtend(out[key], obj[key]);
@@ -176,9 +176,9 @@ var jRun = {
     build: function () {
 
         // alias log instead of console.log in dev mode
-        var log = function (message, type) {
+        let log = function (message, type) {
             type = type || 'log';
-            var stack = new Error().stack.toString().split(/\r\n|\n/);
+            let stack = new Error().stack.toString().split(/\r\n|\n/);
             console[type](message, '          [' + stack[1] + ']');
         };
 
@@ -202,14 +202,16 @@ var jRun = {
     /**
      * Build main plug-ins
      * @param plugins
+     * @param callback
      */
-    buildPlugIns: function (plugins) {
+    buildPlugIns: function (plugins , callback) {
 
         this.plugins = plugins || this.plugins;
 
         this.allowInit = false;
         this.init(this.plugins, function () {
             jRun.allowInit = true;
+            return callback || (function () {});
         });
     },
 
@@ -256,7 +258,7 @@ var jRun = {
         }
 
         jRun.firstCall = false;
-        var waiting = false,
+        let waiting = false,
             loadFinishCount = 0,
             endsWith = function (str, suffix) {
                 if (str === null || suffix === null)
@@ -287,14 +289,14 @@ var jRun = {
             loadFile = function (o) {
 
                 if (jRun.debugMode && o.url === "") {
-                    var callbackStack = new Error().stack.toString().split(/\r\n|\n/);
+                    let callbackStack = new Error().stack.toString().split(/\r\n|\n/);
                     throw "File url is empty [" + callbackStack[1] + "]";
                 }
 
 
                 if (!waiting) {
 
-                    var realName = jRun.sanitizeName(o.url);
+                    let realName = jRun.sanitizeName(o.url);
 
                     // if file is loaded already
                     if (jRun.checkLoad(realName)) {
@@ -308,21 +310,21 @@ var jRun = {
 
 
 
-                    var kind = o.kind ? o.kind + "/" : "";
-                    var type = o.url.split('.').pop();
+                    let kind = o.kind ? o.kind + "/" : "";
+                    let type = o.url.split('.').pop();
 
                     if (jRun.allowedInitTypes.indexOf(type) < 0) {
                         type = jRun.defaultType;
                     }
 
-                    var fileReference = document.createElement((type === "js" ? 'script' : 'link'));
-                    var url = kind + (endsWith(o.url, "." + type) ? o.url : o.url + "." + type);
+                    let fileReference = document.createElement((type === "js" ? 'script' : 'link'));
+                    let url = kind + (endsWith(o.url, "." + type) ? o.url : o.url + "." + type);
 
 
                     o.beforeLoad();
 
 
-                    var extraParameter = "?jVer=" + jRun.version;
+                    let extraParameter = "?jVer=" + jRun.version;
                     if (jRun.disableCache) {
                         extraParameter = jRun.buildDummy();
                     }
@@ -375,7 +377,7 @@ var jRun = {
 
 
         urls.forEach(function (url) {
-            var options = {};
+            let options = {};
 
 
             options = jRun.deepExtend({}, jRun.defaultLoadProperties, url);
@@ -385,7 +387,7 @@ var jRun = {
                 options['kind'] = 'Utility';
             }
 
-            var urlKeys = Object.keys(options.urls);
+            let urlKeys = Object.keys(options.urls);
             if (urlKeys.length > 0) {
                 urlKeys.forEach(function (key) {
                     options.multiFileUrl = (key !== 1);

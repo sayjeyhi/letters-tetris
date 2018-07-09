@@ -1,4 +1,4 @@
-var lang = {
+const lang = {
     name: "en",
     rtl: false,
     score: "Score",

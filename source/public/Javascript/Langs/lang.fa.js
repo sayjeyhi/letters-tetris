@@ -1,4 +1,4 @@
-var lang = {
+const lang = {
     name: "fa",
     rtl: true,
     score: "امتیاز",

@@ -29,21 +29,16 @@
             {url: "tetris.css" , kind: "app"},
             {url: "MaterialColor.class" , kind: "Fanavard/classes"},
             {url: "Sound.class" , kind: "Fanavard/classes"},
-            {
-                url : 'vivus.min',
-                afterLoad : function(){
-                    jRun.init([{
-                        url : "arshLoader" ,
-                        kind:"Loading",
-                        waitLoading:false
-                    }]);
-                },
-                kind: "Loading"
-            }
+            {url : "vivus.min", kind: "Loading"}
         ];
         jRun.buildPlugIns();
 
         jRun.init([
+            {
+                url : "arshLoader" ,
+                kind : "Loading",
+                waitLoading : false
+            },
             {
                 urls: [
                     "Modal.class",
