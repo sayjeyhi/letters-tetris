@@ -19,6 +19,7 @@ var lang = {
     medium:"Medium",
     expert:"Expert",
     gameLevel:"Level",
+    showGrids:"Show grids",
     active:"Active",
     deActive:"Deactive",
     animation:"Animation",

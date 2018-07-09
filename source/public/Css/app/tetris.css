@@ -181,6 +181,13 @@ svg :not(.doNotUnfill){stroke:currentColor}
     margin-bottom:1px;
 }
 
+.playBoard.showGrids .isRow{
+    border-bottom: 1px dashed #efefef;
+}
+.playBoard.showGrids .isRow:last-child{
+    border:none
+}
+
 
 .gameHolder .playBoard .isColumn{
     position: relative;

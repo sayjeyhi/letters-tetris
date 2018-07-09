@@ -313,9 +313,10 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             checkInRow: true,
             checkInColumn: false,
             useLowercase: false,
-            expertFallDownAnimateSpeed : 200,
-            mediumFallDownAnimateSpeed : 500,
             simpleFallDownAnimateSpeed : 700,
+            mediumFallDownAnimateSpeed : 500,
+            expertFallDownAnimateSpeed : 200,
+            showGrids : true,
 
             // user setting values
             playBackgroundSound: true,
@@ -701,6 +702,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             TetrisGame.config.useAnimationFlag = parseInt(settings.useAnimation) === 1;
             TetrisGame.config.playEventsSound = parseInt(settings.eventSounds) === 1;
             TetrisGame.config.playBackgroundSound = parseInt(settings.soundPlay) === 1;
+            TetrisGame.config.showGrids = parseInt(settings.showGrids) === 1;
             TetrisGame.config.level = parseInt(settings.gameLevel) || 1;
 
 
@@ -712,6 +714,16 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 TetrisGame.initValues.bgSound.play();
             }
 
+
+            // manage grids on play board
+            log(TetrisGame.playBoard);
+            if(TetrisGame.playBoard) {
+                if (TetrisGame.config.showGrids) {
+                    TetrisGame.playBoard.classList.add("showGrids");
+                } else {
+                    TetrisGame.playBoard.classList.remove("showGrids");
+                }
+            }
 
             // add level class to body AND do staffs about leveling
             let bodyClass = "";
@@ -744,7 +756,8 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                 soundPlay : 1,
                 eventSounds : 1,
                 useAnimation : 1,
-                gameLevel : 1
+                gameLevel : 1,
+                showGrids : 0
             });
 
             // pause game timer
@@ -777,6 +790,7 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                         '</div>' +
                     '</div>' +
 
+
                     '<div class="formRow">' +
                         '<div class="formLabel"><i class="linearicon linearicon-magic-wand"></i> ' + lang.animation + '</div>' +
                         '<div class="formData">' +
@@ -786,6 +800,17 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                             '<label for="useAnimationNo"><span>' + lang.deActive + '</span></label>' +
                         '</div>' +
                     '</div>' +
+
+                    '<div class="formRow">' +
+                        '<div class="formLabel"><i class="linearicon linearicon-grid"></i> ' + lang.showGrids + '</div>' +
+                        '<div class="formData">' +
+                            '<input id="showGridsYes" type="radio" name="showGrids" value="1" ' + (settings.showGrids === 1 ? "checked" : "") + ' />' +
+                            '<label for="showGridsYes"><span>' + lang.active + '</span></label>' +
+                            '<input id="showGridsNo" type="radio" name="showGrids" value="0" ' + (settings.showGrids === 0 ? "checked" : "") + ' />' +
+                            '<label for="showGridsNo"><span>' + lang.deActive + '</span></label>' +
+                        '</div>' +
+                    '</div>' +
+
 
                     '<div class="formRow">' +
                         '<div class="formLabel"><i class="linearicon linearicon-game"></i> ' + lang.gameLevel + '</div>' +
@@ -822,10 +847,11 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                             // catch data
                             let settingForm = document.querySelector("#settingForm");
                             let settingData = {};
-                            settingData.soundPlay = parseInt(settingForm.querySelector('[name="soundPlay"]:checked').value) || 0;
-                            settingData.eventSounds = parseInt(settingForm.querySelector('[name="eventSounds"]:checked').value) || 0;
-                            settingData.useAnimation = parseInt(settingForm.querySelector('[name="useAnimation"]:checked').value) || 0;
-                            settingData.gameLevel = parseInt(settingForm.querySelector('[name="gameLevel"]:checked').value) || 1;
+                            settingData.soundPlay = parseInt(settingForm.querySelector('[name="soundPlay"]:checked').value);
+                            settingData.eventSounds = parseInt(settingForm.querySelector('[name="eventSounds"]:checked').value);
+                            settingData.useAnimation = parseInt(settingForm.querySelector('[name="useAnimation"]:checked').value);
+                            settingData.gameLevel = parseInt(settingForm.querySelector('[name="gameLevel"]:checked').value);
+                            settingData.showGrids = parseInt(settingForm.querySelector('[name="showGrids"]:checked').value);
 
                             // apply setting and save it
                             TetrisGame.setSettings(settingData);
@@ -859,6 +885,12 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
             // add class to have playBoard columns
             TetrisGame.playBoard.classList.add('is' + TetrisGame.initValues.validatedColumnsCount + 'Column');
+
+
+            // show game play board girds
+            if(TetrisGame.config.showGrids){
+                TetrisGame.playBoard.classList.add("showGrids");
+            }
 
 
             // create game columns and rows - matrix
@@ -949,7 +981,6 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
          * Reset Game play
          */
         restartGamePlay: function () {
-
 
             // kill all intervals
             TetrisGame.interval.clearAll();
