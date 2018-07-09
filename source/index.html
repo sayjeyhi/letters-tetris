@@ -23,7 +23,7 @@
     <script type="application/javascript" src="public/Javascript/jRun.js"></script>
     <script type="application/javascript">
         jRun.urlPrefix = "public/";
-        jRun.debugMode = false;
+        jRun.debugMode = true;
 
         jRun.plugins = [
             {url: "tetris.css" , kind: "app"},
@@ -50,11 +50,27 @@
                     "Interval.class",
                     "Storage.class",
                     "Timer.class",
-                    "Swipe.class"
+                    "Swipe.class",
                 ],
                 kind: "Fanavard/classes"
             },
-            {url: "Tetris", kind: "Fanavard"},
+            {
+                url: "TetrisGame.class",
+                afterLoad: function () {
+                    jRun.init([
+                        {
+                            urls: [
+                                "WordsHelper.class" ,
+                                "Settings.class",
+                                "Charblock.class",
+                                "Gameplay.class",
+                            ],
+                            kind: "Fanavard/classes/Tetris"
+                        }
+                    ]);
+                },
+                kind: "Fanavard/classes/Tetris"
+            },
             {url: "linerIcons.css", kind: "Icons"}
         ]);
     </script>
