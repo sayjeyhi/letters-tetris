@@ -39,6 +39,7 @@ function deleteNode(row , column){
             domToDelete.parentNode.removeChild(domToDelete);
         }, deleteTiming
     );
+
 }
 
 
@@ -197,10 +198,11 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
 
     if(checkType==='ltr'){
         //Clear characters in matrix
-        for(let i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++){
+        for(let c=0,i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++,c++){
             matrix[rowId][i]=' ';
 
-            deleteNode(rowId , i);
+            setTimeout(()=>{deleteNode(rowId , i)},c*200);
+
 
             //Move upper blocks to bottom
             for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
@@ -211,14 +213,11 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
         }
     }else if (checkType==='rtl'){
         //Clear characters in matrix
-        for(let i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i){
+        for(let c=0,i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i,++c){
             matrix[rowId][i]=' ';
-            //TODO: Apply word Found animations for (rowId,i)
-            let domToDelete= document.querySelector(`.row_${rowId} .column_${i} .charBlock`);
-            domToDelete.classList.add(["animated","lightSpeedOut"]); //TODO: Fix this animation
-            setTimeout(function () {
-                deleteNode(domToDelete);
-            },300+(i*100));
+
+            setTimeout(()=>{deleteNode(rowId , i)},c*200);
+            // deleteNode(rowId , i,c*200);
 
             //Move upper blocks to bottom
             for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
