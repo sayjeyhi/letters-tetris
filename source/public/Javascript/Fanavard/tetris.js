@@ -683,14 +683,14 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
             // add level class to body AND do staffs about leveling
             let bodyClass = "";
             switch(settings.gameLevel){
-                case "3":
+                case 3:
                     bodyClass = "isExpert";
 
                     // use two word  same time at hard mode
                     TetrisGame.config.workingWordCount = 2;
 
                     break;
-                case "2":
+                case 2:
                     bodyClass = "isMedium";
                     break;
                 default:
@@ -722,9 +722,9 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                     '<div class="formRow">' +
                         '<div class="formLabel"><i class="linearicon linearicon-music-note2"></i> ' + lang.backgroundMusic + '</div>' +
                         '<div class="formData">' +
-                            '<input id="soundPlayYes" type="radio" name="soundPlay" value="1" ' + (settings.soundPlay === "1" ? "checked" : "") + ' />' +
+                            '<input id="soundPlayYes" type="radio" name="soundPlay" value="1" ' + (settings.soundPlay === 1 ? "checked" : "") + ' />' +
                             '<label for="soundPlayYes"><span>' + lang.active + '</span></label>' +
-                            '<input id="soundPlayNo" type="radio" name="soundPlay" value="0" ' + (settings.soundPlay === "0" ? "checked" : "") + ' />' +
+                            '<input id="soundPlayNo" type="radio" name="soundPlay" value="0" ' + (settings.soundPlay === 0 ? "checked" : "") + ' />' +
                             '<label for="soundPlayNo"><span>' + lang.deActive + '</span></label>' +
                         '</div>' +
                     '</div>' +
@@ -732,9 +732,9 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                     '<div class="formRow">' +
                         '<div class="formLabel"><i class="linearicon linearicon-music-note"></i> ' + lang.eventsMusic + '</div>' +
                         '<div class="formData">' +
-                            '<input id="eventSoundsYes" type="radio" name="eventSounds" value="1" ' + (settings.eventSounds === "1" ? "checked" : "") + ' />' +
+                            '<input id="eventSoundsYes" type="radio" name="eventSounds" value="1" ' + (settings.eventSounds === 1 ? "checked" : "") + ' />' +
                             '<label for="eventSoundsYes"><span>' + lang.active + '</span></label>' +
-                            '<input id="eventSoundsNo" type="radio" name="eventSounds" value="0" ' + (settings.eventSounds === "0" ? "checked" : "") + ' />' +
+                            '<input id="eventSoundsNo" type="radio" name="eventSounds" value="0" ' + (settings.eventSounds === 0 ? "checked" : "") + ' />' +
                             '<label for="eventSoundsNo"><span>' + lang.deActive + '</span></label>' +
                         '</div>' +
                     '</div>' +
@@ -742,9 +742,9 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                     '<div class="formRow">' +
                         '<div class="formLabel"><i class="linearicon linearicon-magic-wand"></i> ' + lang.animation + '</div>' +
                         '<div class="formData">' +
-                            '<input id="useAnimationYes" type="radio" name="useAnimation" value="1" ' + (settings.useAnimation === "1" ? "checked" : "") + ' />' +
+                            '<input id="useAnimationYes" type="radio" name="useAnimation" value="1" ' + (settings.useAnimation === 1 ? "checked" : "") + ' />' +
                             '<label for="useAnimationYes"><span>' + lang.active + '</span></label>' +
-                            '<input id="useAnimationNo" type="radio" name="useAnimation" value="0" ' + (settings.useAnimation === "0" ? "checked" : "") + ' />' +
+                            '<input id="useAnimationNo" type="radio" name="useAnimation" value="0" ' + (settings.useAnimation === 0 ? "checked" : "") + ' />' +
                             '<label for="useAnimationNo"><span>' + lang.deActive + '</span></label>' +
                         '</div>' +
                     '</div>' +
@@ -752,11 +752,11 @@ function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occ
                     '<div class="formRow">' +
                         '<div class="formLabel"><i class="linearicon linearicon-game"></i> ' + lang.gameLevel + '</div>' +
                         '<div class="formData">' +
-                            '<input id="gameLevelEasy" type="radio" name="gameLevel" value="1" ' + (settings.gameLevel === "1" ? "checked" : "") + ' />' +
+                            '<input id="gameLevelEasy" type="radio" name="gameLevel" value="1" ' + (settings.gameLevel === 1 ? "checked" : "") + ' />' +
                             '<label for="gameLevelEasy"><span>'+ lang.simple + '</span></label>' +
-                            '<input id="gameLevelMedium" type="radio" name="gameLevel" value="2" ' + (settings.gameLevel === "2" ? "checked" : "") + ' />' +
+                            '<input id="gameLevelMedium" type="radio" name="gameLevel" value="2" ' + (settings.gameLevel === 2 ? "checked" : "") + ' />' +
                             '<label for="gameLevelMedium"><span>'+ lang.medium + '</span></label>' +
-                            '<input id="gameLevelExpert" type="radio" name="gameLevel" value="3" ' + (settings.gameLevel === "3" ? "checked" : "") + ' />' +
+                            '<input id="gameLevelExpert" type="radio" name="gameLevel" value="3" ' + (settings.gameLevel === 3 ? "checked" : "") + ' />' +
                             '<label for="gameLevelExpert"><span>' + lang.expert + '</span></label>' +
                         '</div>' +
                     '</div>' +

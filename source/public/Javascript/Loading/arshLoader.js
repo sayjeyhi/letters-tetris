@@ -46,7 +46,7 @@ var arshLoader = {
     afterLoad: function () {
         if (arshLoader.animationLoading && !arshLoader.isLoaded) {
             var loadingTextElement = arshLoader._('.loadingText');
-            loadingTextElement.querySelector(".archLoadingAnimation").className += " animatedOneSecond fadeOut";
+            loadingTextElement.querySelector(".archLoadingAnimation").className += " animated fadeOut";
 
             setTimeout(function () {
 
