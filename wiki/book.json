@@ -1,7 +1,7 @@
 {
     "language": "fa",
     "direction": "rtl",
-    "plugins": ["sharing"],
+    "plugins": ["-sharing"],
     "pluginsConfig": {
         "sharing": {
             "facebook": false,
