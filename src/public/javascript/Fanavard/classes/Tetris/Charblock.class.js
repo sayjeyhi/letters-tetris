@@ -25,11 +25,10 @@ class Charblock {
 
 
         this.column = Math.random() * initValues.validatedColumnsCount << 0;
-        this.row = 0;                               // top is 0 and bottom is max
-        this.char = initValues.nextChar === "" ? WordsHelper.chooseChar() : initValues.nextChar;        // char value
+        this.row = 0;                                   // top is 0 and bottom is max
+        this.char = initValues.nextChar === "" ? WordsHelper.chooseChar() : initValues.nextChar;
         this.color = MaterialColor.getRandomColor();    // random material color
-        this.active = true;                         // character is animating on air
-        this.element = null;                        // holds our character element
+        this.element = null;                            // holds our character element
 
 
         // interval
@@ -67,18 +66,17 @@ class Charblock {
         let isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
 
 
-        let moveTo = this._generateMove(eventKeyCode , position , this.row , this.column);
+        let moveTo = this._generateMove(eventKeyCode, position);
 
         // if move to is out of range
         if (moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0) {
             return false;
         }
 
-        //let destinationEl = document.getElementById("grid" + moveTo.row + "_" + moveTo.column) || null;
         let destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
         if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== "")) {
 
-            //Apply character in our matrix
+            // Apply character in our matrix
             TetrisGame.matrix.setCharacter(moveTo.row - 1,moveTo.column,this.char);
 
             if (isBottomMove) {
@@ -140,19 +138,105 @@ class Charblock {
             }
         }
 
-        let charBlock = document.createElement('span');
+        let charBlockEl = document.createElement('span');
         let animateClass = TetrisGame.config.useAnimationFlag ? " animated " : "";
 
-        charBlock.style.background = charblock.color;
-        charBlock.innerHTML = charblock.char;
-        charBlock.className = "charBlock " + animateClass + (charblock.animateInClass || "");
+        charBlockEl.style.background = charblock.color;
+        charBlockEl.innerHTML = charblock.char;
+        charBlockEl.className = "charBlock " + animateClass + (charblock.animateInClass || "");
 
-        charblock.element = charBlock;
+        charblock.element = charBlockEl;
 
         initializeElement.innerHTML = '';
-        initializeElement.appendChild(charBlock);
+        initializeElement.appendChild(charBlockEl);
 
     }
+
+
+
+// /**
+//  * Delete node with animation
+//  * @param row
+//  * @param column
+//  */
+// static deleteNodeAnimate(row , column){
+//
+//     let deleteTiming = 0;
+//     let domToDelete = document.querySelector(`.row_${row} .column_${column} .charBlock`);
+//     let gameConfig = TetrisGame.config;
+//
+//     if(gameConfig.useAnimationFlag) {
+//         let animateClass =  "animatedOneSecond";
+//         deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
+//         if(gameConfig.level === 3){
+//             deleteTiming = gameConfig.expertFallDownAnimateSpeed;
+//             animateClass = "animated";
+//         }else if(gameConfig.level === 2){
+//             deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
+//             animateClass = "animatedHalfSecond";
+//         }
+//         domToDelete.classList.add(animateClass , "zoomOutDown");
+//     }
+//
+//     setTimeout(
+//         () => {
+//             domToDelete.parentNode.removeChild(domToDelete);
+//         }, deleteTiming
+//     );
+//
+// }
+
+    /**
+     * Fall node with animation
+     * @param oldRow {Number}
+     * @param oldColumn {Number}
+     * @param newRow {Number}
+     * @param newColumn {Number}
+     */
+    static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn){
+        let deleteTiming = 0;
+        let domToDelete = document.querySelector(`.row_${oldRow} .column_${oldColumn} .charBlock`);
+        let gameConfig = TetrisGame.config;
+        let oldChar = domToDelete.innerText;
+        let isFallingDown = (newRow !== null && newColumn !== null);
+
+        if(gameConfig.useAnimationFlag) {
+            let animateClass;
+            switch (gameConfig.level){
+                case 3:
+                    deleteTiming = gameConfig.expertFallDownAnimateSpeed;
+                    animateClass = "animated";
+                    break;
+                case 2:
+                    deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
+                    animateClass = "animatedHalfSecond";
+                    break;
+                default:
+                    animateClass =  "animatedOneSecond";
+                    deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
+            }
+            domToDelete.classList.add(animateClass , isFallingDown ? "fadeOutDown" : "zoomOutDown");
+        }
+
+        setTimeout(
+            () => {
+                domToDelete.parentNode.removeChild(domToDelete);
+            }, deleteTiming
+        );
+
+
+        // animate up char to down
+        if(isFallingDown) {
+            this.factory(
+                {
+                    color: MaterialColor.getRandomColor(),
+                    char: oldChar,
+                    animateInClass: "fadeInDown"
+                }, document.getElementById("grid" + newRow + "_" + newColumn)
+            );
+        }
+    }
+
 
 
     /**
@@ -160,13 +244,13 @@ class Charblock {
      *
      * @param keyCode
      * @param position
-     * @param row
-     * @param column
      * @return {*}
      * @private
      */
-    static _generateMove(keyCode , position , row , column){
+    static _generateMove(keyCode , position){
         let moveTo;
+        let row = this.row;
+        let column = this.column;
 
         switch (keyCode) {
             case TetrisGame.controlCodes.LEFT:  // left

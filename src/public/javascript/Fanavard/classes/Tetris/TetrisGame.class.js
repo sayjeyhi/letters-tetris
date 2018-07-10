@@ -4,78 +4,6 @@
 
 'use strict';
 
-
-/**
- * Delete node with animation
- * @param row
- * @param column
- */
-function deleteNodeAnimate(row , column){
-
-    let deleteTiming = 0;
-    let domToDelete = document.querySelector(`.row_${row} .column_${column} .charBlock`);
-    let gameConfig = TetrisGame.config;
-
-    if(gameConfig.useAnimationFlag) {
-        let animateClass =  "animatedOneSecond";
-        deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
-        if(gameConfig.level === 3){
-            deleteTiming = gameConfig.expertFallDownAnimateSpeed;
-            animateClass = "animated";
-        }else if(gameConfig.level === 2){
-            deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
-            animateClass = "animatedHalfSecond";
-        }
-        domToDelete.classList.add(animateClass , "zoomOutDown");
-    }
-
-    setTimeout(
-        () => {
-            domToDelete.parentNode.removeChild(domToDelete);
-        }, deleteTiming
-    );
-
-}
-
-/**
- * Fall node with animation
- * @param oldY {Number}
- * @param oldX {Number}
- * @param newY {Number}
- * @param newX {Number}
- */
-function fallNodeAnimate(oldY,oldX,newY,newX){
-
-    let deleteTiming = 0;
-    let domToDelete = document.querySelector(`.row_${oldY} .column_${oldX} .charBlock`);
-    let gameConfig = TetrisGame.config;
-
-    if(gameConfig.useAnimationFlag) {
-        let animateClass =  "animatedOneSecond";
-        deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
-        if(gameConfig.level === 3){
-            deleteTiming = gameConfig.expertFallDownAnimateSpeed;
-            animateClass = "animated";
-        }else if(gameConfig.level === 2){
-            deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
-            animateClass = "animatedHalfSecond";
-        }
-        domToDelete.classList.add(animateClass , "fadeOutDown");
-    }
-
-    setTimeout(
-        () => {
-            domToDelete.parentNode.removeChild(domToDelete);
-            //TODO: Add fadeInDown animation to fall characters with: newX,newY
-        }, deleteTiming
-    );
-
-}
-
-
-
-
-
 class TetrisGame {
 
     static init(){
@@ -95,7 +23,7 @@ class TetrisGame {
             simpleFallDownAnimateSpeed : 700,
             mediumFallDownAnimateSpeed : 500,
             expertFallDownAnimateSpeed : 200,
-            successAnimationIterationDuration:200,
+            successAnimationIterationDuration: 120,
 
             // user setting values
             playBackgroundSound: true,
@@ -139,7 +67,6 @@ class TetrisGame {
          * Game play board
          */
         this.playBoard = null;
-
 
         return this;
     }
@@ -195,25 +122,25 @@ class TetrisGame {
             Sound.playByKey('foundWord',config.playEventsSound);
 
             //Animate FadingOut founded characters
-            successObject.wordCharacterPositions.map((item,index)=>{
+            successObject.wordCharacterPositions.map((item,index) => {
                 setTimeout(
-                    ()=>{
-                        deleteNodeAnimate(item.y,item.x)
+                    () => {
+                        Charblock.fallNodeAnimate(item.y, item.x, null, null)
                     }, index * config.successAnimationIterationDuration
                 );
             });
 
             setTimeout(
-                ()=>{
-                    successObject.fallingCharacters.map((item,index)=>{
+                () => {
+                    successObject.fallingCharacters.map((item,index) => {
                         console.log(item);
                         setTimeout(
                             ()=>{
-                                fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)
+                                Charblock.fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)
                             }, index * config.successAnimationIterationDuration
                         );
                     });
-                },successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
+                }, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
             )
 
         };
