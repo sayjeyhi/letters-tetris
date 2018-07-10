@@ -212,7 +212,7 @@ let arshLoader = {
 
         arshLoader._('#container').innerHTML = '' +
             '    <div class="bloc">\n' +
-            '        <div><img src="public/Images/fanavardLogo.png" style="width:150px;height: auto"/></div>' +
+            '        <div><img src="public/img/fanavardLogo.png" style="width:150px;height: auto"/></div>' +
             '        <svg id="jafarRezaeiAnimate" viewBox="-17 -20 412.8504 64.80315" height="70.80315" width="412.8504" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:400px;padding:50px 0 !important;height:auto">\n' +
             '            <defs>\n' +
             '                <filter id="dropshadow" height="50%">\n' +

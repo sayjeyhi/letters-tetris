@@ -330,11 +330,11 @@ let jRun = {
                     }
 
                     if (type === "js") {
-                        fileReference.src = o.cdn ? url : jRun.urlPrefix + "Javascript/" + url + extraParameter;
+                        fileReference.src = o.cdn ? url : jRun.urlPrefix + "javascript/" + url + extraParameter;
                     } else {
                         fileReference.type = "text/css";
                         fileReference.rel = "stylesheet";
-                        fileReference.href = o.cdn ? url : jRun.urlPrefix + "Css/" + url + extraParameter;
+                        fileReference.href = o.cdn ? url : jRun.urlPrefix + "css/" + url + extraParameter;
                     }
 
 
