@@ -122,8 +122,8 @@ class Charblock extends TetrisGame {
 
             if (isBottomMove) {
 
-                TetrisGame.matrix[moveTo.row - 1][moveTo.column] = this.char;
-                console.log(TetrisGame.matrix);
+                //Apply character in our matrix
+                TetrisGame.matrix.setCharacter(moveTo.row - 1,moveTo.column,this.char);
 
                 // stop interval and request new char
                 TetrisGame.interval.clear(this.interval);

@@ -10,7 +10,7 @@
  * @param row
  * @param column
  */
-function deleteNode(row , column){
+function deleteNodeAnimate(row , column){
 
     let deleteTiming = 0;
     let domToDelete = document.querySelector(`.row_${row} .column_${column} .charBlock`);
@@ -37,198 +37,41 @@ function deleteNode(row , column){
 
 }
 
-
-
-
-//==================[WORD FINDING RELATED FUNCTIONS]=========================
-
-
-//Row     -> y
-//Column  -> x
-function getRailingChars(matrix,y,x,direction){
-    const width = matrix[0].length;
-    const height = matrix.length;
-
-    let railingChars='';
-    // let from=-1,to=-1;//from and to determines location from
-    let len=0;//Determines how much did we move in each direction to get to space or end of direction
-
-    let i=1;//i is just the iterator in loops
-    switch(direction){
-        case 'R':
-            //Go in Right direction
-            //i starts with 1 because we dont want the current character
-            //This loop will go to right until it reaches the border OR next character is ' '
-            //Rest of cases are just like this method but with differnt direction
-            // from=1+x;
-            for(i=1;i+x<width && matrix[y][i+x]!==' ';i++){
-                railingChars+=matrix[y][i+x];
-                // to=i+x;
-                len++;
-            }
-            break;
-        case 'L':
-            // from=x-1;
-            for(i=1;x-i>=0 && matrix[y][x-i]!==' ';i++){
-                railingChars=matrix[y][x-i] + railingChars;
-                // to=x-i;
-                len++;
-            }
-            break;
-        case 'T':
-            // from=y-1;
-            for(i=1;y-i>=0 && matrix[y-i][x]!==' ';i++){
-                railingChars+=matrix[y-i][x];
-                // to=y-i;
-                len++;
-            }
-            break;
-        case 'D':
-            // from=y+1;
-            for(i=1;y+i<height && matrix[y+i][x]!==' ';i++){
-                railingChars+=matrix[y+i][x];
-                // to=y+i;
-                len++;
-            }
-            break;
-    }
-
-    return {
-        chars:railingChars,
-        // to:to,
-        // from:from,
-        len:len
-    }
-}
-
-
-
-
-
-
 /**
- Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
- For example this string: 'foo 𝌆 bar mañana mañana' will be corrupt if used string.split("").reverse().join("");
- We'll use following code from mathiasbynens to reverse a string properly
- https://github.com/mathiasbynens/esrever/blob/master/src/esrever.js
+ * Fall node with animation
+ * @param oldY {Number}
+ * @param oldX {Number}
+ * @param newY {Number}
+ * @param newX {Number}
  */
-function reverse(string) {
-    let regexSymbolWithCombiningMarks = /(<%= allExceptCombiningMarks %>)(<%= combiningMarks %>+)/g;
-    let regexSurrogatePair = /([\uD800-\uDBFF])([\uDC00-\uDFFF])/g;
-    // Step 1: deal with combining marks and astral symbols (surrogate pairs)
-    string = string
-    // Swap symbols with their combining marks so the combining marks go first
-        .replace(regexSymbolWithCombiningMarks, function($0, $1, $2) {
-            // Reverse the combining marks so they will end up in the same order
-            // later on (after another round of reversing)
-            return reverse($2) + $1;
-        })
-        // Swap high and low surrogates so the low surrogates go first
-        .replace(regexSurrogatePair, '$2$1');
-    // Step 2: reverse the code units in the string
-    let result = [];
-    let index = string.length;
-    while (index--) {
-        result.push(string.charAt(index));
+function fallNodeAnimate(oldY,oldX,newY,newX){
+
+    let deleteTiming = 0;
+    let domToDelete = document.querySelector(`.row_${oldY} .column_${oldX} .charBlock`);
+    let gameConfig = TetrisGame.config;
+
+    if(gameConfig.useAnimationFlag) {
+        let animateClass =  "animatedOneSecond";
+        deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
+        if(gameConfig.level === 3){
+            deleteTiming = gameConfig.expertFallDownAnimateSpeed;
+            animateClass = "animated";
+        }else if(gameConfig.level === 2){
+            deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
+            animateClass = "animatedHalfSecond";
+        }
+        domToDelete.classList.add(animateClass , "fadeOutDown");
     }
-    return result.join('');
+
+    setTimeout(
+        () => {
+            domToDelete.parentNode.removeChild(domToDelete);
+            //TODO: Add fadeInDown animation to fall characters with: newX,newY
+        }, deleteTiming
+    );
+
 }
 
-function checkSuccess(matrix,words,rowId,colId,successCallback){
-
-    let rights = getRailingChars(matrix,rowId,colId,'R');
-    let lefts = getRailingChars(matrix,rowId,colId,'L');
-    let tops = getRailingChars(matrix,rowId,colId,'T');
-    let downs = getRailingChars(matrix,rowId,colId,'D');
-
-    // const sentenceLTR = excapeRegex(lefts + matrix[9][2] + rights);
-    // const sentenceTTD = excapeRegex(tops  + matrix[9][2] + downs);
-    // const sentenceRTL = excapeRegex(reverse(sentenceLTR));
-    // const sentenceDDT = excapeRegex(reverse(sentenceTTD));
-    const sentenceLTR = (lefts.chars + matrix[rowId][colId] + rights.chars);
-    const sentenceTTD = (tops.chars  + matrix[rowId][colId] + downs.chars);
-    const sentenceRTL = (reverse(sentenceLTR));
-    const sentenceDTT = (reverse(sentenceTTD));
-    // console.log(sentenceLTR);
-    console.log(sentenceRTL);
-    //
-    // const regexLTR = new RegExp(sentenceLTR,'i');
-    // const regexTTD = new RegExp(sentenceTTD,'i');
-    // const regexRTL = new RegExp(sentenceRTL,'i');
-    // const regexDDT = new RegExp(sentenceDDT,'i');
-
-    let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
-
-    for(let i=0, len=words.length; i < len; i++){
-        let pos,
-            word = words[i].word
-        ;
-        if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
-            console.log("LTR: Found valid word:"+ word +" In:" + sentenceLTR);
-            let startFrom = colId-lefts.len+pos;
-            deleteCharacters(matrix,rowId,colId,'ltr',startFrom,word.length);
-            Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
-            //TODO: Increase Score
-            //TODO: Remove Chars from TetrisGame.initValues.choosedWordsUsedChars
-            //TODO: Remove Words from TetrisGame.initValues.choosedWords
-        }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
-            console.log("RTL: Found valid word:"+ word +" In:" + sentenceRTL);
-
-            let startFrom = colId+rights.len-pos;
-            deleteCharacters(matrix,rowId,colId,'rtl',startFrom,word.length);
-            Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
-
-        }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
-            console.log("Found valid word:"+ word +" In:" + sentenceRTL)
-        }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
-            console.log("Found valid word:"+ word +" In:" + sentenceDTT)
-        }
-    }
-}
-
-
-
-function deleteCharacters(matrix,rowId,colId,checkType,occurancePositionFrom,occurancePositionLenght){
-
-
-    if(checkType==='ltr'){
-        //Clear characters in matrix
-        for(let c=0,i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++,c++){
-            matrix[rowId][i]=' ';
-
-            setTimeout(()=>{deleteNode(rowId , i)},c*200);
-
-
-            //Move upper blocks to bottom
-            for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
-                matrix[upIndex][i] = matrix[upIndex-1][i];
-                matrix[upIndex-1][i] = ' ';
-                //TODO: Apply falling animations for moving chars from [upIndex-1][i] to [upIndex][i]
-            }
-        }
-    }else if (checkType==='rtl'){
-        //Clear characters in matrix
-        for(let c=0,i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i,++c){
-            matrix[rowId][i]=' ';
-
-            setTimeout(()=>{deleteNode(rowId , i)},c*200);
-            // deleteNode(rowId , i,c*200);
-
-            //Move upper blocks to bottom
-            for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
-                matrix[upIndex][i] = matrix[upIndex-1][i];
-                matrix[upIndex-1][i] = ' ';
-                //TODO: Apply falling animations for moving chars from [upIndex-1][i] to [upIndex][i]
-            }
-        }
-    }else if (checkType==='ttd'){
-        //TODO
-    }else if (checkType==='dtt'){
-        //TODO
-    }
-}
-
-//==================[END OF WORD FINDING RELATED FUNCTIONS]=====================
 
 
 
@@ -252,6 +95,7 @@ class TetrisGame {
             simpleFallDownAnimateSpeed : 700,
             mediumFallDownAnimateSpeed : 500,
             expertFallDownAnimateSpeed : 200,
+            successAnimationIterationDuration:200,
 
             // user setting values
             playBackgroundSound: true,
@@ -329,12 +173,41 @@ class TetrisGame {
      * @param {charBlock} lastChar
      */
     static checkWordSuccess(lastChar) {
-        checkSuccess(
-            TetrisGame.matrix,
-            TetrisGame.initValues.choosedWords,
-            lastChar.row,
-            lastChar.column
-        );
+
+        const callBack = (successObject)=>{
+            let word = TetrisGame.initValues.choosedWords[successObject.wordId].word;
+            //Remove word from choosed words
+            TetrisGame.initValues.choosedWords.splice(successObject.wordId,1);
+
+
+            //Remove characters from choosed characters
+            word.split("").map((char)=>{
+                let index = TetrisGame.initValues.choosedWordsUsedChars.indexOf(char);
+                if(index!==-1){
+                    TetrisGame.initValues.choosedWordsUsedChars.splice(index, 1);
+                }
+            });
+
+            Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
+
+            //Animate FadingOut founded characters
+            successObject.wordCharacterPositions.map((item,index)=>{
+                setTimeout(()=>{deleteNodeAnimate(item.y,item.x)},index*TetrisGame.config.successAnimationIterationDuration);
+            });
+
+            setTimeout(()=>{
+                successObject.fallingCharacters.map((item,index)=>{
+                    console.log(item);
+                    setTimeout(()=>{fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)},index*TetrisGame.config.successAnimationIterationDuration);
+                });
+            },successObject.wordCharacterPositions.length*TetrisGame.config.successAnimationIterationDuration)
+
+
+
+        };
+
+        let checkTypes = {ltr:true,rtl:true,ttd:false,dtt:false};
+        TetrisGame.matrix.checkWords(TetrisGame.initValues.choosedWords,lastChar.row,lastChar.column,checkTypes,callBack);
         // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
     }
 

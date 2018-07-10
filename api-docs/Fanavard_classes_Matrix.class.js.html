@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: Fanavard/classes/Matrix.class.js | Fanavard TetrisGame</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+        
+            <link type="text/css" rel="stylesheet" href="styles/custom.css">
+        
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 200px; height: 85px">
+        
+            <a href="#" rel="noopener noreferrer" target="_blank">
+                <img src="./img/logo.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">Fanavard TetrisGame</a></h1>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="Charblock.html">Charblock</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Charblock_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Charblock.html#.destroy">destroy</a></li><li><a href="Charblock.html#.factory">factory</a></li><li><a href="Charblock.html#.getNew">getNew</a></li><li><a href="Charblock.html#.move">move</a></li><li><a href="Charblock.html#.showUpComingChar">showUpComingChar</a></li></ul></div></li><li><a href="Interval.html">Interval</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Interval_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Interval.html#clear">clear</a></li><li><a href="Interval.html#clearAll">clearAll</a></li><li><a href="Interval.html#make">make</a></li></ul></div></li><li><a href="MaterialColor.html">MaterialColor</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MaterialColor_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MaterialColor.html#.getRandomColor">getRandomColor</a></li><li><a href="MaterialColor.html#.pickRandomProperty">pickRandomProperty</a></li></ul></div></li><li><a href="Matrix.html">Matrix</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Matrix_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Matrix.html#_deleteCharacters">_deleteCharacters</a></li><li><a href="Matrix.html#_getRailingChars">_getRailingChars</a></li><li><a href="Matrix.html#checkWords">checkWords</a></li><li><a href="Matrix.html#setCharacter">setCharacter</a></li></ul></div></li><li><a href="Modal.html">Modal</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Modal_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Modal.html#createContent">createContent</a></li><li><a href="Modal.html#createFooter">createFooter</a></li><li><a href="Modal.html#createHeader">createHeader</a></li><li><a href="Modal.html#destroy">destroy</a></li><li><a href="Modal.html#show">show</a></li></ul></div></li><li><a href="Sound.html">Sound</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Sound_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Sound.html#.getInstance">getInstance</a></li><li><a href="Sound.html#.makeInstanceName">makeInstanceName</a></li><li><a href="Sound.html#.playByKey">playByKey</a></li><li><a href="Sound.html#.setInstance">setInstance</a></li><li><a href="Sound.html#pause">pause</a></li><li><a href="Sound.html#play">play</a></li></ul></div></li><li><a href="Storage.html">Storage</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Storage_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Storage.html#.get">get</a></li><li><a href="Storage.html#.getInt">getInt</a></li><li><a href="Storage.html#.getJson">getJson</a></li><li><a href="Storage.html#.set">set</a></li></ul></div></li><li><a href="Swipe.html">Swipe</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Swipe_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Swipe.html#buildListeners">buildListeners</a></li><li><a href="Swipe.html#destroy">destroy</a></li><li><a href="Swipe.html#onTouchEnd">onTouchEnd</a></li><li><a href="Swipe.html#onTouchStart">onTouchStart</a></li><li><a href="Swipe.html#whileTouch">whileTouch</a></li></ul></div></li><li><a href="TetrisGame.html">TetrisGame</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="TetrisGame_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="TetrisGame.html#config">config</a></li><li><a href="TetrisGame.html#initValues">initValues</a></li><li><a href="TetrisGame.html#playBoard">playBoard</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="TetrisGame.html#.build">build</a></li><li><a href="TetrisGame.html#.checkWordSuccess">checkWordSuccess</a></li><li><a href="TetrisGame.html#.getValidColumnsNumber">getValidColumnsNumber</a></li></ul></div></li><li><a href="Timer.html">Timer</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Timer_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Timer.html#pause">pause</a></li><li><a href="Timer.html#resume">resume</a></li><li><a href="Timer.html#start">start</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#addLanguage">addLanguage</a></li><li><a href="global.html#allowedInitTypes">allowedInitTypes</a></li><li><a href="global.html#allowInit">allowInit</a></li><li><a href="global.html#arshLoader">arshLoader</a></li><li><a href="global.html#build">build</a></li><li><a href="global.html#buildDummy">buildDummy</a></li><li><a href="global.html#buildPlugIns">buildPlugIns</a></li><li><a href="global.html#checkLoad">checkLoad</a></li><li class="hidden"><a href="global.html#CheckTypes">CheckTypes</a></li><li><a href="global.html#debugMode">debugMode</a></li><li><a href="global.html#deepExtend">deepExtend</a></li><li><a href="global.html#defaultLoadProperties">defaultLoadProperties</a></li><li><a href="global.html#defaultType">defaultType</a></li><li><a href="global.html#deleteNode">deleteNode</a></li><li><a href="global.html#disableCache">disableCache</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isFunction">isFunction</a></li><li><a href="global.html#jRun">jRun</a></li><li><a href="global.html#loadedFiles">loadedFiles</a></li><li><a href="global.html#notAllowedUserAttributes">notAllowedUserAttributes</a></li><li><a href="global.html#plugins">plugins</a></li><li class="hidden"><a href="global.html#RailingChars">RailingChars</a></li><li><a href="global.html#reverse">reverse</a></li><li><a href="global.html#sanitizeName">sanitizeName</a></li><li><a href="global.html#setLoadedFlag">setLoadedFlag</a></li><li><a href="global.html#TetrisWords">TetrisWords</a></li><li class="hidden"><a href="global.html#TimerConfig">TimerConfig</a></li><li><a href="global.html#urlPrefix">urlPrefix</a></li><li><a href="global.html#version">version</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
+ * For example this string: 'foo 𝌆 bar mañana mañana' will be corrupt if used string.split("").reverse().join("");
+ * We'll use following code from mathiasbynens to reverse a string properly
+ * @link https://github.com/mathiasbynens/esrever/blob/master/src/esrever.js
+ *
+ * @param string - An string to reverse
+ *
+ * @example
+ *  let str = 'foo 𝌆 bar mañana mañana';
+ *  let correctlyReversed = reverse(str); // 'anãnam anañam rab 𝌆 oof'
+ *  let corruptedReverse  = str.split("").reverse().join(""); // 'anãnam anañam rab �� oof'
+ * @returns {string}
+ */
+function reverse(string) {
+    let regexSymbolWithCombiningMarks = /(&lt;%= allExceptCombiningMarks %>)(&lt;%= combiningMarks %>+)/g;
+    let regexSurrogatePair = /([\uD800-\uDBFF])([\uDC00-\uDFFF])/g;
+    // Step 1: deal with combining marks and astral symbols (surrogate pairs)
+    string = string
+    // Swap symbols with their combining marks so the combining marks go first
+        .replace(regexSymbolWithCombiningMarks, function($0, $1, $2) {
+            // Reverse the combining marks so they will end up in the same order
+            // later on (after another round of reversing)
+            return reverse($2) + $1;
+        })
+        // Swap high and low surrogates so the low surrogates go first
+        .replace(regexSurrogatePair, '$2$1');
+    // Step 2: reverse the code units in the string
+    let result = [];
+    let index = string.length;
+    while (index--) {
+        result.push(string.charAt(index));
+    }
+    return result.join('');
+}
+
+/**
+ *
+ * @param possibleFunction - Argument to check if it is a function ro not
+ * @returns {boolean} True if input is a function otherwise false
+ */
+function isFunction(possibleFunction) {
+    return typeof(possibleFunction) === typeof(Function);
+}
+
+
+/**
+ *
+ * This class will hold values of characters, find successful created words, delete them and etc
+ *
+ *
+ */
+class Matrix {
+    /**
+     *
+     * @param matrix {2DArray} Matrix of characters
+     * @property matrix {2DArray} Matrix of characters
+     *
+     *
+     * @example
+     *  let matrix = new Matrix([[' ',' ',' ',' '],
+     *                          [' ',' ',' ',' '],
+     *                          [' ',' ',' ',' '],
+     *                          [' ',' ',' ',' ']]
+     *                          );
+     */
+    constructor(matrix) {
+        this.matrix = matrix;
+        this.width = matrix[0].length;
+        this.height = matrix.length;
+
+    };
+
+
+    /**
+     *
+     * @param y {Number} - Column of matrix
+     * @param x {Number} - Row of matrix
+     * @param char {String} - Character to place in matrix
+     */
+    setCharacter(y,x,char){
+        this.matrix[y][x]=char;
+    }
+
+
+    /**
+     * @param {String[]} words - To search in strings
+     * @param {Number} rowId - Index of row in matrix
+     * @param {Number} colId - Index of column in matrix
+     * @param {CheckTypes} checkType to search for strings in matrix from x,y point can have any of these values: L|R|T|D
+     * @param {Function} successCallback - Returns founded characters, Falling characters and
+     */
+    checkWords(words,rowId,colId,checkType,successCallback){
+
+        let rights = this._getRailingChars(rowId,colId,'R');
+        let lefts = this._getRailingChars(rowId,colId,'L');
+        let tops = this._getRailingChars(rowId,colId,'T');
+        let downs = this._getRailingChars(rowId,colId,'D');
+
+        const sentenceLTR = (lefts.chars + this.matrix[rowId][colId] + rights.chars); //Create valid sentence from left characters + current character + right characters
+        const sentenceTTD = (tops.chars  + this.matrix[rowId][colId] + downs.chars);  //Create valid sentence from left characters + current character + right characters
+        const sentenceRTL = (reverse(sentenceLTR)); //Reverse it to get
+        const sentenceDTT = (reverse(sentenceTTD));
+
+        // let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
+
+        for(let i=0, len=words.length; i &lt; len; i++){
+            let pos,
+                word = words[i].word
+            ;
+            if(checkType.ltr &amp;&amp; (pos=sentenceLTR.indexOf(word)) !== -1){
+                console.log("LTR: Found valid word:"+ word +" In:" + sentenceLTR);
+                let startFrom = colId-lefts.len+pos;
+                this._deleteCharacters(rowId,colId,i,{ltr:true},startFrom,word.length,successCallback);
+                Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
+                //TODO: Increase Score
+                //TODO: Remove Chars from TetrisGame.initValues.choosedWordsUsedChars
+                //TODO: Remove Words from TetrisGame.initValues.choosedWords
+            }else if(checkType.rtl &amp;&amp; (pos=sentenceRTL.indexOf(word)) !== -1){
+                console.log("RTL: Found valid word:"+ word +" In:" + sentenceRTL);
+
+                let startFrom = colId+rights.len-pos;
+                this._deleteCharacters(rowId,colId,i,{rtl:true},startFrom,word.length,successCallback);
+                Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
+
+            }else if (checkType.rtl &amp;&amp; sentenceRTL.indexOf(word) !== -1){
+                console.log("Found valid word:"+ word +" In:" + sentenceRTL)
+            }else if (checkType.dtt &amp;&amp; sentenceDTT.indexOf(word) !== -1){
+                console.log("Found valid word:"+ word +" In:" + sentenceDTT)
+            }
+        }
+    }
+
+
+
+    /**
+     * @typedef {Object} RailingChars
+     * @property {Number} len  - Length to show how much did we walked in each direction to either reach to border or whiteSpace
+     * @property {String} chars - String which shows which chars did we found
+     */
+
+    /**
+     * @return {RailingChars}
+     * @param {Number} y - Index of row in matrix
+     * @param {Number} x - Index of column in matrix
+     * @param {String} direction to search for strings in matrix from x,y point can have any of these values: L|R|T|D
+     */
+    _getRailingChars(y,x,direction){
+        let railingChars='';//Found characters in each directions
+        let len=0;//Determines how much did we move in each direction to get to space or end of direction
+
+        let i=1;//i is just the iterator in loops
+        switch(direction){
+            case 'R':
+                //Go in Right direction
+                //i starts with 1 because we dont want the current character
+                //This loop will go to right until it reaches the border OR next character is ' '
+                //Rest of cases are just like this method but with differnt direction
+                // from=1+x;
+                for(i=1;i+x&lt;this.width &amp;&amp; this.matrix[y][i+x]!==' ';i++){
+                    railingChars+=this.matrix[y][i+x];
+                    len++;
+                }
+                break;
+            case 'L':
+                for(i=1;x-i>=0 &amp;&amp; this.matrix[y][x-i]!==' ';i++){
+                    railingChars=this.matrix[y][x-i] + railingChars;
+                    len++;
+                }
+                break;
+            case 'T':
+                for(i=1;y-i>=0 &amp;&amp; this.matrix[y-i][x]!==' ';i++){
+                    railingChars+=this.matrix[y-i][x];
+                    len++;
+                }
+                break;
+            case 'D':
+                for(i=1;y+i&lt;this.height &amp;&amp; this.matrix[y+i][x]!==' ';i++){
+                    railingChars+=this.matrix[y+i][x];
+                    len++;
+                }
+                break;
+        }
+
+        return {
+            chars:railingChars,
+            len:len
+        }
+    }
+
+    /**
+     * @typedef {Object} CheckTypes - An object representing in which direction should function search for words
+     * @property {Boolean} rtl - Determines if should check Right To Left direction
+     * @property {Boolean} ltr - Determines if should check Left To Right direction
+     * @property {Boolean} ttd - Determines if should check Top To Down direction
+     * @property {Boolean} dtt - Determines if should check Down To Top direction
+     */
+
+    /**
+     *
+     * @param rowId {Number} - Row id of last checking character in matrix
+     * @param colId {Number} - col id of last checking character in matrix
+     * @param wordId {Number} - Id of founded word
+     * @param checkType {CheckTypes} - An checkType Object to find direction
+     * @param occurancePositionFrom {Number} - Start position of word
+     * @param occurancePositionLenght {Number} - Length of word
+     * @param deleteCallBack {Function} - Function to callback when foundWord and Falling words has been found
+     */
+    _deleteCharacters(rowId,colId,wordId,checkType,occurancePositionFrom,occurancePositionLenght,deleteCallBack){
+
+        //Determines if we need to store date to call the callback function if it exists
+        let hasCallback = isFunction(deleteCallBack);
+        // successCallback(rowId,i,,c);
+        let callbackObject = {
+            wordId: wordId,
+            wordCharacterPositions:[],//Array of {x,y}
+            fallingCharacters:[]//Array of {oldX,oldY,newX,newY}
+        };
+
+        if(checkType.rtl){
+            //Clear characters in matrix
+            for(let c=0,i = occurancePositionFrom;i&lt;occurancePositionFrom+occurancePositionLenght;i++,c++){
+                this.matrix[rowId][i]=' ';
+
+                if(hasCallback){
+                    callbackObject.wordCharacterPositions.push({y:rowId,x:i});
+                }
+                // setTimeout(()=>{deleteNode(rowId , i)},c*200);
+
+                //Move upper blocks to bottom
+                for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' &amp;&amp; upIndex>=0;upIndex--){
+                    this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
+                    this.matrix[upIndex-1][i] = ' ';
+                    if(hasCallback){
+                        callbackObject.fallingCharacters.push({oldX:upIndex-1,oldY:i,newX:upIndex,newY:i});
+                    }
+                }
+            }
+        }else if (checkType.rtl){
+            //Clear characters in matrix
+            for(let c=0,i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i,++c){
+                this.matrix[rowId][i]=' ';
+                if(hasCallback){
+                    callbackObject.wordCharacterPositions.push({y:rowId,x:i});
+                }
+                // setTimeout(()=>{deleteNode(rowId , i)},c*200);
+                // deleteNode(rowId , i,c*200);
+
+                //Move upper blocks to bottom
+                for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' &amp;&amp; upIndex>=0;upIndex--){
+                    this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
+                    this.matrix[upIndex-1][i] = ' ';
+                    if(hasCallback){
+                        callbackObject.fallingCharacters.push({oldX:upIndex-1,oldY:i,newX:upIndex,newY:i});
+                    }
+                }
+            }
+        }else if (checkType.ttd){
+            //TODO
+        }else if (checkType.dtt){
+            //TODO
+        }
+    }
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="./img/logo.png" style="width: 200px; height: 85px">
+    <div class="footer-text">Made with <3 by ArshTeam. Documented with JsDoc3, TuiTheme.</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>
