@@ -15,69 +15,71 @@
 </head>
 
 <body>
+<link rel="stylesheet" href="public/css/app/tetris.css">
+<link rel="stylesheet" href="public/css/Icons/linerIcons.css">
+<!-- Main holder of every thing -->
+<div id="container"></div>
 
-    <!-- Main holder of every thing -->
-    <div id="container"></div>
+<!-- Add Main Project script -->
+<script type="application/javascript" src="dist/main.js"></script>
+<script type="application/javascript">
 
-    <!-- Add Main Project script -->
-    <script type="application/javascript" src="public/javascript/jRun.js"></script>
-    <script type="application/javascript">
-        jRun.urlPrefix = "public/";
-        jRun.debugMode = false;
+    // jRun.urlPrefix = "public/";
+    // jRun.debugMode = false;
+    //
+    // jRun.plugins = [
+    //     {url: "tetris.css" , kind: "app"},
+    //     {url: "MaterialColor.class" , kind: "Fanavard/classes"},
+    //     {url: "Sound.class" , kind: "Fanavard/classes"},
+    //     {
+    //         url : 'vivus.min',
+    //         afterLoad : function(){
+    //             jRun.init([{
+    //                 url : "arshLoader" ,
+    //                 kind:"loading",
+    //                 waitLoading:false
+    //             }]);
+    //         },
+    //         kind: "loading"
+    //     }
+    // ];
+    // jRun.buildPlugIns();
+    //
+    // jRun.init([
+    //     {
+    //         urls: [
+    //             "Modal.class",
+    //             "Interval.class",
+    //             "Storage.class",
+    //             "Timer.class",
+    //             "Swipe.class",
+    //             "Matrix.class",
+    //         ],
+    //         kind: "Fanavard/classes"
+    //     },
+    //     {
+    //         url: "TetrisGame.class",
+    //         afterLoad: function () {
+    //             jRun.init([
+    //                 {
+    //                     urls: [
+    //                         "WordsHelper.class" ,
+    //                         "Settings.class",
+    //                         "Charblock.class",
+    //                         "Gameplay.class",
+    //                     ],
+    //                     kind: "Fanavard/classes/Tetris"
+    //                 }
+    //             ]);
+    //         },
+    //         kind: "Fanavard/classes/Tetris"
+    //     },
+    //     {url: "linerIcons.css", kind: "Icons"}
+    // ]);
+</script>
 
-        jRun.plugins = [
-            {url: "tetris.css" , kind: "app"},
-            {url: "MaterialColor.class" , kind: "Fanavard/classes"},
-            {url: "Sound.class" , kind: "Fanavard/classes"},
-            {
-                url : 'vivus.min',
-                afterLoad : function(){
-                    jRun.init([{
-                        url : "arshLoader" ,
-                        kind:"Loading",
-                        waitLoading:false
-                    }]);
-                },
-                kind: "Loading"
-            }
-        ];
-        jRun.buildPlugIns();
-
-        jRun.init([
-            {
-                urls: [
-                    "Modal.class",
-                    "Interval.class",
-                    "Storage.class",
-                    "Timer.class",
-                    "Swipe.class",
-                    "Matrix.class",
-                ],
-                kind: "Fanavard/classes"
-            },
-            {
-                url: "TetrisGame.class",
-                afterLoad: function () {
-                    jRun.init([
-                        {
-                            urls: [
-                                "WordsHelper.class" ,
-                                "Settings.class",
-                                "Charblock.class",
-                                "Gameplay.class",
-                            ],
-                            kind: "Fanavard/classes/Tetris"
-                        }
-                    ]);
-                },
-                kind: "Fanavard/classes/Tetris"
-            },
-            {url: "linerIcons.css", kind: "Icons"}
-        ]);
-    </script>
-
-    <!-- web worker timing content @type="javascript/worker" -->
-    <script id="workerTiming" type="javascript/worker">
+<!-- web worker timing content @type="javascript/worker" -->
+<script id="workerTiming" type="javascript/worker">
         var pause_flag = false;
         let i = 0;
         let timedCount = function() {
@@ -95,6 +97,5 @@
             }
         };
     </script>
-
 </body>
 </html>

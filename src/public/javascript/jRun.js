@@ -230,7 +230,7 @@ let jRun = {
         jRun.init(
             [{
                 url: "lang." + lang + ".js",
-                kind: "Langs",
+                kind: "localization",
                 attributes: { class: 'isLanguageFile' },
                 waitLoading: false,
                 afterLoad: function () {

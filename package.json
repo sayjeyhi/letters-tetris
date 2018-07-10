@@ -1,28 +1,41 @@
 {
-  "name": "fanavard_ui_97",
-  "version": "0.7.0",
-  "description": "Fanavard UI Develop Challenge - ArshTeam",
-  "private":true,
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "scripts": {
-    "start": "webpack --config webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/jafar-rezaei/fanavard_Ui_97.git"
-  },
-  "author": "Arsh Team",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/jafar-rezaei/fanavard_Ui_97/issues"
-  },
-  "homepage": "https://gitlab.com/jafar-rezaei/fanavard_Ui_97#README",
-  "devDependencies": {
-    "tui-jsdoc-template": "1.2.2",
-    "webpack-cli": "3.0.8"
-  }
+    "name": "fanavard_ui_97",
+    "version": "0.7.0",
+    "description": "Fanavard UI Develop Challenge - ArshTeam",
+    "private": true,
+    "main": "index.js",
+    "directories": {
+        "doc": "docs"
+    },
+    "scripts": {
+        "start": "webpack-dev-server --open",
+        "prod": "webpack --config webpack.config.js",
+        "watch": "webpack --watch",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@gitlab.com/jafar-rezaei/fanavard_Ui_97.git"
+    },
+    "author": "Arsh Team",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://gitlab.com/jafar-rezaei/fanavard_Ui_97/issues"
+    },
+    "homepage": "https://gitlab.com/jafar-rezaei/fanavard_Ui_97#README",
+    "devDependencies": {
+        "css-loader": "1.0.0",
+        "extract-text-webpack-plugin": "3.0.2",
+        "style-loader": "0.21.0",
+        "tui-jsdoc-template": "1.2.2",
+        "webpack": "4.15.1",
+        "webpack-cli": "3.0.8",
+        "webpack-dev-server": "3.1.4"
+    },
+    "dependencies": {
+        "clean-webpack-plugin": "0.1.19",
+        "html-webpack-plugin": "3.2.0",
+        "mini-css-extract-plugin": "0.4.1",
+        "vivus": "0.4.4"
+    }
 }
