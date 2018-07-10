@@ -40,7 +40,7 @@ class Gameplay extends TetrisGame {
             playBoardTable += '</div>';
         }
 
-        TetrisGame.matrix = matrixRowArray;
+        TetrisGame.matrix = new Matrix(matrixRowArray);
 
         TetrisGame.playBoard.innerHTML = playBoardTable;
 

@@ -102,6 +102,8 @@ class Matrix {
         const sentenceRTL = (reverse(sentenceLTR)); //Reverse it to get
         const sentenceDTT = (reverse(sentenceTTD));
 
+        console.log(this.matrix);
+        console.log(rowId,colId);
         // let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
 
         for(let i=0, len=words.length; i < len; i++){
@@ -109,20 +111,14 @@ class Matrix {
                 word = words[i].word
             ;
             if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
-                console.log("LTR: Found valid word:"+ word +" In:" + sentenceLTR);
+                console.log(".LTR: Found valid word:"+ word +" In:" + sentenceLTR);
                 let startFrom = colId-lefts.len+pos;
-                this._deleteCharacters(rowId,colId,i,{ltr:true},startFrom,word.length,successCallback);
-                Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
-                //TODO: Increase Score
-                //TODO: Remove Chars from TetrisGame.initValues.choosedWordsUsedChars
-                //TODO: Remove Words from TetrisGame.initValues.choosedWords
-            }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
-                console.log("RTL: Found valid word:"+ word +" In:" + sentenceRTL);
 
+                this._deleteCharacters(rowId,colId,i,{ltr:true},startFrom,word.length,successCallback);
+            }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
+                console.log(".RTL: Found valid word:"+ word +" In:" + sentenceRTL);
                 let startFrom = colId+rights.len-pos;
                 this._deleteCharacters(rowId,colId,i,{rtl:true},startFrom,word.length,successCallback);
-                Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
-
             }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
                 console.log("Found valid word:"+ word +" In:" + sentenceRTL)
             }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
@@ -217,18 +213,18 @@ class Matrix {
             fallingCharacters:[]//Array of {oldX,oldY,newX,newY}
         };
 
-        if(checkType.rtl){
+        if(checkType.ltr){
             //Clear characters in matrix
             for(let c=0,i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++,c++){
                 this.matrix[rowId][i]=' ';
-
+                console.log("Deleteing " + rowId + " " + i);
                 if(hasCallback){
                     callbackObject.wordCharacterPositions.push({y:rowId,x:i});
                 }
-                // setTimeout(()=>{deleteNode(rowId , i)},c*200);
 
                 //Move upper blocks to bottom
                 for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
+                    console.log(upIndex);
                     this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
                     this.matrix[upIndex-1][i] = ' ';
                     if(hasCallback){
@@ -240,11 +236,11 @@ class Matrix {
             //Clear characters in matrix
             for(let c=0,i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i,++c){
                 this.matrix[rowId][i]=' ';
+                console.log("Deleteing " + rowId + " " + i);
+
                 if(hasCallback){
                     callbackObject.wordCharacterPositions.push({y:rowId,x:i});
                 }
-                // setTimeout(()=>{deleteNode(rowId , i)},c*200);
-                // deleteNode(rowId , i,c*200);
 
                 //Move upper blocks to bottom
                 for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
@@ -260,6 +256,7 @@ class Matrix {
         }else if (checkType.dtt){
             //TODO
         }
+        deleteCallBack(callbackObject);
     }
 }
 
