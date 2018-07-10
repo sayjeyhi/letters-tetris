@@ -44,9 +44,9 @@ class Charblock extends TetrisGame {
 
 
         // create and show up coming char
-        this.showUpComingChar();
+        this.prototype._showUpComingChar();
 
-        // add this char to active chars
+        // add this char as active char
         initValues.activeChar = this;
 
         return this;
@@ -64,51 +64,10 @@ class Charblock extends TetrisGame {
 
         let initValues = TetrisGame.initValues;
         let config = TetrisGame.config;
-        let moveTo = {},isBottomMove = false;
+        let isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
 
 
-        switch (eventKeyCode) {
-            case TetrisGame.controlCodes.LEFT:  // left
-                moveTo = {
-                    row: this.row,
-                    column: this.column + 1,
-                    animateOutClass: (lang.rtl ? "fadeOutLeft" : "fadeOutRight"),
-                    animateInClass: (lang.rtl ? "fadeInRight" : "fadeInLeft")
-                };
-                break;
-            case TetrisGame.controlCodes.RIGHT:  // right
-                moveTo = {
-                    row: this.row,
-                    column: this.column - 1,
-                    animateOutClass: (lang.rtl ? "fadeOutRight" : "fadeOutLeft"),
-                    animateInClass: (lang.rtl ? "fadeInLeft" : "fadeInRight")
-                };
-                break;
-            case TetrisGame.controlCodes.DOWN:  // down
-                moveTo = {
-                    row: this.row + 1,
-                    column: this.column,
-                    animateOutClass: "fadeOutDown",
-                    animateInClass: "fadeInDown"
-                };
-                isBottomMove = true;
-                break;
-            default:
-
-                // do we have forced position
-                if(typeof position !== "undefined"){
-                    moveTo = {
-                        row: position.x,
-                        column: position.y ,
-                        animateOutClass: "fadeOutDown",
-                        animateInClass: "fadeInDown"
-                    };
-                }else {
-                    console.log("Unable to determine move !");
-                    return false;
-                }
-        }
-
+        let moveTo = this.prototype._generateMove(eventKeyCode , position);
 
         // if move to is out of range
         if (moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0) {
@@ -120,10 +79,10 @@ class Charblock extends TetrisGame {
         let destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
         if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== "")) {
 
-            if (isBottomMove) {
+            //Apply character in our matrix
+            TetrisGame.matrix.setCharacter(moveTo.row - 1,moveTo.column,this.char);
 
-                //Apply character in our matrix
-                TetrisGame.matrix.setCharacter(moveTo.row - 1,moveTo.column,this.char);
+            if (isBottomMove) {
 
                 // stop interval and request new char
                 TetrisGame.interval.clear(this.interval);
@@ -147,7 +106,7 @@ class Charblock extends TetrisGame {
         } else {
 
             // remove char with animation
-            Charblock.destroy(this.element, moveTo.animateOutClass);
+            Charblock.prototype._destroy(this.element, moveTo.animateOutClass);
 
             // update current char info
             this.row = moveTo.row;
@@ -160,10 +119,7 @@ class Charblock extends TetrisGame {
 
         // play move char
         Sound.playByKey('moveChar' , config.playEventsSound);
-
     }
-
-
 
 
     /**
@@ -200,10 +156,66 @@ class Charblock extends TetrisGame {
     }
 
 
+
+    /**
+     * Generate charBlock movement
+     * @private
+     * @param keyCode
+     * @param position
+     * @return {*}
+     */
+    _generateMove(keyCode , position){
+        let moveTo;
+        switch (keyCode) {
+            case TetrisGame.controlCodes.LEFT:  // left
+                moveTo = {
+                    row: this.row,
+                    column: this.column + 1,
+                    animateOutClass: (lang.rtl ? "fadeOutLeft" : "fadeOutRight"),
+                    animateInClass: (lang.rtl ? "fadeInRight" : "fadeInLeft")
+                };
+                break;
+            case TetrisGame.controlCodes.RIGHT:  // right
+                moveTo = {
+                    row: this.row,
+                    column: this.column - 1,
+                    animateOutClass: (lang.rtl ? "fadeOutRight" : "fadeOutLeft"),
+                    animateInClass: (lang.rtl ? "fadeInLeft" : "fadeInRight")
+                };
+                break;
+            case TetrisGame.controlCodes.DOWN:  // down
+                moveTo = {
+                    row: this.row + 1,
+                    column: this.column,
+                    animateOutClass: "fadeOutDown",
+                    animateInClass: "fadeInDown"
+                };
+                break;
+            default:
+
+                // do we have forced position
+                if(typeof position !== "undefined"){
+                    moveTo = {
+                        row: position.x,
+                        column: position.y ,
+                        animateOutClass: "fadeOutDown",
+                        animateInClass: "fadeInDown"
+                    };
+                }else {
+                    console.log("Unable to determine move !");
+                    return false;
+                }
+        }
+
+        return moveTo;
+    }
+
+
+
     /**
      * Create and show upcoming character
      */
-    static showUpComingChar() {
+    _showUpComingChar() {
 
         TetrisGame.initValues.nextChar = WordsHelper.chooseChar();
 
@@ -223,7 +235,7 @@ class Charblock extends TetrisGame {
      * @param workingElement
      * @param outgoingAnimation
      */
-    static destroy(workingElement, outgoingAnimation) {
+    _destroy(workingElement, outgoingAnimation) {
         let config = TetrisGame.config;
         let animateClass = config.useAnimationFlag ? " animated " : "";
 
