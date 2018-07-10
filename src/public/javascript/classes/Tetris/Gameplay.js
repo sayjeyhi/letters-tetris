@@ -4,6 +4,14 @@
 
 'use strict';
 
+import TetrisGame from "./TetrisGame";
+import Swipe from "../Swipe";
+import Sound from "../Sound";
+import Charblock from "./Charblock";
+import WordsHelper from "./WordsHelper";
+import Modal from "../Modal";
+import Matrix from "../Matrix";
+
 export default class Gameplay {
 
     /**
