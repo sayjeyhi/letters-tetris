@@ -4,6 +4,7 @@
 
 
 import TetrisGame from "./TetrisGame";
+import Storage from "../Storage";
 
 export default class Settings {
 

@@ -9,6 +9,8 @@ import Timer from "../Timer";
 import Interval from "../Interval";
 import Sound from "../Sound";
 import Settings from "./Settings";
+import GamePlay from "./Gameplay";
+
 
 export default class TetrisGame {
 

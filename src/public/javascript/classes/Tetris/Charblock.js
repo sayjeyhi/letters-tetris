@@ -6,7 +6,6 @@
 
 export default class Charblock {
 
-
     /**
      * Create new char block
      * @return {*}

@@ -189,20 +189,6 @@ let arshLoader = {
     startGame: function (lang, wordsType) {
         wordsType = wordsType.split("-");
 
-        let modal = new Modal({
-            header : "Failed to load resource :(" ,
-            content : "There were some problems loading the resources :(",
-            buttons : [
-                {
-                    text : "Ok",
-                    isOk : true,
-                    onclick : function () {
-                        this.destroy();
-                    }
-                }
-            ]
-        }, true );
-
         Helper.fetchJson(`/public/javascript/localization/lang.${lang}.json`).then((langFiles)=>{
             window.lang = langFiles;
             Helper.fetchJson(`/public/javascript/words/${lang}/${wordsType[0]}.json`).then((words)=>{
@@ -210,11 +196,9 @@ let arshLoader = {
                 this.initGame(wordsType);
             }).catch((err)=>{
                 console.log(err);
-                modal.show();
             });
         }).catch((err)=>{
             console.log(err);
-            modal.show();
         });
     },
     initGame: (wordsType)=>{
