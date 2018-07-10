@@ -4,7 +4,7 @@
 
 'use strict';
 
-export default class Gameplay extends TetrisGame {
+export default class Gameplay {
 
     /**
      * Start Game play

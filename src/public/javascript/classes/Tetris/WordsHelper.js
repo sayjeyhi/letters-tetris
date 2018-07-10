@@ -4,7 +4,7 @@
 
 'use strict';
 
-export default class WordsHelper extends TetrisGame {
+export default class WordsHelper {
 
 
     /**

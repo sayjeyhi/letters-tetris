@@ -28,14 +28,14 @@ export default class Storage {
     }
 
     /**
-     * Returns an integer of given key from localStorage
+     * Returns a json of given key from localStorage
      * @param key
      * @param default_value
      * @return {any}
      */
-    static getJson(key , default_value) {
+    static getJson(key, default_value) {
         default_value = typeof default_value === "undefined" ? {} : default_value;
-        let data = Storage.get(key , false);
+        let data = Storage.get(key, false);
         return (!data) ? default_value : JSON.parse(data);
     }
 
@@ -48,7 +48,7 @@ export default class Storage {
     static set(key, value) {
         if (typeof (value) === "object") {
             value = JSON.stringify(value);
-        }else{
+        } else {
             value = value.toString();
         }
 

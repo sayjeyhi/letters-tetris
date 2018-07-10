@@ -29,7 +29,7 @@ export default class TetrisGame {
             simpleFallDownAnimateSpeed : 700,
             mediumFallDownAnimateSpeed : 500,
             expertFallDownAnimateSpeed : 200,
-            successAnimationIterationDuration:200,
+            successAnimationIterationDuration: 120,
 
             // user setting values
             playBackgroundSound: true,
@@ -74,7 +74,6 @@ export default class TetrisGame {
          */
         this.playBoard = null;
 
-
         return this;
     }
 
@@ -108,40 +107,52 @@ export default class TetrisGame {
      */
     static checkWordSuccess(lastChar) {
 
-        const callBack = (successObject)=>{
-            let word = TetrisGame.initValues.choosedWords[successObject.wordId].word;
-            //Remove word from choosed words
-            TetrisGame.initValues.choosedWords.splice(successObject.wordId,1);
+        let config = TetrisGame.config;
+        let initValues = TetrisGame.initValues;
 
+        const callBack = (successObject)=>{
+            let word = initValues.choosedWords[successObject.wordId].word;
+
+
+            //Remove word from choosed words
+            initValues.choosedWords.splice(successObject.wordId,1);
 
             //Remove characters from choosed characters
             word.split("").map((char)=>{
-                let index = TetrisGame.initValues.choosedWordsUsedChars.indexOf(char);
+                let index = initValues.choosedWordsUsedChars.indexOf(char);
                 if(index!==-1){
-                    TetrisGame.initValues.choosedWordsUsedChars.splice(index, 1);
+                    initValues.choosedWordsUsedChars.splice(index, 1);
                 }
             });
 
-            Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
+            Sound.playByKey('foundWord',config.playEventsSound);
 
             //Animate FadingOut founded characters
-            successObject.wordCharacterPositions.map((item,index)=>{
-                setTimeout(()=>{Helper.deleteNodeAnimate(item.y,item.x)},index*TetrisGame.config.successAnimationIterationDuration);
+            successObject.wordCharacterPositions.map((item,index) => {
+                setTimeout(
+                    () => {
+                        Charblock.fallNodeAnimate(item.y, item.x, null, null)
+                    }, index * config.successAnimationIterationDuration
+                );
             });
 
-            setTimeout(()=>{
-                successObject.fallingCharacters.map((item,index)=>{
-                    console.log(item);
-                    setTimeout(()=>{Helper.fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)},index*TetrisGame.config.successAnimationIterationDuration);
-                });
-            },successObject.wordCharacterPositions.length*TetrisGame.config.successAnimationIterationDuration)
-
-
+            setTimeout(
+                () => {
+                    successObject.fallingCharacters.map((item,index) => {
+                        console.log(item);
+                        setTimeout(
+                            ()=>{
+                                Charblock.fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)
+                            }, index * config.successAnimationIterationDuration
+                        );
+                    });
+                }, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
+            )
 
         };
 
         let checkTypes = {ltr:true,rtl:true,ttd:false,dtt:false};
-        TetrisGame.matrix.checkWords(TetrisGame.initValues.choosedWords,lastChar.row,lastChar.column,checkTypes,callBack);
+        TetrisGame.matrix.checkWords(initValues.choosedWords,lastChar.row,lastChar.column,checkTypes,callBack);
         // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
     }
 
@@ -202,7 +213,6 @@ export default class TetrisGame {
 
 
         // set game settings from local storage
-
         Settings.set();
 
 
