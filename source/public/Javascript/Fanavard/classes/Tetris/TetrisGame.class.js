@@ -10,7 +10,7 @@
  * @param row
  * @param column
  */
-function deleteNode(row , column){
+function deleteNodeAnimate(row , column){
 
     let deleteTiming = 0;
     let domToDelete = document.querySelector(`.row_${row} .column_${column} .charBlock`);
@@ -36,6 +36,42 @@ function deleteNode(row , column){
     );
 
 }
+
+/**
+ * Fall node with animation
+ * @param oldY {Number}
+ * @param oldX {Number}
+ * @param newY {Number}
+ * @param newX {Number}
+ */
+function fallNodeAnimate(oldY,oldX,newY,newX){
+
+    let deleteTiming = 0;
+    let domToDelete = document.querySelector(`.row_${oldY} .column_${oldX} .charBlock`);
+    let gameConfig = TetrisGame.config;
+
+    if(gameConfig.useAnimationFlag) {
+        let animateClass =  "animatedOneSecond";
+        deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
+        if(gameConfig.level === 3){
+            deleteTiming = gameConfig.expertFallDownAnimateSpeed;
+            animateClass = "animated";
+        }else if(gameConfig.level === 2){
+            deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
+            animateClass = "animatedHalfSecond";
+        }
+        domToDelete.classList.add(animateClass , "fadeOutDown");
+    }
+
+    setTimeout(
+        () => {
+            domToDelete.parentNode.removeChild(domToDelete);
+            //TODO: Add fadeInDown animation to fall characters with: newX,newY
+        }, deleteTiming
+    );
+
+}
+
 
 
 
@@ -139,27 +175,34 @@ class TetrisGame {
     static checkWordSuccess(lastChar) {
 
         const callBack = (successObject)=>{
-            // let word = TetrisGame.choosedWords[successObject.wordId];
-            // //Remove word from choosed words
-            // TetrisGame.choosedWords.splice(successObject.wordId,1);
-            //
-            // //Remove characters from choosed characters
-            // word.split("").map((char)=>{
-            //     let index = TetrisGame.choosedWordsUsedChars.indexOf(char);
-            //     if(index!==-1){
-            //         TetrisGame.choosedWordsUsedChars.splice(index, 1);
-            //     }
-            // });
+            let word = TetrisGame.initValues.choosedWords[successObject.wordId].word;
+            //Remove word from choosed words
+            TetrisGame.initValues.choosedWords.splice(successObject.wordId,1);
+
+
+            //Remove characters from choosed characters
+            word.split("").map((char)=>{
+                let index = TetrisGame.initValues.choosedWordsUsedChars.indexOf(char);
+                if(index!==-1){
+                    TetrisGame.initValues.choosedWordsUsedChars.splice(index, 1);
+                }
+            });
 
             Sound.playByKey('foundWord',TetrisGame.config.playEventsSound);
 
             //Animate FadingOut founded characters
             successObject.wordCharacterPositions.map((item,index)=>{
-                console.log(item);
-                setTimeout(()=>{deleteNode(item.y,item.x)},index*TetrisGame.config.successAnimationIterationDuration);
+                setTimeout(()=>{deleteNodeAnimate(item.y,item.x)},index*TetrisGame.config.successAnimationIterationDuration);
             });
 
-            //     fallingCharacters:[]//Array of {oldX,oldY,newX,newY}
+            setTimeout(()=>{
+                successObject.fallingCharacters.map((item,index)=>{
+                    console.log(item);
+                    setTimeout(()=>{fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)},index*TetrisGame.config.successAnimationIterationDuration);
+                });
+            },successObject.wordCharacterPositions.length*TetrisGame.config.successAnimationIterationDuration)
+
+
 
         };
 

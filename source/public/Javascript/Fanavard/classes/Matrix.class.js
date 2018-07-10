@@ -107,6 +107,7 @@ class Matrix {
         // let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
 
         for(let i=0, len=words.length; i < len; i++){
+            if(!words[i]) continue;
             let pos,
                 word = words[i].word
             ;
@@ -217,18 +218,16 @@ class Matrix {
             //Clear characters in matrix
             for(let c=0,i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++,c++){
                 this.matrix[rowId][i]=' ';
-                console.log("Deleteing " + rowId + " " + i);
                 if(hasCallback){
                     callbackObject.wordCharacterPositions.push({y:rowId,x:i});
                 }
 
                 //Move upper blocks to bottom
                 for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
-                    console.log(upIndex);
                     this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
                     this.matrix[upIndex-1][i] = ' ';
                     if(hasCallback){
-                        callbackObject.fallingCharacters.push({oldX:upIndex-1,oldY:i,newX:upIndex,newY:i});
+                        callbackObject.fallingCharacters.push({oldY:upIndex-1,oldX:i,newY:upIndex,newX:i});
                     }
                 }
             }
@@ -236,7 +235,6 @@ class Matrix {
             //Clear characters in matrix
             for(let c=0,i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i,++c){
                 this.matrix[rowId][i]=' ';
-                console.log("Deleteing " + rowId + " " + i);
 
                 if(hasCallback){
                     callbackObject.wordCharacterPositions.push({y:rowId,x:i});

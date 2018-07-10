@@ -13,7 +13,7 @@
 //  * @param row
 //  * @param column
 //  */
-// function deleteNode(row , column){
+// function deleteNodeAnimate(row , column){
 //
 //     let deleteTiming = 0;
 //     let domToDelete = document.querySelector(`.row_${row} .column_${column} .charBlock`);
@@ -199,7 +199,7 @@
 //         for(let c=0,i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++,c++){
 //             matrix[rowId][i]=' ';
 //
-//             setTimeout(()=>{deleteNode(rowId , i)},c*200);
+//             setTimeout(()=>{deleteNodeAnimate(rowId , i)},c*200);
 //
 //
 //             //Move upper blocks to bottom
@@ -214,8 +214,8 @@
 //         for(let c=0,i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i,++c){
 //             matrix[rowId][i]=' ';
 //
-//             setTimeout(()=>{deleteNode(rowId , i)},c*200);
-//             // deleteNode(rowId , i,c*200);
+//             setTimeout(()=>{deleteNodeAnimate(rowId , i)},c*200);
+//             // deleteNodeAnimate(rowId , i,c*200);
 //
 //             //Move upper blocks to bottom
 //             for(let upIndex=rowId;matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
