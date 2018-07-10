@@ -13,17 +13,62 @@
 <body>
 
 
-    <script type="text/javascript" src="js/jasmine.js"></script>
-    <script type="text/javascript" src="js/jasmine-html.js"></script>
-    <script type="text/javascript" src="js/boot.js"></script>
-    <script src="../src/public/javascript/Fanavard/classes/Storage.class.js"></script>
-    <script>
-        describe("Storage Class ", function () {
-            it("get method: Returns a plain string of given key from localStorage ", function () {
-                expect(Storage.get("number")).toEqual(jasmine.any(String));
-            });
+<script type="text/javascript" src="js/jasmine.js"></script>
+<script type="text/javascript" src="js/jasmine-html.js"></script>
+<script type="text/javascript" src="js/boot.js"></script>
+
+<!-- projects files for test -->
+<script src="../src/public/javascript/Fanavard/classes/Storage.class.js"></script>
+<script src="../src/public/javascript/Fanavard/classes/Interval.class.js"></script>
+<script>
+    /* unit test for storage class */
+    describe("Storage Class ", () => {
+        it("method get: Returns a plain string of given key from localStorage ", () => {
+            expect(Storage.get()).toEqual(jasmine.any(String));
+        });
+        it("method getInt: Returns an integer of given key from localStorage", () => {
+            expect(Storage.get()).toEqual(jasmine.any(String));
+        });
+        it("method getJson: Returns a object of given key from localStorage", () => {
+            expect(Storage.getJson()).toEqual(jasmine.any(Object));
+        });
+        it("method set: Saves an item in localStorage", () => {
+            expect(Storage.set("foo", "bar")).toBe(undefined);
+            expect(Storage.get("foo")).toBe("bar");
         })
-    </script>
+    });
+
+    /* unit test for IntervalClass*/
+    describe("Interval Class", () => {
+        let interval = new Interval();
+        it("method make: Create interval", () => {
+            expect(interval.make(() => {
+            }, 1000)).toEqual(jasmine.any(Number));
+        });
+
+        it("method clear: Clear a single interval", () => {
+            expect(interval.clear(1)).toEqual(undefined);
+        });
+
+
+        describe("method clearAll: Clear all intervals", () => {
+            beforeAll(()=>{
+                spyOn(interval, "clearAll");
+            });
+            new Promise((resolve)=>{
+                it("now intervals object must be empty", () => {
+                    interval.clearAll();
+                    expect(interval.clearAll).toHaveBeenCalled();
+                    resolve();
+                });
+            }).then(()=>{
+                expect(Object.keys(interval.intervals).length).toBe(0);
+            });
+        });
+
+    })
+
+</script>
 </body>
 
 </html>

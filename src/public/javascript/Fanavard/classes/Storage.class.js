@@ -28,7 +28,7 @@ class Storage {
     }
 
     /**
-     * Returns an integer of given key from localStorage
+     * Returns a json of given key from localStorage
      * @param key
      * @param default_value
      * @return {any}
