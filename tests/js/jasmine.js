@@ -795,7 +795,7 @@ getJasmineRequireObj().Env = function(j$) {
     };
 
     var globalErrors = null;
-    
+
     var installGlobalErrors = function() {
       if (globalErrors) {
         return;
@@ -2979,7 +2979,7 @@ getJasmineRequireObj().matchersUtil = function(j$) {
           diffBuilder.record(a, b);
         }
         return result;
-      // RegExps are compared by their source patterns and flags.
+      // RegExps are compared by their src patterns and flags.
       case '[object RegExp]':
         return a.source == b.source &&
           a.global == b.global &&
@@ -5802,7 +5802,7 @@ getJasmineRequireObj().StackTrace = function(j$) {
       }
     }
   }
-  
+
   return StackTrace;
 };
 

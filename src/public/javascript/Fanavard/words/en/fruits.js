@@ -2,7 +2,7 @@
  * List of english fruits in json
  * @type {*[]}
  */
-const TetrisWords = [
+var TetrisWords = [
     {
         "word": "Açaí"
     }, {

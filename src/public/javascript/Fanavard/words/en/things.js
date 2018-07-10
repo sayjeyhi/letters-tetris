@@ -2,7 +2,7 @@
  * List of english things in json
  * @type {*[]}
  */
-const TetrisWords = [
+var TetrisWords = [
     {
         "word": "fan",
         "unicode": "213124"
