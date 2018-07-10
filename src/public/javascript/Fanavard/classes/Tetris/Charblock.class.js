@@ -4,7 +4,7 @@
 
 'use strict';
 
-class Charblock extends TetrisGame {
+class Charblock {
 
 
     /**
@@ -44,7 +44,7 @@ class Charblock extends TetrisGame {
 
 
         // create and show up coming char
-        this.prototype._showUpComingChar();
+        this._showUpComingChar();
 
         // add this char as active char
         initValues.activeChar = this;
@@ -67,13 +67,12 @@ class Charblock extends TetrisGame {
         let isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
 
 
-        let moveTo = this.prototype._generateMove(eventKeyCode , position);
+        let moveTo = this._generateMove(eventKeyCode , position , this.row , this.column);
 
         // if move to is out of range
         if (moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0) {
             return false;
         }
-
 
         //let destinationEl = document.getElementById("grid" + moveTo.row + "_" + moveTo.column) || null;
         let destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
@@ -106,7 +105,7 @@ class Charblock extends TetrisGame {
         } else {
 
             // remove char with animation
-            Charblock.prototype._destroy(this.element, moveTo.animateOutClass);
+            this._destroy(this.element, moveTo.animateOutClass);
 
             // update current char info
             this.row = moveTo.row;
@@ -156,37 +155,40 @@ class Charblock extends TetrisGame {
     }
 
 
-
     /**
      * Generate charBlock movement
-     * @private
+     *
      * @param keyCode
      * @param position
+     * @param row
+     * @param column
      * @return {*}
+     * @private
      */
-    _generateMove(keyCode , position){
+    static _generateMove(keyCode , position , row , column){
         let moveTo;
+
         switch (keyCode) {
             case TetrisGame.controlCodes.LEFT:  // left
                 moveTo = {
-                    row: this.row,
-                    column: this.column + 1,
+                    row: row,
+                    column: column + 1,
                     animateOutClass: (lang.rtl ? "fadeOutLeft" : "fadeOutRight"),
                     animateInClass: (lang.rtl ? "fadeInRight" : "fadeInLeft")
                 };
                 break;
             case TetrisGame.controlCodes.RIGHT:  // right
                 moveTo = {
-                    row: this.row,
-                    column: this.column - 1,
+                    row: row,
+                    column: column - 1,
                     animateOutClass: (lang.rtl ? "fadeOutRight" : "fadeOutLeft"),
                     animateInClass: (lang.rtl ? "fadeInLeft" : "fadeInRight")
                 };
                 break;
             case TetrisGame.controlCodes.DOWN:  // down
                 moveTo = {
-                    row: this.row + 1,
-                    column: this.column,
+                    row: row + 1,
+                    column: column,
                     animateOutClass: "fadeOutDown",
                     animateInClass: "fadeInDown"
                 };
@@ -215,7 +217,7 @@ class Charblock extends TetrisGame {
     /**
      * Create and show upcoming character
      */
-    _showUpComingChar() {
+    static _showUpComingChar() {
 
         TetrisGame.initValues.nextChar = WordsHelper.chooseChar();
 
@@ -234,8 +236,9 @@ class Charblock extends TetrisGame {
      * Destroy char block
      * @param workingElement
      * @param outgoingAnimation
+     * @private
      */
-    _destroy(workingElement, outgoingAnimation) {
+    static _destroy(workingElement, outgoingAnimation) {
         let config = TetrisGame.config;
         let animateClass = config.useAnimationFlag ? " animated " : "";
 

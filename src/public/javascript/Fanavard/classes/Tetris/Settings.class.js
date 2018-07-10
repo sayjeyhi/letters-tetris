@@ -4,14 +4,13 @@
 
 'use strict';
 
-class Settings extends TetrisGame {
+class Settings {
 
     /**
      * Set settings from localStorage OR settings Object
      * @param settings
      */
     static set(settings) {
-
 
         if(typeof settings !== "undefined"){
 
@@ -35,41 +34,15 @@ class Settings extends TetrisGame {
 
 
 
-        // pause/play background music
-        if(!config.playBackgroundSound){
-            TetrisGame.initValues.bgSound.pause();
-        }else{
-            TetrisGame.initValues.bgSound.play();
-        }
+        // Apply setting for music
+        Settings._setMusicSetting();
 
+        // Apply setting for grids
+        Settings._setGridsSetting();
 
-        // manage grids on play board
-        if(TetrisGame.playBoard) {
-            if (config.showGrids) {
-                TetrisGame.playBoard.classList.add("showGrids");
-            } else {
-                TetrisGame.playBoard.classList.remove("showGrids");
-            }
-        }
+        // Apply setting for level
+        Settings._setLevelSetting(settings.gameLevel);
 
-        // add level class to body AND do staffs about leveling
-        let bodyClass = "";
-        switch(settings.gameLevel){
-            case 3:
-                bodyClass = "isExpert";
-
-                // use two word  same time at hard mode
-                config.workingWordCount = 2;
-
-                break;
-            case 2:
-                bodyClass = "isMedium";
-                break;
-            default:
-                bodyClass = "isSimple";
-        }
-        document.body.classList.remove("isExpert" , "isMedium" , "isSimple");
-        document.body.classList.add(bodyClass);
     }
 
 
@@ -198,4 +171,59 @@ class Settings extends TetrisGame {
 
         settingModal.show();
     }
+
+
+    /**
+     * Pause/play background music
+     * @private
+     */
+    static _setMusicSetting(){
+        if(!TetrisGame.config.playBackgroundSound){
+            TetrisGame.initValues.bgSound.pause();
+        }else{
+            TetrisGame.initValues.bgSound.play();
+        }
+    }
+
+
+    /**
+     * Manage grids on play board
+     * @private
+     */
+    static _setGridsSetting(){
+        if(TetrisGame.playBoard) {
+            if (TetrisGame.config.showGrids) {
+                TetrisGame.playBoard.classList.add("showGrids");
+            } else {
+                TetrisGame.playBoard.classList.remove("showGrids");
+            }
+        }
+    }
+
+
+    /**
+     * Add level class to body AND do staffs about leveling
+     * @param gameLevel
+     * @private
+     */
+    static _setLevelSetting(gameLevel){
+        let bodyClass = "";
+        switch(gameLevel){
+            case 3:
+                bodyClass = "isExpert";
+
+                // use two word  same time at hard mode
+                TetrisGame.config.workingWordCount = 2;
+
+                break;
+            case 2:
+                bodyClass = "isMedium";
+                break;
+            default:
+                bodyClass = "isSimple";
+        }
+        document.body.classList.remove("isExpert" , "isMedium" , "isSimple");
+        document.body.classList.add(bodyClass);
+    }
+
 }
