@@ -2,288 +2,194 @@
  * List of english fruits in json
  * @type {*[]}
  */
-var TetrisWords = [
+const TetrisWords = [
     {
-        "word": "Açaí",
-        "unicode": "213213"
+        "word": "Açaí"
     }, {
-        "word": "Apple",
-        "unicode": "213213"
+        "word": "Apple"
     }, {
-        "word": "Akee",
-        "unicode": "213213"
+        "word": "Akee"
     }, {
-        "word": "Apricot",
-        "unicode": "213213"
+        "word": "Apricot"
     }, {
-        "word": "Avocado",
-        "unicode": "213213"
+        "word": "Avocado"
     }, {
-        "word": "Banana",
-        "unicode": "213213"
+        "word": "Banana"
     }, {
-        "word": "Bilberry",
-        "unicode": "213213"
+        "word": "Bilberry"
     }, {
-        "word": "Blackberry",
-        "unicode": "213213"
+        "word": "Blackberry"
     }, {
-        "word": "Blackcurrant",
-        "unicode": "213213"
+        "word": "Blackcurrant"
     }, {
-        "word": "Blueberry",
-        "unicode": "213213"
+        "word": "Blueberry"
     }, {
-        "word": "Boysenberry",
-        "unicode": "213213"
+        "word": "Boysenberry"
     }, {
-        "word": "Currant",
-        "unicode": "213213"
+        "word": "Currant"
     }, {
-        "word": "Cherry",
-        "unicode": "213213"
+        "word": "Cherry"
     }, {
-        "word": "Cherimoya",
-        "unicode": "213213"
+        "word": "Cherimoya"
     }, {
-        "word": "Chico fruit",
-        "unicode": "213213"
+        "word": "Chico fruit"
     }, {
-        "word": "Cloudberry",
-        "unicode": "213213"
+        "word": "Cloudberry"
     }, {
-        "word": "Coconut",
-        "unicode": "213213"
+        "word": "Coconut"
     }, {
-        "word": "Cranberry",
-        "unicode": "213213"
+        "word": "Cranberry"
     }, {
-        "word": "Cucumber",
-        "unicode": "213213"
+        "word": "Cucumber"
     }, {
-        "word": "Damson",
-        "unicode": "213213"
+        "word": "Damson"
     }, {
-        "word": "Date",
-        "unicode": "213213"
+        "word": "Date"
     }, {
-        "word": "Dragonfruit",
-        "unicode": "213213"
+        "word": "Dragonfruit"
     }, {
-        "word": "Durian",
-        "unicode": "213213"
+        "word": "Durian"
     }, {
-        "word": "Elderberry",
-        "unicode": "213213"
+        "word": "Elderberry"
     }, {
-        "word": "Feijoa",
-        "unicode": "213213"
+        "word": "Feijoa"
     }, {
-        "word": "Fig",
-        "unicode": "213213"
+        "word": "Fig"
     }, {
-        "word": "Goji berry",
-        "unicode": "213213"
+        "word": "Goji berry"
     }, {
-        "word": "Gooseberry",
-        "unicode": "213213"
+        "word": "Gooseberry"
     }, {
-        "word": "Grape",
-        "unicode": "213213"
+        "word": "Grape"
     }, {
-        "word": "Raisin",
-        "unicode": "213213"
+        "word": "Raisin"
     }, {
-        "word": "Grapefruit",
-        "unicode": "213213"
+        "word": "Grapefruit"
     }, {
-        "word": "Guava",
-        "unicode": "213213"
+        "word": "Guava"
     }, {
-        "word": "Honeyberry",
-        "unicode": "213213"
+        "word": "Honeyberry"
     }, {
-        "word": "Huckleberry",
-        "unicode": "213213"
+        "word": "Huckleberry"
     }, {
-        "word": "Jabuticaba",
-        "unicode": "213213"
+        "word": "Jabuticaba"
     }, {
-        "word": "Jackfruit",
-        "unicode": "213213"
+        "word": "Jackfruit"
     }, {
-        "word": "Jambul",
-        "unicode": "213213"
+        "word": "Jambul"
     }, {
-        "word": "Jostaberry",
-        "unicode": "213213"
+        "word": "Jostaberry"
     }, {
-        "word": "Jujube",
-        "unicode": "213213"
+        "word": "Jujube"
     }, {
-        "word": "Kiwano",
-        "unicode": "213213"
+        "word": "Kiwano"
     }, {
-        "word": "Kiwifruit",
-        "unicode": "213213"
+        "word": "Kiwifruit"
     }, {
-        "word": "Kumquat",
-        "unicode": "213213"
+        "word": "Kumquat"
     }, {
-        "word": "Lemon",
-        "unicode": "213213"
+        "word": "Lemon"
     }, {
-        "word": "Lime",
-        "unicode": "213213"
+        "word": "Lime"
     }, {
-        "word": "Loquat",
-        "unicode": "213213"
+        "word": "Loquat"
     }, {
-        "word": "Longan",
-        "unicode": "213213"
+        "word": "Longan"
     }, {
-        "word": "Lychee",
-        "unicode": "213213"
+        "word": "Lychee"
     }, {
-        "word": "Mango",
-        "unicode": "213213"
+        "word": "Mango"
     }, {
-        "word": "Mangosteen",
-        "unicode": "213213"
+        "word": "Mangosteen"
     }, {
-        "word": "Marionberry",
-        "unicode": "213213"
+        "word": "Marionberry"
     }, {
-        "word": "Melon",
-        "unicode": "213213"
+        "word": "Melon"
     }, {
-        "word": "Cantaloupe",
-        "unicode": "213213"
+        "word": "Cantaloupe"
     }, {
-        "word": "Honeydew",
-        "unicode": "213213"
+        "word": "Honeydew"
     }, {
-        "word": "Watermelon",
-        "unicode": "213213"
+        "word": "Watermelon"
     }, {
-        "word": "Miracle fruit",
-        "unicode": "213213"
+        "word": "Miracle fruit"
     }, {
-        "word": "Mulberry",
-        "unicode": "213213"
+        "word": "Mulberry"
     }, {
-        "word": "Nectarine",
-        "unicode": "213213"
+        "word": "Nectarine"
     }, {
-        "word": "Nance",
-        "unicode": "213213"
+        "word": "Nance"
     }, {
-        "word": "Olive",
-        "unicode": "213213"
+        "word": "Olive"
     }, {
-        "word": "Orange",
-        "unicode": "213213"
+        "word": "Orange"
     }, {
-        "word": "Blood orange",
-        "unicode": "213213"
+        "word": "Blood orange"
     }, {
-        "word": "Clementine",
-        "unicode": "213213"
+        "word": "Clementine"
     }, {
-        "word": "Mandarine",
-        "unicode": "213213"
+        "word": "Mandarine"
     }, {
-        "word": "Tangerine",
-        "unicode": "213213"
+        "word": "Tangerine"
     }, {
-        "word": "Papaya",
-        "unicode": "213213"
+        "word": "Papaya"
     }, {
-        "word": "Passionfruit",
-        "unicode": "213213"
+        "word": "Passionfruit"
     }, {
-        "word": "Peach",
-        "unicode": "213213"
+        "word": "Peach"
     }, {
-        "word": "Pear",
-        "unicode": "213213"
+        "word": "Pear"
     }, {
-        "word": "Persimmon",
-        "unicode": "213213"
+        "word": "Persimmon"
     }, {
-        "word": "Plantain",
-        "unicode": "213213"
+        "word": "Plantain"
     }, {
-        "word": "Plum",
-        "unicode": "213213"
+        "word": "Plum"
     }, {
-        "word": "Prune",
-        "unicode": "213213"
+        "word": "Prune"
     }, {
-        "word": "Pineapple",
-        "unicode": "213213"
+        "word": "Pineapple"
     }, {
-        "word": "Pineberry",
-        "unicode": "213213"
+        "word": "Pineberry"
     }, {
-        "word": "Plumcot",
-        "unicode": "213213"
+        "word": "Plumcot"
     }, {
-        "word": "Pomegranate",
-        "unicode": "213213"
+        "word": "Pomegranate"
     }, {
-        "word": "Pomelo",
-        "unicode": "213213"
+        "word": "Pomelo"
     }, {
-        "word": "Purple",
-        "unicode": "213213"
+        "word": "Purple"
     }, {
-        "word": "Quince",
-        "unicode": "213213"
+        "word": "Quince"
     }, {
-        "word": "Raspberry",
-        "unicode": "213213"
+        "word": "Raspberry"
     }, {
-        "word": "Salmonberry",
-        "unicode": "213213"
+        "word": "Salmonberry"
     }, {
-        "word": "Rambutan",
-        "unicode": "213213"
+        "word": "Rambutan"
     }, {
-        "word": "Redcurrant",
-        "unicode": "213213"
+        "word": "Redcurrant"
     }, {
-        "word": "Salal berry",
-        "unicode": "213213"
+        "word": "Salal berry"
     }, {
-        "word": "Salak",
-        "unicode": "213213"
+        "word": "Salak"
     }, {
-        "word": "Satsuma",
-        "unicode": "213213"
+        "word": "Satsuma"
     }, {
-        "word": "Soursop",
-        "unicode": "213213"
+        "word": "Soursop"
     }, {
-        "word": "Star apple",
-        "unicode": "213213"
+        "word": "Star apple"
     }, {
-        "word": "Star fruit",
-        "unicode": "213213"
+        "word": "Star fruit"
     }, {
-        "word": "Strawberry",
-        "unicode": "213213"
+        "word": "Strawberry"
     }, {
-        "word": "Tamarillo",
-        "unicode": "213213"
+        "word": "Tamarillo"
     }, {
-        "word": "Tamarind",
-        "unicode": "213213"
+        "word": "Tamarind"
     }, {
-        "word": "Ugli fruit",
-        "unicode": "213213"
+        "word": "Ugli fruit"
     }, {
-        "word": "Yuzu",
-        "unicode": "213213"
+        "word": "Yuzu"
     }
 ];

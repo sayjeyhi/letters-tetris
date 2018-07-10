@@ -2,246 +2,167 @@
  * List of words in json
  * @type {*[]}
  */
-var TetrisWords = [
+const TetrisWords = [
     {
-        "word": "da",
-        "unidoce": "123123"
+        "word": "da"
     },{
-        "word": "ba",
-        "unidoce": "123123"
+        "word": "ba"
     },{
-        "word": "ca",
-        "unidoce": "123123"
+        "word": "ca"
     },{
-        "word": "da",
-        "unidoce": "123123"
+        "word": "da"
     },{
-        "word": "ea",
-        "unidoce": "123123"
+        "word": "ea"
     },{
-        "word": "fa",
-        "unidoce": "123123"
+        "word": "fa"
     },{
-        "word": "ga",
-        "unidoce": "123123"
+        "word": "ga"
     }, {
-        "word": "ha",
-        "unidoce": "123123"
+        "word": "ha"
     }
     // },
     // {
-    //     "word": "bull",
-    //     "unidoce": "123123"
+    //     "word": "bull"
     // }, {
-    //     "word": "fox",
-    //     "unidoce": "123123"
+    //     "word": "fox"
     // }, {
-    //     "word": "cow",
-    //     "unidoce": "123123"
+    //     "word": "cow"
     // }, {
-    //     "word": "bear",
-    //     "unidoce": "123123"
+    //     "word": "bear"
     // }, {
-    //     "word": "calf",
-    //     "unidoce": "123123"
+    //     "word": "calf"
     // }, {
-    //     "word": "polar bear",
-    //     "unidoce": "123123"
+    //     "word": "polar bear"
     // }, {
-    //     "word": "horse",
-    //     "unidoce": "123123"
+    //     "word": "horse"
     // }, {
-    //     "word": "koala bear",
-    //     "unidoce": "123123"
+    //     "word": "koala bear"
     // }, {
-    //     "word": "mule",
-    //     "unidoce": "123123"
+    //     "word": "mule"
     // }, {
-    //     "word": "panda",
-    //     "unidoce": "123123"
+    //     "word": "panda"
     // }, {
-    //     "word": "pony",
-    //     "unidoce": "123123"
+    //     "word": "pony"
     // }, {
-    //     "word": "wolf",
-    //     "unidoce": "123123"
+    //     "word": "wolf"
     // }, {
-    //     "word": "donkey",
-    //     "unidoce": "123123"
+    //     "word": "donkey"
     // }, {
-    //     "word": "tiger",
-    //     "unidoce": "123123"
+    //     "word": "tiger"
     // }, {
-    //     "word": "sheep",
-    //     "unidoce": "123123"
+    //     "word": "sheep"
     // }, {
-    //     "word": "lion",
-    //     "unidoce": "123123"
+    //     "word": "lion"
     // }, {
-    //     "word": "lamb",
-    //     "unidoce": "123123"
+    //     "word": "lamb"
     // }, {
-    //     "word": "leopard",
-    //     "unidoce": "123123"
+    //     "word": "leopard"
     // }, {
-    //     "word": "goat",
-    //     "unidoce": "123123"
+    //     "word": "goat"
     // }, {
-    //     "word": "hyena",
-    //     "unidoce": "123123"
+    //     "word": "hyena"
     // }, {
-    //     "word": "kid",
-    //     "unidoce": "123123"
+    //     "word": "kid"
     // }, {
-    //     "word": "elephant",
-    //     "unidoce": "123123"
+    //     "word": "elephant"
     // }, {
-    //     "word": "pig",
-    //     "unidoce": "123123"
+    //     "word": "pig"
     // }, {
-    //     "word": "zebra",
-    //     "unidoce": "123123"
+    //     "word": "zebra"
     // }, {
-    //     "word": "sow",
-    //     "unidoce": "123123"
+    //     "word": "sow"
     // }, {
-    //     "word": "giraffe",
-    //     "unidoce": "123123"
+    //     "word": "giraffe"
     // }, {
-    //     "word": "piglet",
-    //     "unidoce": "123123"
+    //     "word": "piglet"
     // }, {
-    //     "word": "buffalo",
-    //     "unidoce": "123123"
+    //     "word": "buffalo"
     // }, {
-    //     "word": "cat",
-    //     "unidoce": "123123"
+    //     "word": "cat"
     // }, {
-    //     "word": "camel",
-    //     "unidoce": "123123"
+    //     "word": "camel"
     // }, {
-    //     "word": "dog",
-    //     "unidoce": "123123"
+    //     "word": "dog"
     // }, {
-    //     "word": "raccoon",
-    //     "unidoce": "123123"
+    //     "word": "raccoon"
     // }, {
-    //     "word": "mouse",
-    //     "unidoce": "123123"
+    //     "word": "mouse"
     // }, {
-    //     "word": "skunk",
-    //     "unidoce": "123123"
+    //     "word": "skunk"
     // }, {
-    //     "word": "bat",
-    //     "unidoce": "123123"
+    //     "word": "bat"
     // }, {
-    //     "word": "beaver",
-    //     "unidoce": "123123"
+    //     "word": "beaver"
     // }, {
-    //     "word": "squirrel",
-    //     "unidoce": "123123"
+    //     "word": "squirrel"
     // }, {
-    //     "word": "boar",
-    //     "unidoce": "123123"
+    //     "word": "boar"
     // }, {
-    //     "word": "chipmunk",
-    //     "unidoce": "123123"
+    //     "word": "chipmunk"
     // }, {
-    //     "word": "possum",
-    //     "unidoce": "123123"
+    //     "word": "possum"
     // }, {
-    //     "word": "rabbit",
-    //     "unidoce": "123123"
+    //     "word": "rabbit"
     // }, {
-    //     "word": "kangaroo",
-    //     "unidoce": "123123"
+    //     "word": "kangaroo"
     // }, {
-    //     "word": "moose",
-    //     "unidoce": "123123"
+    //     "word": "moose"
     // }, {
-    //     "word": "porcupine",
-    //     "unidoce": "123123"
+    //     "word": "porcupine"
     // }, {
-    //     "word": "buck",
-    //     "unidoce": "123123"
+    //     "word": "buck"
     // }, {
-    //     "word": "mole",
-    //     "unidoce": "123123"
+    //     "word": "mole"
     // }, {
-    //     "word": "doe",
-    //     "unidoce": "123123"
+    //     "word": "doe"
     // }, {
-    //     "word": "armadillo",
-    //     "unidoce": "123123"
+    //     "word": "armadillo"
     // }, {
-    //     "word": "fawn",
-    //     "unidoce": "123123"
+    //     "word": "fawn"
     // }, {
-    //     "word": "anteater",
-    //     "unidoce": "123123"
+    //     "word": "anteater"
     // }, {
-    //     "word": "ram",
-    //     "unidoce": "123123"
+    //     "word": "ram"
     // }, {
-    //     "word": "gorilla",
-    //     "unidoce": "123123"
+    //     "word": "gorilla"
     // }, {
-    //     "word": "monkey",
-    //     "unidoce": "123123"
+    //     "word": "monkey"
     // }, {
-    //     "word": "hippo",
-    //     "unidoce": "123123"
+    //     "word": "hippo"
     // }, {
-    //     "word": "jack",
-    //     "unidoce": "123123"
+    //     "word": "jack"
     // }, {
-    //     "word": "muskrat",
-    //     "unidoce": "123123"
+    //     "word": "muskrat"
     // }, {
-    //     "word": "deer",
-    //     "unidoce": "123123"
+    //     "word": "deer"
     // }, {
-    //     "word": "rat",
-    //     "unidoce": "123123"
+    //     "word": "rat"
     // }, {
-    //     "word": "antelope",
-    //     "unidoce": "123123"
+    //     "word": "antelope"
     // }, {
-    //     "word": "ape",
-    //     "unidoce": "123123"
+    //     "word": "ape"
     // }, {
-    //     "word": "basset",
-    //     "unidoce": "123123"
+    //     "word": "basset"
     // }, {
-    //     "word": "bitch",
-    //     "unidoce": "123123"
+    //     "word": "bitch"
     // }, {
-    //     "word": "buffalo",
-    //     "unidoce": "123123"
+    //     "word": "buffalo"
     // }, {
-    //     "word": "ram",
-    //     "unidoce": "123123"
+    //     "word": "ram"
     // }, {
-    //     "word": "alligator",
-    //     "unidoce": "123123"
+    //     "word": "alligator"
     // }, {
-    //     "word": "ewe",
-    //     "unidoce": "123123"
+    //     "word": "ewe"
     // }, {
-    //     "word": "crocodile",
-    //     "unidoce": "123123"
+    //     "word": "crocodile"
     // }, {
-    //     "word": "snake",
-    //     "unidoce": "123123"
+    //     "word": "snake"
     // }, {
-    //     "word": "puppy",
-    //     "unidoce": "123123"
+    //     "word": "puppy"
     // }, {
-    //     "word": "ass",
-    //     "unidoce": "123123"
+    //     "word": "ass"
     // }, {
-    //     "word": "tortoise",
-    //     "unidoce": "123123"
+    //     "word": "tortoise"
     // }
 ];
 

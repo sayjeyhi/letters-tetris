@@ -2,79 +2,55 @@
  * List of english colors in json
  * @type {*[]}
  */
-var TetrisWords = [
+const TetrisWords = [
     {
-        "word": "Red",
-        "unicode": "1200"
+        "word": "Red"
     }, {
-        "word": "Orange",
-        "unicode": "1200"
+        "word": "Orange"
     }, {
-        "word": "Yellow",
-        "unicode": "1200"
+        "word": "Yellow"
     }, {
-        "word": "Green",
-        "unicode": "1200"
+        "word": "Green"
     }, {
-        "word": "Blue",
-        "unicode": "1200"
+        "word": "Blue"
     }, {
-        "word": "Purple",
-        "unicode": "1200"
+        "word": "Purple"
     }, {
-        "word": "Brown",
-        "unicode": "1200"
+        "word": "Brown"
     }, {
-        "word": "Magenta",
-        "unicode": "1200"
+        "word": "Magenta"
     }, {
-        "word": "Tan",
-        "unicode": "1200"
+        "word": "Tan"
     }, {
-        "word": "Cyan",
-        "unicode": "1200"
+        "word": "Cyan"
     }, {
-        "word": "Olive",
-        "unicode": "1200"
+        "word": "Olive"
     }, {
-        "word": "Maroon",
-        "unicode": "1200"
+        "word": "Maroon"
     }, {
-        "word": "Navy",
-        "unicode": "1200"
+        "word": "Navy"
     }, {
-        "word": "Aquamarine",
-        "unicode": "1200"
+        "word": "Aquamarine"
     }, {
-        "word": "Turquoise",
-        "unicode": "1200"
+        "word": "Turquoise"
     }, {
-        "word": "Silver",
-        "unicode": "1200"
+        "word": "Silver"
     }, {
-        "word": "Lime",
-        "unicode": "1200"
+        "word": "Lime"
     }, {
-        "word": "Teal",
-        "unicode": "1200"
+        "word": "Teal"
     }, {
-        "word": "Indigo",
-        "unicode": "1200"
+        "word": "Indigo"
     }, {
-        "word": "Violet",
-        "unicode": "1200"
+        "word": "Violet"
     }, {
-        "word": "Pink",
-        "unicode": "1200"
+        "word": "Pink"
     }, {
-        "word": "Black",
-        "unicode": "1200"
+        "word": "Black"
     }, {
-        "word": "White",
-        "unicode": "1200"
+        "word": "White"
     }, {
-        "word": "Grey",
-        "unicode": "1200"
+        "word": "Grey"
     }
 ];
 

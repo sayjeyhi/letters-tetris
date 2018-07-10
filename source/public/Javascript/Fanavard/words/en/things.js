@@ -2,36 +2,9 @@
  * List of english things in json
  * @type {*[]}
  */
-var TetrisWords = [
+const TetrisWords = [
     {
-        "word": "Air conditioning",
-        "unicode": "213124"
-    }, {
-        "word": "Air ioniser",
-        "unicode": "213124"
-    }, {
-        "word": "Aroma lamp",
-        "unicode": "213124"
-    }, {
-        "word": "Back boiler",
-        "unicode": "213124"
-    }, {
-        "word": "Beverage opener",
-        "unicode": "213124"
-    }, {
-        "word": "Bio fireplace",
-        "unicode": "213124"
-    }, {
-        "word": "Boiler",
-        "unicode": "213124"
-    }, {
-        "word": "Can opener",
-        "unicode": "213124"
-    }, {
-        "word": "Ceiling fan",
-        "unicode": "213124"
-    }, {
-        "word": "Clothes dryer",
+        "word": "fan",
         "unicode": "213124"
     }, {
         "word": "dryer",
@@ -44,15 +17,6 @@ var TetrisWords = [
         "unicode": "213124"
     }, {
         "word": "Dishwasher",
-        "unicode": "213124"
-    }, {
-        "word": "Water boiler",
-        "unicode": "213124"
-    }, {
-        "word": "Ettridge Collection",
-        "unicode": "213124"
-    }, {
-        "word": "Exhaust hood",
         "unicode": "213124"
     }, {
         "word": "Fireplace",
@@ -68,9 +32,6 @@ var TetrisWords = [
         "unicode": "213124"
     }, {
         "word": "Hob",
-        "unicode": "213124"
-    }, {
-        "word": "HSPF",
         "unicode": "213124"
     }, {
         "word": "Humidifier",
@@ -103,7 +64,13 @@ var TetrisWords = [
         "word": "Fridge",
         "unicode": "213124"
     }, {
-        "word": "Sewing machine",
+        "word": "Door",
+        "unicode": "213124"
+    }, {
+        "word": "Soap",
+        "unicode": "213124"
+    }, {
+        "word": "Lights",
         "unicode": "213124"
     }, {
         "word": "pump",
@@ -112,16 +79,7 @@ var TetrisWords = [
         "word": "Trouser",
         "unicode": "213124"
     }, {
-        "word": "Vacuum cleaner",
-        "unicode": "213124"
-    }, {
-        "word": "Washing machine",
-        "unicode": "213124"
-    }, {
-        "word": "Water cooker",
-        "unicode": "213124"
-    }, {
-        "word": "Water heating",
+        "word": "Cooker",
         "unicode": "213124"
     }, {
         "word": "Wig wag",
