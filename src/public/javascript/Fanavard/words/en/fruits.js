@@ -134,8 +134,6 @@ var TetrisWords = [
     }, {
         "word": "Papaya"
     }, {
-        "word": "Passionfruit"
-    }, {
         "word": "Peach"
     }, {
         "word": "Pear"
@@ -179,8 +177,6 @@ var TetrisWords = [
         "word": "Soursop"
     }, {
         "word": "Star apple"
-    }, {
-        "word": "Star fruit"
     }, {
         "word": "Strawberry"
     }, {

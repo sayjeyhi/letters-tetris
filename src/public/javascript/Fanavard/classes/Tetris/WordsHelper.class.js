@@ -4,7 +4,7 @@
 
 'use strict';
 
-class WordsHelper extends TetrisGame {
+class WordsHelper {
 
 
     /**

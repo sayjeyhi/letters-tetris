@@ -4,7 +4,7 @@
 
 'use strict';
 
-class Gameplay extends TetrisGame {
+class Gameplay {
 
     /**
      * Start Game play
