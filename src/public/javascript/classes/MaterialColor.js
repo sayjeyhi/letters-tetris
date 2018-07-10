@@ -1,5 +1,7 @@
+/** @module */
+
 /**
- * @class MaterialColor - A class to get Random material color
+ * MaterialColor - A class to get Random material color
  *
  * {@link https://github.com/egoist/color-lib/blob/master/color.json Colors from this link }
  */

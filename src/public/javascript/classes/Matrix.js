@@ -1,3 +1,6 @@
+/**
+ * @module
+ */
 
 import * as Helper from "./Helper";
 

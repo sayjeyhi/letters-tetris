@@ -1,5 +1,5 @@
 /**
- * @class TetrisGame
+ * @module
  */
 
 'use strict';
@@ -11,7 +11,9 @@ import Sound from "../Sound";
 import Settings from "./Settings";
 import GamePlay from "./Gameplay";
 
-
+/**
+ *
+ */
 export default class TetrisGame {
 
     static init(){

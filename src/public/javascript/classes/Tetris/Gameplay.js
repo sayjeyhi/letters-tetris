@@ -1,8 +1,10 @@
 /**
- * @class Gameplay sub class of Tetris game
+ * @module
  */
 
-'use strict';
+/**
+ * @class Gameplay sub class of Tetris game
+ */
 
 import TetrisGame from "./TetrisGame";
 import Swipe from "../Swipe";

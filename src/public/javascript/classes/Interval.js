@@ -1,5 +1,7 @@
+/** @module */
+
 /**
- * @class Interval setting control - Better way to manage setInterval and make it easily to destroy
+ *  Interval setting control - Better way to manage setInterval and make it easily to destroy
  */
 export default class Interval {
 

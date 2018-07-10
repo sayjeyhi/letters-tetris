@@ -1,6 +1,11 @@
 /**
+ * @module
+ */
+
+
+/**
  * @class Swipe - Make it easily to manage swipe in devices
- * @link : http://www.javascriptkit.com/javatutors/touchevents2.shtml
+ * {@link http://www.javascriptkit.com/javatutors/touchevents2.shtml Library from here}
  * @example :
  *   new Swipe(document.getElementById("swipeZone") , function (direction) {
  *       alert("You swiped to : " + direction + " side !");
@@ -95,7 +100,7 @@ export default class Swipe {
     /**
      * When user start touch
      * @param callback
-     * @return {*|(function())}
+     * @return {function|null}
      */
     onTouchStart(callback){
         return callback || (() => {});
@@ -105,7 +110,7 @@ export default class Swipe {
     /**
      * While user is touched and moving
      * @param callback
-     * @return {*|(function())}
+     * @return {function|null}
      */
     whileTouch(callback){
         return callback || (() => {});
@@ -114,7 +119,7 @@ export default class Swipe {
     /**
      * When user finished touch moving
      * @param callback
-     * @return {*|(function())}
+     * @return {function|null}
      */
     onTouchEnd(callback){
         return callback || (() => {});

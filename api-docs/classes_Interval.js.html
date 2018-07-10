@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home | Fanavard TetrisGame</title>
+    <title>Source: classes/Interval.js | Fanavard TetrisGame</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -48,19 +50,66 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module */
+
+/**
+ *  Interval setting control - Better way to manage setInterval and make it easily to destroy
+ */
+export default class Interval {
+
+    /**
+     * Constructor of interval class - register intervals field here.
+     */
+    constructor() {
+        //to keep a reference to all the intervals
+        this.intervals = {};
+    }
 
 
+    /**
+     * Create another interval
+     * @param usedFunction
+     * @param delay
+     * @return {number}
+     */
+    make( usedFunction , delay ) {
+        //see explanation after the code
+        let newInterval = setInterval.apply(
+            window,
+            [ usedFunction , delay ].concat( [].slice.call(arguments, 2) )
+        );
 
+        this.intervals[ newInterval ] = true;
 
+        return newInterval;
+    }
 
+    /**
+     * Clear a single interval
+     * @param id
+     */
+    clear( id ) {
+        return clearInterval(id);
+    }
 
+    /**
+     * Clear all intervals
+     */
+    clearAll() {
+        let all = Object.keys( this.intervals ), len = all.length;
 
-
-
-    
-
-
-
+        while ( len-- > 0 ) {
+            let itemIndex = all.shift();
+            clearInterval(parseInt(itemIndex));
+            delete this.intervals[itemIndex];
+        }
+    }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -77,7 +126,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'package:undefined_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

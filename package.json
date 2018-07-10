@@ -10,6 +10,8 @@
     "scripts": {
         "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --progress --mode development --config webpack.config.dev.js",
         "build": "webpack -p --progress --mode production --config webpack.config.build.js",
+        "view-docs": "opener api-docs/index.html",
+        "generate-docs": "jsdoc -c jsdoc.conf",
         "_start": "webpack-dev-server --config webpack.config.js --open",
         "_prod": "webpack --config webpack.config.js",
         "_watch": "webpack --watch",
@@ -32,6 +34,7 @@
         "css-loader": "1.0.0",
         "file-loader": "1.1.11",
         "html-webpack-plugin": "3.2.0",
+        "jsdoc": "3.5.5",
         "node-sass": "4.9.2",
         "sass-loader": "7.0.3",
         "style-loader": "0.21.0",
@@ -43,6 +46,7 @@
         "webpack-merge": "4.1.3"
     },
     "dependencies": {
+        "opener": "1.4.3",
         "vivus": "0.4.4"
     }
 }

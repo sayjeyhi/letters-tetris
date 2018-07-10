@@ -1,8 +1,11 @@
 /**
+ * @module
+ */
+
+/**
  * @class Words Helper to choose word and char
  */
 
-'use strict';
 
 export default class WordsHelper {
 

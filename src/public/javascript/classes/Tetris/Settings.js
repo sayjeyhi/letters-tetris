@@ -1,4 +1,8 @@
 /**
+ * @module
+ */
+
+/**
  * @class Settings to show and set game settings
  */
 

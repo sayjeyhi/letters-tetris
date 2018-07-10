@@ -1,8 +1,6 @@
 /**
- * @class Charblock
+ * @module
  */
-
-'use strict';
 
 export default class Charblock {
 

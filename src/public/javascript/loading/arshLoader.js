@@ -1,6 +1,8 @@
 /**
+ *
  * Main class to load animation of game starting
- * @type {{filesLoading: boolean, animationLoading: boolean, isLoaded: boolean, timingProps: {type: string, duration: number, start: string}, _: arshLoader._, afterLoad: arshLoader.afterLoad, chooseWordKind: arshLoader.chooseWordKind, setRandomColor: arshLoader.setRandomColor, startGame: arshLoader.startGame, build: arshLoader.build}}
+ * @property {boolean} filesLoading
+ * @type {{, animationLoading: boolean, isLoaded: boolean, timingProps: {type: string, duration: number, start: string}, _: arshLoader._, afterLoad: arshLoader.afterLoad, chooseWordKind: arshLoader.chooseWordKind, setRandomColor: arshLoader.setRandomColor, startGame: arshLoader.startGame, build: arshLoader.build}}
  */
 import TetrisGame from "../classes/Tetris/TetrisGame";
 import MaterialColor from "../classes/MaterialColor";
@@ -9,6 +11,7 @@ import Sound from "../classes/Sound";
 import Modal from "../classes/Modal";
 import * as Helper from "../classes/Helper";
 
+//TODO: Jafar, can u make this a class? we cant generate docs for it!
 let arshLoader = {
 
     /**

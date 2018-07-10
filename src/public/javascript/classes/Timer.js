@@ -1,4 +1,9 @@
 /**
+ * @module
+ */
+
+
+/**
  @typedef {Object} TimerConfig
  @property {string} [cssClass=".timerDisplay"] - CssClass selecor for setting time in timerDisplay.
  @property {function}   onStart     - Event when timer get's started.

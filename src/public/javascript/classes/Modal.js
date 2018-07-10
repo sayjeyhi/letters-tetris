@@ -1,4 +1,9 @@
 /**
+ * @module
+ */
+
+
+/**
  * @class Modal
  * Modal manager class which manages CRUD operation of Modals.
  *
