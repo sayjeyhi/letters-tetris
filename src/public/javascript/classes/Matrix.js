@@ -1,5 +1,5 @@
 
-import * as Helper from "src/public/javascript/classes/Helper";
+import * as Helper from "./Helper";
 
 /**
  * This class will hold values of characters, find successful created words, delete them and etc
