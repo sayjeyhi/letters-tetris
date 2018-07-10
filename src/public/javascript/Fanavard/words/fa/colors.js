@@ -2,7 +2,7 @@
  * List of words in json
  * @type {*[]}
  */
-const TetrisWords = [
+var TetrisWords = [
     {
         "word": "آبی"
     }, {

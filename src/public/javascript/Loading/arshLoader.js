@@ -181,6 +181,8 @@ let arshLoader = {
      */
     startGame: function (lang, wordsType) {
         wordsType = wordsType.split("-");
+
+        //TODO: Fetch files
         jRun.init(
             [
                 {

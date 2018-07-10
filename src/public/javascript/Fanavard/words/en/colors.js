@@ -2,7 +2,7 @@
  * List of english colors in json
  * @type {*[]}
  */
-const TetrisWords = [
+var TetrisWords = [
     {
         "word": "Red"
     }, {
