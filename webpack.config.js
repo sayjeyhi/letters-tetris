@@ -1,50 +1,97 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// Is the current build a development build
+const IS_DEV = (process.env.NODE_ENV === 'dev');
+
+const dirNode = 'node_modules';
+const dirApp = path.join(__dirname, 'src');
+const dirAssets = path.join(__dirname, 'src/public/');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const appHtmlTitle = 'Webpack Boilerplate';
+
+/**
+ * Webpack Configuration
+ */
 module.exports = {
-    entry: './src/public/javascript/loading/arshLoader.js',
-    devtool: 'inline-source-map',
-    devServer: {
-        contentBase: './src'
-        // hot: true
+    entry: {
+        bundle: path.join(dirApp, 'public/javascript/loading/arshLoader.js')
+    },
+    resolve: {
+        modules: [
+            dirNode,
+            dirApp,
+            dirAssets
+        ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new webpack.DefinePlugin({
+            IS_DEV: IS_DEV
+        }),
+
         new HtmlWebpackPlugin({
-            title: 'Development'
-        })
-        // new webpack.HotModuleReplacementPlugin()
-    ],
-    output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, './src/dist')
-    },
-    plugins: [
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: "[name].css",
-            chunkFilename: "[id].css"
-        })
+            template: path.join(__dirname, 'index.ejs'),
+            title: appHtmlTitle
+        }),
+
+        new CopyWebpackPlugin([ { from: './src/public/assets/', to: './assets/' } ])
     ],
     module: {
         rules: [
+            // BABEL
+            // {
+            //     test: /\.js$/,
+            //     // loader: 'babel-loader',
+            //     exclude: /(node_modules)/,
+            //     options: {
+            //         compact: true
+            //     }
+            // },
+
+            // STYLES
             {
                 test: /\.css$/,
                 use: [
+                    'style-loader',
                     {
-                        loader: MiniCssExtractPlugin.loader,
+                        loader: 'css-loader',
                         options: {
-                            // you can specify a publicPath here
-                            // by default it use publicPath in webpackOptions.output
-                            publicPath: '../'
+                            sourceMap: IS_DEV
                         }
                     },
-                    "css-loader"
                 ]
+            },
+
+            // CSS / SASS
+            {
+                test: /\.scss/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: IS_DEV
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: IS_DEV,
+                            includePaths: [dirAssets]
+                        }
+                    }
+                ]
+            },
+
+            // IMAGES
+            {
+                test: /\.(jpe?g|png|gif)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
             }
         ]
     }

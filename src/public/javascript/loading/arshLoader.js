@@ -189,9 +189,9 @@ let arshLoader = {
     startGame: function (lang, wordsType) {
         wordsType = wordsType.split("-");
 
-        Helper.fetchJson(`/public/javascript/localization/lang.${lang}.json`).then((langFiles)=>{
+        Helper.fetchJson(`assets/localization/lang.${lang}.json`).then((langFiles)=>{
             window.lang = langFiles;
-            Helper.fetchJson(`/public/javascript/words/${lang}/${wordsType[0]}.json`).then((words)=>{
+            Helper.fetchJson(`assets/words/${lang}/${wordsType[0]}.json`).then((words)=>{
                 window.TetrisWords = words;
                 this.initGame(wordsType);
             }).catch((err)=>{
@@ -216,7 +216,7 @@ let arshLoader = {
 
         arshLoader._('#container').innerHTML = '' +
             '    <div class="bloc">\n' +
-            '        <div><img src="public/img/fanavardLogo.png" style="width:150px;height: auto"/></div>' +
+            '        <div><img src="assets/img/fanavardLogo.png" style="width:150px;height: auto"/></div>' +
             '        <svg id="jafarRezaeiAnimate" viewBox="-17 -20 412.8504 64.80315" height="70.80315" width="412.8504" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:400px;padding:50px 0 !important;height:auto">\n' +
             '            <defs>\n' +
             '                <filter id="dropshadow" height="50%">\n' +

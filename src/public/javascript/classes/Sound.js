@@ -10,7 +10,7 @@ export default class Sound {
      * @return {Sound}
      */
     constructor (name){
-        this.audio = new Audio('public/mp3/' + name + '.mp3');
+        this.audio = new Audio('assets/mp3/' + name + '.mp3');
         return this;
     }
 
