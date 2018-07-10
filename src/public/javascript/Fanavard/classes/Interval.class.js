@@ -44,8 +44,10 @@ class Interval {
     clearAll() {
         let all = Object.keys( this.intervals ), len = all.length;
 
-        while ( len --> 0 ) {
-            clearInterval( all.shift() );
+        while ( len-- > 0 ) {
+            let itemIndex = all.shift();
+            clearInterval(parseInt(itemIndex));
+            delete this.intervals[itemIndex];
         }
     }
 }
