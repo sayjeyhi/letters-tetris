@@ -7,7 +7,7 @@ import Gameplay from "./Gameplay"
 import Sound from "../Sound"
 import WordsHelper from "./WordsHelper"
 import MaterialColor from "../MaterialColor"
-
+import Explosion from "../Explosion";
 
 
 export default class Charblock {
@@ -86,7 +86,7 @@ export default class Charblock {
 
             if (isBottomMove) {
 
-                // stop interval and request new char
+                // stop interval
                 TetrisGame.interval.clear(this.interval);
 
                 // check words
@@ -167,10 +167,11 @@ export default class Charblock {
      */
     static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn){
         let deleteTiming = 0;
-        let playBoard = TetrisGame.playBoard;
-        let domToDelete = playBoard.querySelector(`.row_${oldRow} .column_${oldColumn} .charBlock`);
+        let domToDelete = TetrisGame.playBoard.querySelector(`.row_${oldRow} .column_${oldColumn} .charBlock`);
         let gameConfig = TetrisGame.config;
         let oldChar = domToDelete.innerText;
+        let oldColor = domToDelete.style.backgroundColor;
+        let domParent = domToDelete.parentNode;
         let isFallingDown = (newRow !== null && newColumn !== null);
 
         if(gameConfig.useAnimationFlag) {
@@ -189,11 +190,17 @@ export default class Charblock {
                     deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
             }
             domToDelete.classList.add(animateClass , isFallingDown ? "fadeOutDown" : "zoomOutDown");
+
+
+            // create explosion effect
+            if(!isFallingDown){
+                Explosion.explode(domParent , 35 , 10);
+            }
         }
 
         setTimeout(
             () => {
-                domToDelete.parentNode.removeChild(domToDelete);
+                domParent.removeChild(domToDelete);
             }, deleteTiming
         );
 
@@ -202,10 +209,10 @@ export default class Charblock {
         if(isFallingDown) {
             this.factory(
                 {
-                    color: MaterialColor.getRandomColor(),
+                    color: oldColor,
                     char: oldChar,
                     animateInClass: "fadeInDown"
-                }, playBoard.getElementById("grid" + newRow + "_" + newColumn)
+                }, document.getElementById("grid" + newRow + "_" + newColumn)
             );
         }
     }

@@ -10,24 +10,23 @@
 export default class Explosion {
 
 
-    static explode(e) {
-        const bubbles = 25;
+    static explode(element , x , y) {
 
-        let x = e.clientX;
-        let y = e.clientY;
+        const bubbles = 10;
+
         let c = document.createElement('canvas');
         let ctx = c.getContext('2d');
         let ratio = window.devicePixelRatio;
         let particles = [];
 
-        document.body.appendChild(c);
+        element.appendChild(c);
 
         c.style.position = 'absolute';
-        c.style.left = (x - 60) + 'px';
-        c.style.top = (y - 60) + 'px';
+        c.style.left = (x - 50) + 'px';
+        c.style.top = (y - 50) + 'px';
         c.style.pointerEvents = 'none';
-        c.style.width = 120 + 'px';
-        c.style.height = 120 + 'px';
+        c.style.width = 100 + 'px';
+        c.style.height = 100 + 'px';
         c.width = 200 * ratio;
         c.height = 200 * ratio;
 
@@ -35,9 +34,6 @@ export default class Explosion {
         for(let i=0; ++i<bubbles;) {
             particles.push(this._particle(c))
         }
-
-        console.log(particles[0]);
-
 
 
         (function renderLoop(){
@@ -96,24 +92,18 @@ export default class Explosion {
         });
     }
 
-    static _getAngle(t, n) {
-        let a = n.x - t.x, e = n.y - t.y;
-        return Math.atan2(e, a) / Math.PI * 180
-    }
-    static _getDistance(t, n) {
-        let a = t.x - n.x, e = t.y - n.y;
-        return Math.sqrt(a * a + e * e)
-    }
 
-    static _moveOnAngle(t, n) {
-        let a = this.getOneFrameDistance(t, n);
-        t.x += a.x, t.y += a.y
-    }
-
-    static getOneFrameDistance(t, n) {
+    static _getOneFrameDistance(t, n) {
         return {
             x: n * Math.cos(t.rotation * Math.PI / 180),
             y: n * Math.sin(t.rotation * Math.PI / 180)
         }
     }
+
+
+    static _moveOnAngle(t, n) {
+        let a = this._getOneFrameDistance(t, n);
+        t.x += a.x, t.y += a.y
+    }
+
 }
