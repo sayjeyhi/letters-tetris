@@ -2,84 +2,12 @@
  * @module
  */
 
-// import TetrisGame from "./Tetris/TetrisGame";
-
-
 /**
  *  @class
  *  Helper
  *  This class holds some helper methods which are useful in many cases
  */
 export default class Helper {
-
-
-    // /**
-    //  * Delete node with animation
-    //  * @param row
-    //  * @param column
-    //  */
-    // static deleteNodeAnimate(row , column){
-    //
-    //     let deleteTiming = 0;
-    //     let domToDelete = document.querySelector(`.row_${row} .column_${column} .charBlock`);
-    //     let gameConfig = TetrisGame.config;
-    //
-    //     if(gameConfig.useAnimationFlag) {
-    //         let animateClass =  "animatedOneSecond";
-    //         deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
-    //         if(gameConfig.level === 3){
-    //             deleteTiming = gameConfig.expertFallDownAnimateSpeed;
-    //             animateClass = "animated";
-    //         }else if(gameConfig.level === 2){
-    //             deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
-    //             animateClass = "animatedHalfSecond";
-    //         }
-    //         domToDelete.classList.add(animateClass , "zoomOutDown");
-    //     }
-    //
-    //     setTimeout(
-    //         () => {
-    //             domToDelete.parentNode.removeChild(domToDelete);
-    //         }, deleteTiming
-    //     );
-    //
-    // }
-    //
-    // /**
-    //  * Fall node with animation
-    //  * @param oldY {Number}
-    //  * @param oldX {Number}
-    //  * @param newY {Number}
-    //  * @param newX {Number}
-    //  */
-    // static fallNodeAnimate(oldY,oldX,newY,newX){
-    //
-    //     let deleteTiming = 0;
-    //     let domToDelete = document.querySelector(`.row_${oldY} .column_${oldX} .charBlock`);
-    //     let gameConfig = TetrisGame.config;
-    //
-    //     if(gameConfig.useAnimationFlag) {
-    //         let animateClass =  "animatedOneSecond";
-    //         deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
-    //         if(gameConfig.level === 3){
-    //             deleteTiming = gameConfig.expertFallDownAnimateSpeed;
-    //             animateClass = "animated";
-    //         }else if(gameConfig.level === 2){
-    //             deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
-    //             animateClass = "animatedHalfSecond";
-    //         }
-    //         domToDelete.classList.add(animateClass , "fadeOutDown");
-    //     }
-    //
-    //     setTimeout(
-    //         () => {
-    //             domToDelete.parentNode.removeChild(domToDelete);
-    //             //TODO: Add fadeInDown animation to fall characters with: newX,newY
-    //         }, deleteTiming
-    //     );
-    //
-    // }
-
 
     /**
      * Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
