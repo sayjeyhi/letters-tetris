@@ -4,12 +4,15 @@
 
 'use strict';
 
-import * as Helper from "../Helper"
+import Helper from "../Helper"
 import Timer from "../Timer";
 import Interval from "../Interval";
 import Sound from "../Sound";
 import Settings from "./Settings";
 import GamePlay from "./Gameplay";
+import Storage from "../Storage";
+import Charblock from "./Charblock";
+
 
 /**
  *

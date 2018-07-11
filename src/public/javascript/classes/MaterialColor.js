@@ -189,7 +189,7 @@ export default class MaterialColor {
     /**
      * Pick a random property of object
      * @param obj
-     * @return {*}
+     * @return HexColorString {string}
      */
     static pickRandomProperty(obj) {
         let result,count = 0;

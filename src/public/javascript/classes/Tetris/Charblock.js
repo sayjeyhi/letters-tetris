@@ -2,6 +2,14 @@
  * @module
  */
 
+import TetrisGame from "./TetrisGame"
+import Gameplay from "./Gameplay"
+import Sound from "../Sound"
+import WordsHelper from "./WordsHelper"
+import MaterialColor from "../MaterialColor"
+
+
+
 export default class Charblock {
 
     /**

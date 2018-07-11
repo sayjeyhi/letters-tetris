@@ -9,7 +9,9 @@ import MaterialColor from "../classes/MaterialColor";
 import Vivus from "vivus";
 import Sound from "../classes/Sound";
 import Modal from "../classes/Modal";
-import * as Helper from "../classes/Helper";
+import Helper from "../classes/Helper";
+import Gameplay from "../classes/Tetris/Gameplay"
+import Settings from "../classes/Tetris/Settings"
 
 //TODO: Jafar, can u make this a class? we cant generate docs for it!
 let arshLoader = {
@@ -205,6 +207,8 @@ let arshLoader = {
         });
     },
     initGame: (wordsType)=>{
+        window.Gameplay = Gameplay;
+        window.Settings = Settings;
         TetrisGame.init();
         TetrisGame.initValues.chooseedWordKind = {
             persianTitle: wordsType[1],

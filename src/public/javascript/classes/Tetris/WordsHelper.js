@@ -7,8 +7,10 @@
  */
 
 
-export default class WordsHelper {
+import TetrisGame from "./TetrisGame";
+import Helper from "../Helper";
 
+export default class WordsHelper {
 
     /**
      * Choose random words in game build to work with
@@ -33,7 +35,7 @@ export default class WordsHelper {
             value.word = value.word.toLowerCase();
         }
 
-        log(value);
+        Helper.log(value);
 
         // delete choosed word form list
         delete window.TetrisWords[randomKey];

@@ -49,7 +49,6 @@ export default class Sound {
      */
     static makeInstanceName(key){
         return key + "Instance";
-
     }
 
 

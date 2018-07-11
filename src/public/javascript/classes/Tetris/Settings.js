@@ -7,8 +7,9 @@
  */
 
 
-import TetrisGame from "./TetrisGame";
-import Storage from "../Storage";
+import TetrisGame from "./TetrisGame"
+import Storage from "../Storage"
+import Modal from "../Modal"
 
 export default class Settings {
 

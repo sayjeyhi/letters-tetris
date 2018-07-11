@@ -2,7 +2,7 @@
  * @module
  */
 
-import * as Helper from "./Helper";
+import Helper from "./Helper";
 
 /**
  * This class will hold values of characters, find successful created words, delete them and etc
