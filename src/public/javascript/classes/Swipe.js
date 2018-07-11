@@ -64,14 +64,14 @@ export default class Swipe {
             startX = touchObject.pageX;
             startY = touchObject.pageY;
             startTime = new Date().getTime();               // record time when finger first makes contact with surface
-            this.onTouchStart(this.onTouchStartCallback);
+            this._onTouchStart(this.onTouchStartCallback);
             e.preventDefault();
         }, false);
 
 
         // listen touch move
         this.touchSurface.addEventListener('touchmove', (e) => {
-            this.whileTouch(this.whileTouchCallback);
+            this._whileTouch(this.whileTouchCallback);
             e.preventDefault();     // prevent scrolling when inside DIV
         }, false);
 
@@ -91,7 +91,7 @@ export default class Swipe {
                 }
             }
             this.handleSwipe(swipeDirection);
-            this.onTouchEnd(this.onTouchEndCallback);
+            this._onTouchEnd(this.onTouchEndCallback);
             e.preventDefault();
         }, false);
     }
@@ -101,8 +101,9 @@ export default class Swipe {
      * When user start touch
      * @param callback
      * @return {function|null}
+     * @private
      */
-    onTouchStart(callback){
+    static _onTouchStart(callback){
         return callback || (() => {});
     }
 
@@ -111,8 +112,9 @@ export default class Swipe {
      * While user is touched and moving
      * @param callback
      * @return {function|null}
+     * @private
      */
-    whileTouch(callback){
+    static _whileTouch(callback){
         return callback || (() => {});
     }
 
@@ -120,8 +122,9 @@ export default class Swipe {
      * When user finished touch moving
      * @param callback
      * @return {function|null}
+     * @private
      */
-    onTouchEnd(callback){
+    static _onTouchEnd(callback){
         return callback || (() => {});
     }
 

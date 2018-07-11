@@ -3,7 +3,7 @@
  */
 
 /**
- * @class Gameplay sub class of Tetris game
+ * @class Gameplay
  */
 
 import TetrisGame from "./TetrisGame";
@@ -187,8 +187,10 @@ export default class Gameplay {
      */
     static finish(mode) {
 
-        // play finish sound
-        Sound.playByKey('finishGame', TetrisGame.config.playEventsSound);
+        // play game over sound
+        if(mode === "gameOver") {
+            Sound.playByKey('finishGame', TetrisGame.config.playEventsSound);
+        }
 
         // manage game buttons
         this.buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');

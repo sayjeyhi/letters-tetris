@@ -21,6 +21,7 @@ export default class Interval {
      * @return {number}
      */
     make( usedFunction , delay ) {
+
         //see explanation after the code
         let newInterval = setInterval.apply(
             window,
@@ -28,7 +29,6 @@ export default class Interval {
         );
 
         this.intervals[ newInterval ] = true;
-
         return newInterval;
     }
 

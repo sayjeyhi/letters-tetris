@@ -36,13 +36,13 @@ export default class TetrisGame {
             simpleFallDownAnimateSpeed : 700,
             mediumFallDownAnimateSpeed : 500,
             expertFallDownAnimateSpeed : 200,
-            successAnimationIterationDuration: 120,
+            successAnimationIterationDuration: 150,
 
             // user setting values
             playBackgroundSound: true,
             playEventsSound: true,
             level: 1 ,                       // up to 3 - if it is big it is hard to play
-            useAnimationFlag : false,        // make animate or not
+            useAnimationFlag : true,         // make animate or not
             showGrids : true                 // show grids flag
         };
 
