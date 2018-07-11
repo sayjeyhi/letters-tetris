@@ -187,7 +187,7 @@ export default class TetrisGame {
                 initValues.paused = false;
             },
             workerOnMessage: function (event) {
-                Storage.set('seconds', event.data);
+                // Storage.set('seconds', event.data);
             },
             onPause: function () {
                 initValues.paused = true;
