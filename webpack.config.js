@@ -41,15 +41,16 @@ module.exports = {
     module: {
         rules: [
             // BABEL
-            // {
-            //     test: /\.js$/,
-            //     // loader: 'babel-loader',
-            //     exclude: /(node_modules)/,
-            //     options: {
-            //         compact: true
-            //     }
-            // },
-
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                include: path.join(__dirname, 'test'),
+                exclude: /(node_modules)/,
+                options: {
+                    compact: true,
+                    presets: ['preset-env']
+                }
+            },
             // STYLES
             {
                 test: /\.css$/,

@@ -351,7 +351,7 @@ jasmineRequire.HtmlReporter = function(j$) {
               id: 'jasmine-random-order',
               type: 'checkbox'
             }),
-            createDom('label', { className: 'jasmine-label', 'for': 'jasmine-random-order' }, 'run tests in random order'))
+            createDom('label', { className: 'jasmine-label', 'for': 'jasmine-random-order' }, 'run tests_OLD in random order'))
         )
       );
 
