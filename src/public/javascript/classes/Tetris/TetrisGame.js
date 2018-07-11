@@ -35,7 +35,7 @@ export default class TetrisGame {
             simpleFallDownAnimateSpeed : 700,
             mediumFallDownAnimateSpeed : 500,
             expertFallDownAnimateSpeed : 200,
-            successAnimationIterationDuration: 150,
+            successAnimationIterationDuration: 100,
 
             // user setting values
             playBackgroundSound: true,

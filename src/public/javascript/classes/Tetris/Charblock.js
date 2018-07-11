@@ -186,14 +186,14 @@ export default class Charblock {
             switch (gameConfig.level){
                 case 3:
                     deleteTiming = gameConfig.expertFallDownAnimateSpeed;
-                    animateClass = "animated";
+                    animateClass = "fallDownExpert";
                     break;
                 case 2:
                     deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
-                    animateClass = "animatedHalfSecond";
+                    animateClass = "fallDownCharMedium";
                     break;
                 default:
-                    animateClass =  "animatedOneSecond";
+                    animateClass =  "fallDownSimple";
                     deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
             }
             domToDelete.classList.add(animateClass , isFallingDown ? "fadeOutDown" : "zoomOutDown");
@@ -312,14 +312,14 @@ export default class Charblock {
 
         TetrisGame.initValues.nextChar = WordsHelper.chooseChar();
 
-        let upCommingCharHolder = TetrisGame.initValues.upComingCharEl;
+        let upComingCharHolder = TetrisGame.initValues.upComingCharEl;
         let upcommingCharEl = document.createElement('span');
         let animateClass = TetrisGame.config.useAnimationFlag ? " animated bounceIn" : "";
 
-        upCommingCharHolder.innerHTML = '';
+        upComingCharHolder.innerHTML = '';
         upcommingCharEl.className = animateClass;
         upcommingCharEl.innerHTML = TetrisGame.initValues.nextChar || "";
-        upCommingCharHolder.appendChild(upcommingCharEl);
+        upComingCharHolder.appendChild(upcommingCharEl);
     }
 
 
