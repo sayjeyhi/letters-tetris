@@ -71,14 +71,14 @@ export default class Modal {
 
 
         // create title
-        modal.appendChild(this._createHeader(options));
+        modal.appendChild(Modal._createHeader(options));
 
         // create content
-        modal.appendChild(this._createContent(options));
+        modal.appendChild(Modal._createContent(options));
 
 
         // create footer
-        let footer = this._createFooter(options);
+        let footer = Modal._createFooter(options);
         if(footer !== false){
             modal.appendChild(footer);
         }
