@@ -36,22 +36,22 @@ export default class Explosion {
             particles.push(this._particle(c))
         }
 
-        console.log(particles[0])
+        console.log(particles[0]);
 
 
 
         (function renderLoop(){
             requestAnimationFrame(renderLoop);
-            this._render(ctx , c)
+            Explosion._render(particles , ctx , c)
         })();
 
         setTimeout(function() {
             document.body.removeChild(c)
-        }, 3000)
+        }, 3000);
     }
 
 
-    static  _particle(c) {
+    static _particle(c) {
 
         let r = function(a,b,c){
             return parseFloat((Math.random()*((a?a:1)-(b?b:0))+(b?b:0)).toFixed(c?c:0));
@@ -68,54 +68,52 @@ export default class Explosion {
             opacity: r(0,0.5, true),
             yVel: 0,
             gravity: 0.1
-        }
+        };
     }
 
-    static _render(ctx , c) {
+    static _render(particles , ctx , c) {
         ctx.clearRect(0, 0, c.width, c.height);
 
         particles.forEach(function(p, i) {
 
-            this._angleTools.moveOnAngle(p, p.speed)
+            Explosion._moveOnAngle(p, p.speed);
 
-            p.opacity -= 0.01
-            p.speed *= p.friction
-            p.radius *= p.friction
+            p.opacity -= 0.01;
+            p.speed *= p.friction;
+            p.radius *= p.friction;
 
-            p.yVel += p.gravity
-            p.y += p.yVel
+            p.yVel += p.gravity;
+            p.y += p.yVel;
 
-            if(p.opacity < 0) return
-            if(p.radius < 0) return
+            if(p.opacity < 0) return;
+            if(p.radius < 0) return;
 
-            ctx.beginPath()
-            ctx.globalAlpha = p.opacity
-            ctx.fillStyle = p.color
-            ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, false)
-            ctx.fill()
-        })
+            ctx.beginPath();
+            ctx.globalAlpha = p.opacity;
+            ctx.fillStyle = p.color;
+            ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, false);
+            ctx.fill();
+        });
     }
 
-    static _angleTools() {
+    static _getAngle(t, n) {
+        let a = n.x - t.x, e = n.y - t.y;
+        return Math.atan2(e, a) / Math.PI * 180
+    }
+    static _getDistance(t, n) {
+        let a = t.x - n.x, e = t.y - n.y;
+        return Math.sqrt(a * a + e * e)
+    }
+
+    static _moveOnAngle(t, n) {
+        let a = this.getOneFrameDistance(t, n);
+        t.x += a.x, t.y += a.y
+    }
+
+    static getOneFrameDistance(t, n) {
         return {
-            getAngle: function (t, n) {
-                let a = n.x - t.x, e = n.y - t.y;
-                return Math.atan2(e, a) / Math.PI * 180
-            },
-            getDistance: function (t, n) {
-                let a = t.x - n.x, e = t.y - n.y;
-                return Math.sqrt(a * a + e * e)
-            },
-            moveOnAngle: function (t, n) {
-                let a = this.getOneFrameDistance(t, n);
-                t.x += a.x, t.y += a.y
-            },
-            getOneFrameDistance: function (t, n) {
-                return {x: n * Math.cos(t.rotation * Math.PI / 180), y: n * Math.sin(t.rotation * Math.PI / 180)}
-            }
+            x: n * Math.cos(t.rotation * Math.PI / 180),
+            y: n * Math.sin(t.rotation * Math.PI / 180)
         }
-    };
-
-
+    }
 }
-
