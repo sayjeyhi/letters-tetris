@@ -3,6 +3,8 @@
  */
 
 
+import Timeout from "./Timeout";
+
 /**
  * @class Modal
  * Modal manager class which manages CRUD operation of Modals.
@@ -185,7 +187,7 @@ export default class Modal {
             this.node.classList.add("bounceOut");
         }
 
-        setTimeout(
+        Timeout.request(
             () => {
                 document.getElementById("container").classList.remove('blur');
                 this.node.parentNode.removeChild(this.node);

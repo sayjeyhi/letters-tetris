@@ -13,6 +13,7 @@ import Charblock from "./Charblock";
 import WordsHelper from "./WordsHelper";
 import Modal from "../Modal";
 import Matrix from "../Matrix";
+import Timeout from "../Timeout";
 
 export default class Gameplay {
 
@@ -21,7 +22,11 @@ export default class Gameplay {
      */
     static start() {
 
+
+        // cache most used elements on class
         TetrisGame.playBoard = document.querySelector(".playBoard");
+        TetrisGame.initValues.upComingCharEl = document.querySelector(".showUpComingLetter");
+
 
         // Get valid column length based on max json word length to create columns
         TetrisGame.initValues.validatedColumnsCount = TetrisGame.getValidColumnsNumber();
@@ -158,6 +163,8 @@ export default class Gameplay {
                 englishTitle: TetrisGame.initValues.chooseedWordKind.englishTitle
             },
             bgSound : TetrisGame.initValues.bgSound ,
+            cachedRows : TetrisGame.initValues.cachedRows,
+            upComingCharEl : null,
 
 
             validatedColumnsCount: 0,       // Count of columns which are validated
@@ -239,9 +246,11 @@ export default class Gameplay {
             buttons : modalButtons
         }, lang.rtl );
 
-        setTimeout(() => {
-            modal.show();
-        } , 300);
+        Timeout.request(
+            () => {
+                modal.show();
+            } , 300
+        );
 
     }
 

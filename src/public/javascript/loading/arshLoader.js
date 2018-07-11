@@ -1,45 +1,20 @@
 /**
- *
- * Main class to load animation of game starting
- * @property {boolean} filesLoading
- * @type {{, animationLoading: boolean, isLoaded: boolean, timingProps: {type: string, duration: number, start: string}, _: arshLoader._, afterLoad: arshLoader.afterLoad, chooseWordKind: arshLoader.chooseWordKind, setRandomColor: arshLoader.setRandomColor, startGame: arshLoader.startGame, build: arshLoader.build}}
+ * @module
  */
 import TetrisGame from "../classes/Tetris/TetrisGame";
 import MaterialColor from "../classes/MaterialColor";
 import Vivus from "vivus";
 import Sound from "../classes/Sound";
-import Modal from "../classes/Modal";
 import Helper from "../classes/Helper";
 import Gameplay from "../classes/Tetris/Gameplay"
 import Settings from "../classes/Tetris/Settings"
+import Timeout from "../classes/Timeout";
 
-//TODO: Jafar, can u make this a class? we cant generate docs for it!
-let arshLoader = {
 
-    /**
-     * Files loading flag
-     */
-    filesLoading: false,
-
-    /**
-     * Animate loading flag
-     */
-    animationLoading: false,
-
-    /**
-     * Is loaded scripts
-     */
-    isLoaded: false,
-
-    /**
-     * Timing properties for vivus
-     */
-    timingProps: {
-        type: 'delayed',
-        duration: 150,
-        start: 'autostart'
-    },
-
+/**
+ * @class ArshLoader - makes animation of page loading on game load
+ */
+class ArshLoader {
 
     /**
      * Wrapper for query selector
@@ -47,20 +22,51 @@ let arshLoader = {
      * @return {null | object}
      * @private
      */
-    _: function _(selector) {
+    static _(selector) {
         return document.querySelector(selector) || null;
-    },
+    }
+
+    /**
+     * Set main properties of ArshLoader
+     * @return {ArshLoader}
+     */
+    static setProperties(){
+
+        // make animation frame available
+        Timeout.addAnimeFrame();
+
+        /**
+         * Animate loading flag
+         */
+        this.animationLoading = false;
+
+        /**
+         * Is loaded scripts
+         */
+        this.isLoaded = false;
+
+        /**
+         * Timing properties for vivus
+         */
+        this.timingProps = {
+            type: 'delayed',
+            duration: 150,
+            start: 'autostart'
+        };
+
+        return this;
+    }
 
 
     /**
      * Called after loading
      */
-    afterLoad: function () {
-        if (arshLoader.animationLoading && !arshLoader.isLoaded) {
-            let loadingTextElement = arshLoader._('.loadingText');
+    static afterLoad() {
+        if (!ArshLoader.isLoaded) {
+            let loadingTextElement = ArshLoader._('.loadingText');
             loadingTextElement.querySelector(".archLoadingAnimation").className += " animated fadeOut";
 
-            setTimeout(function () {
+            Timeout.request(function () {
 
                 loadingTextElement.innerHTML = '';
 
@@ -89,20 +95,11 @@ let arshLoader = {
                     }
                 };
 
-                // document.addEventListener("click", function (ev) {
-                //     if (!chooseWordsKind.is(e.target) && chooseWordsKind.has(e.target).length === 0) {
-                //         chooseWordsKind.hide();
-                //     }
-                //     if (ev.currentTarget != chooseWordsKind.querySelector(".wordsKind")) {
-                //         chooseWordsKind.dataset.opened = "no";
-                //         document.querySelector(".chooseWordKindTooltip").style.display = "none";
-                //     }
-                // })
 
                 let btnFa = document.createElement('div');
                 btnFa.onclick = function () {
                     let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
-                    arshLoader.startGame("fa", wordsType);
+                    ArshLoader.startGame("fa", wordsType);
                 };
                 btnFa.className = "btnEnterProject animatedOneSecond bounceIn";
                 btnFa.innerHTML = "<i class='linearicon linearicon-gamepad'></i> ورود به بازی";
@@ -111,7 +108,7 @@ let arshLoader = {
                 let btnEn = document.createElement('div');
                 btnEn.onclick = function () {
                     let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
-                    arshLoader.startGame("en", wordsType);
+                    ArshLoader.startGame("en", wordsType);
                 };
                 btnEn.className = "btnEnterProject animatedOneSecond bounceIn ltr";
                 btnEn.innerHTML = "<i class='linearicon linearicon-gamepad'></i> Enter Game";
@@ -149,11 +146,11 @@ let arshLoader = {
                 loadingTextElement.appendChild(workKindChooser);
 
 
-                arshLoader.isLoaded = true;
+                ArshLoader.isLoaded = true;
 
             }, 1000);
         }
-    },
+    }
 
 
     /**
@@ -161,7 +158,7 @@ let arshLoader = {
      * @param name
      * @param el
      */
-    chooseWordKind: function (name, el) {
+    static chooseWordKind(name, el) {
         let choosedPersianTitle = el.querySelector(".persianTitle").innerHTML;
         let choosedEnglishTitle = el.querySelector(".englishTitle").innerHTML;
         let chooserEl = document.querySelector(".wordsKind");
@@ -172,18 +169,18 @@ let arshLoader = {
         chooserEl.dataset.choosedwordskind = (name.toString() + "-" + choosedPersianTitle.toString());
         // this.chooseWordKind.dataset.opened = "no";
         document.querySelector(".wordsKind").parentElement.dataset.opened = "no";
+    }
 
-    },
 
     /**
      * Set random color for our loader svg
      */
-    setRandomColor: function () {
+    static _setRandomColor() {
         let color = MaterialColor.getRandomColor();
-        arshLoader._('.bloc').style.borderColor = color;
-        arshLoader._('#jafarRezaeiAnimate').style.color = color;
-        arshLoader._('#jafarRezaeiAnimate').style.fill = color;
-    },
+        ArshLoader._('.bloc').style.borderColor = color;
+        ArshLoader._('#jafarRezaeiAnimate').style.color = color;
+        ArshLoader._('#jafarRezaeiAnimate').style.fill = color;
+    }
 
 
     /**
@@ -191,7 +188,7 @@ let arshLoader = {
      * @param lang
      * @param wordsType
      */
-    startGame: function (lang, wordsType) {
+    static startGame(lang, wordsType) {
         wordsType = wordsType.split("-");
 
         Helper.fetchJson(`assets/localization/lang.${lang}.json`).then((langFiles)=>{
@@ -205,8 +202,14 @@ let arshLoader = {
         }).catch((err)=>{
             console.log(err);
         });
-    },
-    initGame: (wordsType)=>{
+    }
+
+
+    /**
+     * Initialize whole game
+     * @param wordsType
+     */
+    static initGame(wordsType) {
         window.Gameplay = Gameplay;
         window.Settings = Settings;
         TetrisGame.init();
@@ -215,13 +218,19 @@ let arshLoader = {
             englishTitle: wordsType[0]
         };
         TetrisGame.build();
-    },
-    /**
-     * Build arsh loaded
-     */
-    build: function () {
+    }
 
-        arshLoader._('#container').innerHTML = '' +
+
+    /**
+     * Build arsh loader when page is ready
+     */
+    static build() {
+
+
+        // register main fields of class
+        ArshLoader.setProperties();
+
+        ArshLoader._('#container').innerHTML = '' +
             '    <div class="bloc">\n' +
             '        <div><img src="assets/img/fanavardLogo.png" style="width:150px;height: auto"/></div>' +
             '        <svg id="jafarRezaeiAnimate" viewBox="-17 -20 412.8504 64.80315" height="70.80315" width="412.8504" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:400px;padding:50px 0 !important;height:auto">\n' +
@@ -260,7 +269,7 @@ let arshLoader = {
             ''
         ;
 
-        arshLoader.setRandomColor();
+        this._setRandomColor();
 
         let hi_jRun = new Vivus(
             'jafarRezaeiAnimate',
@@ -276,8 +285,8 @@ let arshLoader = {
                     obj.el.classList.add('finished');
 
                     // load bundle of javascript pack here then do the job
-                    arshLoader.animationLoading = true;
-                    arshLoader.afterLoad();
+                    ArshLoader.animationLoading = true;
+                    ArshLoader.afterLoad();
 
                 }, 500);
             }
@@ -289,13 +298,13 @@ let arshLoader = {
 
         document.getElementById("jafarRezaeiAnimate").addEventListener("click", () => {
 
-            arshLoader.setRandomColor();
+            ArshLoader._setRandomColor();
 
             this.classList.remove("finished");
             hi_jRun.reset().play();
         });
     }
 
-};
+}
 
-arshLoader.build();
+ArshLoader.build();
