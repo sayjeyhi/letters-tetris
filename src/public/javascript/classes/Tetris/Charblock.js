@@ -158,39 +158,6 @@ export default class Charblock {
     }
 
 
-
-// /**
-//  * Delete node with animation
-//  * @param row
-//  * @param column
-//  */
-// static deleteNodeAnimate(row , column){
-//
-//     let deleteTiming = 0;
-//     let domToDelete = document.querySelector(`.row_${row} .column_${column} .charBlock`);
-//     let gameConfig = TetrisGame.config;
-//
-//     if(gameConfig.useAnimationFlag) {
-//         let animateClass =  "animatedOneSecond";
-//         deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
-//         if(gameConfig.level === 3){
-//             deleteTiming = gameConfig.expertFallDownAnimateSpeed;
-//             animateClass = "animated";
-//         }else if(gameConfig.level === 2){
-//             deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
-//             animateClass = "animatedHalfSecond";
-//         }
-//         domToDelete.classList.add(animateClass , "zoomOutDown");
-//     }
-//
-//     setTimeout(
-//         () => {
-//             domToDelete.parentNode.removeChild(domToDelete);
-//         }, deleteTiming
-//     );
-//
-// }
-
     /**
      * Fall node with animation
      * @param oldRow {Number}
@@ -200,7 +167,8 @@ export default class Charblock {
      */
     static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn){
         let deleteTiming = 0;
-        let domToDelete = document.querySelector(`.row_${oldRow} .column_${oldColumn} .charBlock`);
+        let playBoard = TetrisGame.playBoard;
+        let domToDelete = playBoard.querySelector(`.row_${oldRow} .column_${oldColumn} .charBlock`);
         let gameConfig = TetrisGame.config;
         let oldChar = domToDelete.innerText;
         let isFallingDown = (newRow !== null && newColumn !== null);
@@ -237,7 +205,7 @@ export default class Charblock {
                     color: MaterialColor.getRandomColor(),
                     char: oldChar,
                     animateInClass: "fadeInDown"
-                }, document.getElementById("grid" + newRow + "_" + newColumn)
+                }, playBoard.getElementById("grid" + newRow + "_" + newColumn)
             );
         }
     }

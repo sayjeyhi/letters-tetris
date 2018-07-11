@@ -28,8 +28,7 @@
  *               onclick : function () {
  *                   this.destroy();
  *               }
- *           },
- *           {
+ *           },{
  *               text : "Do not",
  *               notOk : true,
  *               onclick : function () {
@@ -72,14 +71,14 @@ export default class Modal {
 
 
         // create title
-        modal.appendChild(this.createHeader(options));
+        modal.appendChild(this._createHeader(options));
 
         // create content
-        modal.appendChild(this.createContent(options));
+        modal.appendChild(this._createContent(options));
 
 
         // create footer
-        let footer = this.createFooter(options);
+        let footer = this._createFooter(options);
         if(footer !== false){
             modal.appendChild(footer);
         }
@@ -106,8 +105,9 @@ export default class Modal {
      * Create modal header
      * @param options
      * @return {HTMLDivElement}
+     * @private
      */
-    createHeader(options){
+    static _createHeader(options){
         let modalTitle = document.createElement("div");
         let HeaderHtml = options.header || "";
 
@@ -124,8 +124,9 @@ export default class Modal {
      * Create modal content
      * @param options
      * @return {HTMLDivElement}
+     * @private
      */
-    createContent(options){
+    static _createContent(options){
         let modalContent = document.createElement("div");
         modalContent.className = "contentModal";
         modalContent.innerHTML = options.content;
@@ -138,8 +139,9 @@ export default class Modal {
      * Create modal footer and its buttons
      * @param options
      * @return {*}
+     * @private
      */
-    createFooter(options){
+    static _createFooter(options){
 
         // Do we have footer for modals , create it and buttons
         if(options.buttons.length > 0){

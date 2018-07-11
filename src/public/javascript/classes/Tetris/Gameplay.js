@@ -3,7 +3,7 @@
  */
 
 /**
- * @class Gameplay sub class of Tetris game
+ * @class Gameplay
  */
 
 import TetrisGame from "./TetrisGame";
