@@ -9,6 +9,7 @@ import WordsHelper from "./WordsHelper"
 import MaterialColor from "../MaterialColor"
 import Explosion from "../Explosion";
 import Timeout from "../Timeout";
+import Matrix from "../Matrix";
 
 
 export default class Charblock {
@@ -82,8 +83,6 @@ export default class Charblock {
         let destinationEl = this._getEl(moveTo.row, moveTo.column) || null;
         if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== "")) {
 
-            // Apply character in our matrix
-            TetrisGame.matrix.setCharacter(moveTo.row - 1,moveTo.column,this.char);
 
             if (isBottomMove) {
 
@@ -98,6 +97,12 @@ export default class Charblock {
                     if (initValues.wordsFinished) {
                         Gameplay.finish("finishWords");
                     } else {
+
+                        // Apply character in our matrix
+                        TetrisGame.matrix.setCharacter(moveTo.row - 1,moveTo.column,this.char);
+
+                        console.log(Matrix.matrix);
+
                         // add new char
                         Charblock.factory();
                     }
@@ -213,7 +218,7 @@ export default class Charblock {
                     color: oldColor,
                     char: oldChar,
                     animateInClass: "fadeInDown"
-                }, domParent.nextElementSibling.querySelector(".column_"+ newColumn)
+                }, this._getEl(newRow , newColumn)
             );
         }
     }
