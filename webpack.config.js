@@ -40,60 +40,60 @@ module.exports = {
     ],
     module: {
         rules: [
-            // BABEL
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                include: path.join(__dirname, 'test'),
-                exclude: /(node_modules)/,
-                options: {
-                    compact: true,
-                    presets: ['preset-env']
-                }
-            },
-            // STYLES
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: IS_DEV
-                        }
-                    },
-                ]
-            },
-
-            // CSS / SASS
-            {
-                test: /\.scss/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: IS_DEV
-                        }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: IS_DEV,
-                            includePaths: [dirAssets]
-                        }
-                    }
-                ]
-            },
-
-            // IMAGES
-            {
-                test: /\.(jpe?g|png|gif)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[path][name].[ext]'
-                }
-            }
+            // // BABEL
+            // {
+            //     test: /\.js$/,
+            //     loader: 'babel-loader',
+            //     include: path.join(__dirname, 'test'),
+            //     exclude: /(node_modules)/,
+            //     options: {
+            //         compact: true,
+            //         presets: ['preset-env']
+            //     }
+            // },
+            // // STYLES
+            // {
+            //     test: /\.css$/,
+            //     use: [
+            //         'style-loader',
+            //         {
+            //             loader: 'css-loader',
+            //             options: {
+            //                 sourceMap: IS_DEV
+            //             }
+            //         },
+            //     ]
+            // },
+            //
+            // // CSS / SASS
+            // {
+            //     test: /\.scss/,
+            //     use: [
+            //         'style-loader',
+            //         {
+            //             loader: 'css-loader',
+            //             options: {
+            //                 sourceMap: IS_DEV
+            //             }
+            //         },
+            //         {
+            //             loader: 'sass-loader',
+            //             options: {
+            //                 sourceMap: IS_DEV,
+            //                 includePaths: [dirAssets]
+            //             }
+            //         }
+            //     ]
+            // },
+            //
+            // // IMAGES
+            // {
+            //     test: /\.(jpe?g|png|gif)$/,
+            //     loader: 'file-loader',
+            //     options: {
+            //         name: '[path][name].[ext]'
+            //     }
+            // }
         ]
     }
 };
