@@ -2,7 +2,9 @@
 @font-face{font-family:'SDF';src:url(../Fonts/IRANSansLight.woff) format("woff"),url(../Fonts/IRANSansLight.ttf) format("truetype");font-weight:400}
 @font-face{font-family:'SDF';src:url(../Fonts/IRANSansMedium.woff) format("woff"),url(../Fonts/IRANSansMedium.ttf) format("truetype");font-weight:700}
 @font-face{font-family:'BYekan';src:url(../Fonts/BYekan.eot) format("eot"),url(../Fonts/BYekan.woff) format("woff"),url(../Fonts/BYekan.ttf) format("truetype")}
+
 body{margin:0 0 40px;font-family:'BYekan','SDF','Tahoma',sans-serif;font-weight:200;color:#666}
+
 .byekan,fieldset,legend,strong,.btn,.smalltext,table,.tooltip{font-family:'BYekan','SDF','Tahoma',sans-serif}
 .sdf{font-family:'SDF','BYekan','Tahoma',sans-serif}
 a{color:#5b57ef;text-decoration:none}
@@ -10,6 +12,7 @@ a{color:#5b57ef;text-decoration:none}
 body{background:#fff;overflow-x:hidden}
 body.isExpert,body.isExpert #container{background-color:#000!important}
 body.isMedium,body.isMedium #container{background-color:#b0cefc!important}
+
 .content{position:relative;border-radius:20px!important;padding:10px 10%}
 #topContainer .parallax{position:relative;padding:5em 0;text-align:center;color:#fff!important;background:#DA4453;background:-webkit-linear-gradient(to right,#89216B,#DA4453);background:linear-gradient(to right,#89216B,#DA4453)}
 .page-footer div{text-align:center;font-size:12px;margin-top:40px}
@@ -37,6 +40,12 @@ svg :not(.doNotUnfill){stroke:currentColor}
 #jafarRezaeiAnimate{fill-opacity:0;width:100%;stroke-width:1}
 #jafarRezaeiAnimate.finished{fill-opacity:1;stroke-width:0;-webkit-filter:drop-shadow(-1px 7px 3px rgba(0,0,0,0.2));filter:drop-shadow(-1px 7px 3px rgba(0,0,0,0.2))}
 #jafarRezaeiAnimate.finished *{color:rgba(255,255,255,0.4)}
+
+.logoLoading{
+    font-size: 28px;
+    margin: 20px 0 40px 0;
+}
+
 @-webkit-keyframes sk-scaleout {
     0%{-webkit-transform:scale(0)}
     50%{-webkit-transform:scale(0.3);opacity:70}
@@ -58,6 +67,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .chooseWordKindTooltip ul > li .englishTitle,.wordsKind .englishTitle{position:absolute;left:7px}
 .chooseWordKindTooltip ul > li .persianTitle,.wordsKind .persianTitle{position:absolute;right:7px}
 .chooseWordKindTooltip ul > li .linearicon{font-size:16px;position:relative;bottom:-3px;margin:0 13px;color:#26a718;left:5px}
+
 .gameHolder{background:#f6f6f6;padding:8px;box-shadow:0 25px 20px -21px rgba(153,153,153,0.3);border-radius:10px!important;position:relative;width:800px;right:50%;margin-right:-400px;margin-top:20px}
 .gameHolder .playBoard{width:75%;display:inline-block;background:#fff;padding:3px;min-height:460px;position:relative;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px}
 .gameHolder .playBoard .emptyPlayBoard{font-size:17px;color:rgba(186,183,183,0.5);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
@@ -65,6 +75,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .gameHolder .playBoard .isRow{height:40px;margin-bottom:1px}
 .playBoard.showGrids .isRow{border-bottom:1px dashed #efefef}
 .playBoard.showGrids .isRow:last-child{border:none}
+
 .gameHolder .playBoard .isColumn{position:relative;display:inline-block;height:100%}
 .gameHolder .playBoard.is6Column .isColumn{width:16.66%}
 .gameHolder .playBoard.is8Column .isColumn{width:12.5%}
@@ -89,8 +100,10 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before{left:-10px}
 .gameHolder.isLtr .behindPlayBoard .courseArea{text-align:left;margin-left:5px}
 .noselect,.wordsKind,.gameControlButtons{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+
 .blur{-webkit-filter:blur(4px)!important;-moz-filter:blur(4px)!important;-o-filter:blur(4px)!important;-ms-filter:blur(4px)!important;filter:blur(4px)!important;filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4')!important;text-align:center;transform:translateZ(1px);position:fixed;left:0;right:0;top:0;bottom:0}
 .modalHolder{display:flex;justify-content:center;align-items:center;z-index:100;position:fixed;left:0;right:0;top:0;bottom:0}
+
 .modal{position:relative;background-color:#fff;color:#444;border:none;font-size:20px;border-radius:12px;min-width:50%;max-width:85%;padding:10px 15px;min-height:20%;max-height:90%;overflow:auto;justify-content:center;align-items:center;box-shadow:0 12px 20px -10px rgba(173,104,185,0.3),0 4px 20px 0 rgba(0,0,0,0.12),0 7px 8px -5px rgba(183,183,183,0.2)}
 .modal .titleModal{display:block;font-size:15px;margin:10px 0 20px}
 .modal .titleModal .closeModal{float:right;font-size:17px;padding:6px 4px;cursor:pointer;color:#a5611f;position:relative;right:-3px}
@@ -104,15 +117,20 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .modal.rtl .titleModal .closeModal{float:left;left:-3px;right:auto}
 .modal.rtl .footerModal .buttonModal{padding:8px 12px!important}
 .modal.rtl{direction:rtl;text-align:right}
+
 #settingForm .formLabel{display:inline-block;width:25%;font-size:14px;color:#515151;position:relative;margin-right:12px}
 #settingForm .formLabel .linearicon{position:absolute;right:-28px;font-size:32px;transform:rotate(-14deg);top:-9px;color:#d1d1d1b3}
 #settingForm .formData{display:inline-block}
+
 .modal.ltr #settingForm .formLabel .linearicon{left:-28px;right:auto!important}
 .modal.ltr #settingForm .formLabel{margin-left:12px!important;margin-right:0!important}
+
 .cssRadio input[type="radio"]{display:none}
 .cssRadio input[type="radio"] + label span{cursor:pointer;padding:8px 22px;font-size:13px;font-family:'BYekan','SDF','Tahoma',sans-serif,;display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383}
 .cssRadio.animatedSpan input[type="radio"] + label span{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out}
 .cssRadio input[type="radio"]:checked + label span{cursor:default;color:#fff;background:#6e8ff0!important}
+
+
 @media (max-width: 868px) {
     .page-footer div{text-align:center;margin-top:20px}
     .gameHolder{width:96%;left:0;right:0;transform:none!important;margin:1%}
@@ -137,6 +155,9 @@ svg :not(.doNotUnfill){stroke:currentColor}
 
 
 /* ANIMATION PART */
+.fallDownSimple,.fallDownMedium,.fallDownExpert{-webkit-animation-duration:.15s;animation-duration:.15s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
+
+
 .animated{-webkit-animation-duration:.2s;animation-duration:.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedHalfSecond{-webkit-animation-duration:.5s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedOneSecond{-webkit-animation-duration:.7s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}

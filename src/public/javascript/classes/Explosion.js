@@ -11,7 +11,15 @@ import Timeout from "./Timeout";
  */
 export default class Explosion {
 
-
+    /**
+     * Create canvas on given element x and y
+     * then render it to display a magical
+     * explosion effect
+     *
+     * @param element
+     * @param x
+     * @param y
+     */
     static explode(element , x , y) {
 
         const bubbles = 10;
@@ -42,9 +50,21 @@ export default class Explosion {
             requestAnimationFrame(renderLoop);
             Explosion._render(particles , ctx , c)
         })();
+
+        Timeout.request(
+            () => {
+                element.removeChild(c)
+            }, 3000
+        );
     }
 
 
+    /**
+     * Create particles of our explosion
+     * @param c
+     * @return {{x: number, y: number, radius: *, color: string, rotation: *, speed: *, friction: number, opacity: *, yVel: number, gravity: number}}
+     * @private
+     */
     static _particle(c) {
 
         let r = function(a,b,c){
@@ -65,6 +85,14 @@ export default class Explosion {
         };
     }
 
+
+    /**
+     * Render particles explosion on canvas
+     * @param particles
+     * @param ctx
+     * @param c
+     * @private
+     */
     static _render(particles , ctx , c) {
         ctx.clearRect(0, 0, c.width, c.height);
 
@@ -91,6 +119,13 @@ export default class Explosion {
     }
 
 
+    /**
+     * Gets one of frames distance
+     * @param t
+     * @param n
+     * @return {{x: number, y: number}}
+     * @private
+     */
     static _getOneFrameDistance(t, n) {
         return {
             x: n * Math.cos(t.rotation * Math.PI / 180),
@@ -98,7 +133,12 @@ export default class Explosion {
         }
     }
 
-
+    /**
+     * Move angle
+     * @param t
+     * @param n
+     * @private
+     */
     static _moveOnAngle(t, n) {
         let a = this._getOneFrameDistance(t, n);
         t.x += a.x, t.y += a.y
