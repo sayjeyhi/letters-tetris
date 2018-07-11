@@ -88,6 +88,10 @@ export default class Charblock {
 
                 // stop interval
                 TetrisGame.interval.clear(this.interval);
+                // Apply character in our matrix
+                TetrisGame.matrix.setCharacter(moveTo.row -1,moveTo.column,this.char);
+
+                console.log(Matrix.matrix);
 
                 // check words
                 TetrisGame.checkWordSuccess(this);
@@ -98,10 +102,7 @@ export default class Charblock {
                         Gameplay.finish("finishWords");
                     } else {
 
-                        // Apply character in our matrix
-                        TetrisGame.matrix.setCharacter(moveTo.row - 1,moveTo.column,this.char);
 
-                        console.log(Matrix.matrix);
 
                         // add new char
                         Charblock.factory();

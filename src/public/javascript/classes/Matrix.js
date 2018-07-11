@@ -202,7 +202,7 @@ export default class Matrix {
                     this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
                     this.matrix[upIndex-1][i] = ' ';
                     if(hasCallback){
-                        callbackObject.fallingCharacters.push({oldX:upIndex-1,oldY:i,newX:upIndex,newY:i});
+                        callbackObject.fallingCharacters.push({oldY:upIndex-1,oldX:i,newY:upIndex,newX:i});
                     }
                 }
             }
