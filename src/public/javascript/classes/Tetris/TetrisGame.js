@@ -4,14 +4,13 @@
 
 'use strict';
 
-import Helper from "../Helper"
 import Timer from "../Timer";
 import Interval from "../Interval";
 import Sound from "../Sound";
 import Settings from "./Settings";
-import GamePlay from "./Gameplay";
 import Storage from "../Storage";
 import Charblock from "./Charblock";
+import Timeout from "../Timeout";
 
 
 /**
@@ -57,6 +56,8 @@ export default class TetrisGame {
             chooseedWordKind: {},           // holds user words kind
             bgSound : null ,                // background sound instance
             isFirstRun: true,               // is this my first run
+            cachedRows : {},                // cache rows here
+            upComingCharEl : null,          // up coming showe element
 
             validatedColumnsCount: 0,       // Count of columns which are validated
             nextChar: '',                   // Next character
@@ -74,7 +75,6 @@ export default class TetrisGame {
             LEFT: 37,
             RIGHT: 39
         };
-
 
         /**
          * Game play board
@@ -136,18 +136,18 @@ export default class TetrisGame {
 
             //Animate FadingOut founded characters
             successObject.wordCharacterPositions.map((item,index) => {
-                setTimeout(
+                Timeout.request(
                     () => {
                         Charblock.fallNodeAnimate(item.y, item.x, null, null)
                     }, index * config.successAnimationIterationDuration
                 );
             });
 
-            setTimeout(
+            Timeout.request(
                 () => {
                     successObject.fallingCharacters.map((item,index) => {
                         console.log(item);
-                        setTimeout(
+                        Timeout.request(
                             ()=>{
                                 Charblock.fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)
                             }, index * config.successAnimationIterationDuration

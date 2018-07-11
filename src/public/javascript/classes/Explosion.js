@@ -2,6 +2,8 @@
  * @module
  */
 
+import Timeout from "./Timeout";
+
 /**
  *  @class
  *  Explosion
@@ -40,10 +42,6 @@ export default class Explosion {
             requestAnimationFrame(renderLoop);
             Explosion._render(particles , ctx , c)
         })();
-
-        setTimeout(function() {
-            document.body.removeChild(c)
-        }, 3000);
     }
 
 

@@ -8,6 +8,7 @@ import Sound from "../Sound"
 import WordsHelper from "./WordsHelper"
 import MaterialColor from "../MaterialColor"
 import Explosion from "../Explosion";
+import Timeout from "../Timeout";
 
 
 export default class Charblock {
@@ -24,7 +25,7 @@ export default class Charblock {
 
         // if game is finished
         if (initValues.finished) {
-            document.querySelector(".showUpComingLetter").innerHTML = "";
+            initValues.upComingCharEl.innerHTML = "";
             return false;
         }
 
@@ -74,11 +75,11 @@ export default class Charblock {
         let moveTo = this._generateMove(eventKeyCode, position);
 
         // if move to is out of range
-        if (moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0) {
+        if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0) {
             return false;
         }
 
-        let destinationEl = TetrisGame.playBoard.querySelector(".row_" + moveTo.row + " .column_" + moveTo.column) || null;
+        let destinationEl = this._getEl(moveTo.row, moveTo.column) || null;
         if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== "")) {
 
             // Apply character in our matrix
@@ -137,7 +138,7 @@ export default class Charblock {
             charblock = Charblock.getNew();
 
             if (Object.keys(charblock).length !== 0) {
-                initializeElement = TetrisGame.playBoard.querySelector(".row_" + charblock.row + " .column_" + charblock.column);
+                initializeElement = this._getEl(charblock.row, charblock.column);
             } else {
                 return false;
             }
@@ -167,7 +168,7 @@ export default class Charblock {
      */
     static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn){
         let deleteTiming = 0;
-        let domToDelete = TetrisGame.playBoard.querySelector(`.row_${oldRow} .column_${oldColumn} .charBlock`);
+        let domToDelete = this._getEl(oldRow , oldColumn , true);
         let gameConfig = TetrisGame.config;
         let oldChar = domToDelete.innerText;
         let oldColor = domToDelete.style.backgroundColor;
@@ -198,7 +199,7 @@ export default class Charblock {
             }
         }
 
-        setTimeout(
+        Timeout.request(
             () => {
                 domParent.removeChild(domToDelete);
             }, deleteTiming
@@ -212,11 +213,41 @@ export default class Charblock {
                     color: oldColor,
                     char: oldChar,
                     animateInClass: "fadeInDown"
-                }, document.getElementById("grid" + newRow + "_" + newColumn)
+                }, domParent.nextElementSibling.querySelector(".column_"+ newColumn)
             );
         }
     }
 
+
+    /**
+     * Gets an element from cache or create it
+     * @param row
+     * @param column
+     * @param charBlock
+     * @return {*}
+     * @private
+     */
+    static _getEl(row, column , charBlock){
+
+        let charBlockString = "";
+        if(typeof charBlock !== "undefined" && charBlock){
+            charBlockString = " .charBlock";
+        }
+
+
+        let cachedRow = TetrisGame.initValues.cachedRows[row] || false;
+        if(Object.keys(cachedRow) > 0){
+            return TetrisGame.initValues.cachedRows[row].querySelector('.column_' + column + charBlockString);
+        }else {
+            let rowElement = TetrisGame.playBoard.querySelector('.row_' + row);
+            if (rowElement) {
+                TetrisGame.initValues.cachedRows[row] = rowElement;
+                return rowElement.querySelector('.column_' + column + charBlockString);
+            }else{
+                return null;
+            }
+        }
+    }
 
 
     /**
@@ -258,19 +289,8 @@ export default class Charblock {
                 };
                 break;
             default:
-
-                // do we have forced position
-                if(typeof position !== "undefined"){
-                    moveTo = {
-                        row: position.x,
-                        column: position.y ,
-                        animateOutClass: "fadeOutDown",
-                        animateInClass: "fadeInDown"
-                    };
-                }else {
-                    console.log("Unable to determine move !");
-                    return false;
-                }
+                console.log("Unable to determine move !");
+                return false;
         }
 
         return moveTo;
@@ -280,12 +300,13 @@ export default class Charblock {
 
     /**
      * Create and show upcoming character
+     * @private
      */
     static _showUpComingChar() {
 
         TetrisGame.initValues.nextChar = WordsHelper.chooseChar();
 
-        let upCommingCharHolder = document.querySelector(".showUpComingLetter");
+        let upCommingCharHolder = TetrisGame.initValues.upComingCharEl;
         let upcommingCharEl = document.createElement('span');
         let animateClass = TetrisGame.config.useAnimationFlag ? " animated bounceIn" : "";
 
@@ -307,7 +328,7 @@ export default class Charblock {
         let animateClass = config.useAnimationFlag ? " animated " : "";
 
         workingElement.className += animateClass + outgoingAnimation;
-        setTimeout(
+        Timeout.request(
             () => {
                 // remove current char
                 workingElement.parentNode.removeChild(workingElement);
