@@ -178,6 +178,46 @@ describe("Matrix Class ", function() {
         matrix.checkWords(words,'d',8,6,{rtl:true,ltr:true},foundCallback);
     });
 
+    it("should find characters with height fall: ", function() {
+        expect(foundWord).toBeTruthy("ad");
+    })
+});
+
+
+
+
+
+
+
+
+describe("Matrix Class ", function() {
+    var falledCharacter,foundWord;
+    beforeEach(function(done) {
+        var matrixArray = [
+            // X:       0   1   2   3   4   5   6   7
+            /* 0 */   [" "," "," "," "," "," "," "," "], //0
+            /* 1 */   [" "," "," "," "," "," "," "," "], //1
+            /* 2 */   [" "," "," "," "," "," "," "," "], //2
+            /* 3 */   [" "," "," "," "," "," "," "," "], //3
+            /* 4 */   [" "," "," "," "," "," "," "," "], //4
+            /* 5 */   [" "," "," "," "," "," "," "," "], //5
+            /* 6 */   [" "," "," "," "," "," "," "," "], //6
+            /* 7 */   [" "," "," "," "," "," "," "," "], //7
+            /* 8 */   [" "," ","b","b"," "," "," "," "], //8
+            /* 9 */   [" "," ","a","a"," "," "," "," "], //9
+            // X:       0   1   2   3   4   5   6   7
+        ];
+        var matrix = new Matrix(matrixArray);
+        var words = [{ word:"ba" }];
+        var foundCallback = function (successObject) {
+            foundWord = words[successObject.wordId].word;
+            // falledCharacter = successObject.fallingCharacters[0];
+            console.log(successObject.fallingCharacters);
+            done();
+        };
+        matrix.checkWords(words,'b',9,1,{rtl:true,ltr:true},foundCallback);
+    });
+
     it("Characters should fall: ", function() {
         // var falledSuccessfuly =
         //     falledCharacter.oldX===5 &&
