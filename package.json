@@ -12,7 +12,7 @@
         "build": "webpack -p --progress --mode production --config webpack.config.build.js",
         "generate-docs": "jsdoc -c jsdoc.conf",
         "view-docs": "http-server ./api-docs/ -o -p 8182",
-        "test": "karma start karma.conf ",
+        "test": "karma start karma.conf.js",
         "view-test": "opener tests/report.html",
         "wiki": "http-server ./wiki/_book/ -o -p 8183"
     },
