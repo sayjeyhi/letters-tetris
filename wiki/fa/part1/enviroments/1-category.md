@@ -1,6 +1,6 @@
 # موضوع کلمات
 
-![category](../../images/enviroments/1-category.png)
+![category](../../assets/images/enviroments/1-category.png)
 
 قبل از ورود به محیط بازی موضوع کلمات رو مشخصی میکنی و این بالا نشون داده میشه. فعلا بازی دارای ۴ موضوع هست:
 

@@ -1,4 +1,7 @@
 {
     "language": "en",
-    "direction": "ltr"
+    "direction": "ltr",
+    "styles": {
+        "website": "assets/styles/website.css"
+    }
 }
