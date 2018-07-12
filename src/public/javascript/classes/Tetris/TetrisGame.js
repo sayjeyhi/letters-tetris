@@ -58,7 +58,7 @@ export default class TetrisGame {
             isFirstRun: true,               // is this my first run
             cachedRows : {},                // cache rows here
             upComingCharEl : null,          // up coming showe element
-
+            score: 0,
             validatedColumnsCount: 0,       // Count of columns which are validated
             nextChar: '',                   // Next character
             activeChar: {},                 // Active character [not stopped] Object index
@@ -119,7 +119,6 @@ export default class TetrisGame {
 
         const callBack = (successObject)=>{
             let word = initValues.choosedWords[successObject.wordId].word;
-
 
             //Remove word from choosed words
             initValues.choosedWords.splice(successObject.wordId,1);
@@ -237,7 +236,7 @@ export default class TetrisGame {
                         </div>
                        <div class="courseArea">
                            <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
-                           <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : 0</div>
+                           <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="score"> 0 </span> </div>
                            <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
                            <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
                        </div>
