@@ -109,6 +109,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .modal .titleModal .closeModal{float:right;font-size:17px;padding:6px 4px;cursor:pointer;color:#a5611f;position:relative;right:-3px}
 .modal .contentModal{font-size:14px;padding:7px}
 .modal .footerModal{padding:8px;margin-top:10px}
+.modal .formData .linearicon{display:none}
 .modal .footerModal .buttonModal{display:inline-block;background:#f0efef;cursor:pointer;padding:4px 12px;font-size:13px;border-radius:6px;margin:0 2px}
 .modal .footerModal .buttonModal:first-child{margin:0!important}
 .modal .footerModal .buttonModal.isOk{background:#6bd849;color:#fff}
@@ -126,9 +127,9 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .modal.ltr #settingForm .formLabel{margin-left:12px!important;margin-right:0!important}
 
 .cssRadio input[type="radio"]{display:none}
-.cssRadio input[type="radio"] + label span{cursor:pointer;padding:8px 22px;font-size:13px;font-family:'BYekan','SDF','Tahoma',sans-serif,;display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383}
-.cssRadio.animatedSpan input[type="radio"] + label span{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out}
-.cssRadio input[type="radio"]:checked + label span{cursor:default;color:#fff;background:#6e8ff0!important}
+.cssRadio input[type="radio"] + label > span{cursor:pointer;padding:8px 22px;font-size:13px;font-family:'BYekan','SDF','Tahoma',sans-serif,;display:inline-block;margin:10px 5px;font-weight:400;border-radius:4px;background:#cccccc4d;color:#838383}
+.cssRadio.animatedSpan input[type="radio"] + label > span{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out}
+.cssRadio input[type="radio"]:checked + label > span{cursor:default;color:#fff;background:#6e8ff0!important}
 
 
 @media (max-width: 868px) {
@@ -149,8 +150,13 @@ svg :not(.doNotUnfill){stroke:currentColor}
     .gameHolder.isLtr .behindPlayBoard .courseArea{text-align:left;margin-left:5px;position:relative;bottom:5px;font-size:11px}
     .modal{width:70%;}
 }
-@media (max-width: 868px) {
+@media (max-width: 648px) {
     .modal{width:85%;}
+    .modal .formLabel {width: 40% !important;margin-right:0 !important}
+    .modal .formLabel .linearicon{font-size: 27px !important}
+    .modal .formData .textLabel{display:none !important}
+    .modal .formData .linearicon{display:inline-block !important}
+    .modal .formData label > span{margin:6px 2px !important;padding: 8px 16px;}
 }
 
 
