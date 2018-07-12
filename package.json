@@ -11,10 +11,10 @@
         "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --progress --mode development --config webpack.config.dev.js",
         "build": "webpack -p --progress --mode production --config webpack.config.build.js",
         "generate-docs": "jsdoc -c jsdoc.conf",
-        "view-docs": "opener api-docs/index.html",
+        "view-docs": "http-server ./api-docs/ -o -p 8182",
         "test": "karma start karma.conf ",
         "view-test": "opener tests/report.html",
-        "wiki": "http-server ./wiki/_book/ -o"
+        "wiki": "http-server ./wiki/_book/ -o -p 8183"
     },
     "repository": {
         "type": "git",
