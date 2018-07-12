@@ -13,15 +13,15 @@
         <td colspan="3" title="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1">Browser: PhantomJS 2.1.1 (Linux 0.0.0)</td>
       </tr>
       <tr class="overview">
-        <td colspan="3">Timestamp: 2018-7-13 00:12:53</td>
+        <td colspan="3">Timestamp: 2018-7-13 01:00:39</td>
       </tr>
       <tr>
         <td colspan="3">
-          10 tests / 
+          5 tests / 
           0 errors / 
-          1 failures / 
+          0 failures / 
           0 skipped / 
-          runtime: 2.036s
+          runtime: 2.008s
         </td>
       </tr>
       <tr class="header">
@@ -30,8 +30,23 @@
         <td>Suite / Results</td>
       </tr>
       <tr class="pass">
-        <td>Passed in 0.003s</td>
-        <td>should find characters with height fall: </td>
+        <td>Passed in 2.003s</td>
+        <td>request method should do something after a period</td>
+        <td>Timeout Class </td>
+      </tr>
+      <tr class="pass">
+        <td>Passed in 0s</td>
+        <td>method set: with default value saves an item in localStorage</td>
+        <td>Storage Class</td>
+      </tr>
+      <tr class="pass">
+        <td>Passed in 0s</td>
+        <td>method get: with wrong key, it shold return value of second argument</td>
+        <td>Storage Class</td>
+      </tr>
+      <tr class="pass">
+        <td>Passed in 0.005s</td>
+        <td>Characters should fall: </td>
         <td>Matrix Class </td>
       </tr>
       <tr class="pass">
@@ -39,60 +54,9 @@
         <td>getRandomColor method should randomly return a valid color</td>
         <td>MaterialColor class</td>
       </tr>
-      <tr class="pass">
-        <td>Passed in 0.003s</td>
-        <td>Method Check words, Should work with persian(or any utf8 characters): </td>
-        <td>Matrix Class </td>
-      </tr>
-      <tr class="pass">
-        <td>Passed in 2.017s</td>
-        <td>request method should do something after a period</td>
-        <td>Timeout Class </td>
-      </tr>
-      <tr class="pass">
-        <td>Passed in 0.004s</td>
-        <td>Characters should fall: </td>
-        <td>Matrix Class </td>
-      </tr>
-      <tr class="pass">
-        <td>Passed in 0.002s</td>
-        <td>Method Check words, Should not find words when check type is one direction: </td>
-        <td>Matrix Class </td>
-      </tr>
-      <tr class="pass">
-        <td>Passed in 0.003s</td>
-        <td>Check words method should find words in matrix</td>
-        <td>Matrix Class </td>
-      </tr>
-      <tr class="pass">
-        <td>Passed in 0.002s</td>
-        <td>Characters should fall: </td>
-        <td>Matrix Class </td>
-      </tr>
-      <tr class="fail">
-        <td>Failed</td>
-        <td>method get: with wrong key, it shold return value of second argument</td>
-        <td>
-          Storage Class
-          <br />Expected 'defaultFoo' to be 'defaults'.
-&lt;Jasmine&gt;
-webpack:///test/classes/Storage-spec.js:11 &lt;- test/tests.webpack.js:4823:120
-&lt;Jasmine&gt;
-
-        </td>
-      </tr>
-      <tr class="pass">
-        <td>Passed in 0s</td>
-        <td>method set: with default value saves an item in localStorage</td>
-        <td>Storage Class</td>
-      </tr>
       <tr class="system-out">
-        <td colspan="3"><strong>System output:</strong><br />PhantomJS 2.1.1 (Linux 0.0.0) LOG: '.LTR: Found valid word:ad In:ad'
-<br />PhantomJS 2.1.1 (Linux 0.0.0) LOG: '.RTL: Found valid word:سلام In:سلام'
-<br />PhantomJS 2.1.1 (Linux 0.0.0) LOG: '.LTR: Found valid word:ba In:baa'
-<br />PhantomJS 2.1.1 (Linux 0.0.0) LOG: [Object{oldY: 8, oldX: 2, newY: 9, newX: 2}]
-<br />PhantomJS 2.1.1 (Linux 0.0.0) LOG: '.LTR: Found valid word:test In:test'
-<br />PhantomJS 2.1.1 (Linux 0.0.0) LOG: '.RTL: Found valid word:سلام In:سلام'
+        <td colspan="3"><strong>System output:</strong><br />PhantomJS 2.1.1 (Linux 0.0.0) LOG: '.LTR: Found valid word:ba In:ba'
+<br />PhantomJS 2.1.1 (Linux 0.0.0) LOG: [Object{oldY: 7, oldX: 2, newY: 8, newX: 2}]
 </td>
       </tr>
     </table>

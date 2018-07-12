@@ -250,6 +250,7 @@ class ArshLoader {
      */
     static build() {
 
+        window.arshLoader = ArshLoader;
 
         // register main fields of class
         ArshLoader.setProperties();
