@@ -3,7 +3,7 @@
     "version": "0.7.0",
     "description": "Fanavard UI Develop Challenge - ArshTeam",
     "private": true,
-    "main": "index.js",
+    "main": "src/javascript/loading/ArshLoader.js",
     "directories": {
         "doc": "docs"
     },
