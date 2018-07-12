@@ -94,7 +94,7 @@ export default class TetrisGame {
             finished: false,                // is game finished
             wordsFinished: false,           // do we run out of words
             chooseedWordKind: {},           // holds user words kind
-            bgSound : null ,                // background sound instance
+            bgSound : {} ,                  // background sound instance
             isFirstRun: true,               // is this my first run
             cachedRows : {},                // cache rows here
             upComingCharEl : null,          // up coming showe element
@@ -305,7 +305,7 @@ export default class TetrisGame {
 
 
         if(initValues.isFirstRun){
-            initValues.bgSound = new Sound("background").play();
+            initValues.bgSound = Sound.playByKey("background" , true);
             initValues.isFirstRun = false;
         }
 

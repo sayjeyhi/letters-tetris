@@ -361,9 +361,7 @@ class ArshLoader {
                 });
             });
         }
-
     }
-
 }
 
 ArshLoader.build();

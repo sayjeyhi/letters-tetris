@@ -9,22 +9,11 @@
 export default class Sound {
 
     /**
-     * Play an audio from url
-     * @param name
-     * @return {Sound}
-     */
-    constructor (name){
-        this.audio = new Audio('assets/mp3/' + name + '.mp3');
-        return this;
-    }
-
-
-    /**
      * Plays the current instance of media
      * @param instance
      * @return {Sound}
      */
-    play(instance){
+    static play(instance){
         if(instance !== undefined || this.audio) {
             if(!instance){
                 instance = this.audio;
@@ -90,6 +79,7 @@ export default class Sound {
      * Play sound based on it's name
      * @param key
      * @param canPlay
+     * @return Audio
      */
     static playByKey(key , canPlay){
 
@@ -104,6 +94,8 @@ export default class Sound {
         }
 
         this.play(audioInstance);
+
+        return audioInstance;
 
     }
 }
