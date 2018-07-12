@@ -14,10 +14,39 @@ import Timeout from "../Timeout";
 
 
 /**
+ * @typedef {Object} TetrisGameConfig
+ *
+ * @property rows {Number} - Rows of the game
+ * @property columnsMin {Number} - Columns of the game
+ * @property columnsMax {Number} - Max size of columns of the game
+ * @property workingWordCount {Number} - Count of words to work with
+ * @property charSpeed=1000 {Number} Miniseconds to wait to fall new character when making game harder
+ * @property checkInRow=true {Boolean}
+ * @property checkInColumn=false {Boolean}
+ * @property useLowercase=false {Boolean} Force use lowercase when selecting words
+ * @property simpleFallDownAnimateSpeed=700 {Number} Duration of animation when characters are falling down in simple mode
+ * @property mediumFallDownAnimateSpeed=500 {Number} Duration of animation when characters are falling down in medium mode
+ * @property expertFallDownAnimateSpeed=200 {Number} Duration of animation when characters are falling down in expert mode
+ * @property successAnimationIterationDuration=100 {Number} Duration between animation of exploding chars when characters found
+ * @property playBackgroundSound=true {Boolean} Option to disable music in background
+ * @property playEventsSound=true {Boolean} Option to disable sound of events
+ * @property level=1 {Number} - Up to 3 if it is big it is hard to play
+ * @property useAnimationFlag=true {Boolean} - Make animate or not :|
+ * @property showGrids=true {Boolean} - show grids flag
+ * @property do_encryption=true {Boolean} - Enables encryption when saving score
+ * @property encryptionKeySize=16 {Number} - Size of key used in encryption
+ * @property scoreCalculator=(word)=>{Math.pow(1.3,word.length)} - Function to calculate score based on word. Larger words will have better score using Math.pow(1.3,word.length)
+ */
+
+/**
  *
  */
 export default class TetrisGame {
 
+    /**
+     *
+     * @returns {TetrisGame}
+     */
     static init(){
 
         /**
