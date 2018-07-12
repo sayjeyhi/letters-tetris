@@ -10,10 +10,10 @@
     "scripts": {
         "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --progress --mode development --config webpack.config.dev.js",
         "build": "webpack -p --progress --mode production --config webpack.config.build.js",
-        "view-docs": "opener api-docs/index.html",
         "generate-docs": "jsdoc -c jsdoc.conf",
-        "test": "karma start karma.conf",
-        "view-test": "opener test/report.html"
+        "view-docs": "opener api-docs/index.html",
+        "test": "karma start karma.conf ",
+        "view-test": "opener tests/report.html"
     },
     "repository": {
         "type": "git",

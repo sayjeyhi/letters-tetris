@@ -37,6 +37,8 @@ import Timeout from "../Timeout";
  * @property scoreCalculator=(word)=>{Math.pow(1.3,word.length)} - Function to calculate score based on word. Larger words will have better score using Math.pow(1.3,word.length)
  */
 
+
+
 /**
  *
  */
@@ -143,11 +145,17 @@ export default class TetrisGame {
      * @param {charBlock} lastChar
      */
     static checkWordSuccess(lastChar) {
-
         let config = TetrisGame.config;
         let initValues = TetrisGame.initValues;
 
         const callBack = (successObject)=> {
+
+            if(!successObject) {
+                //no words has been found, resume the game
+                TetrisGame.initValues.paused=false;
+                return;
+            };
+
             let word = initValues.choosedWords[successObject.wordId].word;
 
             //Remove word from choosed words
@@ -155,12 +163,7 @@ export default class TetrisGame {
 
 
             //Get encrypted value of Score wtih our random generated key
-            let score;
-            if (this.config.do_encryption){
-                score = Storage.getEncrypted("score", this.initValues.encryptionKey);
-            }else{
-                score = Storage.getInt("score",0);
-            }
+            let score = TetrisGame.getScore();
 
             //Increase value by scoreCalculator from config
             score += this.config.scoreCalculator(word);
@@ -199,7 +202,6 @@ export default class TetrisGame {
 
             Timeout.request(
                 () => {
-                    console.log(successObject);
                     successObject.fallingCharacters.map((item,index) => {
                         Timeout.request(
                             ()=>{
@@ -207,12 +209,22 @@ export default class TetrisGame {
                             }, index * config.successAnimationIterationDuration
                         );
                     });
+
+                    Timeout.request(
+                        ()=>{
+                            //Resume game after all animations has been finished
+                            TetrisGame.initValues.paused=false;
+                        }, successObject.fallingCharacters.length * config.successAnimationIterationDuration
+                    );
+
+
+
                 }, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
             )
 
         };
-
-        TetrisGame.matrix.checkWords(initValues.choosedWords,lastChar.row,lastChar.column,this.config.directionWordChecks,callBack);
+        TetrisGame.initValues.paused=true;
+        TetrisGame.matrix.checkWords(initValues.choosedWords,lastChar.char,lastChar.row,lastChar.column,this.config.directionWordChecks,callBack);
         // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
     }
 
@@ -315,9 +327,24 @@ export default class TetrisGame {
                 </footer>`;
     }
 
+
+    /**
+     * Get score of user from Storage
+     * @returns {number}
+     */
+    static getScore() {
+        let score;
+        if (this.config.do_encryption){
+            score = Storage.getEncrypted("score", this.initValues.encryptionKey);
+        }else{
+            score = Storage.getInt("score",0);
+        }
+        return score;
+    }
+
     /**
      * Set score in UI
-     * @param score
+     * @param score {Number}
      */
     static setScoreInUI(score) {
         document.querySelector(".scoreHolder").innerHTML = Math.round(score);

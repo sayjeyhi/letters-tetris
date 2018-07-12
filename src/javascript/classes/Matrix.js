@@ -10,8 +10,8 @@ import Helper from "./Helper";
 export default class Matrix {
     /**
      *
-     * @param matrix {2DArray} Matrix of characters
-     * @property matrix {2DArray} Matrix of characters
+     * @param matrix {Array} Matrix of characters
+     * @property matrix {Array} Matrix of characters
      *
      *
      * @example
@@ -46,8 +46,8 @@ export default class Matrix {
      * @param {CheckTypes} checkType to search for strings in matrix from x,y point can have any of these values: L|R|T|D
      * @param {Function} successCallback - Returns founded characters, Falling characters and
      */
-    checkWords(words,rowId,colId,checkType,successCallback){
-
+    checkWords(words,char,rowId,colId,checkType,successCallback){
+        this.setCharacter(rowId,colId,char);
         let rights = this._getRailingChars(rowId,colId,'R');
         let lefts = this._getRailingChars(rowId,colId,'L');
         let tops = this._getRailingChars(rowId,colId,'T');
@@ -58,20 +58,22 @@ export default class Matrix {
         const sentenceRTL = (Helper.reverse(sentenceLTR)); //Reverse it to get
         const sentenceDTT = (Helper.reverse(sentenceTTD));
 
-
+        let foundWord = false;
         for(let i=0, len=words.length; i < len; i++){
             if(!words[i]) continue;
             let pos,
                 word = words[i].word
             ;
+
             if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
                 console.log(".LTR: Found valid word:"+ word +" In:" + sentenceLTR);
                 let startFrom = colId-lefts.len+pos;
-
+                foundWord=true;
                 this._deleteCharacters(rowId,colId,i,{ltr:true},startFrom,word.length,successCallback);
             }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
                 console.log(".RTL: Found valid word:"+ word +" In:" + sentenceRTL);
                 let startFrom = colId+rights.len-pos;
+                foundWord=true;
                 this._deleteCharacters(rowId,colId,i,{rtl:true},startFrom,word.length,successCallback);
             }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
                 console.log("Found valid word:"+ word +" In:" + sentenceRTL)
@@ -79,6 +81,13 @@ export default class Matrix {
                 console.log("Found valid word:"+ word +" In:" + sentenceDTT)
             }
         }
+
+
+        if(!foundWord){
+            //No word has been found, call the callback, without param
+            successCallback();
+        }
+
     }
 
 
