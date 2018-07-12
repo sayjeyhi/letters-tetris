@@ -60,6 +60,8 @@ export default class Matrix {
         const sentenceRTL = (Helper.reverse(sentenceLTR)); //Reverse it to get
         const sentenceDTT = (Helper.reverse(sentenceTTD));
 
+        debugger;
+
         let foundWord = false;
         for(let i=0, len=words.length; i < len; i++){
             if(!words[i]) continue;

@@ -208,18 +208,19 @@ export default class TetrisGame {
                 Timeout.request(
                     () => {
                         Charblock.fallNodeAnimate(item.y, item.x, null, null)
-                    }, index * config.successAnimationIterationDuration
-                );
+                    }, index * config.successAnimationIterationDuration);
             });
+
+            TetrisGame.initValues.paused=false;
 
             Timeout.request(
                 () => {
                     successObject.fallingCharacters.map((item,index) => {
                         Timeout.request(
                             ()=>{
+                                console.log(item);
                                 Charblock.fallNodeAnimate(item.oldY, item.oldX, item.newY, item.newX)
-                            }, index * config.successAnimationIterationDuration
-                        );
+                            }, index * config.successAnimationIterationDuration);
                     });
 
                     Timeout.request(
@@ -229,13 +230,11 @@ export default class TetrisGame {
                         }, successObject.fallingCharacters.length * config.successAnimationIterationDuration
                     );
 
-
-
                 }, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
             )
-
         };
         TetrisGame.initValues.paused=true;
+        console.log(TetrisGame.matrix.matrix);
         TetrisGame.matrix.checkWords(
             initValues.choosedWords,
             lastChar,
