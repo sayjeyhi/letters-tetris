@@ -12,3 +12,9 @@
         -   [۴- تنظیمات](part1/enviroments/4-settings.md)
         -   [۵- وضعیت](part1/enviroments/5-status.md)
         -   [۶- محیط اصلی بازی](part1/enviroments/6-main-game.md)
+
+    -   [پایان بازی](part1/endgame.md)
+
+### بخش دوم: راهنمای فنی
+
+-   [بخش دوم: راهنمای فنی](part2/help.md)
