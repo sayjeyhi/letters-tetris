@@ -1,0 +1,16 @@
+{
+    "short_name": "Tetris",
+    "name": "Persian Tetris",
+    "icons": [
+        {
+            "src": "assets/img/fanavardLogo.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#3367D6",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#3367D6"
+}

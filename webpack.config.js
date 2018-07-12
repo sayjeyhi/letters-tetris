@@ -17,7 +17,7 @@ const appHtmlTitle = 'Webpack Boilerplate';
  */
 module.exports = {
     entry: {
-        bundle: path.join(dirApp, 'public/javascript/loading/arshLoader.js')
+        bundle: path.join(dirApp, 'public/javascript/loading/ArshLoader.js')
     },
     resolve: {
         modules: [
