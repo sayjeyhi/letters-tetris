@@ -69,6 +69,11 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .playBoard.showGrids .isRow{border-bottom:1px dashed #efefef}
 .playBoard.showGrids .isRow:last-child{border:none}
 
+.gameHolder .playBoard .foundWordAnimation{
+    position:absolute;
+    left:20px;
+    bottom: 40px;
+}
 .gameHolder .playBoard .isColumn{position:relative;display:inline-block;height:100%}
 .gameHolder .playBoard.is6Column .isColumn{width:16.66%}
 .gameHolder .playBoard.is8Column .isColumn{width:12.5%}

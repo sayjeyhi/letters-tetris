@@ -8,18 +8,16 @@ import Helper from "./Helper";
  * This class will hold values of characters, find successful created words, delete them and etc
  */
 export default class Matrix {
+
     /**
-     *
      * @param matrix {Array} Matrix of characters
      * @property matrix {Array} Matrix of characters
-     *
-     *
      * @example
      *  let matrix = new Matrix([[' ',' ',' ',' '],
-     *                          [' ',' ',' ',' '],
-     *                          [' ',' ',' ',' '],
-     *                          [' ',' ',' ',' ']]
-     *                          );
+     *      [' ',' ',' ',' '],
+     *      [' ',' ',' ',' '],
+     *      [' ',' ',' ',' ']]
+     *  );
      */
     constructor(matrix) {
         this.matrix = matrix;
@@ -29,7 +27,7 @@ export default class Matrix {
 
 
     /**
-     *
+     * Set character on matrix
      * @param y {Number} - Column of matrix
      * @param x {Number} - Row of matrix
      * @param char {String} - Character to place in matrix
@@ -40,6 +38,7 @@ export default class Matrix {
 
 
     /**
+     * Check word happens
      * @param {String[]} words - To search in strings
      * @param {Number} rowId - Index of row in matrix
      * @param {Number} colId - Index of column in matrix
@@ -156,7 +155,7 @@ export default class Matrix {
      */
 
     /**
-     *
+     * Delete characters from matrix
      * @param rowId {Number} - Row id of last checking character in matrix
      * @param colId {Number} - col id of last checking character in matrix
      * @param wordId {Number} - Id of founded word

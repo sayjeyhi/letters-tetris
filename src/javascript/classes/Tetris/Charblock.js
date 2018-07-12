@@ -296,7 +296,6 @@ export default class Charblock {
                 };
                 break;
             default:
-                console.log("Unable to determine move !");
                 return false;
         }
 
