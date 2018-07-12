@@ -22,7 +22,6 @@ export default class Gameplay {
      */
     static start() {
 
-
         // cache most used elements on class
         TetrisGame.playBoard = document.querySelector(".playBoard");
         TetrisGame.initValues.upComingCharEl = document.querySelector(".showUpComingLetter");

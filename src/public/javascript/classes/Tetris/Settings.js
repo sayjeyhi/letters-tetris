@@ -24,7 +24,7 @@ export default class Settings {
             Storage.set("settings" , settings);
 
         }else{
-            settings = Storage.getJson('settings' , false);
+            settings = Storage.getObject('settings' , false);
             if(!settings){
                 return false;
             }
@@ -58,7 +58,7 @@ export default class Settings {
     static show() {
 
         // get defined settings
-        let settings = Storage.getJson('settings' , {
+        let settings = Storage.getObject('settings' , {
             soundPlay : 1,
             eventSounds : 1,
             useAnimation : 1,

@@ -36,14 +36,16 @@ export default class TetrisGame {
             mediumFallDownAnimateSpeed : 500,
             expertFallDownAnimateSpeed : 200,
             successAnimationIterationDuration: 100,
-
             // user setting values
             playBackgroundSound: true,
             playEventsSound: true,
             level: 1 ,                       // up to 3 - if it is big it is hard to play
             useAnimationFlag : true,         // make animate or not
-            showGrids : true                 // show grids flag
-        };
+            showGrids : true,                 // show grids flag
+            do_encryption: true, // Enables encryption when saving score
+            encryptionKeySize: 16, //Size of key Used in encryption
+            scoreCalculator: (word) => {return Math.pow(1.3, word.length)} //Larger words will have better score
+    };
 
 
         /**
@@ -58,12 +60,13 @@ export default class TetrisGame {
             isFirstRun: true,               // is this my first run
             cachedRows : {},                // cache rows here
             upComingCharEl : null,          // up coming showe element
-            score: 0,
+            score: 0,                       // This is fake, We will never show anything related to this to user
             validatedColumnsCount: 0,       // Count of columns which are validated
             nextChar: '',                   // Next character
             activeChar: {},                 // Active character [not stopped] Object index
             choosedWords: [],               // Choosed words to work with them
-            choosedWordsUsedChars: []       // Chars that used from choosed words
+            choosedWordsUsedChars: [],       // Chars that used from choosed words
+            encryptionKey: [],
         };
 
 
@@ -117,11 +120,36 @@ export default class TetrisGame {
         let config = TetrisGame.config;
         let initValues = TetrisGame.initValues;
 
-        const callBack = (successObject)=>{
+        const callBack = (successObject)=> {
             let word = initValues.choosedWords[successObject.wordId].word;
 
             //Remove word from choosed words
-            initValues.choosedWords.splice(successObject.wordId,1);
+            initValues.choosedWords.splice(successObject.wordId, 1);
+
+
+            //Get encrypted value of Score wtih our random generated key
+            let score;
+            if (this.config.do_encryption){
+                score = Storage.getEncrypted("score", this.initValues.encryptionKey);
+            }else{
+                score = Storage.getInt("score",0);
+            }
+
+            //Increase value by scoreCalculator from config
+            score += this.config.scoreCalculator(word);
+
+            //Update our fake score variable to let hacker think they are dealing with real variable
+            this.initValues.score = score;
+
+            //Update & encrypt score in Storage
+            if (this.config.do_encryption) {
+                Storage.setEncrypted("score", score, this.initValues.encryptionKey);
+            }else{
+                Storage.set("score", score);
+            }
+
+            //Update score in UI
+            this.setScoreInUI(score);
 
             //Remove characters from choosed characters
             word.split("").map((char)=>{
@@ -145,14 +173,13 @@ export default class TetrisGame {
             Timeout.request(
                 () => {
                     successObject.fallingCharacters.map((item,index) => {
-                        console.log(item);
                         Timeout.request(
                             ()=>{
                                 Charblock.fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)
                             }, index * config.successAnimationIterationDuration
                         );
                     });
-                }, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
+                }, //successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
             )
 
         };
@@ -172,6 +199,17 @@ export default class TetrisGame {
     static build() {
 
         let initValues = this.initValues;
+
+        if(TetrisGame.config.do_encryption){
+            const encryptionKeySize=TetrisGame.config.encryptionKeySize;
+            for(let i=0;i<encryptionKeySize;++i)
+                TetrisGame.initValues.encryptionKey.push(1+Math.floor(Math.random()*253));
+            Storage.setEncrypted("score", 0, this.initValues.encryptionKey);
+        }else{
+            Storage.set("score", "0");
+        }
+
+
 
         // blob for timer
         window.blobTiming = new Blob([
@@ -236,7 +274,7 @@ export default class TetrisGame {
                         </div>
                        <div class="courseArea">
                            <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
-                           <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="score"> 0 </span> </div>
+                           <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> </div>
                            <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
                            <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
                        </div>
@@ -249,4 +287,13 @@ export default class TetrisGame {
                     </div>
                 </footer>`;
     }
+
+    /**
+     * Set score in UI
+     * @param score
+     */
+    static setScoreInUI(score) {
+        document.querySelector(".scoreHolder").innerHTML = Math.round(score);
+    }
+
 }

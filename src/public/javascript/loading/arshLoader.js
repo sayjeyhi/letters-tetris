@@ -75,7 +75,7 @@ class ArshLoader {
      * @private
      */
     static _getSettings(){
-        return Storage.getJson('settings' , {
+        return Storage.getObject('settings' , {
             useAnimation : 1,
             soundPlay : 1,
         });
@@ -87,6 +87,19 @@ class ArshLoader {
      */
     static afterLoad() {
         if (!ArshLoader.isLoaded) {
+
+            var encKey = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
+            Storage.setEncrypted("encint",100,encKey);
+            var encint = Storage.getEncrypted("encint",encKey);
+            console.log("---")
+            console.log(encint)
+            console.log(typeof encint)
+            console.log("---")
+
+
+
+
+
             let loadingTextElement = ArshLoader._('.loadingText');
             loadingTextElement.querySelector(".archLoadingAnimation").className += " animated fadeOut";
 

@@ -30,7 +30,7 @@
                 expect(Storage.get()).toEqual(jasmine.any(String));
             });
             it("method getJson: Returns a object of given key from localStorage", () => {
-                expect(Storage.getJson()).toEqual(jasmine.any(Object));
+                expect(Storage.getObject()).toEqual(jasmine.any(Object));
             });
             it("method set: Saves an item in localStorage", () => {
                 expect(Storage.set("foo", "bar")).toBe(undefined);
