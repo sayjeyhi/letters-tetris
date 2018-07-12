@@ -360,9 +360,7 @@ class ArshLoader {
                 });
             });
         }
-
     }
-
 }
 
 ArshLoader.build();
