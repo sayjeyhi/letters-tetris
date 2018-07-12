@@ -1,8 +1,8 @@
 # تنظیمات
 
-با کلیک روی ![settings](../../images/enviroments/4-settings.png) برات یک پنجره به شکل زیر باز میشه که دارای بخش های مختلفیه. بعد از عکس برات توضیح دادیم هر قسمتو
+با کلیک روی ![settings](../../assets/images/enviroments/4-settings.png) برات یک پنجره به شکل زیر باز میشه که دارای بخش های مختلفیه. بعد از عکس برات توضیح دادیم هر قسمتو
 
--   ![settings modal](../../images/enviroments/4-settings-modal.png)
+-   ![settings modal](../../assets/images/enviroments/4-settings-modal.png)
 
 #### موسیقی پس زمینه
 
@@ -28,7 +28,7 @@ _پیشفرض: فعال_
 
 _پیشفرض: غیر فعال_
 
--   ![settings modal](../../images/enviroments/4-settings-grid.png)
+-   ![settings modal](../../assets/images/enviroments/4-settings-grid.png)
 
 #### سطح بازی
 

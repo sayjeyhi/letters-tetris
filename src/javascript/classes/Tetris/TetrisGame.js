@@ -167,6 +167,9 @@ export default class TetrisGame {
 
             let word = initValues.choosedWords[successObject.wordId].word;
 
+            console.log(TetrisGame.matrix.matrix);
+            console.log(successObject.wordCharacterPositions);
+
             //Remove word from choosed words
             initValues.choosedWords.splice(successObject.wordId, 1);
 

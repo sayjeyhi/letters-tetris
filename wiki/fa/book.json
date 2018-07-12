@@ -1,4 +1,7 @@
 {
     "language": "fa",
-    "direction": "rtl"
+    "direction": "rtl",
+    "styles": {
+        "website": "assets/styles/website.css"
+    }
 }
