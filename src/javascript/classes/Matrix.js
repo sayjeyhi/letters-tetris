@@ -40,12 +40,15 @@ export default class Matrix {
     /**
      * Check word happens
      * @param {String[]} words - To search in strings
-     * @param {Number} rowId - Index of row in matrix
-     * @param {Number} colId - Index of column in matrix
+     * @param {Object} lastChar - Last character that has been set
      * @param {CheckTypes} checkType to search for strings in matrix from x,y point can have any of these values: L|R|T|D
      * @param {Function} successCallback - Returns founded characters, Falling characters and
      */
-    checkWords(words,char,rowId,colId,checkType,successCallback){
+    checkWords(words,lastChar,checkType,successCallback){
+        let rowId = lastChar.row,
+            colId = lastChar.column,
+            char = lastChar.char;
+
         this.setCharacter(rowId,colId,char);
         let rights = this._getRailingChars(rowId,colId,'R');
         let lefts = this._getRailingChars(rowId,colId,'L');

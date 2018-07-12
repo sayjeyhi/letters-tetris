@@ -238,9 +238,7 @@ export default class TetrisGame {
         TetrisGame.initValues.paused=true;
         TetrisGame.matrix.checkWords(
             initValues.choosedWords,
-            lastChar.char,
-            lastChar.row,
-            lastChar.column,
+            lastChar,
             this.config.directionWordChecks,
             callBack
         );
