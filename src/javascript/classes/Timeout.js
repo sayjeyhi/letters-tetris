@@ -33,13 +33,13 @@ export default class Timeout {
      * @param {function} fn The callback function
      * @param {int} delay The delay in milliseconds
      */
-    static request(fn, delay,old_mode) {
-        if(( !window.requestAnimationFrame      	&&
+    static request(fn, delay) {
+        if(!window.requestAnimationFrame      	&&
             !window.webkitRequestAnimationFrame &&
             !(window.mozRequestAnimationFrame   &&
             window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
             !window.oRequestAnimationFrame &&
-            !window.msRequestAnimationFrame ) || old_mode)
+            !window.msRequestAnimationFrame)
             return window.setTimeout(fn, delay);
 
         let start = new Date().getTime(),
