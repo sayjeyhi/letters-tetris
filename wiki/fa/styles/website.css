@@ -55,6 +55,14 @@ body {
     transition: right 250ms ease;
 }
 
+.navigation.navigation-next {
+    margin-right: 0 !important;
+}
+
+.markdown-section img {
+    vertical-align: middle;
+}
+
 /*
     themes customize
 */
