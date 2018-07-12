@@ -53,7 +53,9 @@ export default class Explosion {
 
         Timeout.request(
             () => {
-                element.removeChild(c)
+                if(c.parentElement === element) {
+                    element.removeChild(c);
+                }
             }, 3000
         );
     }

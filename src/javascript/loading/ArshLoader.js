@@ -75,9 +75,9 @@ class ArshLoader {
      * @private
      */
     static _getSettings(){
-        return Storage.getJson('settings' , {
+        return Storage.getObject('settings' , {
             useAnimation : 1,
-            soundPlay : 1,
+            soundPlay : 1
         });
     }
 
@@ -345,6 +345,21 @@ class ArshLoader {
 
         // play loading sound
         Sound.playByKey('loading' , this.soundPlay);
+
+
+
+        // register service worker
+        // if ('serviceWorker' in navigator) {
+        //     window.addEventListener('load', function() {
+        //         navigator.serviceWorker.register('/serviceWorker.js').then(function(registration) {
+        //             // Registration was successful
+        //             console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        //         }, function(err) {
+        //             // registration failed :(
+        //             console.log('ServiceWorker registration failed: ', err);
+        //         });
+        //     });
+        // }
 
     }
 
