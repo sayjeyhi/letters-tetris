@@ -1,6 +1,6 @@
 # وضعیت
 
-![category](../../images/enviroments/5-status.png)
+![category](../../assets/images/enviroments/5-status.png)
 
 امتیاز کسب شده، تعداد کلمات ساخته شده و مدت زمان گذشته شده از بازی رو بهت نشون میده
 

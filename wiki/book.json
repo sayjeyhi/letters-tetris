@@ -2,6 +2,9 @@
     "language": "fa",
     "direction": "rtl",
     "plugins": ["-sharing"],
+    "styles": {
+        "website": "assets/styles/website.css"
+    },
     "pluginsConfig": {
         "sharing": {
             "facebook": false,
