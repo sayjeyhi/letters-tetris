@@ -165,10 +165,8 @@ export default class TetrisGame {
                 return;
             }
 
-            let word = initValues.choosedWords[successObject.wordId].word;
 
-            console.log(TetrisGame.matrix.matrix);
-            console.log(successObject.wordCharacterPositions);
+            let word = initValues.choosedWords[successObject.wordId].word;
 
             //Remove word from choosed words
             initValues.choosedWords.splice(successObject.wordId, 1);
@@ -218,7 +216,6 @@ export default class TetrisGame {
                     successObject.fallingCharacters.map((item,index) => {
                         Timeout.request(
                             ()=>{
-                                console.log(item);
                                 Charblock.fallNodeAnimate(item.oldY, item.oldX, item.newY, item.newX)
                             }, index * config.successAnimationIterationDuration);
                     });
@@ -234,7 +231,8 @@ export default class TetrisGame {
             )
         };
         TetrisGame.initValues.paused=true;
-        console.log(TetrisGame.matrix.matrix);
+
+
         TetrisGame.matrix.checkWords(
             initValues.choosedWords,
             lastChar,

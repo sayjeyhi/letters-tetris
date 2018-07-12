@@ -49,6 +49,7 @@ export default class Matrix {
             colId = lastChar.column,
             char = lastChar.char;
 
+
         this.setCharacter(rowId,colId,char);
         let rights = this._getRailingChars(rowId,colId,'R');
         let lefts = this._getRailingChars(rowId,colId,'L');
@@ -60,7 +61,7 @@ export default class Matrix {
         const sentenceRTL = (Helper.reverse(sentenceLTR)); //Reverse it to get
         const sentenceDTT = (Helper.reverse(sentenceTTD));
 
-        debugger;
+
 
         let foundWord = false;
         for(let i=0, len=words.length; i < len; i++){
@@ -74,11 +75,13 @@ export default class Matrix {
                 let startFrom = colId-lefts.len+pos;
                 foundWord=true;
                 this._deleteCharacters(rowId,colId,i,{ltr:true},startFrom,word.length,successCallback);
+                break;
             }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
                 console.log(".RTL: Found valid word:"+ word +" In:" + sentenceRTL);
                 let startFrom = colId+rights.len-pos;
                 foundWord=true;
                 this._deleteCharacters(rowId,colId,i,{rtl:true},startFrom,word.length,successCallback);
+                break;
             }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
                 console.log("Found valid word:"+ word +" In:" + sentenceRTL)
             }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
@@ -89,6 +92,7 @@ export default class Matrix {
 
         if(!foundWord){
             //No word has been found, call the callback, without param
+
             successCallback();
         }
 
@@ -173,7 +177,10 @@ export default class Matrix {
 
         //Determines if we need to store date to call the callback function if it exists
         let hasCallback = Helper.isFunction(deleteCallBack);
+
+
         // successCallback(rowId,i,,c);
+
         let callbackObject = {
             wordId: wordId,
             wordCharacterPositions:[],//Array of {x,y}
@@ -206,6 +213,8 @@ export default class Matrix {
                     callbackObject.wordCharacterPositions.push({y:rowId,x:i});
                 }
 
+
+                // debugger;
                 //Move upper blocks to bottom
                 for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
                     this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
@@ -220,6 +229,7 @@ export default class Matrix {
         }else if (checkType.dtt){
             //TODO
         }
+
         deleteCallBack(callbackObject);
     }
 }
