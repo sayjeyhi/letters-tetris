@@ -75,7 +75,7 @@ class ArshLoader {
      * @private
      */
     static _getSettings(){
-        return Storage.getObject('settings' , {
+        return Storage.getJson('settings' , {
             useAnimation : 1,
             soundPlay : 1,
         });
@@ -87,9 +87,8 @@ class ArshLoader {
      */
     static afterLoad() {
         if (!ArshLoader.isLoaded) {
-
             let loadingTextElement = ArshLoader._('.loadingText');
-            loadingTextElement.querySelector(".archLoadingAnimation").className += " animated fadeOut";
+            loadingTextElement.querySelector(".arshLoadingAnimation").className += " animated fadeOut";
 
             Timeout.request(function () {
 
@@ -292,7 +291,7 @@ class ArshLoader {
                 '            <path d="m 13.608244,0.56310315 c -0.207874,-0.129368 -1.185827,-1.05832 -2.173229,-2.06433695 -1.255522,-1.279193 -1.7952752,-1.915939 -1.7952752,-2.117885 0,-0.436505 3.9690922,-4.400518 4.4061572,-4.400518 0.245703,0 0.737195,0.416364 2.082032,1.76378 1.106397,1.108519 1.855267,1.763779 2.015748,1.763779 0.160481,0 0.909351,-0.65526 2.015748,-1.763779 1.46794,-1.470754 1.822106,-1.76378 2.131807,-1.76378 0.311569,0 0.692397,0.320994 2.363893,1.992489 1.679412,1.679413 1.992489,2.051365 1.992489,2.367185 0,0.316861 -0.317314,0.689907 -2.055876,2.416958 -1.175126,1.16734495 -2.156075,2.04226595 -2.289761,2.04226595 -0.132434,0 -1.032621,-0.792367 -2.075343,-1.82677195 -1.012805,-1.004724 -1.924964,-1.826772 -2.02702,-1.826772 -0.102056,0 -0.921746,0.740924 -1.821535,1.646497 -1.356001,1.36472095 -2.112565,2.00958895 -2.35413,2.00657595 -0.02076,-2.52e-4 -0.207831,-0.106319 -0.415705,-0.235687 z"/>\n' +
                 '            <path d="m 15.781472,-7.4014328 c -1.54783,-1.586727 -1.984252,-2.107334 -1.984252,-2.367007 0,-0.2623732 0.420334,-0.7502792 1.984252,-2.3032402 1.091339,-1.083692 2.118267,-2.010157 2.282061,-2.05881 0.261198,-0.07759 0.559348,0.173076 2.425197,2.038926 1.285725,1.285725 2.127388,2.2237752 2.127388,2.3710172 0,0.146886 -0.814627,1.058256 -2.051475,2.295104 -1.719434,1.719435 -2.111963,2.052013 -2.425197,2.054801 -0.318641,0.0028 -0.666168,-0.29647 -2.357974,-2.030791 z"/>\n' +
                 '        </svg>' +
-                '       <div class="loadingText"><div class="archLoadingAnimation center"><span></span></div></div>\n' +
+                '       <div class="loadingText"><div class="arshLoadingAnimation center"><span></span></div></div>\n' +
                 '</div>';
 
             ArshLoader._('#container').innerHTML = content;
@@ -333,7 +332,7 @@ class ArshLoader {
 
         }else{
             content += '<div class="logoLoading">تیم برنامه نویسی عرش</div>' +
-                '<div class="loadingText"><div class="archLoadingAnimation center"><span></span></div></div>\n' +
+                '<div class="loadingText"><div class="arshLoadingAnimation center"><span></span></div></div>\n' +
                 '</div>';
 
             ArshLoader._('#container').innerHTML = content;
