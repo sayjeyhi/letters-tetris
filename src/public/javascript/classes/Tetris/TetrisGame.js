@@ -16,13 +16,12 @@ import Timeout from "../Timeout";
 /**
  * @typedef {Object} TetrisGameConfig
  *
- * @property rows {Number} - Rows of the game
- * @property columnsMin {Number} - Columns of the game
- * @property columnsMax {Number} - Max size of columns of the game
- * @property workingWordCount {Number} - Count of words to work with
- * @property charSpeed=1000 {Number} Miniseconds to wait to fall new character when making game harder
- * @property checkInRow=true {Boolean}
- * @property checkInColumn=false {Boolean}
+ * @property rows=11 {Number} - Rows of the game
+ * @property columnsMin=6 {Number} - Columns of the game
+ * @property columnsMax=16 {Number} - Max size of columns of the game
+ * @property workingWordCount=1 {Number} - Count of words to work with
+ * @property charSpeed=1000 {Number} Miniseconds to wait to fall new character
+ * @property directionWordChecks="ltr:true,rtl:true,ttd:false,dtt:false" {module:Matrix~CheckTypes}  Directions to search for words
  * @property useLowercase=false {Boolean} Force use lowercase when selecting words
  * @property simpleFallDownAnimateSpeed=700 {Number} Duration of animation when characters are falling down in simple mode
  * @property mediumFallDownAnimateSpeed=500 {Number} Duration of animation when characters are falling down in medium mode
@@ -58,8 +57,6 @@ export default class TetrisGame {
             columnsMax: 16,
             workingWordCount: 1,
             charSpeed: 1000,                 // 1 second - get division to level when making game harder
-            checkInRow: true,
-            checkInColumn: false,
             useLowercase: false,
             simpleFallDownAnimateSpeed : 700,
             mediumFallDownAnimateSpeed : 500,
@@ -73,6 +70,7 @@ export default class TetrisGame {
             showGrids : true,                 // show grids flag
             do_encryption: true, // Enables encryption when saving score
             encryptionKeySize: 16, //Size of key Used in encryption
+            directionWordChecks: {ltr:true,rtl:true,ttd:false,dtt:false},
             scoreCalculator: (word) => {return Math.pow(1.3, word.length)} //Larger words will have better score
     };
 
@@ -201,20 +199,20 @@ export default class TetrisGame {
 
             Timeout.request(
                 () => {
+                    console.log(successObject);
                     successObject.fallingCharacters.map((item,index) => {
                         Timeout.request(
                             ()=>{
-                                Charblock.fallNodeAnimate(item.oldY,item.oldX,item.newY,item.newX)
+                                Charblock.fallNodeAnimate(item.oldY, item.oldX, item.newY, item.newX)
                             }, index * config.successAnimationIterationDuration
                         );
                     });
-                }, //successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
+                }, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
             )
 
         };
 
-        let checkTypes = {ltr:true,rtl:true,ttd:false,dtt:false};
-        TetrisGame.matrix.checkWords(initValues.choosedWords,lastChar.row,lastChar.column,checkTypes,callBack);
+        TetrisGame.matrix.checkWords(initValues.choosedWords,lastChar.row,lastChar.column,this.config.directionWordChecks,callBack);
         // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
     }
 

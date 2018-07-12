@@ -1,5 +1,5 @@
 /**
- * @module
+ * @module Matrix
  */
 
 import Helper from "./Helper";
@@ -25,7 +25,6 @@ export default class Matrix {
         this.matrix = matrix;
         this.width = matrix[0].length;
         this.height = matrix.length;
-
     };
 
 
@@ -59,9 +58,6 @@ export default class Matrix {
         const sentenceRTL = (Helper.reverse(sentenceLTR)); //Reverse it to get
         const sentenceDTT = (Helper.reverse(sentenceTTD));
 
-        console.log(this.matrix);
-        console.log(rowId,colId);
-        // let checkType={rtl:true,ltr:true,ttd:false,dtt:false};
 
         for(let i=0, len=words.length; i < len; i++){
             if(!words[i]) continue;
