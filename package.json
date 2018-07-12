@@ -14,7 +14,7 @@
         "view-docs": "opener api-docs/index.html",
         "test": "karma start karma.conf ",
         "view-test": "opener tests/report.html",
-        "wiki": "gitbook build && gitbook server"
+        "wiki": "http-server ./wiki/_book/ -o"
     },
     "repository": {
         "type": "git",
@@ -46,6 +46,7 @@
         "gitbook-plugin-lunr": "1.2.0",
         "gitbook-plugin-search": "2.2.1",
         "html-webpack-plugin": "3.2.0",
+        "http-server": "0.11.1",
         "jasmine": "3.1.0",
         "jasmine-core": "3.1.0",
         "jsdoc": "3.5.5",
