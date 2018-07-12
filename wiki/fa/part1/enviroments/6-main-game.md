@@ -7,5 +7,3 @@
 -   برای موبایل هم کافیه روی صفحه swipe کنی
 
 -   ![category](../../images/enviroments/6-main-game.png)
-
-برا
