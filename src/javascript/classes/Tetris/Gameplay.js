@@ -164,7 +164,7 @@ export default class Gameplay {
             bgSound : TetrisGame.initValues.bgSound ,
             cachedRows : TetrisGame.initValues.cachedRows,
             upComingCharEl : null,
-
+            encryptionKey : [],
 
             validatedColumnsCount: 0,       // Count of columns which are validated
             nextChar: '',                   // Next character

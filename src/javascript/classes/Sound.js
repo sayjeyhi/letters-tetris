@@ -2,6 +2,8 @@
  * @module
  */
 
+import Timeout from "./Timeout";
+
 /**
  * Sound
  * @class Sound Manager - Main class to add and manage game sounds
@@ -94,7 +96,19 @@ export default class Sound {
             Sound._setInstance(key , audioInstance);
         }
 
-        audioInstance.currentTime = 0;
-        audioInstance.play();
+        let isPlaying = audioInstance.currentTime > 0 && !audioInstance.paused && !audioInstance.ended
+            && audioInstance.readyState > 2;
+
+        if (isPlaying) {
+            audioInstance.pause();
+        }
+
+        Timeout.request(
+            () => {
+                audioInstance.currentTime = 0;
+                audioInstance.play();
+            } , 0
+        );
+
     }
 }

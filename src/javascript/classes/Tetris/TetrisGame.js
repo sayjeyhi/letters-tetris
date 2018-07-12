@@ -58,7 +58,7 @@ export default class TetrisGame {
             columnsMin: 6,
             columnsMax: 16,
             workingWordCount: 1,
-            charSpeed: 1000,                 // 1 second - get division to level when making game harder
+            charSpeed: 1000,               // 1 second - get division to level when making game harder
             useLowercase: false,
             simpleFallDownAnimateSpeed : 700,
             mediumFallDownAnimateSpeed : 500,
@@ -67,14 +67,21 @@ export default class TetrisGame {
             // user setting values
             playBackgroundSound: true,
             playEventsSound: true,
-            level: 1 ,                       // up to 3 - if it is big it is hard to play
-            useAnimationFlag : true,         // make animate or not
-            showGrids : true,                 // show grids flag
-            do_encryption: true, // Enables encryption when saving score
-            encryptionKeySize: 16, //Size of key Used in encryption
-            directionWordChecks: {ltr:true,rtl:true,ttd:false,dtt:false},
-            scoreCalculator: (word) => {return Math.pow(1.3, word.length)} //Larger words will have better score
-    };
+            level: 1 ,                      // up to 3 - if it is big it is hard to play
+            useAnimationFlag : true,        // make animate or not
+            showGrids : true,               // show grids flag
+            do_encryption: true,            // Enables encryption when saving score
+            encryptionKeySize: 16,          //Size of key Used in encryption
+            directionWordChecks: {
+                ltr:true,                   // check left to right
+                rtl:true,                   // check right to left
+                ttd:false,                  // check top top down
+                dtt:false
+            },
+            scoreCalculator: (word) => {
+                return Math.pow(1.3, word.length);      // //Larger words will have better score
+            }
+        };
 
 
         /**
@@ -142,7 +149,7 @@ export default class TetrisGame {
 
     /**
      * Check if could find a success word
-     * @param {charBlock} lastChar
+     * @param {Charblock} lastChar
      */
     static checkWordSuccess(lastChar) {
         let config = TetrisGame.config;
@@ -154,7 +161,7 @@ export default class TetrisGame {
                 //no words has been found, resume the game
                 TetrisGame.initValues.paused=false;
                 return;
-            };
+            }
 
             let word = initValues.choosedWords[successObject.wordId].word;
 
@@ -224,8 +231,14 @@ export default class TetrisGame {
 
         };
         TetrisGame.initValues.paused=true;
-        TetrisGame.matrix.checkWords(initValues.choosedWords,lastChar.char,lastChar.row,lastChar.column,this.config.directionWordChecks,callBack);
-        // @todo: if okay : remove chars from Tetris.choosedWordsUsedChars and word from Tetris.choosedWords
+        TetrisGame.matrix.checkWords(
+            initValues.choosedWords,
+            lastChar.char,
+            lastChar.row,
+            lastChar.column,
+            this.config.directionWordChecks,
+            callBack
+        );
     }
 
 
