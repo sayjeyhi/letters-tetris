@@ -64,23 +64,25 @@ export default class TetrisGame {
             mediumFallDownAnimateSpeed : 500,
             expertFallDownAnimateSpeed : 200,
             successAnimationIterationDuration: 100,
-            // user setting values
-            playBackgroundSound: true,
-            playEventsSound: true,
-            level: 1 ,                      // up to 3 - if it is big it is hard to play
-            useAnimationFlag : true,        // make animate or not
-            showGrids : true,               // show grids flag
             do_encryption: true,            // Enables encryption when saving score
-            encryptionKeySize: 16,          //Size of key Used in encryption
+            encryptionKeySize: 16,          // Size of key Used in encryption
             directionWordChecks: {
                 ltr:true,                   // check left to right
                 rtl:true,                   // check right to left
                 ttd:false,                  // check top top down
-                dtt:false
+                dtt:false                   // check down to top
             },
             scoreCalculator: (word) => {
-                return Math.pow(1.3, word.length);      // //Larger words will have better score
-            }
+                return Math.pow(1.3, word.length);      // Larger words will have better score
+            },
+
+
+            // user setting values
+            playBackgroundSound: true,
+            playEventsSound: true,
+            level: 1 ,                      // Up to 3 - if it is big it is hard to play
+            useAnimationFlag : true,        // Make animate or not
+            showGrids : true                // Show grids flag
         };
 
 
@@ -101,8 +103,8 @@ export default class TetrisGame {
             nextChar: '',                   // Next character
             activeChar: {},                 // Active character [not stopped] Object index
             choosedWords: [],               // Choosed words to work with them
-            choosedWordsUsedChars: [],       // Chars that used from choosed words
-            encryptionKey: [],
+            choosedWordsUsedChars: [],      // Chars that used from choosed words
+            encryptionKey: [],              // key of encryption
         };
 
 

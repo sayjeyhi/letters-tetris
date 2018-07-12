@@ -14,17 +14,10 @@ body.isExpert,body.isExpert #container{background-color:#000!important}
 body.isMedium,body.isMedium #container{background-color:#b0cefc!important}
 
 .content{position:relative;border-radius:20px!important;padding:10px 10%}
-#topContainer .parallax{position:relative;padding:5em 0;text-align:center;color:#fff!important;background:#DA4453;background:-webkit-linear-gradient(to right,#89216B,#DA4453);background:linear-gradient(to right,#89216B,#DA4453)}
 .page-footer div{text-align:center;font-size:12px;margin-top:40px}
-nav ul a,nav .brand-logo{color:#444}
 p{line-height:2rem}
-.tabContent{padding:15px 12px;background:#f1f1f1}
-i.valign{vertical-align:middle}
-.parallax-container{min-height:220px;line-height:0;height:auto;color:rgba(255,255,255,.9)}
-.parallax-container .section{width:100%}
-.easeMe{-webkit-transition:all 1s ease-out;-moz-transition:all 1s ease-out;-o-transition:all 1s ease-out;transition:all 1s ease-out}
+
 .icon-block{padding:0 15px}
-.icon-block .material-icons{font-size:inherit}
 footer.page-footer{margin:10px 0 30px;background-color:transparent!important;text-align:center}
 footer.page-footer i{font-size:18px;position:relative;bottom:-3px;margin-left:5px}
 .messageBottom{margin-top:15px;font-size:14px}
@@ -43,7 +36,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 
 .logoLoading{
     font-size: 28px;
-    margin: 20px 0 40px 0;
+    margin: 50px 0 40px 0;
 }
 
 @-webkit-keyframes sk-scaleout {

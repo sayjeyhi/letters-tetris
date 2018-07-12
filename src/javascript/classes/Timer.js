@@ -48,7 +48,10 @@ export default class Timer {
      * @param config
      */
     constructor(config) {
+
+        // worker of our timer
         this.timerWorker = null;
+
         //Default config
         let defaultConfig = {
             cssClsss: ".timerDisplay",

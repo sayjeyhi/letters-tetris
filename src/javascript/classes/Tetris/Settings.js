@@ -66,8 +66,13 @@ export default class Settings {
             showGrids : 0
         });
 
+        // was game paused already
+        let wasPausedFlag = TetrisGame.initValues.paused === true;
+
         // pause game timer
-        TetrisGame.timer.pause();
+        if(!wasPausedFlag) {
+            TetrisGame.timer.pause();
+        }
 
         // should we animate span ?
         let spanAnimationClass = (TetrisGame.config.useAnimationFlag ? " animatedSpan" : "");
@@ -79,9 +84,9 @@ export default class Settings {
             '<div class="formRow">' +
             '<div class="formLabel"><i class="linearicon linearicon-music-note2"></i> ' + lang.backgroundMusic + '</div>' +
             '<div class="formData">' +
-            '<input id="soundPlayYes" type="radio" name="soundPlay" value="1" ' + (settings.soundPlay === 1 ? "checked" : "") + ' />' +
+            '<input id="soundPlayYes" type="radio" class="soundPlay" name="soundPlay" value="1" ' + (settings.soundPlay === 1 ? "checked" : "") + ' />' +
             '<label for="soundPlayYes"><span>' + lang.active + '</span></label>' +
-            '<input id="soundPlayNo" type="radio" name="soundPlay" value="0" ' + (settings.soundPlay === 0 ? "checked" : "") + ' />' +
+            '<input id="soundPlayNo" type="radio" class="soundPlay" name="soundPlay" value="0" ' + (settings.soundPlay === 0 ? "checked" : "") + ' />' +
             '<label for="soundPlayNo"><span>' + lang.deActive + '</span></label>' +
             '</div>' +
             '</div>' +
@@ -89,9 +94,9 @@ export default class Settings {
             '<div class="formRow">' +
             '<div class="formLabel"><i class="linearicon linearicon-music-note"></i> ' + lang.eventsMusic + '</div>' +
             '<div class="formData">' +
-            '<input id="eventSoundsYes" type="radio" name="eventSounds" value="1" ' + (settings.eventSounds === 1 ? "checked" : "") + ' />' +
+            '<input id="eventSoundsYes" type="radio" class="eventSounds" name="eventSounds" value="1" ' + (settings.eventSounds === 1 ? "checked" : "") + ' />' +
             '<label for="eventSoundsYes"><span>' + lang.active + '</span></label>' +
-            '<input id="eventSoundsNo" type="radio" name="eventSounds" value="0" ' + (settings.eventSounds === 0 ? "checked" : "") + ' />' +
+            '<input id="eventSoundsNo" type="radio" class="eventSounds" name="eventSounds" value="0" ' + (settings.eventSounds === 0 ? "checked" : "") + ' />' +
             '<label for="eventSoundsNo"><span>' + lang.deActive + '</span></label>' +
             '</div>' +
             '</div>' +
@@ -100,9 +105,9 @@ export default class Settings {
             '<div class="formRow">' +
             '<div class="formLabel"><i class="linearicon linearicon-magic-wand"></i> ' + lang.animation + '</div>' +
             '<div class="formData">' +
-            '<input id="useAnimationYes" type="radio" name="useAnimation" value="1" ' + (settings.useAnimation === 1 ? "checked" : "") + ' />' +
+            '<input id="useAnimationYes" type="radio" class="useAnimation" name="useAnimation" value="1" ' + (settings.useAnimation === 1 ? "checked" : "") + ' />' +
             '<label for="useAnimationYes"><span>' + lang.active + '</span></label>' +
-            '<input id="useAnimationNo" type="radio" name="useAnimation" value="0" ' + (settings.useAnimation === 0 ? "checked" : "") + ' />' +
+            '<input id="useAnimationNo" type="radio" class="useAnimation" name="useAnimation" value="0" ' + (settings.useAnimation === 0 ? "checked" : "") + ' />' +
             '<label for="useAnimationNo"><span>' + lang.deActive + '</span></label>' +
             '</div>' +
             '</div>' +
@@ -110,9 +115,9 @@ export default class Settings {
             '<div class="formRow">' +
             '<div class="formLabel"><i class="linearicon linearicon-grid"></i> ' + lang.showGrids + '</div>' +
             '<div class="formData">' +
-            '<input id="showGridsYes" type="radio" name="showGrids" value="1" ' + (settings.showGrids === 1 ? "checked" : "") + ' />' +
+            '<input id="showGridsYes" type="radio" class="showGrids" name="showGrids" value="1" ' + (settings.showGrids === 1 ? "checked" : "") + ' />' +
             '<label for="showGridsYes"><span>' + lang.active + '</span></label>' +
-            '<input id="showGridsNo" type="radio" name="showGrids" value="0" ' + (settings.showGrids === 0 ? "checked" : "") + ' />' +
+            '<input id="showGridsNo" type="radio" class="showGrids" name="showGrids" value="0" ' + (settings.showGrids === 0 ? "checked" : "") + ' />' +
             '<label for="showGridsNo"><span>' + lang.deActive + '</span></label>' +
             '</div>' +
             '</div>' +
@@ -121,11 +126,11 @@ export default class Settings {
             '<div class="formRow">' +
             '<div class="formLabel"><i class="linearicon linearicon-game"></i> ' + lang.gameLevel + '</div>' +
             '<div class="formData">' +
-            '<input id="gameLevelEasy" type="radio" name="gameLevel" value="1" ' + (settings.gameLevel === 1 ? "checked" : "") + ' />' +
+            '<input id="gameLevelEasy" type="radio" class="gameLevel" name="gameLevel" value="1" ' + (settings.gameLevel === 1 ? "checked" : "") + ' />' +
             '<label for="gameLevelEasy"><span>'+ lang.simple + '</span></label>' +
-            '<input id="gameLevelMedium" type="radio" name="gameLevel" value="2" ' + (settings.gameLevel === 2 ? "checked" : "") + ' />' +
+            '<input id="gameLevelMedium" type="radio" class="gameLevel" name="gameLevel" value="2" ' + (settings.gameLevel === 2 ? "checked" : "") + ' />' +
             '<label for="gameLevelMedium"><span>'+ lang.medium + '</span></label>' +
-            '<input id="gameLevelExpert" type="radio" name="gameLevel" value="3" ' + (settings.gameLevel === 3 ? "checked" : "") + ' />' +
+            '<input id="gameLevelExpert" type="radio" class="gameLevel" name="gameLevel" value="3" ' + (settings.gameLevel === 3 ? "checked" : "") + ' />' +
             '<label for="gameLevelExpert"><span>' + lang.expert + '</span></label>' +
             '</div>' +
             '</div>' +
@@ -138,8 +143,10 @@ export default class Settings {
             header : lang.settingModalTitle,
             content : content,
             onDestroy : function () {
-                // resume timer
-                TetrisGame.timer.resume();
+                if(!wasPausedFlag) {
+                    // resume timer
+                    TetrisGame.timer.resume();
+                }
             },
             buttons : [
                 {
@@ -147,17 +154,14 @@ export default class Settings {
                     isOk : true,
                     onclick : function () {
 
-                        // start timer
-                        TetrisGame.timer.resume();
-
                         // catch data
                         let settingForm = document.querySelector("#settingForm");
                         let settingData = {};
-                        settingData.soundPlay = parseInt(settingForm.querySelector('[name="soundPlay"]:checked').value);
-                        settingData.eventSounds = parseInt(settingForm.querySelector('[name="eventSounds"]:checked').value);
-                        settingData.useAnimation = parseInt(settingForm.querySelector('[name="useAnimation"]:checked').value);
-                        settingData.gameLevel = parseInt(settingForm.querySelector('[name="gameLevel"]:checked').value);
-                        settingData.showGrids = parseInt(settingForm.querySelector('[name="showGrids"]:checked').value);
+                        settingData.soundPlay       = Settings._getIntValue(settingForm , 'soundPlay');
+                        settingData.eventSounds     = Settings._getIntValue(settingForm , 'eventSounds');
+                        settingData.useAnimation    = Settings._getIntValue(settingForm , 'useAnimation');
+                        settingData.gameLevel       = Settings._getIntValue(settingForm , 'gameLevel');
+                        settingData.showGrids       = Settings._getIntValue(settingForm , 'showGrids');
 
                         // apply setting and save it
                         Settings.set(settingData);
@@ -176,6 +180,16 @@ export default class Settings {
         }, lang.rtl );
 
         settingModal.show();
+    }
+
+
+    /**
+     * Get int value of a form element
+     * @return {number}
+     * @private
+     */
+    static _getIntValue(settingForm, name){
+        return parseInt(settingForm.querySelector('.' + name + ':checked').value);
     }
 
 
