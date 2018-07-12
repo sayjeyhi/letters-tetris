@@ -26,7 +26,7 @@ export default class Storage {
     /**
      * Returns an integer of given key from localStorage
      * @param {string} key
-     * @param {string} default_value [default_value]
+     * @param {int} default_value [default_value]
      * @returns {number}
      */
     static getInt(key, default_value) {
