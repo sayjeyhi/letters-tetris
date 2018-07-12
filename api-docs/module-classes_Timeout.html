@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: module:classes/Modal | Fanavard TetrisGame</title>
+    <title>Class: module:classes/Timeout | Fanavard TetrisGame</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -52,10 +52,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>module:classes/Modal<span class="signature">(text, isRtl<span class="signature-attributes">opt</span>, onOk, onNo)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>module:classes/Timeout<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Modal
-Modal manager class which manages CRUD operation of Modals.</p></div>
+            <div class="class-description"><p>Timeout - rAF version of setTimeout for make better performance</p></div>
         
     
 </header>
@@ -68,14 +67,14 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 
 <dt>
     
-        <h4 class="name" id="module:classes/Modal">
+        <h4 class="name" id="module:classes/Timeout">
             
-                new <span class="type-signature"></span>module:classes/Modal<span class="signature">(text, isRtl<span class="signature-attributes">opt</span>, onOk, onNo)</span><span class="type-signature"></span>
+                new <span class="type-signature"></span>module:classes/Timeout<span class="signature">()</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line50">line 50</a></code>
+                <code><a href="classes_Timeout.js.html">classes/Timeout.js</a></code>,
+                <code><a href="classes_Timeout.js.html#line8">line 8</a></code>
             </div>
             
         </h4>
@@ -86,192 +85,11 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 <dd>
 
     
-    <div class="description">
-        <p>Constructor of modal class</p>
-    </div>
-    
 
     
 
     
 
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>text</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Text to show in modal</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isRtl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last"><p>Determines if text should be rtl or ltr</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onOk</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Executes if user clicked inside Modal</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onNo</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Executes if user clicked outside Modal</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
     
 
     
@@ -288,57 +106,7 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 
     
 
-
-    <h5 class="subsection-title">Properties:</h5>
-
     
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>isRtl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Show rtl status of modal</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
 
 
 <dl class="details">
@@ -374,36 +142,6 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
     
 </dl>
 
-
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>//Create a new instance
- let modal = new Modal({
-      header : "Our Title goes here" ,
-      content : "It is a message from our game to say yes you loose game !",
-      buttons : [
-          {
-              text : "Ok",
-              isOk : true,
-              onclick : function () {
-                  this.destroy();
-              }
-          },{
-              text : "Do not",
-              notOk : true,
-              onclick : function () {
-                  alert("say why?!");
-              }
-          }
-      ]
-  }, true );
-
- //Show modal
- modal.show();
-
- //Destory instance
- modal.destroy();</code></pre>
 
     
 
@@ -435,14 +173,14 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 
 <dt>
     
-        <h4 class="name" id="destroy">
+        <h4 class="name" id=".addAnimeFrame">
             
-                <span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span>
+                <span class="type-signature"><span class="icon green">static</span> </span>addAnimeFrame<span class="signature">()</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line185">line 185</a></code>
+                <code><a href="classes_Timeout.js.html">classes/Timeout.js</a></code>,
+                <code><a href="classes_Timeout.js.html#line16">line 16</a></code>
             </div>
             
         </h4>
@@ -454,7 +192,8 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 
     
     <div class="description">
-        <p>Removes modal from page</p>
+        <p>Add animation frame to windows
+requestAnimationFrame() shim by</p>
     </div>
     
 
@@ -464,6 +203,155 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>: Paul Irish</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id=".clear">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>clear<span class="signature">(handle)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="classes_Timeout.js.html">classes/Timeout.js</a></code>,
+                <code><a href="classes_Timeout.js.html#line63">line 63</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Behaves the same as clearTimeout except uses cancelRequestAnimationFrame() where possible for better performance</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>handle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+|
+
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The callback function</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
     
 
     
@@ -524,14 +412,14 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 
 <dt>
     
-        <h4 class="name" id="show">
+        <h4 class="name" id=".request">
             
-                <span class="type-signature"></span>show<span class="signature">()</span><span class="type-signature"></span>
+                <span class="type-signature"><span class="icon green">static</span> </span>request<span class="signature">(fn, delay)</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line178">line 178</a></code>
+                <code><a href="classes_Timeout.js.html">classes/Timeout.js</a></code>,
+                <code><a href="classes_Timeout.js.html#line36">line 36</a></code>
             </div>
             
         </h4>
@@ -543,7 +431,7 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 
     
     <div class="description">
-        <p>Show modal</p>
+        <p>Behaves the same as setTimeout except uses requestAnimationFrame() where possible for better performance</p>
     </div>
     
 
@@ -553,6 +441,79 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 
     
 
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The callback function</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delay</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The delay in milliseconds</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
     
 
     
@@ -633,7 +594,7 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'module:classes/Modal_sub'.replace(/"/g, '_');
+        var id = 'module:classes/Timeout_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

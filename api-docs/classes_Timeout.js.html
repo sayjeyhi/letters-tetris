@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: module:classes/Modal | Fanavard TetrisGame</title>
+    <title>Source: classes/Timeout.js | Fanavard TetrisGame</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -47,576 +49,84 @@
 
 
 
-
-<section>
-
-<header>
-    
-        <h2><span class="attribs"><span class="type-signature"></span></span>module:classes/Modal<span class="signature">(text, isRtl<span class="signature-attributes">opt</span>, onOk, onNo)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>Modal
-Modal manager class which manages CRUD operation of Modals.</p></div>
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-
-<dt>
-    
-        <h4 class="name" id="module:classes/Modal">
-            
-                new <span class="type-signature"></span>module:classes/Modal<span class="signature">(text, isRtl<span class="signature-attributes">opt</span>, onOk, onNo)</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line50">line 50</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Constructor of modal class</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>text</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Text to show in modal</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isRtl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last"><p>Determines if text should be rtl or ltr</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onOk</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Executes if user clicked inside Modal</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onNo</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Executes if user clicked outside Modal</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>isRtl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Show rtl status of modal</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>//Create a new instance
- let modal = new Modal({
-      header : "Our Title goes here" ,
-      content : "It is a message from our game to say yes you loose game !",
-      buttons : [
-          {
-              text : "Ok",
-              isOk : true,
-              onclick : function () {
-                  this.destroy();
-              }
-          },{
-              text : "Do not",
-              notOk : true,
-              onclick : function () {
-                  alert("say why?!");
-              }
-          }
-      ]
-  }, true );
-
- //Show modal
- modal.show();
-
- //Destory instance
- modal.destroy();</code></pre>
-
-    
-
-</dd>
-
-        
-        </div>
-    
-
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-                
-
-<dt>
-    
-        <h4 class="name" id="destroy">
-            
-                <span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line185">line 185</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Removes modal from page</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="show">
-            
-                <span class="type-signature"></span>show<span class="signature">()</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line178">line 178</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Show modal</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            </dl>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module
+ */
+
+/**
+ * @class Timeout - rAF version of setTimeout for make better performance
+ */
+export default class Timeout {
+
+
+    /**
+     * Add animation frame to windows
+     * requestAnimationFrame() shim by
+     * @author : Paul Irish
+     */
+    static addAnimeFrame(){
+
+        window.requestAnimFrame = (function() {
+            return  window.requestAnimationFrame       ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame    ||
+                window.oRequestAnimationFrame      ||
+                window.msRequestAnimationFrame     ||
+                function(/* function */ callback, /* DOMElement */ element){
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+    }
+
+
+    /**
+     * Behaves the same as setTimeout except uses requestAnimationFrame() where possible for better performance
+     * @param {function} fn The callback function
+     * @param {int} delay The delay in milliseconds
+     */
+    static request(fn, delay) {
+        if( !window.requestAnimationFrame      	&amp;&amp;
+            !window.webkitRequestAnimationFrame &amp;&amp;
+            !(window.mozRequestAnimationFrame &amp;&amp; window.mozCancelRequestAnimationFrame) &amp;&amp; // Firefox 5 ships without cancel support
+            !window.oRequestAnimationFrame      &amp;&amp;
+            !window.msRequestAnimationFrame )
+            return window.setTimeout(fn, delay);
+
+        let start = new Date().getTime(),
+            handle = {};
+
+        function loop(){
+            let current = new Date().getTime(),
+                delta = current - start;
+
+            delta >= delay ? fn.call() : handle.value = requestAnimFrame(loop);
+        }
+
+        handle.value = requestAnimFrame(loop);
+        return handle;
+    }
+
+
+    /**
+     * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame() where possible for better performance
+     * @param {int|object} handle The callback function
+     */
+    static clear(handle) {
+        window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
+        window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
+        window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
+        window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
+        window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle.value) :
+        window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
+        clearTimeout(handle);
+    }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -633,7 +143,7 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'module:classes/Modal_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

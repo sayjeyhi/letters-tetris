@@ -7,7 +7,7 @@ const IS_DEV = (process.env.NODE_ENV === 'dev');
 
 const dirNode = 'node_modules';
 const dirApp = path.join(__dirname, 'src');
-const dirAssets = path.join(__dirname, 'src/public/');
+const dirAssets = path.join(__dirname, 'src/assets');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const appHtmlTitle = 'Webpack Boilerplate';
@@ -17,7 +17,7 @@ const appHtmlTitle = 'Webpack Boilerplate';
  */
 module.exports = {
     entry: {
-        bundle: path.join(dirApp, 'public/javascript/loading/ArshLoader.js')
+        bundle: path.join(dirApp, 'javascript/loading/ArshLoader.js')
     },
     resolve: {
         modules: [
@@ -36,7 +36,7 @@ module.exports = {
             title: appHtmlTitle
         }),
 
-        new CopyWebpackPlugin([ { from: './src/public/assets/', to: './assets/' } ])
+        new CopyWebpackPlugin([ { from: './src/assets/', to: './assets/' } ])
     ],
     module: {
         rules: [

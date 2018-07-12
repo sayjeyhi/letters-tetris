@@ -1,4 +1,4 @@
-import Storage from "../../src/public/javascript/classes/Storage";
+import Storage from "../../src/javascript/classes/Storage";
 
 describe("Storage Class", function() {
     Storage.set("my_key","my_value");

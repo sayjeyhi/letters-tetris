@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: module:classes/Modal | Fanavard TetrisGame</title>
+    <title>Source: classes/Explosion.js | Fanavard TetrisGame</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -47,576 +49,159 @@
 
 
 
-
-<section>
-
-<header>
-    
-        <h2><span class="attribs"><span class="type-signature"></span></span>module:classes/Modal<span class="signature">(text, isRtl<span class="signature-attributes">opt</span>, onOk, onNo)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>Modal
-Modal manager class which manages CRUD operation of Modals.</p></div>
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-
-<dt>
-    
-        <h4 class="name" id="module:classes/Modal">
-            
-                new <span class="type-signature"></span>module:classes/Modal<span class="signature">(text, isRtl<span class="signature-attributes">opt</span>, onOk, onNo)</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line50">line 50</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Constructor of modal class</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>text</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Text to show in modal</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isRtl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    false
-                
-                </td>
-            
-
-            <td class="description last"><p>Determines if text should be rtl or ltr</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onOk</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Executes if user clicked inside Modal</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onNo</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Executes if user clicked outside Modal</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>isRtl</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Show rtl status of modal</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>//Create a new instance
- let modal = new Modal({
-      header : "Our Title goes here" ,
-      content : "It is a message from our game to say yes you loose game !",
-      buttons : [
-          {
-              text : "Ok",
-              isOk : true,
-              onclick : function () {
-                  this.destroy();
-              }
-          },{
-              text : "Do not",
-              notOk : true,
-              onclick : function () {
-                  alert("say why?!");
-              }
-          }
-      ]
-  }, true );
-
- //Show modal
- modal.show();
-
- //Destory instance
- modal.destroy();</code></pre>
-
-    
-
-</dd>
-
-        
-        </div>
-    
-
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-                
-
-<dt>
-    
-        <h4 class="name" id="destroy">
-            
-                <span class="type-signature"></span>destroy<span class="signature">()</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line185">line 185</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Removes modal from page</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="show">
-            
-                <span class="type-signature"></span>show<span class="signature">()</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="classes_Modal.js.html">classes/Modal.js</a></code>,
-                <code><a href="classes_Modal.js.html#line178">line 178</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Show modal</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            </dl>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module
+ */
+
+import Timeout from "./Timeout";
+
+/**
+ *  @class
+ *  Explosion
+ *  Animate explosion when found word
+ */
+export default class Explosion {
+
+    /**
+     * Create canvas on given element x and y
+     * then render it to display a magical
+     * explosion effect
+     *
+     * @param element
+     * @param x
+     * @param y
+     */
+    static explode(element , x , y) {
+
+        const bubbles = 10;
+
+        let c = document.createElement('canvas');
+        let ctx = c.getContext('2d');
+        let ratio = window.devicePixelRatio;
+        let particles = [];
+
+        element.appendChild(c);
+
+        c.style.position = 'absolute';
+        c.style.left = (x - 50) + 'px';
+        c.style.top = (y - 50) + 'px';
+        c.style.pointerEvents = 'none';
+        c.style.width = 100 + 'px';
+        c.style.height = 100 + 'px';
+        c.width = 200 * ratio;
+        c.height = 200 * ratio;
+
+
+        for(let i=0; ++i&lt;bubbles;) {
+            particles.push(this._particle(c))
+        }
+
+
+        (function renderLoop(){
+            requestAnimationFrame(renderLoop);
+            Explosion._render(particles , ctx , c)
+        })();
+
+        Timeout.request(
+            () => {
+                element.removeChild(c)
+            }, 3000
+        );
+    }
+
+
+    /**
+     * Create particles of our explosion
+     * @param c
+     * @return {{x: number, y: number, radius: *, color: string, rotation: *, speed: *, friction: number, opacity: *, yVel: number, gravity: number}}
+     * @private
+     */
+    static _particle(c) {
+
+        let r = function(a,b,c){
+            return parseFloat((Math.random()*((a?a:1)-(b?b:0))+(b?b:0)).toFixed(c?c:0));
+        };
+
+        return {
+            x: c.width / 2,
+            y: c.height / 2,
+            radius: r(20,30),
+            color: 'rgb(' + [r(0,255), r(0,255), r(0,255)].join(',') + ')',
+            rotation: r(0,360, true),
+            speed: r(8,12),
+            friction: 0.9,
+            opacity: r(0,0.5, true),
+            yVel: 0,
+            gravity: 0.1
+        };
+    }
+
+
+    /**
+     * Render particles explosion on canvas
+     * @param particles
+     * @param ctx
+     * @param c
+     * @private
+     */
+    static _render(particles , ctx , c) {
+        ctx.clearRect(0, 0, c.width, c.height);
+
+        particles.forEach(function(p, i) {
+
+            Explosion._moveOnAngle(p, p.speed);
+
+            p.opacity -= 0.01;
+            p.speed *= p.friction;
+            p.radius *= p.friction;
+
+            p.yVel += p.gravity;
+            p.y += p.yVel;
+
+            if(p.opacity &lt; 0) return;
+            if(p.radius &lt; 0) return;
+
+            ctx.beginPath();
+            ctx.globalAlpha = p.opacity;
+            ctx.fillStyle = p.color;
+            ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, false);
+            ctx.fill();
+        });
+    }
+
+
+    /**
+     * Gets one of frames distance
+     * @param t
+     * @param n
+     * @return {{x: number, y: number}}
+     * @private
+     */
+    static _getOneFrameDistance(t, n) {
+        return {
+            x: n * Math.cos(t.rotation * Math.PI / 180),
+            y: n * Math.sin(t.rotation * Math.PI / 180)
+        }
+    }
+
+    /**
+     * Move angle
+     * @param t
+     * @param n
+     * @private
+     */
+    static _moveOnAngle(t, n) {
+        let a = this._getOneFrameDistance(t, n);
+        t.x += a.x, t.y += a.y
+    }
+
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -633,7 +218,7 @@ Modal manager class which manages CRUD operation of Modals.</p></div>
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'module:classes/Modal_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 
