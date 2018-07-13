@@ -339,7 +339,9 @@ export default class Charblock {
         Timeout.request(
             () => {
                 // remove current char
-                workingElement.parentNode.removeChild(workingElement);
+                if(workingElement.parentNode) {
+                    workingElement.parentNode.removeChild(workingElement);
+                }
             },
             (config.useAnimationFlag ? 200/ config.level : 0)
         );

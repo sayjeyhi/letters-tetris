@@ -116,6 +116,28 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .modal.rtl .titleModal .closeModal{float:left;left:-3px;right:auto}
 .modal.rtl .footerModal .buttonModal{padding:8px 12px!important}
 .modal.rtl{direction:rtl;text-align:right}
+.modal.dark{
+    background: #343a40 !important;
+    color: #fefefe !important;
+}
+.modal.primary.rtl{
+    border-right:3px solid #007bff!important
+}
+.modal.secondary.rtl{
+    border-right:3px solid #6c757d!important
+}
+.modal.success.rtl{
+    border-right:3px solid #28a745!important
+}
+.modal.danger.rtl{
+    border-right:3px solid #dc3545!important
+}
+.modal.warning.rtl{
+    border-right:3px solid #ffc107!important;
+}
+.modal.info.rtl{
+    border-right:3px solid #17a2b8!important;
+}
 
 #settingForm .formLabel{display:inline-block;width:25%;font-size:14px;color:#515151;position:relative;margin-right:12px}
 #settingForm .formLabel .linearicon{position:absolute;right:-28px;font-size:32px;transform:rotate(-14deg);top:-9px;color:#d1d1d1b3}

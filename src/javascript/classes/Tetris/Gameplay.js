@@ -89,21 +89,25 @@ export default class Gameplay {
         };
 
         // mobile swipe detect
-        TetrisGame.swipe = new Swipe(TetrisGame.playBoard , function (dir) {
-
-            // simulate arrow press on swipe
-            switch (dir){
-                case "left":
-                    TetrisGame.initValues.activeChar.move(CONTROL_CODES.LEFT);
-                    break;
-                case "right":
-                    TetrisGame.initValues.activeChar.move(CONTROL_CODES.RIGHT);
-                    break;
-                case "down":
-                    TetrisGame.initValues.activeChar.move(CONTROL_CODES.DOWN);
-                    break;
+        TetrisGame.swipe = new Swipe(
+            TetrisGame.playBoard,
+            function (dir) {
+                // simulate arrow press on swipe
+                switch (dir){
+                    case "left":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.LEFT);
+                        break;
+                    case "right":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.RIGHT);
+                        break;
+                    case "down":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.DOWN);
+                        break;
+                }
+            } , {
+                threshold: 70
             }
-        });
+        );
 
 
         this.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
@@ -152,26 +156,7 @@ export default class Gameplay {
         TetrisGame.interval.clearAll();
 
         // make game variables that variables was on start
-        TetrisGame.initValues = {
-            paused: false,
-            finished: false,
-            wordsFinished: false,
-            isFirstRun: false,              // it is not first run
-            chooseedWordKind: {
-                persianTitle: TetrisGame.initValues.chooseedWordKind.persianTitle,
-                englishTitle: TetrisGame.initValues.chooseedWordKind.englishTitle
-            },
-            bgSound : TetrisGame.initValues.bgSound ,
-            cachedRows : TetrisGame.initValues.cachedRows,
-            upComingCharEl : null,
-            encryptionKey : [],
-
-            validatedColumnsCount: 0,       // Count of columns which are validated
-            nextChar: '',                   // Next character
-            activeChar: {},                 // Active character [not stopped] Object index
-            choosedWords: [],               // Choosed words to work with them
-            choosedWordsUsedChars: []       // Chars that used from choosed words
-        };
+        TetrisGame.setDefaultValues(false);
 
         // destroy swiper
         TetrisGame.swipe.destroy();
