@@ -1,0 +1,6 @@
+{
+    "extends": "adpyke-es6",
+    "parser": "babel-eslint",
+    "rules": {
+    }
+}

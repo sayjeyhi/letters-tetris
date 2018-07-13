@@ -40,6 +40,13 @@ module.exports = {
     ],
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                include: path.join(__dirname, 'src/javascript'),
+                exclude: /node_modules/,
+                use: ['babel-loader', 'eslint-loader']
+            }
+
             // // BABEL
             // {
             //     test: /\.js$/,
