@@ -51,10 +51,10 @@ export default class Matrix {
 
 
         this.setCharacter(rowId,colId,char);
-        let rights = this._getRailingChars(rowId,colId,'R');
-        let lefts = this._getRailingChars(rowId,colId,'L');
-        let tops = this._getRailingChars(rowId,colId,'T');
-        let downs = this._getRailingChars(rowId,colId,'D');
+        let rights  = this._getRailingChars(rowId,colId,'R');
+        let lefts   = this._getRailingChars(rowId,colId,'L');
+        let tops    = this._getRailingChars(rowId,colId,'T');
+        let downs   = this._getRailingChars(rowId,colId,'D');
 
         const sentenceLTR = (lefts.chars + this.matrix[rowId][colId] + rights.chars); //Create valid sentence from left characters + current character + right characters
         const sentenceTTD = (tops.chars  + this.matrix[rowId][colId] + downs.chars);  //Create valid sentence from left characters + current character + right characters
@@ -67,40 +67,51 @@ export default class Matrix {
         for(let i=0, len=words.length; i < len; i++){
             if(!words[i]) continue;
             let pos,
-                word = words[i].word
-            ;
+                checkPlace,
+                startFrom,
+                word = words[i].word;
 
             if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
                 Helper.log("LTR--> Found valid word:"+ word +" In:" + sentenceLTR);
-                let startFrom = colId-lefts.len+pos;
+                startFrom = colId - lefts.len + pos;
                 foundWord=true;
-                this._deleteCharacters(rowId,colId,i,{ltr:true},startFrom,word.length,successCallback);
+                checkPlace = {
+                    ltr:true
+                };
                 break;
             }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
                 Helper.log("RTL--> Found valid word:"+ word +" In:" + sentenceRTL);
-                let startFrom = colId+rights.len-pos;
-                foundWord=true;
-                this._deleteCharacters(rowId,colId,i,{rtl:true},startFrom,word.length,successCallback);
+                startFrom = colId + rights.len - pos;
+                foundWord = true;
+                checkPlace = {
+                    rtl:true
+                };
                 break;
             }else if (checkType.ttd && (pos=sentenceTTD.indexOf(word)) !== -1){
                 Helper.log("TTD--> Found valid word:"+ word +" In:" + sentenceTTD);
-                let startFrom = rowId-tops.len+pos;
-                foundWord=true;
-                this._deleteCharacters(rowId,colId,i,{ttd:true},startFrom,word.length,successCallback);
+                startFrom = rowId - tops.len + pos;
+                foundWord = true;
+                checkPlace = {
+                    ttd:true
+                };
                 break;
             }else if (checkType.dtt && (pos=sentenceDTT.indexOf(word)) !== -1){
-                Helper.log("DTT--> Found valid word:"+ word +" In:" + sentenceDTT)
-                let startFrom = rowId+downs.len-pos;
-                foundWord=true;
-                this._deleteCharacters(rowId,colId,i,{dtt:true},startFrom,word.length,successCallback);
+                Helper.log("DTT--> Found valid word:"+ word +" In:" + sentenceDTT);
+                startFrom = rowId + downs.len - pos;
+                foundWord = true;
+                checkPlace = {
+                    dtt:true
+                };
                 break;
             }
+
+            this._deleteCharacters(rowId,colId,i,checkPlace,startFrom,word.length,successCallback);
+
         }
 
 
         if(!foundWord){
             //No word has been found, call the callback, without param
-
             successCallback();
         }
 
@@ -124,7 +135,7 @@ export default class Matrix {
         let railingChars='';//Found characters in each directions
         let len=0;//Determines how much did we move in each direction to get to space or end of direction
 
-        let i=1;//i is just the iterator in loops
+        let i=1;//it is just the iterator in loops
         switch(direction){
             case 'R':
                 //Go in Right direction
