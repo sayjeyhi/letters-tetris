@@ -48,7 +48,7 @@ export default class TetrisGame {
      *
      * @returns {TetrisGame}
      */
-    static init(){
+    static init(config){
 
         /**
          * Base config for game
@@ -75,16 +75,17 @@ export default class TetrisGame {
             scoreCalculator: (word) => {
                 return Math.pow(1.3, word.length);      // Larger words will have better score
             },
-
-
             // user setting values
             playBackgroundSound: true,
             playEventsSound: true,
             level: 1 ,                      // Up to 3 - if it is big it is hard to play
             useAnimationFlag : true,        // Make animate or not
-            showGrids : true                // Show grids flag
+            showGrids : true,                // Show grids flag
+            chooseedWordKind: {}
         };
 
+        //Extend config from user
+        Object.assign(this.config,config);
 
         /**
          * We hold game variables here
@@ -93,7 +94,7 @@ export default class TetrisGame {
             paused: false,                  // is game paused
             finished: false,                // is game finished
             wordsFinished: false,           // do we run out of words
-            chooseedWordKind: {},           // holds user words kind
+            chooseedWordKind: config.chooseedWordKind,           // holds user words kind
             bgSound : {} ,                  // background sound instance
             isFirstRun: true,               // is this my first run
             cachedRows : {},                // cache rows here
@@ -113,9 +114,10 @@ export default class TetrisGame {
                 ttd:0,
                 dtp:0
             }
-
-
         };
+
+        console.log(this.initValues.chooseedWordKind)
+
 
 
         /**

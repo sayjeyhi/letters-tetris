@@ -236,11 +236,45 @@ class ArshLoader {
     static initGame(wordsType) {
         window.Gameplay = Gameplay;
         window.Settings = Settings;
-        TetrisGame.init();
-        TetrisGame.initValues.chooseedWordKind = {
-            persianTitle: wordsType[1],
-            englishTitle: wordsType[0]
+
+
+        let tetrisGameConfig = {
+            rows: 11,
+            columnsMin: 6,
+            columnsMax: 16,
+            workingWordCount: 1,
+            charSpeed: 1000,               // 1 second - get division to level when making game harder
+            useLowercase: false,
+            simpleFallDownAnimateSpeed : 700,
+            mediumFallDownAnimateSpeed : 500,
+            expertFallDownAnimateSpeed : 200,
+            successAnimationIterationDuration: 100,
+            do_encryption: true,            // Enables encryption when saving score
+            encryptionKeySize: 16,          // Size of key Used in encryption
+            directionWordChecks: {
+                ltr:true,                   // check left to right
+                rtl:true,                   // check right to left
+                ttd:false,                  // check top top down
+                dtt:false                   // check down to top
+            },
+            scoreCalculator: (word) => {
+                return Math.pow(1.3, word.length);      // Larger words will have better score
+            },
+
+            // user setting values
+            playBackgroundSound: true,
+            playEventsSound: true,
+            level: 1 ,                      // Up to 3 - if it is big it is hard to play
+            useAnimationFlag : true,        // Make animate or not
+            showGrids : true,                // Show grids flag
+            chooseedWordKind: {
+                persianTitle: wordsType[1],
+                englishTitle: wordsType[0]
+            }
         };
+
+
+        TetrisGame.init(tetrisGameConfig);
         TetrisGame.build();
     }
 
