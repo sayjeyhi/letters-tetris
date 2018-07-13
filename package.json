@@ -10,11 +10,12 @@
     "scripts": {
         "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --progress --mode development --config webpack.config.dev.js",
         "build": "webpack -p --progress --mode production --config webpack.config.build.js",
+        "start": "npm run build && http-server ./dist/ --gzip -o -p 8185",
         "generate-docs": "jsdoc -c jsdoc.conf",
-        "view-docs": "http-server ./api-docs/ -o -p 8182",
+        "view-docs": "http-server ./api-docs/ --gzip -o -p 8182",
         "test": "karma start karma.conf.js",
         "view-test": "opener test_result/report.html",
-        "wiki": "http-server ./wiki/_book/ -o -p 8183",
+        "wiki": "http-server ./wiki/_book/ --gzip -o -p 8183",
         "check": "eslint src/javascript/**/*",
         "fix": "eslint src/javascript/**/*"
     },
@@ -40,6 +41,7 @@
         "babel-preset-es2015": "6.24.1",
         "babel-preset-import-export": "1.0.2",
         "clean-webpack-plugin": "0.1.19",
+        "compression-webpack-plugin": "1.1.11",
         "copy-webpack-plugin": "4.5.2",
         "cross-env": "5.2.0",
         "css-loader": "1.0.0",
