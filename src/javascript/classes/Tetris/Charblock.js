@@ -222,11 +222,11 @@ export default class Charblock {
 
 
     static getBlockPosition(row , column){
-        console.log(row, column);
         let blockElement = this._getEl(row,column);
         return {
             top : blockElement.offsetTop,
-            left : blockElement.offsetLeft
+            left : blockElement.offsetLeft,
+            width : blockElement.offsetWidth
         };
     }
 

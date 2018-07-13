@@ -154,10 +154,10 @@ export default class Settings {
 
 
         // changing setting values
-        settingModal.node.querySelectorAll("input").forEach( (input) => {
+        settingModal.modal.querySelectorAll("input").forEach( (input) => {
             input.onchange = function () {
                 // catch data
-                let modalItSelf = settingModal.node.querySelector(".modal");
+                let modalItSelf = settingModal.modal;
                 let settingForm = modalItSelf.querySelector("#settingForm");
                 let settingData = {};
                 settingData.soundPlay       = Settings._getIntValue(settingForm , 'soundPlay');

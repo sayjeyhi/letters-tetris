@@ -186,43 +186,21 @@ export default class TetrisGame {
             }
 
 
-
-
             let word = initValues.choosedWords[successObject.wordId].word;
+
+            // Remove word from choosed words
+            initValues.choosedWords.splice(successObject.wordId, 1);
+
+            // animate found word
             TetrisGame.showFoundWordAnimated(word , successObject);
 
 
-            //Update stats related to word
-            this.initValues.wordsFounded++;
-            this.initValues.wordDirectionCounter[successObject.direction]++;
-            this.initValues.wordsLengthTotal += word.length;
 
 
+            // Update score
+            this._updateScore(successObject , word);
 
-            //Remove word from choosed words
-            initValues.choosedWords.splice(successObject.wordId, 1);
-
-
-            //Get encrypted value of Score wtih our random generated key
-            let score = TetrisGame.getScore();
-
-            //Increase value by scoreCalculator from config
-            score += this.config.scoreCalculator(word);
-
-            //Update our fake score variable to let hacker think they are dealing with real variable
-            this.initValues.score = score;
-
-            //Update & encrypt score in Storage
-            if (this.config.do_encryption) {
-                Storage.setEncrypted("score", score, this.initValues.encryptionKey);
-            }else{
-                Storage.set("score", score);
-            }
-
-            //Update score in UI
-            this.setScoreInUI(score);
-
-            //Remove characters from choosed characters
+            // Remove characters from choosed characters
             word.split("").map((char)=>{
                 let index = initValues.choosedWordsUsedChars.indexOf(char);
                 if(index!==-1){
@@ -241,7 +219,7 @@ export default class TetrisGame {
                 );
             });
 
-            TetrisGame.initValues.paused=false;
+            TetrisGame.initValues.paused = false;
 
             Timeout.request(
                 () => {
@@ -256,14 +234,14 @@ export default class TetrisGame {
                     Timeout.request(
                         () => {
                             //Resume game after all animations has been finished
-                            TetrisGame.initValues.paused=false;
+                            TetrisGame.initValues.paused = false;
                         }, successObject.fallingCharacters.length * config.successAnimationIterationDuration
                     );
 
                 }, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
             )
         };
-        TetrisGame.initValues.paused=true;
+        TetrisGame.initValues.paused = true;
 
 
         TetrisGame.matrix.checkWords(
@@ -288,12 +266,12 @@ export default class TetrisGame {
             columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
             hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
             foundWordDisplayEl = TetrisGame.playBoard.querySelector(".foundWordAnimation"),
-            plusFixerDistance = charLength % 2 ? 0 : 10;
+            plusFixerDistance = (charLength % 2 === 1) ? 0 : - (hidedWord.width/4);
 
         foundWordDisplayEl.innerHTML = word;
         foundWordDisplayEl.style.display = "block";
-        foundWordDisplayEl.style.left = (hidedWord.left + plusFixerDistance + 5) + "px";
-        foundWordDisplayEl.style.top = (hidedWord.top - plusFixerDistance - 15) + "px";
+        foundWordDisplayEl.style.left = (hidedWord.left - plusFixerDistance) + "px";
+        foundWordDisplayEl.style.top = (hidedWord.top - 10) + "px";
 
         if(this.config.useAnimationFlag) {
             foundWordDisplayEl.classList.add("animatedOneSecond", "jackInTheBox");
@@ -306,6 +284,54 @@ export default class TetrisGame {
                 foundWordDisplayEl.style.display = "none";
             }, 1200
         );
+    }
+
+
+
+    /**
+     * Get score of user from Storage
+     * @returns {number}
+     */
+    static _getScore() {
+        let score;
+        if (this.config.do_encryption){
+            score = Storage.getEncrypted("score", this.initValues.encryptionKey);
+        }else{
+            score = Storage.getInt("score",0);
+        }
+        return score;
+    }
+
+    /**
+     * Update score and set it to panel
+     * @param successObject
+     * @param word
+     * @private
+     */
+    static _updateScore(successObject, word) {
+
+        //Update stats related to word
+        this.initValues.wordsFounded++;
+        this.initValues.wordDirectionCounter[successObject.direction]++;
+        this.initValues.wordsLengthTotal += word.length;
+
+        //Get encrypted value of Score wtih our random generated key
+        let score = TetrisGame._getScore();
+
+        //Increase value by scoreCalculator from config
+        score += this.config.scoreCalculator(word);
+
+        //Update our fake score variable to let hacker think they are dealing with real variable
+        this.initValues.score = score;
+
+        //Update & encrypt score in Storage
+        if (this.config.do_encryption) {
+            Storage.setEncrypted("score", score, this.initValues.encryptionKey);
+        }else{
+            Storage.set("score", score);
+        }
+
+        document.querySelector(".scoreHolder").innerHTML = Math.round(score);
     }
 
 
@@ -404,29 +430,6 @@ export default class TetrisGame {
                         <i class="linearicon linearicon-brain"></i> ${lang.copyRight}
                     </div>
                 </footer>`;
-    }
-
-
-    /**
-     * Get score of user from Storage
-     * @returns {number}
-     */
-    static getScore() {
-        let score;
-        if (this.config.do_encryption){
-            score = Storage.getEncrypted("score", this.initValues.encryptionKey);
-        }else{
-            score = Storage.getInt("score",0);
-        }
-        return score;
-    }
-
-    /**
-     * Set score in UI
-     * @param score {Number}
-     */
-    static setScoreInUI(score) {
-        document.querySelector(".scoreHolder").innerHTML = Math.round(score);
     }
 
 }

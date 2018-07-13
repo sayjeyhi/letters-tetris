@@ -65,10 +65,10 @@ export default class Modal {
 
         let modalHolder = document.createElement('div');
         let modal = document.createElement('div');
-        let modalAnimateClass = this.animate ? "animated bounceIn" : "";
+        let modalAnimateClass = this.animate ? "animated pulse" : "";
 
 
-        modalHolder.className="modalHolder";
+        modalHolder.className = "modalHolder";
 
         // add modal classes
         modal.className = modalAnimateClass + " modal " + this.type + " " + this.dark + (isRtl ? "rtl" : "ltr");
@@ -182,12 +182,14 @@ export default class Modal {
         document.getElementById("container").classList.add('blur');
     }
 
+
     /**
      * Removes modal from page
      */
     destroy() {
         if(this.animate) {
-            this.node.classList.add("bounceOut");
+            this.modal.classList.remove("pulse");
+            this.modal.classList.add("fadeOut");
         }
 
         Timeout.request(
