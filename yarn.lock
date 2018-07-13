@@ -4251,6 +4251,10 @@ karma-cli@1.0.1:
   dependencies:
     resolve "^1.1.6"
 
+karma-firefox-launcher@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/karma-firefox-launcher/-/karma-firefox-launcher-1.1.0.tgz#2c47030452f04531eb7d13d4fc7669630bb93339"
+
 karma-htmlfile-reporter@0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/karma-htmlfile-reporter/-/karma-htmlfile-reporter-0.3.5.tgz#09abca9910a3eb1dbba27a9a766026948c96ca04"
