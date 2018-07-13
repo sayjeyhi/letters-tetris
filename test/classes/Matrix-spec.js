@@ -313,3 +313,74 @@ describe("Matrix Class", function() {
         expect(foundWord).toBeTruthy("test");
     })
 });
+
+
+
+
+describe("Matrix Class", function() {
+    var falledCharacter,foundWord;
+    beforeEach(function(done) {
+        var matrixArray = [
+            // X:       0   1   2   3   4   5   6   7
+            /* 0 */   [" "," "," "," ","x"," "," "," "], //0
+            /* 1 */   [" "," "," "," ","z"," "," "," "], //1
+            /* 2 */   [" "," "," "," ","e"," "," "," "], //2
+            /* 3 */   [" "," "," "," ","m"," "," "," "], //3
+            /* 4 */   [" "," "," "," ","o"," "," "," "], //4
+            /* 5 */   [" "," "," "," ","s"," "," "," "], //5
+            /* 6 */   [" "," "," "," "," "," "," "," "], //6
+            /* 7 */   [" "," "," "," ","e"," "," "," "], //7
+            /* 8 */   [" "," "," "," ","s"," "," "," "], //8
+            /* 9 */   [" "," "," "," ","t"," "," "," "], //9
+            /* 10 */  [" "," "," "," ","b"," "," "," "],//10
+            // X:       0   1   2   3   4   5   6   7
+        ];
+        var matrix = new Matrix(matrixArray);
+        var words = [{ word:"test" }];
+        var lastChar = {row:6,column:4,char:'t'};
+        var foundCallback = function (successObject) {
+            foundWord = words[successObject.wordId].word;
+            done();
+        };
+        matrix.checkWords(words,lastChar,{ttd:true},foundCallback);
+    });
+
+    it("Characters should fall: ", function() {
+        expect(foundWord).toBeTruthy("test");
+    })
+});
+
+
+
+describe("Matrix Class", function() {
+    var falledCharacter,foundWord;
+    beforeEach(function(done) {
+        var matrixArray = [
+            // X:       0   1   2   3   4   5   6   7
+            /* 0 */   [" "," "," "," ","x"," "," "," "], //0
+            /* 1 */   [" "," "," "," ","z"," "," "," "], //1
+            /* 2 */   [" "," "," "," ","e"," "," "," "], //2
+            /* 3 */   [" "," "," "," ","m"," "," "," "], //3
+            /* 4 */   [" "," "," "," ","o"," "," "," "], //4
+            /* 5 */   [" "," "," "," ","s"," "," "," "], //5
+            /* 6 */   [" "," "," "," "," "," "," "," "], //6
+            /* 7 */   [" "," "," "," ","s"," "," "," "], //7
+            /* 8 */   [" "," "," "," ","e"," "," "," "], //8
+            /* 9 */   [" "," "," "," ","t"," "," "," "], //9
+            /* 10 */  [" "," "," "," ","b"," "," "," "],//10
+            // X:       0   1   2   3   4   5   6   7
+        ];
+        var matrix = new Matrix(matrixArray);
+        var words = [{ word:"test" }];
+        var lastChar = {row:6,column:4,char:'t'};
+        var foundCallback = function (successObject) {
+            foundWord = words[successObject.wordId].word;
+            done();
+        };
+        matrix.checkWords(words,lastChar,{dtt:true},foundCallback);
+    });
+
+    it("Characters should fall in {dtt:true}: ", function() {
+        expect(foundWord).toBeTruthy("test");
+    })
+});

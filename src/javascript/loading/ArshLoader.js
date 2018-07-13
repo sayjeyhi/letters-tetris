@@ -255,7 +255,7 @@ class ArshLoader {
                 ltr:true,                   // check left to right
                 rtl:true,                   // check right to left
                 ttd:true,                  // check top top down
-                dtt:false                   // check down to top
+                dtt:true                   // check down to top
             },
             scoreCalculator: (word) => {
                 return Math.pow(1.3, word.length);      // Larger words will have better score
