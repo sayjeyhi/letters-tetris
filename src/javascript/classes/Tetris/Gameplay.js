@@ -14,6 +14,7 @@ import WordsHelper from "./WordsHelper";
 import Modal from "../Modal";
 import Matrix from "../Matrix";
 import Timeout from "../Timeout";
+import Helper from "../Helper";
 
 export default class Gameplay {
 

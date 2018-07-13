@@ -10,6 +10,7 @@ import MaterialColor from "../MaterialColor"
 import Explosion from "../Explosion";
 import Timeout from "../Timeout";
 import Matrix from "../Matrix";
+import Helper from "../Helper";
 
 
 export default class Charblock {
@@ -248,12 +249,12 @@ export default class Charblock {
 
         let cachedRow = TetrisGame.initValues.cachedRows[row] || false;
         if(Object.keys(cachedRow) > 0){
-            return TetrisGame.initValues.cachedRows[row].querySelector('.column_' + column + charBlockString);
+            return  Helper._('.column_' + column + charBlockString , TetrisGame.initValues.cachedRows[row]);
         }else {
-            let rowElement = TetrisGame.playBoard.querySelector('.row_' + row);
+            let rowElement = Helper._('.row_' + row , TetrisGame.playBoard);
             if (rowElement) {
                 TetrisGame.initValues.cachedRows[row] = rowElement;
-                return rowElement.querySelector('.column_' + column + charBlockString);
+                return Helper._('.column_' + column + charBlockString , rowElement);
             }else{
                 return null;
             }

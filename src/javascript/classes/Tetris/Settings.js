@@ -10,6 +10,7 @@
 import TetrisGame from "./TetrisGame"
 import Storage from "../Storage"
 import Modal from "../Modal"
+import Helper from "../Helper";
 
 export default class Settings {
 
@@ -158,7 +159,7 @@ export default class Settings {
             input.onchange = function () {
                 // catch data
                 let modalItSelf = settingModal.modal;
-                let settingForm = modalItSelf.querySelector("#settingForm");
+                let settingForm = Helper._("#settingForm" , modalItSelf);
                 let settingData = {};
                 settingData.soundPlay       = Settings._getIntValue(settingForm , 'soundPlay');
                 settingData.eventSounds     = Settings._getIntValue(settingForm , 'eventSounds');
@@ -185,7 +186,7 @@ export default class Settings {
      * @private
      */
     static _getIntValue(settingForm, name){
-        return parseInt(settingForm.querySelector('.' + name + ':checked').value);
+        return parseInt(Helper._('.' + name + ':checked' , settingForm).value);
     }
 
 

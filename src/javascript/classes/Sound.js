@@ -25,18 +25,7 @@ export default class Sound {
             };
             (instance.play() || noPromise).catch(() => {});
         }
-        return this;
-    }
-
-    /**
-     * Pauses the current instance of media
-     * @return {Sound}
-     */
-    pause(){
-        if(this.audio) {
-            this.audio.pause();
-        }
-        return this;
+        return instance;
     }
 
 

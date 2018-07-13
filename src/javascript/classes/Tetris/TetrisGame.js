@@ -11,6 +11,7 @@ import Settings from "./Settings";
 import Storage from "../Storage";
 import Charblock from "./Charblock";
 import Timeout from "../Timeout";
+import Helper from "../Helper";
 
 
 /**
@@ -266,7 +267,7 @@ export default class TetrisGame {
             rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,
             columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
             hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
-            foundWordDisplayEl = TetrisGame.playBoard.querySelector(".foundWordAnimation"),
+            foundWordDisplayEl = Helper._(".foundWordAnimation" , TetrisGame.playBoard),
             plusFixerDistance = (charLength % 2 === 1) ? 0 : - (hidedWord.width/4);
 
         foundWordDisplayEl.innerHTML = word;

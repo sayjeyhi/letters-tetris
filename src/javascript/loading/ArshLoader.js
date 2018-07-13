@@ -182,7 +182,7 @@ class ArshLoader {
         Helper._(".englishTitle",chooserEl).innerHTML = choosedEnglishTitle;
         chooserEl.dataset.choosedwordskind = (name.toString() + "-" + choosedPersianTitle.toString());
         // this.chooseWordKind.dataset.opened = "no";
-        document.querySelector(".wordsKind").parentElement.dataset.opened = "no";
+        Helper._(".wordsKind").parentElement.dataset.opened = "no";
     }
 
 
