@@ -90,6 +90,10 @@ export default class Matrix {
                 break;
             }else if (checkType.dtt && (pos=sentenceDTT.indexOf(word)) !== -1){
                 Helper.log("DTT--> Found valid word:"+ word +" In:" + sentenceDTT)
+                let startFrom = rowId+downs.len-pos;
+                foundWord=true;
+                this._deleteCharacters(rowId,colId,i,{dtt:true},startFrom,word.length,successCallback);
+                break;
             }
         }
 
@@ -236,7 +240,7 @@ export default class Matrix {
 
             //Move upper blocks to bottom
 
-            for(let upIndex=occurancePositionFrom; upIndex>0 &&this.matrix[upIndex-1][colId] !== ' ';upIndex--){
+            for(let upIndex=occurancePositionFrom-occurancePositionLenght; upIndex>0 &&this.matrix[upIndex-1][colId] !== ' ';upIndex--){
                 this.matrix[upIndex+occurancePositionLenght-1][colId] = this.matrix[upIndex-1][colId];
                 this.matrix[upIndex-1][colId] = ' ';
                 if(hasCallback){
@@ -244,7 +248,23 @@ export default class Matrix {
                 }
             }
         }else if (checkType.dtt){
-            //TODO
+            for(let c=0,i=occurancePositionFrom;i>occurancePositionFrom-occurancePositionLenght;--i,++c){
+                this.matrix[i][colId]=' ';
+                if(hasCallback){
+                    callbackObject.wordCharacterPositions.push({y:i,x:colId});
+                }
+            }
+
+
+
+            //Move upper blocks to bottom
+            for(let upIndex=occurancePositionFrom; upIndex-occurancePositionLenght>=0 &&this.matrix[upIndex-occurancePositionLenght][colId] !== ' ';upIndex--){
+                this.matrix[upIndex-occurancePositionLenght][colId] = this.matrix[upIndex][colId];
+                this.matrix[upIndex-occurancePositionLenght][colId] = ' ';
+                if(hasCallback){
+                    callbackObject.fallingCharacters.push({oldY:upIndex,oldX:colId,newY:upIndex-occurancePositionLenght,newX:colId});
+                }
+            }
         }
 
         successCallBack(callbackObject);
