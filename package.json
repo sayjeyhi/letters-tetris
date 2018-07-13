@@ -13,7 +13,7 @@
         "generate-docs": "jsdoc -c jsdoc.conf",
         "view-docs": "http-server ./api-docs/ -o -p 8182",
         "test": "karma start karma.conf.js",
-        "view-test": "opener tests/report.html",
+        "view-test": "opener test_result/report.html",
         "wiki": "http-server ./wiki/_book/ -o -p 8183"
     },
     "repository": {

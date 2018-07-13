@@ -71,21 +71,25 @@ export default class Matrix {
             ;
 
             if(checkType.ltr && (pos=sentenceLTR.indexOf(word)) !== -1){
-                console.log(".LTR: Found valid word:"+ word +" In:" + sentenceLTR);
+                Helper.log("LTR--> Found valid word:"+ word +" In:" + sentenceLTR);
                 let startFrom = colId-lefts.len+pos;
                 foundWord=true;
                 this._deleteCharacters(rowId,colId,i,{ltr:true},startFrom,word.length,successCallback);
                 break;
             }else if(checkType.rtl && (pos=sentenceRTL.indexOf(word)) !== -1){
-                console.log(".RTL: Found valid word:"+ word +" In:" + sentenceRTL);
+                Helper.log("RTL--> Found valid word:"+ word +" In:" + sentenceRTL);
                 let startFrom = colId+rights.len-pos;
                 foundWord=true;
                 this._deleteCharacters(rowId,colId,i,{rtl:true},startFrom,word.length,successCallback);
                 break;
-            }else if (checkType.rtl && sentenceRTL.indexOf(word) !== -1){
-                console.log("Found valid word:"+ word +" In:" + sentenceRTL)
-            }else if (checkType.dtt && sentenceDTT.indexOf(word) !== -1){
-                console.log("Found valid word:"+ word +" In:" + sentenceDTT)
+            }else if (checkType.ttd && (pos=sentenceTTD.indexOf(word)) !== -1){
+                Helper.log("TTD--> Found valid word:"+ word +" In:" + sentenceTTD);
+                let startFrom = rowId-tops.len+pos;
+                foundWord=true;
+                this._deleteCharacters(rowId,colId,i,{ttd:true},startFrom,word.length,successCallback);
+                break;
+            }else if (checkType.dtt && (pos=sentenceDTT.indexOf(word)) !== -1){
+                Helper.log("DTT--> Found valid word:"+ word +" In:" + sentenceDTT)
             }
         }
 
@@ -223,7 +227,21 @@ export default class Matrix {
                 }
             }
         }else if (checkType.ttd){
-            //TODO
+            for(let c=0,i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++,c++){
+                this.matrix[rowId][i]=' ';
+                if(hasCallback){
+                    callbackObject.wordCharacterPositions.push({y:rowId,x:i});
+                }
+
+                //Move upper blocks to bottom
+                for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
+                    this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
+                    this.matrix[upIndex-1][i] = ' ';
+                    if(hasCallback){
+                        callbackObject.fallingCharacters.push({oldY:upIndex-1,oldX:i,newY:upIndex,newX:i});
+                    }
+                }
+            }
         }else if (checkType.dtt){
             //TODO
         }

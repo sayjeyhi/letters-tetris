@@ -1,7 +1,7 @@
 import Matrix from "../../src/javascript/classes/Matrix";
 
 
-describe("Matrix Class ", function() {
+describe("Matrix Class", function() {
     var foundWord = "";
     beforeEach(function(done) {
         var matrixArray = [
@@ -39,7 +39,7 @@ describe("Matrix Class ", function() {
 
 
 
-describe("Matrix Class ", function() {
+describe("Matrix Class", function() {
     var sucessObjectReturned;
     beforeEach(function(done) {
         var matrixArray = [
@@ -78,7 +78,7 @@ describe("Matrix Class ", function() {
 
 
 
-describe("Matrix Class ", function() {
+describe("Matrix Class", function() {
     var foundWord = "";
     beforeEach(function(done) {
         var matrixArray = [
@@ -113,7 +113,7 @@ describe("Matrix Class ", function() {
 
 
 
-describe("Matrix Class ", function() {
+describe("Matrix Class", function() {
     var falledCharacter;
     beforeEach(function(done) {
         var matrixArray = [
@@ -155,7 +155,7 @@ describe("Matrix Class ", function() {
 
 
 
-describe("Matrix Class ", function() {
+describe("Matrix Class", function() {
     var falledCharacter,foundWord;
     beforeEach(function(done) {
         var matrixArray = [
@@ -196,7 +196,7 @@ describe("Matrix Class ", function() {
 
 
 
-describe("Matrix Class ", function() {
+describe("Matrix Class", function() {
     var falledCharacter,foundWord;
     beforeEach(function(done) {
         var matrixArray = [
@@ -244,7 +244,7 @@ describe("Matrix Class ", function() {
 
 
 
-describe("Matrix Class ", function() {
+describe("Matrix Class", function() {
     var falledCharacter,foundWord;
     beforeEach(function(done) {
         var matrixArray = [
