@@ -268,11 +268,11 @@ export default class TetrisGame {
             columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
             hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
             foundWordDisplayEl = Helper._(".foundWordAnimation" , TetrisGame.playBoard),
-            plusFixerDistance = (charLength % 2 === 1) ? 0 : - (hidedWord.width/4);
+            fixerDistance = (charLength % 2 === 1) ? 0 : - (hidedWord.width/4);
 
         foundWordDisplayEl.innerHTML = word;
         foundWordDisplayEl.style.display = "block";
-        foundWordDisplayEl.style.left = (hidedWord.left - plusFixerDistance) + "px";
+        foundWordDisplayEl.style.left = (hidedWord.left - fixerDistance) + "px";
         foundWordDisplayEl.style.top = (hidedWord.top - 10) + "px";
 
         if(this.config.useAnimationFlag) {

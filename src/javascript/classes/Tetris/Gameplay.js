@@ -153,26 +153,39 @@ export default class Gameplay {
         this._buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');
 
         initValues.finished = true;
-        TetrisGame.timer.pause();
+        let time = TetrisGame.timer.pause() || 0;
 
 
 
 
         let wordsAverageLength = initValues.wordsLengthTotal / initValues.wordsFounded;
-        //TODO: Jafar Rezayi, use this variables when showing user scoreboard
-        // wordsAverageLength
-        // initValues.wordDirectionCounter
-        // initValues.wordsFounded
         console.log(wordsAverageLength,initValues.wordDirectionCounter,initValues.wordsFounded);
 
+        let showScore = TetrisGame._getScore();
 
+        let gamingInfo = `
+            <div class="">${lang.sumScore} :‌ ${Math.round(showScore)}</div>
+            <div class="">${lang.foundWords} :‌ ${initValues.wordsFounded}</div>
+            <div class="">${lang.wordLengthAverage} :‌ ${wordsAverageLength}</div>
+            <div class="">${lang.spentTimeModal} :‌ ${time} ${lang.second}</div>
+        `;
 
 
         let modalHeader,modalContent,modalType;
-        let modalButtons = [];
+        let modalButtons = [
+            {
+                text : lang.saveScore,
+                isOk : true,
+                onclick : function () {
+                    console.log("save score !");
+                }
+            }
+        ];
+
+
         if (mode === "gameOver") {
             modalHeader = lang.gameOverModalTitle;
-            modalContent = lang.gameOverModalContent;
+            modalContent = lang.gameOverModalContent + gamingInfo;
 
             modalType = "danger";
             modalButtons.push(
@@ -192,7 +205,7 @@ export default class Gameplay {
             );
         } else {
             modalHeader = lang.noExtraWordModalTitle;
-            modalContent = lang.noExtraWordModalContent;
+            modalContent = lang.noExtraWordModalContent + gamingInfo;
             modalType = "success";
             modalButtons.push(
                 {

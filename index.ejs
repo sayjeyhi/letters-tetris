@@ -17,16 +17,16 @@
 </head>
 
 <body>
-<link rel="stylesheet" href="assets/css/app/tetris.css">
-<link rel="stylesheet" href="assets/css/Icons/linerIcons.css">
-<!-- Main holder of every thing -->
-<div id="container"></div>
+    <link rel="stylesheet" href="assets/css/app/tetris.css">
+    <link rel="stylesheet" href="assets/css/Icons/linerIcons.css">
+    <!-- Main holder of every thing -->
+    <div id="container"></div>
 
-<!-- Add Main Project script -->
-<!--<script type="application/javascript" src="dist/main.js"></script>-->
+    <!-- Add Main Project script -->
+    <!--<script type="application/javascript" src="dist/main.js"></script>-->
 
-<!-- web worker timing content @type="javascript/worker" -->
-<script id="workerTiming" type="javascript/worker">
+    <!-- web worker timing content @type="javascript/worker" -->
+    <script id="workerTiming" type="javascript/worker">
         var pause_flag = false;
         let i = 0;
         let timedCount = function() {
@@ -42,6 +42,7 @@
             if ('pause_flag' in event.data) {
                 pause_flag = event.data['pause_flag'];
             }
+            return i;
         };
     </script>
 </body>

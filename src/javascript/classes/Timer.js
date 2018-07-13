@@ -82,7 +82,7 @@ export default class Timer {
      * Starts the timer
      */
     start() {
-        let timerDisplayEl = Helper._(this.config.cssClsss);
+        let timerDisplayEl = document.querySelector(this.config.cssClsss);
         if (typeof (Worker) !== "undefined") {
             if (!this.timerWorker) {
                 this.timerWorker = new Worker(window.URL.createObjectURL(this.config.blobTiming));
@@ -105,11 +105,10 @@ export default class Timer {
      * Pauses the timer
      */
     pause() {
-        if(this.timerWorker) {
-            this.timerWorker.postMessage({'pause_flag': true});
-        }
         this.config.onPause();
-
+        if(this.timerWorker) {
+            return this.timerWorker.postMessage({'pause_flag': true});
+        }
     }
 
 
@@ -117,10 +116,10 @@ export default class Timer {
      * Resumes the timer
      */
     resume() {
-        if(this.timerWorker) {
-            this.timerWorker.postMessage({'pause_flag': false});
-        }
         this.config.onResume();
+        if(this.timerWorker) {
+            return this.timerWorker.postMessage({'pause_flag': false});
+        }
     }
 
 }
