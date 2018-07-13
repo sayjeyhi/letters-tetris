@@ -20,9 +20,8 @@ export default class WordsHelper {
         let randomKey = keys[keys.length * Math.random() << 0];
         let value = window.TetrisWords[randomKey] || "";
 
-
         // do we finished words ?
-        if (value === "" && !TetrisGame.initValues.finished) {
+        if (value === "") {
             TetrisGame.initValues.wordsFinished = true;
             return false;
         }

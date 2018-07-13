@@ -104,7 +104,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 
 .modal{position:relative;background-color:#fff;color:#444;border:none;font-size:20px;border-radius:12px;min-width:50%;max-width:85%;padding:10px 15px;min-height:20%;max-height:90%;overflow:auto;justify-content:center;align-items:center;box-shadow:0 12px 20px -10px rgba(173,104,185,0.3),0 4px 20px 0 rgba(0,0,0,0.12),0 7px 8px -5px rgba(183,183,183,0.2)}
 .modal .titleModal{display:block;font-size:15px;margin:10px 0 20px}
-.modal .titleModal .closeModal{float:right;font-size:17px;padding:6px 4px;cursor:pointer;color:#a5611f;position:relative;right:-3px}
+.modal .titleModal .closeModal{float:right;font-size:17px;padding:6px 4px;cursor:pointer;color:#a9692b;position:relative;right:-3px}
 .modal .contentModal{font-size:14px;padding:7px}
 .modal .footerModal{padding:8px;margin-top:10px}
 .modal .formData .linearicon{display:none}
@@ -113,31 +113,97 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .modal .footerModal .buttonModal.isOk{background:#6bd849;color:#fff}
 .modal .footerModal .buttonModal.notOk{background:#f96e6e;color:#fff}
 .modal.rtl .titleModal{text-align:right!important}
-.modal.rtl .titleModal .closeModal{float:left;left:-3px;right:auto}
+.modal.rtl .titleModal .closeModal{float:left;left:-3px;right:auto;top:-8px}
 .modal.rtl .footerModal .buttonModal{padding:8px 12px!important}
 .modal.rtl{direction:rtl;text-align:right}
 .modal.dark{
     background: #343a40 !important;
-    color: #fefefe !important;
+    color: #dadada !important;
+}
+
+.modal.dark .footerModal .buttonModal{
+    background: #25292d;
+    color: #d4d4d4;
+}
+.modal.dark #settingForm .formLabel{
+    color: #bcb9cc !important;
 }
 .modal.primary.rtl{
-    border-right:3px solid #007bff!important
+    border-right:3px solid
 }
 .modal.secondary.rtl{
-    border-right:3px solid #6c757d!important
+    border-right:3px solid
 }
 .modal.success.rtl{
-    border-right:3px solid #28a745!important
+    border-right:3px solid
 }
 .modal.danger.rtl{
-    border-right:3px solid #dc3545!important
+    border-right:3px solid
 }
 .modal.warning.rtl{
-    border-right:3px solid #ffc107!important;
+    border-right:3px solid
 }
 .modal.info.rtl{
-    border-right:3px solid #17a2b8!important;
+    border-right:3px solid
 }
+
+.modal.primary.ltr{
+    border-left:3px solid
+}
+.modal.secondary.ltr{
+    border-left:3px solid
+}
+.modal.success.ltr{
+    border-left:3px solid
+}
+.modal.danger.ltr{
+    border-left:3px solid
+}
+.modal.warning.ltr{
+    border-left:3px solid
+}
+.modal.info.ltr{
+    border-left:3px solid
+}
+
+.modal.primary{
+    border-color : #007bff!important
+}
+.modal.secondary{
+    border-color : #6c757d!important
+}
+.modal.success{
+    border-color : #28a745!important
+}
+.modal.danger{
+    border-color : #dc3545!important
+}
+.modal.warning{
+    border-color : #ffc107!important;
+}
+.modal.info{
+    border-color : #17a2b8!important;
+}
+
+.modal.primary .titleModal{
+    color: #007bff!important
+}
+.modal.secondary .titleModal{
+    color: #6c757d!important
+}
+.modal.success .titleModal{
+    color: #28a745!important
+}
+.modal.danger .titleModal{
+    color: #dc3545!important
+}
+.modal.warning .titleModal{
+    color: #ffc107!important
+}
+.modal.info .titleModal{
+    color: #17a2b8!important
+}
+
 
 #settingForm .formLabel{display:inline-block;width:25%;font-size:14px;color:#515151;position:relative;margin-right:12px}
 #settingForm .formLabel .linearicon{position:absolute;right:-28px;font-size:32px;transform:rotate(-14deg);top:-9px;color:#d1d1d1b3}

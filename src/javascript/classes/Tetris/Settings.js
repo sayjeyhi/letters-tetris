@@ -142,44 +142,40 @@ export default class Settings {
             animate : TetrisGame.config.useAnimationFlag,
             header : lang.settingModalTitle,
             content : content,
+            dark: settings.gameLevel === 3,
             onDestroy : function () {
                 if(!wasPausedFlag) {
                     // resume timer
                     TetrisGame.timer.resume();
                 }
-            },
-            buttons : [
-                {
-                    text : lang.save,
-                    isOk : true,
-                    onclick : function () {
-
-                        // catch data
-                        let settingForm = document.querySelector("#settingForm");
-                        let settingData = {};
-                        settingData.soundPlay       = Settings._getIntValue(settingForm , 'soundPlay');
-                        settingData.eventSounds     = Settings._getIntValue(settingForm , 'eventSounds');
-                        settingData.useAnimation    = Settings._getIntValue(settingForm , 'useAnimation');
-                        settingData.gameLevel       = Settings._getIntValue(settingForm , 'gameLevel');
-                        settingData.showGrids       = Settings._getIntValue(settingForm , 'showGrids');
-
-                        // apply setting and save it
-                        Settings.set(settingData);
-
-                        // remove modal
-                        settingModal.destroy();
-                    }
-                },
-                {
-                    text : lang.close,
-                    onclick : function () {
-                        settingModal.destroy();
-                    }
-                }
-            ]
+            }
         }, lang.rtl );
-
         settingModal.show();
+
+
+        // changing setting values
+        settingModal.node.querySelectorAll("input").forEach( (input) => {
+            input.onchange = function () {
+                // catch data
+                let modalItSelf = settingModal.node.querySelector(".modal");
+                let settingForm = modalItSelf.querySelector("#settingForm");
+                let settingData = {};
+                settingData.soundPlay       = Settings._getIntValue(settingForm , 'soundPlay');
+                settingData.eventSounds     = Settings._getIntValue(settingForm , 'eventSounds');
+                settingData.useAnimation    = Settings._getIntValue(settingForm , 'useAnimation');
+                settingData.gameLevel       = Settings._getIntValue(settingForm , 'gameLevel');
+                settingData.showGrids       = Settings._getIntValue(settingForm , 'showGrids');
+
+                if(settingData.gameLevel === 3){
+                    modalItSelf.classList.add("dark");
+                }else{
+                    modalItSelf.classList.remove("dark");
+                }
+
+                // apply setting and save it
+                Settings.set(settingData);
+            };
+        });
     }
 
 
@@ -211,11 +207,12 @@ export default class Settings {
      * @private
      */
     static _setGridsSetting(){
-        if(TetrisGame.playBoard) {
+        let playBoard = TetrisGame.playBoard;
+        if(playBoard) {
             if (TetrisGame.config.showGrids) {
-                TetrisGame.playBoard.classList.add("showGrids");
+                playBoard.classList.add("showGrids");
             } else {
-                TetrisGame.playBoard.classList.remove("showGrids");
+                playBoard.classList.remove("showGrids");
             }
         }
     }
@@ -232,7 +229,7 @@ export default class Settings {
             case 3:
                 bodyClass = "isExpert";
 
-                // use two word  same time at hard mode
+                // use two word same time at hard mode
                 TetrisGame.config.workingWordCount = 2;
 
                 break;

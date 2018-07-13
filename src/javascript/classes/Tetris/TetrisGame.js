@@ -69,7 +69,7 @@ export default class TetrisGame {
             directionWordChecks: {
                 ltr:true,                   // check left to right
                 rtl:true,                   // check right to left
-                ttd:false,                  // check top top down
+                ttd:true,                   // check top top down
                 dtt:false                   // check down to top
             },
             scoreCalculator: (word) => {
@@ -139,13 +139,13 @@ export default class TetrisGame {
 
 
     static setDefaultValues(firstCall){
-        TetrisGame.initValues = {
+        this.initValues = {
             paused: false,                                      // is game paused
             finished: false,                                    // is game finished
             wordsFinished: false,                               // do we run out of words
             isFirstRun: firstCall,                              // it is not first run
-            bgSound: (firstCall ? {} : TetrisGame.initValues.bgSound),          // is this my first run
-            cachedRows: (firstCall ? {} : TetrisGame.initValues.cachedRows) ,   // cache rows here
+            bgSound: (firstCall ? {} : this.initValues.bgSound),          // is this my first run
+            cachedRows: (firstCall ? {} : this.initValues.cachedRows) ,   // cache rows here
             upComingCharEl: null,
             score : 0 ,                                         // This is fake, We will never show anything related to this to user
             encryptionKey: [],                                  // key of variables encryption

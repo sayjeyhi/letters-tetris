@@ -178,36 +178,40 @@ export default class Gameplay {
      */
     static finish(mode) {
 
+        let config = TetrisGame.config;
+        let initValues = TetrisGame.initValues;
+
         // play game over sound
         if(mode === "gameOver") {
-            Sound.playByKey('finishGame', TetrisGame.config.playEventsSound);
+            Sound.playByKey('finishGame', config.playEventsSound);
         }
 
         // manage game buttons
         this.buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');
 
-        TetrisGame.initValues.finished = true;
+        initValues.finished = true;
         TetrisGame.timer.pause();
 
 
 
 
-        let wordsAverageLength = TetrisGame.initValues.wordsLengthTotal / TetrisGame.initValues.wordsFounded;
+        let wordsAverageLength = initValues.wordsLengthTotal / initValues.wordsFounded;
         //TODO: Jafar Rezayi, use this variables when showing user scoreboard
         // wordsAverageLength
-        // TetrisGame.initValues.wordDirectionCounter
-        // TetrisGame.initValues.wordsFounded
-        console.log(wordsAverageLength,TetrisGame.initValues.wordDirectionCounter,TetrisGame.initValues.wordsFounded)
+        // initValues.wordDirectionCounter
+        // initValues.wordsFounded
+        console.log(wordsAverageLength,initValues.wordDirectionCounter,initValues.wordsFounded);
 
 
 
 
-        let modalHeader = "", modalContent = "";
+        let modalHeader,modalContent,modalType;
         let modalButtons = [];
         if (mode === "gameOver") {
             modalHeader = lang.gameOverModalTitle;
             modalContent = lang.gameOverModalContent;
 
+            modalType = "danger";
             modalButtons.push(
                 {
                     text : lang.restartGame,
@@ -226,6 +230,7 @@ export default class Gameplay {
         } else {
             modalHeader = lang.noExtraWordModalTitle;
             modalContent = lang.noExtraWordModalContent;
+            modalType = "success";
             modalButtons.push(
                 {
                     text : lang.modalRefreshButton,
@@ -237,7 +242,9 @@ export default class Gameplay {
         }
 
         let modal = new Modal({
-            animate : TetrisGame.config.useAnimationFlag,
+            animate : config.useAnimationFlag,
+            dark : (config.level === 3),
+            type : modalType,
             header : modalHeader,
             content : modalContent,
             buttons : modalButtons
