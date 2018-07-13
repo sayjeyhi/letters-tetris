@@ -4,9 +4,9 @@ describe("Interval class", function () {
 
     var interval = new Interval();
     var time = 1000;
-    var executedCount=0;
+    var executedCount = 0;
     var fooFunc = function () {
-        console.log("foo");
+        return;
     }
     beforeEach(function (done) {
         interval.make(function () {
