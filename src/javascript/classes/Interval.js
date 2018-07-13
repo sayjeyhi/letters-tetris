@@ -48,7 +48,7 @@ export default class Interval {
      * @param index
      * @private
      */
-    static _removeIndex(index){
+    _removeIndex(index){
         delete this.intervals[index];
     }
 
