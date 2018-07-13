@@ -1,81 +1,79 @@
 console.log('Started', self);
 
-let CACHE_NAME = 'persian-tetris-v1';
+const CACHE_NAME = 'persian-tetris-v1';
 
 
-let urlsToCache = [
-    '/',
-    '/assets/css/app/tetris.css',
-    '/bundle.js'
+const urlsToCache = [
+	'/',
+	'/assets/css/app/tetris.css',
+	'/bundle.js'
 ];
 
-self.addEventListener('install', function(event) {
-    // Perform install steps
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(function(cache) {
-                console.log('Opened cache');
-                return cache.addAll(urlsToCache);
-            })
-    );
+self.addEventListener('install', event => {
+	// Perform install steps
+	event.waitUntil(
+		caches.open(CACHE_NAME)
+			.then(cache => {
+				console.log('Opened cache');
+				return cache.addAll(urlsToCache);
+			})
+	);
 });
 
 
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request)
-            .then(function(response) {
-                // Cache hit - return response
-                if (response) {
-                    return response;
-                }
+self.addEventListener('fetch', event => {
+	event.respondWith(
+		caches.match(event.request)
+			.then(response => {
+				// Cache hit - return response
+				if (response) {
+					return response;
+				}
 
-                // IMPORTANT: Clone the request. A request is a stream and
-                // can only be consumed once. Since we are consuming this
-                // once by cache and once by the browser for fetch, we need
-                // to clone the response.
-                let fetchRequest = event.request.clone();
+				// IMPORTANT: Clone the request. A request is a stream and
+				// can only be consumed once. Since we are consuming this
+				// once by cache and once by the browser for fetch, we need
+				// to clone the response.
+				const fetchRequest = event.request.clone();
 
-                return fetch(fetchRequest).then(
-                    function(response) {
-                        // Check if we received a valid response
-                        if(!response || response.status !== 200 || response.type !== 'basic') {
-                            return response;
-                        }
+				return fetch(fetchRequest).then(
+					response => {
+						// Check if we received a valid response
+						if (!response || response.status !== 200 || response.type !== 'basic') {
+							return response;
+						}
 
-                        // IMPORTANT: Clone the response. A response is a stream
-                        // and because we want the browser to consume the response
-                        // as well as the cache consuming the response, we need
-                        // to clone it so we have two streams.
-                        var responseToCache = response.clone();
+						// IMPORTANT: Clone the response. A response is a stream
+						// and because we want the browser to consume the response
+						// as well as the cache consuming the response, we need
+						// to clone it so we have two streams.
+						const responseToCache = response.clone();
 
-                        caches.open(CACHE_NAME)
-                            .then(function(cache) {
-                                cache.put(event.request, responseToCache);
-                            });
+						caches.open(CACHE_NAME)
+							.then(cache => {
+								cache.put(event.request, responseToCache);
+							});
 
-                        return response;
-                    }
-                );
-            })
-    );
+						return response;
+					}
+				);
+			})
+	);
 });
 
 
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', event => {
+	const cacheWhitelist = ['persian-tetris-v1', 'blog-posts-cache-v1'];
 
-    let cacheWhitelist = ['persian-tetris-v1', 'blog-posts-cache-v1'];
-
-    event.waitUntil(
-        caches.keys().then(function(cacheNames) {
-            return Promise.all(
-                cacheNames.map(function(cacheName) {
-                    if (cacheWhitelist.indexOf(cacheName) === -1) {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
-    );
+	event.waitUntil(
+		caches.keys().then(cacheNames => {
+			return Promise.all(
+				cacheNames.map(cacheName => {
+					if (cacheWhitelist.indexOf(cacheName) === -1) {
+						return caches.delete(cacheName);
+					}
+				})
+			);
+		})
+	);
 });
-

@@ -14,7 +14,9 @@
         "view-docs": "http-server ./api-docs/ -o -p 8182",
         "test": "karma start karma.conf.js",
         "view-test": "opener test_result/report.html",
-        "wiki": "http-server ./wiki/_book/ -o -p 8183"
+        "wiki": "http-server ./wiki/_book/ -o -p 8183",
+        "check": "eslint src/javascript/**/*",
+        "fix": "eslint src/javascript/**/*"
     },
     "repository": {
         "type": "git",
