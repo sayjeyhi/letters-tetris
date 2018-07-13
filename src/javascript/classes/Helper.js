@@ -20,6 +20,15 @@ export default class Helper {
 	}
 
 
+    /**
+     * Checks if device is mobile
+     * @returns {boolean} - Return true if device is mobile
+     */
+	static isMobile(){
+        return typeof window.orientation !== 'undefined';
+    }
+
+
 	/**
      * Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
      * For example this string: 'foo 𝌆 bar mañana mañana' will be corrupt if used string.split("").reverse().join("");

@@ -162,7 +162,7 @@ export default class TetrisGame {
 				ttd: 0,
 				dtp: 0
 			},
-			isMobile: (typeof window.orientation !== 'undefined')
+			isMobile: Helper.isMobile()
 		};
 	}
 
@@ -235,6 +235,8 @@ export default class TetrisGame {
 				}, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
 			);
 		};
+
+		//todo: Jafar rezayi, is this correct?
 		TetrisGame.initValues.paused = true;
 
 
@@ -280,6 +282,11 @@ export default class TetrisGame {
 	}
 
 
+
+
+
+
+
 	/**
      * Get score of user from Storage
      * @returns {number}
@@ -322,6 +329,7 @@ export default class TetrisGame {
 			Storage.set('score', score);
 		}
 
+		Helper._('.wordCounterHolder').innerHTML = Math.round(this.initValues.wordsFounded);
 		Helper._('.scoreHolder').innerHTML = Math.round(score);
 	}
 
@@ -407,7 +415,7 @@ export default class TetrisGame {
                    <div class="courseArea">
                        <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
                        <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> </div>
-                       <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
+                       <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
                        <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
                    </div>
                </div>

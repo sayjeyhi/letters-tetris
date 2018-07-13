@@ -149,6 +149,7 @@ export default class Gameplay {
 
 
 		const wordsAverageLength = initValues.wordsLengthTotal / initValues.wordsFounded;
+
 		console.log(wordsAverageLength, initValues.wordDirectionCounter, initValues.wordsFounded);
 
 		const showScore = TetrisGame._getScore();
