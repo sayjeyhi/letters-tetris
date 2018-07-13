@@ -53,10 +53,14 @@ export default class Gameplay {
             matrixRowArray[r] = matrixColumn;
             playBoardTable += '</div>';
         }
-
-        TetrisGame.matrix = new Matrix(matrixRowArray);
+        playBoardTable += '<div class="foundWordAnimation animatedOneSecond jackInTheBox"></div>';
 
         TetrisGame.playBoard.innerHTML = playBoardTable;
+
+
+        // make instance of matrix
+        TetrisGame.matrix = new Matrix(matrixRowArray);
+
 
 
         // Choose n words from json to create rows and columns

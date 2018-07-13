@@ -89,11 +89,6 @@ export default class Charblock {
                 // stop interval
                 TetrisGame.interval.clear(this.interval);
 
-                // Apply character in our matrix
-                // TetrisGame.matrix.setCharacter(moveTo.row -1,moveTo.column,this.char);
-
-                // console.log(Matrix.matrix);
-
                 // check words
                 TetrisGame.checkWordSuccess(this);
 
@@ -102,8 +97,6 @@ export default class Charblock {
                     if (initValues.wordsFinished) {
                         Gameplay.finish("finishWords");
                     } else {
-
-
 
                         // add new char
                         Charblock.factory();
@@ -228,6 +221,16 @@ export default class Charblock {
     }
 
 
+    static getBlockPosition(row , column){
+        console.log(row, column);
+        let blockElement = this._getEl(row,column);
+        return {
+            top : blockElement.offsetTop,
+            left : blockElement.offsetLeft
+        };
+    }
+
+
     /**
      * Gets an element from cache or create it
      * @param row
@@ -242,7 +245,6 @@ export default class Charblock {
         if(typeof charBlock !== "undefined" && charBlock){
             charBlockString = " .charBlock";
         }
-
 
         let cachedRow = TetrisGame.initValues.cachedRows[row] || false;
         if(Object.keys(cachedRow) > 0){

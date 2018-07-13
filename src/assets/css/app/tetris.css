@@ -73,6 +73,8 @@ svg :not(.doNotUnfill){stroke:currentColor}
     position:absolute;
     left:20px;
     bottom: 40px;
+    display: none;
+    font-size: 18px;color: #2aad1c;
 }
 .gameHolder .playBoard .isColumn{position:relative;display:inline-block;height:100%}
 .gameHolder .playBoard.is6Column .isColumn{width:16.66%}
@@ -126,7 +128,11 @@ svg :not(.doNotUnfill){stroke:currentColor}
     color: #d4d4d4;
 }
 .modal.dark #settingForm .formLabel{
-    color: #bcb9cc !important;
+    color: #2aff2a !important;
+    letter-spacing: 0 !important;
+    font-family: 'SDF';
+    font-weight: 100;
+    font-size: 12px;
 }
 .modal.primary.rtl{
     border-right:3px solid
@@ -509,3 +515,59 @@ svg :not(.doNotUnfill){stroke:currentColor}
     to{opacity:0;-webkit-transform:scale3d(0.1,0.1,0.1) translate3d(0,100px,0);transform:scale3d(0.1,0.1,0.1) translate3d(0,100px,0);-webkit-transform-origin:center bottom;transform-origin:center bottom;-webkit-animation-timing-function:cubic-bezier(0.325,0.885,0.43,1);animation-timing-function:cubic-bezier(0.325,0.885,0.43,1)}
 }
 .zoomOutDown{-webkit-animation-name:zoomOutDown;animation-name:zoomOutDown}
+@-webkit-keyframes jackInTheBox {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0.1) rotate(30deg);
+        transform: scale(0.1) rotate(30deg);
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+    }
+
+    50% {
+        -webkit-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+
+    70% {
+        -webkit-transform: rotate(3deg);
+        transform: rotate(3deg);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes jackInTheBox {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0.1) rotate(30deg);
+        transform: scale(0.1) rotate(30deg);
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+    }
+
+    50% {
+        -webkit-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+
+    70% {
+        -webkit-transform: rotate(3deg);
+        transform: rotate(3deg);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+.jackInTheBox {
+    -webkit-animation-name: jackInTheBox;
+    animation-name: jackInTheBox;
+}

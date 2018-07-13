@@ -90,7 +90,6 @@ export default class TetrisGame {
         Object.assign(this.config,config);
 
 
-
         /**
          * We hold game values here
          */
@@ -138,6 +137,10 @@ export default class TetrisGame {
     }
 
 
+    /**
+     * Sets default values of this.initValues
+     * @param firstCall
+     */
     static setDefaultValues(firstCall){
         this.initValues = {
             paused: false,                                      // is game paused
@@ -165,6 +168,7 @@ export default class TetrisGame {
         }
     }
 
+
     /**
      * Check if could find a success word
      * @param {Charblock} lastChar
@@ -185,7 +189,7 @@ export default class TetrisGame {
 
 
             let word = initValues.choosedWords[successObject.wordId].word;
-            //TODO: JAFAR REZAYI, You can show the word here
+            TetrisGame.showFoundWordAnimated(word , successObject);
 
 
             //Update stats related to word
@@ -233,7 +237,8 @@ export default class TetrisGame {
                 Timeout.request(
                     () => {
                         Charblock.fallNodeAnimate(item.y, item.x, null, null)
-                    }, index * config.successAnimationIterationDuration);
+                    }, index * config.successAnimationIterationDuration
+                );
             });
 
             TetrisGame.initValues.paused=false;
@@ -244,7 +249,8 @@ export default class TetrisGame {
                         Timeout.request(
                             () => {
                                 Charblock.fallNodeAnimate(item.oldY, item.oldX, item.newY, item.newX)
-                            }, index * config.successAnimationIterationDuration);
+                            }, index * config.successAnimationIterationDuration
+                        );
                     });
 
                     Timeout.request(
@@ -268,6 +274,39 @@ export default class TetrisGame {
         );
     }
 
+
+    /**
+     * Shows found word with animation
+     * @param word
+     * @param successObject
+     */
+    static showFoundWordAnimated(word , successObject){
+
+        let wordFound = successObject.wordCharacterPositions,
+            charLength = wordFound.length - 1,
+            rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,
+            columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
+            hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
+            foundWordDisplayEl = TetrisGame.playBoard.querySelector(".foundWordAnimation"),
+            plusFixerDistance = charLength % 2 ? 0 : 10;
+
+        foundWordDisplayEl.innerHTML = word;
+        foundWordDisplayEl.style.display = "block";
+        foundWordDisplayEl.style.left = (hidedWord.left + plusFixerDistance + 5) + "px";
+        foundWordDisplayEl.style.top = (hidedWord.top - plusFixerDistance - 15) + "px";
+
+        if(this.config.useAnimationFlag) {
+            foundWordDisplayEl.classList.add("animatedOneSecond", "jackInTheBox");
+        }else{
+            foundWordDisplayEl.classList.remove("animatedOneSecond", "jackInTheBox");
+        }
+
+        Timeout.request(
+            () => {
+                foundWordDisplayEl.style.display = "none";
+            }, 1200
+        );
+    }
 
 
 
