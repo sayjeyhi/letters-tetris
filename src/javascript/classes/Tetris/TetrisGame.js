@@ -105,6 +105,16 @@ export default class TetrisGame {
             choosedWords: [],               // Choosed words to work with them
             choosedWordsUsedChars: [],      // Chars that used from choosed words
             encryptionKey: [],              // key of encryption
+            wordsLengthTotal:0,            //Average length of words founded in games
+            wordsFounded:0,                 //Counter to hold count of words found in game
+            wordDirectionCounter:{          //Counter of founded word in each direction
+                rtl:0,
+                ltr:0,
+                ttd:0,
+                dtp:0
+            }
+
+
         };
 
 
@@ -170,6 +180,12 @@ export default class TetrisGame {
 
             let word = initValues.choosedWords[successObject.wordId].word;
             //TODO: JAFAR REZAYI, You can show the word here
+
+
+            //Update stats related to word
+            this.initValues.wordsFounded++;
+            this.initValues.wordDirectionCounter[successObject.direction]++;
+            this.initValues.wordsLengthTotal += word.length;
 
 
 
@@ -266,7 +282,9 @@ export default class TetrisGame {
             Storage.set("score", "0");
         }
 
-
+        this.initValues.wordsLengthTotal=0;
+        this.initValues.wordsFounded=0;
+        this.initValues.wordDirectionCounter= {rtl:0,ltr:0,ttd:0,dtt:0};
 
         // blob for timer
         window.blobTiming = new Blob([

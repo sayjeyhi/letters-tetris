@@ -204,6 +204,19 @@ export default class Gameplay {
         TetrisGame.initValues.finished = true;
         TetrisGame.timer.pause();
 
+
+
+
+        let wordsAverageLength = TetrisGame.initValues.wordsLengthTotal / TetrisGame.initValues.wordsFounded;
+        //TODO: Jafar Rezayi, use this variables when showing user scoreboard
+        // wordsAverageLength
+        // TetrisGame.initValues.wordDirectionCounter
+        // TetrisGame.initValues.wordsFounded
+        console.log(wordsAverageLength,TetrisGame.initValues.wordDirectionCounter,TetrisGame.initValues.wordsFounded)
+
+
+
+
         let modalHeader = "", modalContent = "";
         let modalButtons = [];
         if (mode === "gameOver") {

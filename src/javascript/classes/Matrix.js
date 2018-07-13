@@ -171,20 +171,18 @@ export default class Matrix {
      * @param checkType {CheckTypes} - An checkType Object to find direction
      * @param occurancePositionFrom {Number} - Start position of word
      * @param occurancePositionLenght {Number} - Length of word
-     * @param deleteCallBack {Function} - Function to callback when foundWord and Falling words has been found
+     * @param successCallBack {Function} - Function to callback when foundWord and Falling words has been found
      */
-    _deleteCharacters(rowId,colId,wordId,checkType,occurancePositionFrom,occurancePositionLenght,deleteCallBack){
+    _deleteCharacters(rowId,colId,wordId,checkType,occurancePositionFrom,occurancePositionLenght,successCallBack){
 
         //Determines if we need to store date to call the callback function if it exists
-        let hasCallback = Helper.isFunction(deleteCallBack);
-
-
-        // successCallback(rowId,i,,c);
+        let hasCallback = Helper.isFunction(successCallBack);
 
         let callbackObject = {
             wordId: wordId,
             wordCharacterPositions:[],//Array of {x,y}
-            fallingCharacters:[]//Array of {oldX,oldY,newX,newY}
+            fallingCharacters:[], //Array of {oldX,oldY,newX,newY}
+            direction: Object.keys(checkType)[0]
         };
 
         if(checkType.ltr){
@@ -230,7 +228,7 @@ export default class Matrix {
             //TODO
         }
 
-        deleteCallBack(callbackObject);
+        successCallBack(callbackObject);
     }
 }
 
