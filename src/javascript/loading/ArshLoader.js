@@ -254,7 +254,7 @@ class ArshLoader {
             directionWordChecks: {
                 ltr:true,                   // check left to right
                 rtl:true,                   // check right to left
-                ttd:false,                  // check top top down
+                ttd:true,                  // check top top down
                 dtt:false                   // check down to top
             },
             scoreCalculator: (word) => {

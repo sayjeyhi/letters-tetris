@@ -19,7 +19,7 @@ module.exports = function (config) {
             'test/tests.webpack.js': ['webpack', 'sourcemap'],
         },
         webpack: {
-            cache: false,
+            cache: true,
             mode: "development",
             devtool: 'inline-source-map',
             module: {

@@ -228,18 +228,19 @@ export default class Matrix {
             }
         }else if (checkType.ttd){
             for(let c=0,i = occurancePositionFrom;i<occurancePositionFrom+occurancePositionLenght;i++,c++){
-                this.matrix[rowId][i]=' ';
+                this.matrix[i][colId]=' ';
                 if(hasCallback){
-                    callbackObject.wordCharacterPositions.push({y:rowId,x:i});
+                    callbackObject.wordCharacterPositions.push({y:i,x:colId});
                 }
+            }
 
-                //Move upper blocks to bottom
-                for(let upIndex=rowId;this.matrix[upIndex-1][i] !== ' ' && upIndex>=0;upIndex--){
-                    this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
-                    this.matrix[upIndex-1][i] = ' ';
-                    if(hasCallback){
-                        callbackObject.fallingCharacters.push({oldY:upIndex-1,oldX:i,newY:upIndex,newX:i});
-                    }
+            //Move upper blocks to bottom
+
+            for(let upIndex=occurancePositionFrom; upIndex>0 &&this.matrix[upIndex-1][colId] !== ' ';upIndex--){
+                this.matrix[upIndex+occurancePositionLenght-1][colId] = this.matrix[upIndex-1][colId];
+                this.matrix[upIndex-1][colId] = ' ';
+                if(hasCallback){
+                    callbackObject.fallingCharacters.push({oldY:upIndex-1,oldX:colId,newY:upIndex+occurancePositionLenght-1,newX:colId});
                 }
             }
         }else if (checkType.dtt){
