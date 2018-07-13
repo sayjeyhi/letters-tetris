@@ -75,49 +75,26 @@ export default class TetrisGame {
             scoreCalculator: (word) => {
                 return Math.pow(1.3, word.length);      // Larger words will have better score
             },
+            chooseedWordKind: {},
+
+
             // user setting values
             playBackgroundSound: true,
             playEventsSound: true,
             level: 1 ,                      // Up to 3 - if it is big it is hard to play
             useAnimationFlag : true,        // Make animate or not
-            showGrids : true,                // Show grids flag
-            chooseedWordKind: {}
+            showGrids : true                // Show grids flag
         };
 
         //Extend config from user
         Object.assign(this.config,config);
 
+
+
         /**
-         * We hold game variables here
+         * We hold game values here
          */
-        this.initValues = {
-            paused: false,                  // is game paused
-            finished: false,                // is game finished
-            wordsFinished: false,           // do we run out of words
-            chooseedWordKind: config.chooseedWordKind,           // holds user words kind
-            bgSound : {} ,                  // background sound instance
-            isFirstRun: true,               // is this my first run
-            cachedRows : {},                // cache rows here
-            upComingCharEl : null,          // up coming showe element
-            score: 0,                       // This is fake, We will never show anything related to this to user
-            validatedColumnsCount: 0,       // Count of columns which are validated
-            nextChar: '',                   // Next character
-            activeChar: {},                 // Active character [not stopped] Object index
-            choosedWords: [],               // Choosed words to work with them
-            choosedWordsUsedChars: [],      // Chars that used from choosed words
-            encryptionKey: [],              // key of encryption
-            wordsLengthTotal:0,            //Average length of words founded in games
-            wordsFounded:0,                 //Counter to hold count of words found in game
-            wordDirectionCounter:{          //Counter of founded word in each direction
-                rtl:0,
-                ltr:0,
-                ttd:0,
-                dtp:0
-            }
-        };
-
-        console.log(this.initValues.chooseedWordKind)
-
+        this.setDefaultValues(true);
 
 
         /**
@@ -160,6 +137,33 @@ export default class TetrisGame {
         return columnsNumber % 2 === 0 ? columnsNumber : columnsNumber + 1;
     }
 
+
+    static setDefaultValues(firstCall){
+        TetrisGame.initValues = {
+            paused: false,                                      // is game paused
+            finished: false,                                    // is game finished
+            wordsFinished: false,                               // do we run out of words
+            isFirstRun: firstCall,                              // it is not first run
+            bgSound: (firstCall ? {} : TetrisGame.initValues.bgSound),          // is this my first run
+            cachedRows: (firstCall ? {} : TetrisGame.initValues.cachedRows) ,   // cache rows here
+            upComingCharEl: null,
+            score : 0 ,                                         // This is fake, We will never show anything related to this to user
+            encryptionKey: [],                                  // key of variables encryption
+            validatedColumnsCount: 0,                           // Count of columns which are validated
+            nextChar: '',                                       // Next character
+            activeChar: {},                                     // Active character [not stopped] charBlock object
+            choosedWords: [],                                   // Choosed words to work with them
+            choosedWordsUsedChars: [],                          // Chars that used from choosed words
+            wordsLengthTotal: 0,                                // Average length of words founded in games
+            wordsFounded: 0,                                    // Counter to hold count of words found in game
+            wordDirectionCounter: {                             // Counter of founded word in each direction
+                rtl: 0,
+                ltr: 0,
+                ttd: 0,
+                dtp: 0
+            }
+        }
+    }
 
     /**
      * Check if could find a success word
@@ -238,13 +242,13 @@ export default class TetrisGame {
                 () => {
                     successObject.fallingCharacters.map((item,index) => {
                         Timeout.request(
-                            ()=>{
+                            () => {
                                 Charblock.fallNodeAnimate(item.oldY, item.oldX, item.newY, item.newX)
                             }, index * config.successAnimationIterationDuration);
                     });
 
                     Timeout.request(
-                        ()=>{
+                        () => {
                             //Resume game after all animations has been finished
                             TetrisGame.initValues.paused=false;
                         }, successObject.fallingCharacters.length * config.successAnimationIterationDuration
@@ -274,19 +278,17 @@ export default class TetrisGame {
     static build() {
 
         let initValues = this.initValues;
+        let config = this.config;
 
-        if(TetrisGame.config.do_encryption){
-            const encryptionKeySize=TetrisGame.config.encryptionKeySize;
+        if(config.do_encryption){
+            const encryptionKeySize = config.encryptionKeySize;
             for(let i=0;i<encryptionKeySize;++i)
-                TetrisGame.initValues.encryptionKey.push(1+Math.floor(Math.random()*253));
-            Storage.setEncrypted("score", 0, this.initValues.encryptionKey);
+                initValues.encryptionKey.push(1+Math.floor(Math.random()*253));
+            Storage.setEncrypted("score", 0, initValues.encryptionKey);
         }else{
             Storage.set("score", "0");
         }
 
-        this.initValues.wordsLengthTotal=0;
-        this.initValues.wordsFounded=0;
-        this.initValues.wordDirectionCounter= {rtl:0,ltr:0,ttd:0,dtt:0};
 
         // blob for timer
         window.blobTiming = new Blob([
@@ -341,7 +343,7 @@ export default class TetrisGame {
         document.querySelector("#container").innerHTML =
             `<div class="gameHolder ${ltrClass}">
                     <div class="behindPlayBoard">
-                        <div class="gamingKind"><span class="persian">${initValues.chooseedWordKind.persianTitle}</span><span class="english">${initValues.chooseedWordKind.englishTitle}</span></div>
+                        <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span></div>
                         <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
                         <div class="gameControlButtons" >
                             <div onclick="Gameplay.start();" class="startGame">${lang.startGame}</div>

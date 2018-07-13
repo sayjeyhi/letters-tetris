@@ -34,7 +34,7 @@ export default class Swipe {
             onTouchEnd : () => {},
         };
 
-        this.threshold = config.threshold;               //required min distance traveled to be considered swipe
+        this.threshold = config.threshold;               // required min distance traveled to be considered swipe
         this.restraint = config.restraint;               // maximum distance allowed at the same time in perpendicular direction
         this.allowedTime = config.allowedTime;           // maximum time allowed to travel that distance
         this.handleSwipe = callback || ((swipedir) => {console.log(swipedir);});
