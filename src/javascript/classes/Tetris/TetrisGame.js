@@ -166,7 +166,12 @@ export default class TetrisGame {
             }
 
 
+
+
             let word = initValues.choosedWords[successObject.wordId].word;
+            //TODO: JAFAR REZAYI, You can show the word here
+
+
 
             //Remove word from choosed words
             initValues.choosedWords.splice(successObject.wordId, 1);
