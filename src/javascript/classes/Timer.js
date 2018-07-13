@@ -38,7 +38,7 @@
 *        onResume:function () {
 *            TetrisGame.initValues.paused = false;
 *        },
-*        blobTiming: new Blob([document.querySelector('#workerTiming').textContent], { type: "text/javascript" });,
+*        blobTiming: new Blob([Helper._('#workerTiming').textContent], { type: "text/javascript" });,
 *    });
  */
 export default class Timer {
@@ -82,7 +82,7 @@ export default class Timer {
      * Starts the timer
      */
     start() {
-        let timerDisplayEl = document.querySelector(this.config.cssClsss);
+        let timerDisplayEl = Helper._(this.config.cssClsss);
         if (typeof (Worker) !== "undefined") {
             if (!this.timerWorker) {
                 this.timerWorker = new Worker(window.URL.createObjectURL(this.config.blobTiming));

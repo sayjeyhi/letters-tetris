@@ -251,6 +251,11 @@ svg :not(.doNotUnfill){stroke:currentColor}
     .modal .formData label > span{margin:6px 2px !important;padding: 8px 16px;}
 }
 
+@media (max-width: 480px) {
+    body{margin: 0 !important;}
+    footer{display: none;}
+}
+
 
 /* ANIMATION PART */
 .fallDownSimple,.fallDownMedium,.fallDownExpert{-webkit-animation-duration:.15s;animation-duration:.15s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
@@ -259,6 +264,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .animated{-webkit-animation-duration:.2s;animation-duration:.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedHalfSecond{-webkit-animation-duration:.5s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedOneSecond{-webkit-animation-duration:.7s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
+.animatedMaxTime{-webkit-animation-duration:1.2s;animation-duration:1.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}
 .arshLoadingAnimation{height:32px;width:32px;-webkit-animation:arshLoadingAnimation-1 2s cubic-bezier(0.770,0.000,0.175,1.000) infinite;animation:arshLoadingAnimation-1 2s cubic-bezier(0.770,0.000,0.175,1.000) infinite}
 @-webkit-keyframes arshLoadingAnimation-1 {
@@ -518,52 +524,65 @@ svg :not(.doNotUnfill){stroke:currentColor}
 @-webkit-keyframes jackInTheBox {
     from {
         opacity: 0;
-        -webkit-transform: scale(0.1) rotate(30deg);
-        transform: scale(0.1) rotate(30deg);
+        -webkit-transform: scale(0.1) rotate(30deg)  translate3d(0,-5px,0);
+        transform: scale(0.1) rotate(30deg)  translate3d(0,-5px,0);
         -webkit-transform-origin: center bottom;
         transform-origin: center bottom;
     }
 
-    50% {
-        -webkit-transform: rotate(-10deg);
-        transform: rotate(-10deg);
+    30% {
+        -webkit-transform: rotate(-10deg)  translate3d(0,-8px,0);
+        transform: rotate(-10deg)  translate3d(0,-8px,0);
     }
 
-    70% {
-        -webkit-transform: rotate(3deg);
-        transform: rotate(3deg);
-    }
 
-    to {
+    60% {
+        -webkit-transform: rotate(3deg) translate3d(0,-13px,0);
+        transform: rotate(3deg) translate3d(0,-13px,0);
         opacity: 1;
-        -webkit-transform: scale(1);
-        transform: scale(1);
+    }
+
+    80% {
+        opacity: 0.5;
+        -webkit-transform: scale(1) translate3d(0,-15px,0);
+        transform: scale(1) translate3d(0,-15px,0);
+    }
+
+
+    to{
+        opacity: 0;
     }
 }
 
 @keyframes jackInTheBox {
     from {
         opacity: 0;
-        -webkit-transform: scale(0.1) rotate(30deg);
-        transform: scale(0.1) rotate(30deg);
+        -webkit-transform: scale(0.1) rotate(30deg)  translate3d(0,-5px,0);
+        transform: scale(0.1) rotate(30deg)  translate3d(0,-5px,0);
         -webkit-transform-origin: center bottom;
         transform-origin: center bottom;
     }
 
-    50% {
-        -webkit-transform: rotate(-10deg);
-        transform: rotate(-10deg);
+    30% {
+        -webkit-transform: rotate(-10deg)  translate3d(0,-8px,0);
+        transform: rotate(-10deg)  translate3d(0,-8px,0);
     }
 
-    70% {
-        -webkit-transform: rotate(3deg);
-        transform: rotate(3deg);
-    }
 
-    to {
+    60% {
+        -webkit-transform: rotate(3deg) translate3d(0,-13px,0);
+        transform: rotate(3deg) translate3d(0,-13px,0);
         opacity: 1;
-        -webkit-transform: scale(1);
-        transform: scale(1);
+    }
+
+    80% {
+        opacity: 0.5;
+        -webkit-transform: scale(1) translate3d(0,-15px,0);
+        transform: scale(1) translate3d(0,-15px,0);
+    }
+
+    to{
+        opacity: 0;
     }
 }
 

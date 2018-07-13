@@ -164,7 +164,8 @@ export default class TetrisGame {
                 ltr: 0,
                 ttd: 0,
                 dtp: 0
-            }
+            },
+            isMobile : (typeof window.orientation !== 'undefined')
         }
     }
 
@@ -331,7 +332,7 @@ export default class TetrisGame {
             Storage.set("score", score);
         }
 
-        document.querySelector(".scoreHolder").innerHTML = Math.round(score);
+        Helper._(".scoreHolder").innerHTML = Math.round(score);
     }
 
 
@@ -357,7 +358,7 @@ export default class TetrisGame {
 
         // blob for timer
         window.blobTiming = new Blob([
-            document.querySelector('#workerTiming').textContent
+            Helper._('#workerTiming').textContent
         ], { type: "text/javascript" });
 
 
@@ -405,31 +406,34 @@ export default class TetrisGame {
 
 
         // add main html to page
-        document.querySelector("#container").innerHTML =
+        let gameHtmlContent =
             `<div class="gameHolder ${ltrClass}">
-                    <div class="behindPlayBoard">
-                        <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span></div>
-                        <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
-                        <div class="gameControlButtons" >
-                            <div onclick="Gameplay.start();" class="startGame">${lang.startGame}</div>
-                            <div onclick="Gameplay.pause();" class="pauseGame" style="display: none">${lang.pauseGame}</div>
-                            <div onclick="Gameplay.resume();" class="resumeGame" style="display: none">${lang.resumeGame}</div>
-                            <div onclick="Gameplay.restart();" class="restartGame" style="display: none">${lang.restartGame}</div>
-                        </div>
-                       <div class="courseArea">
-                           <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
-                           <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> </div>
-                           <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
-                           <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
-                       </div>
-                   </div>
-                   <div class="playBoard"><span class="emptyPlayBoard">${lang.clickStartGame}</span></div>
-                </div>
-                <footer class="page-footer">
-                    <div class="container">
-                        <i class="linearicon linearicon-brain"></i> ${lang.copyRight}
+                <div class="behindPlayBoard">
+                    <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span></div>
+                    <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
+                    <div class="gameControlButtons" >
+                        <div onclick="Gameplay.start();" class="startGame">${lang.startGame}</div>
+                        <div onclick="Gameplay.pause();" class="pauseGame" style="display: none">${lang.pauseGame}</div>
+                        <div onclick="Gameplay.resume();" class="resumeGame" style="display: none">${lang.resumeGame}</div>
+                        <div onclick="Gameplay.restart();" class="restartGame" style="display: none">${lang.restartGame}</div>
                     </div>
-                </footer>`;
+                   <div class="courseArea">
+                       <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
+                       <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> </div>
+                       <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : 0</div>
+                       <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
+                   </div>
+               </div>
+               <div class="playBoard"><span class="emptyPlayBoard">${lang.clickStartGame}</span></div>
+            </div>
+            <footer class="page-footer">
+                <div class="container">
+                    <i class="linearicon linearicon-brain"></i> ${lang.copyRight}
+                </div>
+            </footer>`;
+
+
+        Helper._("#container").innerHTML = gameHtmlContent;
     }
 
 }

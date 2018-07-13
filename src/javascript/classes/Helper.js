@@ -9,6 +9,19 @@
  */
 export default class Helper {
 
+
+    /**
+     * Wrapper for query selector
+     * @param selector
+     * @param holder
+     * @return {null | object}
+     */
+    static _(selector , holder) {
+        holder = typeof holder === "undefined" ? document : holder;
+        return holder.querySelector(selector) || null;
+    }
+
+
     /**
      * Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
      * For example this string: 'foo 𝌆 bar mañana mañana' will be corrupt if used string.split("").reverse().join("");

@@ -1,87 +1,59 @@
 [
     {
-        "word": "fan",
-        "unicode": "213124"
+        "word": "fan"
     }, {
-        "word": "dryer",
-        "unicode": "213124"
+        "word": "dryer"
     }, {
-        "word": "Compactor",
-        "unicode": "213124"
+        "word": "Compactor"
     }, {
-        "word": "Dehumidifier",
-        "unicode": "213124"
+        "word": "Dehumidifier"
     }, {
-        "word": "Dishwasher",
-        "unicode": "213124"
+        "word": "Dishwasher"
     }, {
-        "word": "Fireplace",
-        "unicode": "213124"
+        "word": "Fireplace"
     }, {
-        "word": "matchbox",
-        "unicode": "213124"
+        "word": "matchbox"
     }, {
-        "word": "Hair dryer",
-        "unicode": "213124"
+        "word": "Hair dryer"
     }, {
-        "word": "Hair iron",
-        "unicode": "213124"
+        "word": "Hair iron"
     }, {
-        "word": "Hob",
-        "unicode": "213124"
+        "word": "Hob"
     }, {
-        "word": "Humidifier",
-        "unicode": "213124"
+        "word": "Humidifier"
     }, {
-        "word": "Icebox",
-        "unicode": "213124"
+        "word": "Icebox"
     }, {
-        "word": "Ironing",
-        "unicode": "213124"
+        "word": "Ironing"
     }, {
-        "word": "Laundroid",
-        "unicode": "213124"
+        "word": "Laundroid"
     }, {
-        "word": "Lighter",
-        "unicode": "213124"
+        "word": "Lighter"
     }, {
-        "word": "Matchbook",
-        "unicode": "213124"
+        "word": "Matchbook"
     }, {
-        "word": "heater",
-        "unicode": "213124"
+        "word": "heater"
     }, {
-        "word": "Radiator",
-        "unicode": "213124"
+        "word": "Radiator"
     }, {
-        "word": "Rat trap",
-        "unicode": "213124"
+        "word": "Rat trap"
     }, {
-        "word": "Fridge",
-        "unicode": "213124"
+        "word": "Fridge"
     }, {
-        "word": "Door",
-        "unicode": "213124"
+        "word": "Door"
     }, {
-        "word": "Soap",
-        "unicode": "213124"
+        "word": "Soap"
     }, {
-        "word": "Lights",
-        "unicode": "213124"
+        "word": "Lights"
     }, {
-        "word": "pump",
-        "unicode": "213124"
+        "word": "pump"
     }, {
-        "word": "Trouser",
-        "unicode": "213124"
+        "word": "Trouser"
     }, {
-        "word": "Cooker",
-        "unicode": "213124"
+        "word": "Cooker"
     }, {
-        "word": "Wig wag",
-        "unicode": "213124"
+        "word": "Wig wag"
     }, {
-        "word": "Window",
-        "unicode": "213124"
+        "word": "Window"
     }
 ]

@@ -23,8 +23,8 @@ export default class Gameplay {
     static start() {
 
         // cache most used elements on class
-        TetrisGame.playBoard = document.querySelector(".playBoard");
-        TetrisGame.initValues.upComingCharEl = document.querySelector(".showUpComingLetter");
+        TetrisGame.playBoard = Helper._(".playBoard");
+        TetrisGame.initValues.upComingCharEl = Helper._(".showUpComingLetter");
 
 
         // Get valid column length based on max json word length to create columns
@@ -41,26 +41,9 @@ export default class Gameplay {
 
 
         // create game columns and rows - matrix
-        let playBoardTable = '';
-        let matrixRowArray = [];
-        for (let r = 0; r < TetrisGame.config.rows; r++) {
-            let matrixColumn = [];
-            playBoardTable += '<div class="isRow row_' + r + '">';
-            for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
-                playBoardTable += '<div id="grid' + r + '_' + c +  '" class="isColumn column_' + c + '" data-row="' + r + '"></div>';
-                matrixColumn[c]=' ';
-            }
-            matrixRowArray[r] = matrixColumn;
-            playBoardTable += '</div>';
-        }
-        playBoardTable += '<div class="foundWordAnimation animatedOneSecond jackInTheBox"></div>';
-
-        TetrisGame.playBoard.innerHTML = playBoardTable;
-
-
-        // make instance of matrix
-        TetrisGame.matrix = new Matrix(matrixRowArray);
-
+        TetrisGame.matrix = new Matrix(
+            this._makeGameBoard()
+        );
 
 
         // Choose n words from json to create rows and columns
@@ -86,36 +69,11 @@ export default class Gameplay {
         Sound.playByKey('start', TetrisGame.config.playEventsSound);
 
         // arrow keys press
-        document.onkeydown = function (e) {
-            if(!TetrisGame.initValues.paused) {
-                TetrisGame.initValues.activeChar.move(e.keyCode);
-            }
-        };
+        this._makeMovingEvents();
 
-        // mobile swipe detect
-        TetrisGame.swipe = new Swipe(
-            TetrisGame.playBoard,
-            function (dir) {
-                // simulate arrow press on swipe
-                switch (dir){
-                    case "left":
-                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.LEFT);
-                        break;
-                    case "right":
-                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.RIGHT);
-                        break;
-                    case "down":
-                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.DOWN);
-                        break;
-                }
-            } , {
-                threshold: 70
-            }
-        );
-
-
-        this.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
+        this._buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
     }
+
 
 
     /**
@@ -130,7 +88,7 @@ export default class Gameplay {
         TetrisGame.timer.pause();
 
         // manage game buttons
-        this.buttonManager('.resumeGame,.restartGame', '.startGame,.pauseGame');
+        this._buttonManager('.resumeGame,.restartGame', '.startGame,.pauseGame');
     }
 
 
@@ -146,7 +104,7 @@ export default class Gameplay {
         TetrisGame.timer.resume();
 
         // manage game buttons
-        this.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
+        this._buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
 
     }
 
@@ -191,7 +149,7 @@ export default class Gameplay {
         }
 
         // manage game buttons
-        this.buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');
+        this._buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');
 
         initValues.finished = true;
         TetrisGame.timer.pause();
@@ -264,12 +222,78 @@ export default class Gameplay {
 
 
     /**
+     * Make game board
+     * @return {Array}
+     * @private
+     */
+    static _makeGameBoard(){
+        let playBoardTable = '';
+        let matrixRowArray = [];
+
+        let rowsCount = TetrisGame.initValues.isMobile ? 9 : TetrisGame.config.rows;
+
+        for (let r = 0; r < rowsCount; r++) {
+            let matrixColumn = [];
+            playBoardTable += '<div class="isRow row_' + r + '">';
+            for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
+                playBoardTable += '<div id="grid' + r + '_' + c +  '" class="isColumn column_' + c + '" data-row="' + r + '"></div>';
+                matrixColumn[c]=' ';
+            }
+            matrixRowArray[r] = matrixColumn;
+            playBoardTable += '</div>';
+        }
+
+        playBoardTable += '<div class="foundWordAnimation animatedMaxTime jackInTheBox"></div>';
+        TetrisGame.playBoard.innerHTML = playBoardTable;
+
+        return matrixRowArray;
+    }
+
+
+    /**
+     * Make events for moving charBlocks
+     * @private
+     */
+    static _makeMovingEvents(){
+
+        // fire on arrow keys down
+        document.onkeydown = function (e) {
+            if(!TetrisGame.initValues.paused && [37 , 39 , 40].indexOf(e.keyCode) > -1) {
+                TetrisGame.initValues.activeChar.move(e.keyCode);
+            }
+        };
+
+        // mobile swipe detect
+        TetrisGame.swipe = new Swipe(
+            TetrisGame.playBoard,
+            function (dir) {
+                // simulate arrow press on swipe
+                switch (dir){
+                    case "left":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.LEFT);
+                        break;
+                    case "right":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.RIGHT);
+                        break;
+                    case "down":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.DOWN);
+                        break;
+                }
+            } , {
+                threshold: 70
+            }
+        );
+    }
+
+
+    /**
      * Manage btn parts buttons
      * @param showClassed
      * @param hideClasses
+     * @private
      */
-    static buttonManager(showClassed, hideClasses) {
-        let gameBtnControl = document.querySelector(".gameControlButtons");
+    static _buttonManager(showClassed, hideClasses) {
+        let gameBtnControl = Helper._(".gameControlButtons");
         gameBtnControl.querySelectorAll(showClassed).forEach((item) => {
             item.style.display = "inline-block";
         });

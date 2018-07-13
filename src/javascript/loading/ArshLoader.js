@@ -18,16 +18,6 @@ import Storage from "../classes/Storage";
 class ArshLoader {
 
     /**
-     * Wrapper for query selector
-     * @param selector
-     * @return {null | object}
-     * @private
-     */
-    static _(selector) {
-        return document.querySelector(selector) || null;
-    }
-
-    /**
      * Set main properties of ArshLoader
      * @return {ArshLoader}
      */
@@ -87,8 +77,8 @@ class ArshLoader {
      */
     static afterLoad() {
         if (!ArshLoader.isLoaded) {
-            let loadingTextElement = ArshLoader._('.loadingText');
-            loadingTextElement.querySelector(".arshLoadingAnimation").className += " animated fadeOut";
+            let loadingTextElement = Helper._('.loadingText');
+            Helper._(".arshLoadingAnimation" , loadingTextElement).className += " animated fadeOut";
 
             Timeout.request(function () {
 
@@ -103,26 +93,26 @@ class ArshLoader {
                     '<i class="linearicon linearicon-chevrons-expand-vertical"></i>' +
                     "</div>";
 
-                chooseWordsKind.querySelector(".wordsKind").onclick = function (ev) {
+                Helper._(".wordsKind" , chooseWordsKind).onclick = function (ev) {
                     ev.stopPropagation();
                     let openedStatus = chooseWordsKind.dataset.opened || "no";
                     let newDisplay = openedStatus === "yes" ? "none" : "inline-block";
                     chooseWordsKind.dataset.opened = openedStatus === "yes" ? "no" : "yes";
-                    document.querySelector(".chooseWordKindTooltip").style.display = newDisplay;
+                    Helper._(".chooseWordKindTooltip").style.display = newDisplay;
                 };
 
                 window.onclick = function (ev) {
                     if (!ev.target.matches('.wordsKind')) {
                         chooseWordsKind.dataset.opened = "no";
-                        if (document.querySelector(".chooseWordKindTooltip"))
-                            document.querySelector(".chooseWordKindTooltip").style.display = "none";
+                        if (Helper._(".chooseWordKindTooltip"))
+                            Helper._(".chooseWordKindTooltip").style.display = "none";
                     }
                 };
 
 
                 let btnFa = document.createElement('div');
                 btnFa.onclick = function () {
-                    let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
+                    let wordsType = Helper._(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
                     ArshLoader.startGame("fa", wordsType);
                 };
                 btnFa.className = "btnEnterProject animatedOneSecond bounceIn";
@@ -131,7 +121,7 @@ class ArshLoader {
 
                 let btnEn = document.createElement('div');
                 btnEn.onclick = function () {
-                    let wordsType = document.querySelector(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
+                    let wordsType = Helper._(".wordsKind").dataset.choosedwordskind || "animales-حیوانات";
                     ArshLoader.startGame("en", wordsType);
                 };
                 btnEn.className = "btnEnterProject animatedOneSecond bounceIn ltr";
@@ -183,13 +173,13 @@ class ArshLoader {
      * @param el
      */
     static chooseWordKind(name, el) {
-        let choosedPersianTitle = el.querySelector(".persianTitle").innerHTML;
-        let choosedEnglishTitle = el.querySelector(".englishTitle").innerHTML;
-        let chooserEl = document.querySelector(".wordsKind");
+        let choosedPersianTitle = Helper._(".persianTitle", el).innerHTML;
+        let choosedEnglishTitle = Helper._(".englishTitle" , el).innerHTML;
+        let chooserEl = Helper._(".wordsKind");
         el.parentNode.parentNode.style.display = "none";
 
-        chooserEl.querySelector(".persianTitle").innerHTML = choosedPersianTitle;
-        chooserEl.querySelector(".englishTitle").innerHTML = choosedEnglishTitle;
+        Helper._(".persianTitle",chooserEl).innerHTML = choosedPersianTitle;
+        Helper._(".englishTitle",chooserEl).innerHTML = choosedEnglishTitle;
         chooserEl.dataset.choosedwordskind = (name.toString() + "-" + choosedPersianTitle.toString());
         // this.chooseWordKind.dataset.opened = "no";
         document.querySelector(".wordsKind").parentElement.dataset.opened = "no";
@@ -201,9 +191,9 @@ class ArshLoader {
      */
     static _setRandomColor() {
         let color = MaterialColor.getRandomColor();
-        ArshLoader._('.bloc').style.borderColor = color;
-        ArshLoader._('#jafarRezaeiAnimate').style.color = color;
-        ArshLoader._('#jafarRezaeiAnimate').style.fill = color;
+        Helper._('.bloc').style.borderColor = color;
+        Helper._('#jafarRezaeiAnimate').style.color = color;
+        Helper._('#jafarRezaeiAnimate').style.fill = color;
     }
 
 
@@ -329,7 +319,7 @@ class ArshLoader {
                 '       <div class="loadingText"><div class="arshLoadingAnimation center"><span></span></div></div>\n' +
                 '</div>';
 
-            ArshLoader._('#container').innerHTML = content;
+            Helper._('#container').innerHTML = content;
             this._setRandomColor();
 
 
@@ -338,7 +328,7 @@ class ArshLoader {
                 'jafarRezaeiAnimate',
                 {
                     type: 'oneByOne',
-                    duration: 40,
+                    duration: 20,
                     start: 'autostart',
                     dashGap: 40,
                     forceRender: false
@@ -359,7 +349,7 @@ class ArshLoader {
 
             document.getElementById("jafarRezaeiAnimate").addEventListener("click", () => {
 
-                ArshLoader._setRandomColor();
+                Helper._setRandomColor();
 
                 this.classList.remove("finished");
                 hi_jRun.reset().play();
@@ -370,7 +360,7 @@ class ArshLoader {
                 '<div class="loadingText"><div class="arshLoadingAnimation center"><span></span></div></div>\n' +
                 '</div>';
 
-            ArshLoader._('#container').innerHTML = content;
+            Helper._('#container').innerHTML = content;
 
             // load bundle of javascript pack here then do the job
             ArshLoader.animationLoading = true;
