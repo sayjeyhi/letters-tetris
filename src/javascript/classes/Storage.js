@@ -59,7 +59,7 @@ export default class Storage {
     /**
      * Saves an object in localStorage
      * @param {string} key
-     * @param {Object} value
+     * @param {Object|string} value
      */
     static set(key, value) {
         if (typeof (value) === "object") {

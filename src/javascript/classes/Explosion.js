@@ -98,7 +98,7 @@ export default class Explosion {
     static _render(particles , ctx , c) {
         ctx.clearRect(0, 0, c.width, c.height);
 
-        particles.forEach(function(p, i) {
+        particles.forEach(function(p) {
 
             Explosion._moveOnAngle(p, p.speed);
 
@@ -143,7 +143,8 @@ export default class Explosion {
      */
     static _moveOnAngle(t, n) {
         let a = this._getOneFrameDistance(t, n);
-        t.x += a.x, t.y += a.y
+        t.x += a.x;
+        t.y += a.y
     }
 
 }

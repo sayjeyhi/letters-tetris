@@ -1,11 +1,11 @@
 console.log('Started', self);
 
-var CACHE_NAME = 'persian-tetris-v1';
+let CACHE_NAME = 'persian-tetris-v1';
 
 
-var urlsToCache = [
+let urlsToCache = [
     '/',
-    '/styles/main.css',
+    '/assets/css/app/tetris.css',
     '/bundle.js'
 ];
 
@@ -34,7 +34,7 @@ self.addEventListener('fetch', function(event) {
                 // can only be consumed once. Since we are consuming this
                 // once by cache and once by the browser for fetch, we need
                 // to clone the response.
-                var fetchRequest = event.request.clone();
+                let fetchRequest = event.request.clone();
 
                 return fetch(fetchRequest).then(
                     function(response) {
@@ -58,6 +58,24 @@ self.addEventListener('fetch', function(event) {
                     }
                 );
             })
+    );
+});
+
+
+self.addEventListener('activate', function(event) {
+
+    let cacheWhitelist = ['persian-tetris-v1', 'blog-posts-cache-v1'];
+
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            return Promise.all(
+                cacheNames.map(function(cacheName) {
+                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
     );
 });
 

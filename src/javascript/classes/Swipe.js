@@ -25,7 +25,7 @@ export default class Swipe {
 
         this.touchSurface = element;
 
-        config = typeof config === "object" ? config : {
+        let defaultConfig = {
             threshold : 100,
             restraint : 100,
             allowedTime : 300,
@@ -33,6 +33,9 @@ export default class Swipe {
             whileTouch : () => {},
             onTouchEnd : () => {},
         };
+
+
+        config = Object.assign(defaultConfig , config);
 
         this.threshold = config.threshold;               // required min distance traveled to be considered swipe
         this.restraint = config.restraint;               // maximum distance allowed at the same time in perpendicular direction

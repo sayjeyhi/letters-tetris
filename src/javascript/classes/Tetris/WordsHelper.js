@@ -20,15 +20,14 @@ export default class WordsHelper {
         let randomKey = keys[keys.length * Math.random() << 0];
         let value = window.TetrisWords[randomKey] || "";
 
-
         // do we finished words ?
-        if (value === "" && !TetrisGame.initValues.finished) {
+        if (value === "") {
             TetrisGame.initValues.wordsFinished = true;
             return false;
         }
 
         // normalize word chars
-        value.word = value.word.replace(/[^a-zA-Zآ-ی]/g, "");
+        value.word = value.word.replace(/[^\u4e00-\u9fff\u3400-\u4dff\uf900-\ufaffA-Za-zآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]/g, "");
 
         // use lower case of characters
         if(TetrisGame.config.useLowercase){

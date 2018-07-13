@@ -1,19 +1,17 @@
 [
     {
-        "word": "ba"
+        "word": "foo"
     },{
-        "word": "ba"
+        "word": "bar"
     },{
-        "word": "ba"
+        "word": "tiger"
     },{
-        "word": "ba"
+        "word": "cow"
     },{
-        "word": "ba"
+        "word": "zebra"
     },{
-        "word": "ba"
-    },{
-        "word": "ba"
+        "word": "panda"
     }, {
-        "word": "ba"
+        "word": "fox"
     }
 ]

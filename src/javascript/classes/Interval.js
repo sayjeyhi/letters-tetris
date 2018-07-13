@@ -32,13 +32,26 @@ export default class Interval {
         return newInterval;
     }
 
+
     /**
      * Clear a single interval
      * @param id
      */
     clear( id ) {
+        this._removeIndex(id);
         return clearInterval(id);
     }
+
+
+    /**
+     * Removes an interval from list
+     * @param index
+     * @private
+     */
+    _removeIndex(index){
+        delete this.intervals[index];
+    }
+
 
     /**
      * Clear all intervals
@@ -49,7 +62,7 @@ export default class Interval {
         while ( len-- > 0 ) {
             let itemIndex = all.shift();
             clearInterval(parseInt(itemIndex));
-            delete this.intervals[itemIndex];
+            this._removeIndex(itemIndex);
         }
     }
 }

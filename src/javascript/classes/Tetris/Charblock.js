@@ -10,6 +10,7 @@ import MaterialColor from "../MaterialColor"
 import Explosion from "../Explosion";
 import Timeout from "../Timeout";
 import Matrix from "../Matrix";
+import Helper from "../Helper";
 
 
 export default class Charblock {
@@ -89,11 +90,6 @@ export default class Charblock {
                 // stop interval
                 TetrisGame.interval.clear(this.interval);
 
-                // Apply character in our matrix
-                // TetrisGame.matrix.setCharacter(moveTo.row -1,moveTo.column,this.char);
-
-                // console.log(Matrix.matrix);
-
                 // check words
                 TetrisGame.checkWordSuccess(this);
 
@@ -102,8 +98,6 @@ export default class Charblock {
                     if (initValues.wordsFinished) {
                         Gameplay.finish("finishWords");
                     } else {
-
-
 
                         // add new char
                         Charblock.factory();
@@ -228,6 +222,16 @@ export default class Charblock {
     }
 
 
+    static getBlockPosition(row , column){
+        let blockElement = this._getEl(row,column);
+        return {
+            top : blockElement.offsetTop,
+            left : blockElement.offsetLeft,
+            width : blockElement.offsetWidth
+        };
+    }
+
+
     /**
      * Gets an element from cache or create it
      * @param row
@@ -243,15 +247,14 @@ export default class Charblock {
             charBlockString = " .charBlock";
         }
 
-
         let cachedRow = TetrisGame.initValues.cachedRows[row] || false;
         if(Object.keys(cachedRow) > 0){
-            return TetrisGame.initValues.cachedRows[row].querySelector('.column_' + column + charBlockString);
+            return  Helper._('.column_' + column + charBlockString , TetrisGame.initValues.cachedRows[row]);
         }else {
-            let rowElement = TetrisGame.playBoard.querySelector('.row_' + row);
+            let rowElement = Helper._('.row_' + row , TetrisGame.playBoard);
             if (rowElement) {
                 TetrisGame.initValues.cachedRows[row] = rowElement;
-                return rowElement.querySelector('.column_' + column + charBlockString);
+                return Helper._('.column_' + column + charBlockString , rowElement);
             }else{
                 return null;
             }

@@ -59,17 +59,19 @@ export default class Modal {
         this.onDestroy = options.onDestroy || (() => {});
         this.isRtl = typeof isRtl === "undefined" ? false : isRtl;
         this.animate = typeof options.animate === "undefined" ? false : options.animate;
+        this.dark = options.dark ? " dark " : "";
+        this.type = options.type ? options.type : "";
 
 
         let modalHolder = document.createElement('div');
         let modal = document.createElement('div');
-        let modalAnimateClass = this.animate ? "animated bounceIn" : "";
+        let modalAnimateClass = this.animate ? "animated pulse" : "";
 
 
-        modalHolder.className="modalHolder";
+        modalHolder.className = "modalHolder";
 
         // add modal classes
-        modal.className = modalAnimateClass + " modal " + (isRtl ? "rtl" : "ltr");
+        modal.className = modalAnimateClass + " modal " + this.type + " " + this.dark + (isRtl ? "rtl" : "ltr");
 
 
         // create title
@@ -91,6 +93,7 @@ export default class Modal {
 
 
         this.node = modalHolder;
+        this.modal = modal;
 
 
         // Detect all clicks on the document
@@ -146,7 +149,7 @@ export default class Modal {
     static _createFooter(options){
 
         // Do we have footer for modals , create it and buttons
-        if(options.buttons.length > 0){
+        if(options.buttons && options.buttons.length > 0){
 
             let footer = document.createElement("div");
             footer.className = "footerModal";
@@ -179,12 +182,14 @@ export default class Modal {
         document.getElementById("container").classList.add('blur');
     }
 
+
     /**
      * Removes modal from page
      */
     destroy() {
         if(this.animate) {
-            this.node.classList.add("bounceOut");
+            this.modal.classList.remove("pulse");
+            this.modal.classList.add("fadeOut");
         }
 
         Timeout.request(

@@ -33,6 +33,12 @@
     "settingModalTitle": "Settings :",
     "modalOkButton": "Ok",
     "modalRefreshButton": "Refresh",
+    "saveScore" : "Save score",
+    "sumScore" : "Score ",
+    "foundWords" : "Found words",
+    "wordLengthAverage" : "Found words length average",
+    "spentTimeModal" : "Spent time",
+
 
     "hour": " hour ",
     "minute": " min ",

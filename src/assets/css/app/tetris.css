@@ -73,6 +73,8 @@ svg :not(.doNotUnfill){stroke:currentColor}
     position:absolute;
     left:20px;
     bottom: 40px;
+    display: none;
+    font-size: 18px;color: #2aad1c;
 }
 .gameHolder .playBoard .isColumn{position:relative;display:inline-block;height:100%}
 .gameHolder .playBoard.is6Column .isColumn{width:16.66%}
@@ -104,7 +106,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 
 .modal{position:relative;background-color:#fff;color:#444;border:none;font-size:20px;border-radius:12px;min-width:50%;max-width:85%;padding:10px 15px;min-height:20%;max-height:90%;overflow:auto;justify-content:center;align-items:center;box-shadow:0 12px 20px -10px rgba(173,104,185,0.3),0 4px 20px 0 rgba(0,0,0,0.12),0 7px 8px -5px rgba(183,183,183,0.2)}
 .modal .titleModal{display:block;font-size:15px;margin:10px 0 20px}
-.modal .titleModal .closeModal{float:right;font-size:17px;padding:6px 4px;cursor:pointer;color:#a5611f;position:relative;right:-3px}
+.modal .titleModal .closeModal{float:right;font-size:17px;padding:6px 4px;cursor:pointer;color:#a9692b;position:relative;right:-3px}
 .modal .contentModal{font-size:14px;padding:7px}
 .modal .footerModal{padding:8px;margin-top:10px}
 .modal .formData .linearicon{display:none}
@@ -113,31 +115,101 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .modal .footerModal .buttonModal.isOk{background:#6bd849;color:#fff}
 .modal .footerModal .buttonModal.notOk{background:#f96e6e;color:#fff}
 .modal.rtl .titleModal{text-align:right!important}
-.modal.rtl .titleModal .closeModal{float:left;left:-3px;right:auto}
+.modal.rtl .titleModal .closeModal{float:left;left:-3px;right:auto;top:-8px}
 .modal.rtl .footerModal .buttonModal{padding:8px 12px!important}
 .modal.rtl{direction:rtl;text-align:right}
 .modal.dark{
     background: #343a40 !important;
-    color: #fefefe !important;
+    color: #dadada !important;
+}
+
+.modal.dark .footerModal .buttonModal{
+    background: #25292d;
+    color: #d4d4d4;
+}
+.modal.dark #settingForm .formLabel{
+    color: #2aff2a !important;
+    letter-spacing: 0 !important;
+    font-family: 'SDF';
+    font-weight: 100;
+    font-size: 12px;
 }
 .modal.primary.rtl{
-    border-right:3px solid #007bff!important
+    border-right:3px solid
 }
 .modal.secondary.rtl{
-    border-right:3px solid #6c757d!important
+    border-right:3px solid
 }
 .modal.success.rtl{
-    border-right:3px solid #28a745!important
+    border-right:3px solid
 }
 .modal.danger.rtl{
-    border-right:3px solid #dc3545!important
+    border-right:3px solid
 }
 .modal.warning.rtl{
-    border-right:3px solid #ffc107!important;
+    border-right:3px solid
 }
 .modal.info.rtl{
-    border-right:3px solid #17a2b8!important;
+    border-right:3px solid
 }
+
+.modal.primary.ltr{
+    border-left:3px solid
+}
+.modal.secondary.ltr{
+    border-left:3px solid
+}
+.modal.success.ltr{
+    border-left:3px solid
+}
+.modal.danger.ltr{
+    border-left:3px solid
+}
+.modal.warning.ltr{
+    border-left:3px solid
+}
+.modal.info.ltr{
+    border-left:3px solid
+}
+
+.modal.primary{
+    border-color : #007bff!important
+}
+.modal.secondary{
+    border-color : #6c757d!important
+}
+.modal.success{
+    border-color : #28a745!important
+}
+.modal.danger{
+    border-color : #dc3545!important
+}
+.modal.warning{
+    border-color : #ffc107!important;
+}
+.modal.info{
+    border-color : #17a2b8!important;
+}
+
+.modal.primary .titleModal{
+    color: #007bff!important
+}
+.modal.secondary .titleModal{
+    color: #6c757d!important
+}
+.modal.success .titleModal{
+    color: #28a745!important
+}
+.modal.danger .titleModal{
+    color: #dc3545!important
+}
+.modal.warning .titleModal{
+    color: #ffc107!important
+}
+.modal.info .titleModal{
+    color: #17a2b8!important
+}
+
 
 #settingForm .formLabel{display:inline-block;width:25%;font-size:14px;color:#515151;position:relative;margin-right:12px}
 #settingForm .formLabel .linearicon{position:absolute;right:-28px;font-size:32px;transform:rotate(-14deg);top:-9px;color:#d1d1d1b3}
@@ -179,6 +251,11 @@ svg :not(.doNotUnfill){stroke:currentColor}
     .modal .formData label > span{margin:6px 2px !important;padding: 8px 16px;}
 }
 
+@media (max-width: 480px) {
+    body{margin: 0 !important;}
+    footer{display: none;}
+}
+
 
 /* ANIMATION PART */
 .fallDownSimple,.fallDownMedium,.fallDownExpert{-webkit-animation-duration:.15s;animation-duration:.15s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
@@ -187,6 +264,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .animated{-webkit-animation-duration:.2s;animation-duration:.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedHalfSecond{-webkit-animation-duration:.5s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animatedOneSecond{-webkit-animation-duration:.7s;animation-duration:.7s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
+.animatedMaxTime{-webkit-animation-duration:1.2s;animation-duration:1.2s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 .animated.infinite{-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}
 .arshLoadingAnimation{height:32px;width:32px;-webkit-animation:arshLoadingAnimation-1 2s cubic-bezier(0.770,0.000,0.175,1.000) infinite;animation:arshLoadingAnimation-1 2s cubic-bezier(0.770,0.000,0.175,1.000) infinite}
 @-webkit-keyframes arshLoadingAnimation-1 {
@@ -443,3 +521,112 @@ svg :not(.doNotUnfill){stroke:currentColor}
     to{opacity:0;-webkit-transform:scale3d(0.1,0.1,0.1) translate3d(0,100px,0);transform:scale3d(0.1,0.1,0.1) translate3d(0,100px,0);-webkit-transform-origin:center bottom;transform-origin:center bottom;-webkit-animation-timing-function:cubic-bezier(0.325,0.885,0.43,1);animation-timing-function:cubic-bezier(0.325,0.885,0.43,1)}
 }
 .zoomOutDown{-webkit-animation-name:zoomOutDown;animation-name:zoomOutDown}
+@-webkit-keyframes jackInTheBox {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0.1) rotate(30deg)  translate3d(0,-5px,0);
+        transform: scale(0.1) rotate(30deg)  translate3d(0,-5px,0);
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+    }
+
+    30% {
+        -webkit-transform: rotate(-10deg)  translate3d(0,-8px,0);
+        transform: rotate(-10deg)  translate3d(0,-8px,0);
+    }
+
+
+    60% {
+        -webkit-transform: rotate(3deg) translate3d(0,-13px,0);
+        transform: rotate(3deg) translate3d(0,-13px,0);
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0.5;
+        -webkit-transform: scale(1) translate3d(0,-15px,0);
+        transform: scale(1) translate3d(0,-15px,0);
+    }
+
+
+    to{
+        opacity: 0;
+    }
+}
+
+@keyframes jackInTheBox {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0.1) rotate(30deg)  translate3d(0,-5px,0);
+        transform: scale(0.1) rotate(30deg)  translate3d(0,-5px,0);
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+    }
+
+    30% {
+        -webkit-transform: rotate(-10deg)  translate3d(0,-8px,0);
+        transform: rotate(-10deg)  translate3d(0,-8px,0);
+    }
+
+
+    60% {
+        -webkit-transform: rotate(3deg) translate3d(0,-13px,0);
+        transform: rotate(3deg) translate3d(0,-13px,0);
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0.5;
+        -webkit-transform: scale(1) translate3d(0,-15px,0);
+        transform: scale(1) translate3d(0,-15px,0);
+    }
+
+    to{
+        opacity: 0;
+    }
+}
+
+.jackInTheBox {
+    -webkit-animation-name: jackInTheBox;
+    animation-name: jackInTheBox;
+}
+
+
+@-webkit-keyframes pulse {
+    from {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes pulse {
+    from {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.pulse {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+}

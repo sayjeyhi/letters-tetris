@@ -33,6 +33,11 @@
     "settingModalTitle" : "تنظیمات :",
     "modalOkButton" : "بستن پنجره",
     "modalRefreshButton" : " بارگذاری مجدد",
+    "saveScore" : "ذخیره امتیاز",
+    "sumScore" : "مجموع امتیاز",
+    "foundWords" : "کلمات یافته شده",
+    "wordLengthAverage" : "میانگین طول کلمات",
+    "spentTimeModal" : "زمان سپری شده",
 
 
     "hour" : " ساعت ",

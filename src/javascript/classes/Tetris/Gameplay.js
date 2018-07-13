@@ -14,6 +14,7 @@ import WordsHelper from "./WordsHelper";
 import Modal from "../Modal";
 import Matrix from "../Matrix";
 import Timeout from "../Timeout";
+import Helper from "../Helper";
 
 export default class Gameplay {
 
@@ -23,8 +24,8 @@ export default class Gameplay {
     static start() {
 
         // cache most used elements on class
-        TetrisGame.playBoard = document.querySelector(".playBoard");
-        TetrisGame.initValues.upComingCharEl = document.querySelector(".showUpComingLetter");
+        TetrisGame.playBoard = Helper._(".playBoard");
+        TetrisGame.initValues.upComingCharEl = Helper._(".showUpComingLetter");
 
 
         // Get valid column length based on max json word length to create columns
@@ -41,22 +42,9 @@ export default class Gameplay {
 
 
         // create game columns and rows - matrix
-        let playBoardTable = '';
-        let matrixRowArray = [];
-        for (let r = 0; r < TetrisGame.config.rows; r++) {
-            let matrixColumn = [];
-            playBoardTable += '<div class="isRow row_' + r + '">';
-            for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
-                playBoardTable += '<div id="grid' + r + '_' + c +  '" class="isColumn column_' + c + '" data-row="' + r + '"></div>';
-                matrixColumn[c]=' ';
-            }
-            matrixRowArray[r] = matrixColumn;
-            playBoardTable += '</div>';
-        }
-
-        TetrisGame.matrix = new Matrix(matrixRowArray);
-
-        TetrisGame.playBoard.innerHTML = playBoardTable;
+        TetrisGame.matrix = new Matrix(
+            this._makeGameBoard()
+        );
 
 
         // Choose n words from json to create rows and columns
@@ -82,36 +70,11 @@ export default class Gameplay {
         Sound.playByKey('start', TetrisGame.config.playEventsSound);
 
         // arrow keys press
-        document.onkeydown = function (e) {
-            if(!TetrisGame.initValues.paused) {
-                TetrisGame.initValues.activeChar.move(e.keyCode);
-            }
-        };
+        this._makeMovingEvents();
 
-        // mobile swipe detect
-        TetrisGame.swipe = new Swipe(
-            TetrisGame.playBoard,
-            function (dir) {
-                // simulate arrow press on swipe
-                switch (dir){
-                    case "left":
-                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.LEFT);
-                        break;
-                    case "right":
-                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.RIGHT);
-                        break;
-                    case "down":
-                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.DOWN);
-                        break;
-                }
-            } , {
-                threshold: 70
-            }
-        );
-
-
-        this.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
+        this._buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
     }
+
 
 
     /**
@@ -126,7 +89,7 @@ export default class Gameplay {
         TetrisGame.timer.pause();
 
         // manage game buttons
-        this.buttonManager('.resumeGame,.restartGame', '.startGame,.pauseGame');
+        this._buttonManager('.resumeGame,.restartGame', '.startGame,.pauseGame');
     }
 
 
@@ -142,7 +105,7 @@ export default class Gameplay {
         TetrisGame.timer.resume();
 
         // manage game buttons
-        this.buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
+        this._buttonManager('.pauseGame,.restartGame', '.startGame,.resumeGame');
 
     }
 
@@ -178,36 +141,53 @@ export default class Gameplay {
      */
     static finish(mode) {
 
+        let config = TetrisGame.config;
+        let initValues = TetrisGame.initValues;
+
         // play game over sound
         if(mode === "gameOver") {
-            Sound.playByKey('finishGame', TetrisGame.config.playEventsSound);
+            Sound.playByKey('finishGame', config.playEventsSound);
         }
 
         // manage game buttons
-        this.buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');
+        this._buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');
 
-        TetrisGame.initValues.finished = true;
-        TetrisGame.timer.pause();
-
-
-
-
-        let wordsAverageLength = TetrisGame.initValues.wordsLengthTotal / TetrisGame.initValues.wordsFounded;
-        //TODO: Jafar Rezayi, use this variables when showing user scoreboard
-        // wordsAverageLength
-        // TetrisGame.initValues.wordDirectionCounter
-        // TetrisGame.initValues.wordsFounded
-        console.log(wordsAverageLength,TetrisGame.initValues.wordDirectionCounter,TetrisGame.initValues.wordsFounded)
+        initValues.finished = true;
+        let time = TetrisGame.timer.pause() || 0;
 
 
 
 
-        let modalHeader = "", modalContent = "";
-        let modalButtons = [];
+        let wordsAverageLength = initValues.wordsLengthTotal / initValues.wordsFounded;
+        console.log(wordsAverageLength,initValues.wordDirectionCounter,initValues.wordsFounded);
+
+        let showScore = TetrisGame._getScore();
+
+        let gamingInfo = `
+            <div class="">${lang.sumScore} :‌ ${Math.round(showScore)}</div>
+            <div class="">${lang.foundWords} :‌ ${initValues.wordsFounded}</div>
+            <div class="">${lang.wordLengthAverage} :‌ ${wordsAverageLength}</div>
+            <div class="">${lang.spentTimeModal} :‌ ${time} ${lang.second}</div>
+        `;
+
+
+        let modalHeader,modalContent,modalType;
+        let modalButtons = [
+            {
+                text : lang.saveScore,
+                isOk : true,
+                onclick : function () {
+                    console.log("save score !");
+                }
+            }
+        ];
+
+
         if (mode === "gameOver") {
             modalHeader = lang.gameOverModalTitle;
-            modalContent = lang.gameOverModalContent;
+            modalContent = lang.gameOverModalContent + gamingInfo;
 
+            modalType = "danger";
             modalButtons.push(
                 {
                     text : lang.restartGame,
@@ -225,7 +205,8 @@ export default class Gameplay {
             );
         } else {
             modalHeader = lang.noExtraWordModalTitle;
-            modalContent = lang.noExtraWordModalContent;
+            modalContent = lang.noExtraWordModalContent + gamingInfo;
+            modalType = "success";
             modalButtons.push(
                 {
                     text : lang.modalRefreshButton,
@@ -237,7 +218,9 @@ export default class Gameplay {
         }
 
         let modal = new Modal({
-            animate : TetrisGame.config.useAnimationFlag,
+            animate : config.useAnimationFlag,
+            dark : (config.level === 3),
+            type : modalType,
             header : modalHeader,
             content : modalContent,
             buttons : modalButtons
@@ -253,12 +236,78 @@ export default class Gameplay {
 
 
     /**
+     * Make game board
+     * @return {Array}
+     * @private
+     */
+    static _makeGameBoard(){
+        let playBoardTable = '';
+        let matrixRowArray = [];
+
+        let rowsCount = TetrisGame.initValues.isMobile ? 9 : TetrisGame.config.rows;
+
+        for (let r = 0; r < rowsCount; r++) {
+            let matrixColumn = [];
+            playBoardTable += '<div class="isRow row_' + r + '">';
+            for (let c = 0; c < TetrisGame.initValues.validatedColumnsCount; c++) {
+                playBoardTable += '<div id="grid' + r + '_' + c +  '" class="isColumn column_' + c + '" data-row="' + r + '"></div>';
+                matrixColumn[c]=' ';
+            }
+            matrixRowArray[r] = matrixColumn;
+            playBoardTable += '</div>';
+        }
+
+        playBoardTable += '<div class="foundWordAnimation animatedMaxTime jackInTheBox"></div>';
+        TetrisGame.playBoard.innerHTML = playBoardTable;
+
+        return matrixRowArray;
+    }
+
+
+    /**
+     * Make events for moving charBlocks
+     * @private
+     */
+    static _makeMovingEvents(){
+
+        // fire on arrow keys down
+        document.onkeydown = function (e) {
+            if(!TetrisGame.initValues.paused && [37 , 39 , 40].indexOf(e.keyCode) > -1) {
+                TetrisGame.initValues.activeChar.move(e.keyCode);
+            }
+        };
+
+        // mobile swipe detect
+        TetrisGame.swipe = new Swipe(
+            TetrisGame.playBoard,
+            function (dir) {
+                // simulate arrow press on swipe
+                switch (dir){
+                    case "left":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.LEFT);
+                        break;
+                    case "right":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.RIGHT);
+                        break;
+                    case "down":
+                        TetrisGame.initValues.activeChar.move(CONTROL_CODES.DOWN);
+                        break;
+                }
+            } , {
+                threshold: 70
+            }
+        );
+    }
+
+
+    /**
      * Manage btn parts buttons
      * @param showClassed
      * @param hideClasses
+     * @private
      */
-    static buttonManager(showClassed, hideClasses) {
-        let gameBtnControl = document.querySelector(".gameControlButtons");
+    static _buttonManager(showClassed, hideClasses) {
+        let gameBtnControl = Helper._(".gameControlButtons");
         gameBtnControl.querySelectorAll(showClassed).forEach((item) => {
             item.style.display = "inline-block";
         });

@@ -38,7 +38,7 @@
 *        onResume:function () {
 *            TetrisGame.initValues.paused = false;
 *        },
-*        blobTiming: new Blob([document.querySelector('#workerTiming').textContent], { type: "text/javascript" });,
+*        blobTiming: new Blob([Helper._('#workerTiming').textContent], { type: "text/javascript" });,
 *    });
  */
 export default class Timer {
@@ -105,11 +105,10 @@ export default class Timer {
      * Pauses the timer
      */
     pause() {
-        if(this.timerWorker) {
-            this.timerWorker.postMessage({'pause_flag': true});
-        }
         this.config.onPause();
-
+        if(this.timerWorker) {
+            return this.timerWorker.postMessage({'pause_flag': true});
+        }
     }
 
 
@@ -117,10 +116,10 @@ export default class Timer {
      * Resumes the timer
      */
     resume() {
-        if(this.timerWorker) {
-            this.timerWorker.postMessage({'pause_flag': false});
-        }
         this.config.onResume();
+        if(this.timerWorker) {
+            return this.timerWorker.postMessage({'pause_flag': false});
+        }
     }
 
 }
