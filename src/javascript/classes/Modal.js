@@ -100,6 +100,8 @@ export default class Modal {
 				this.destroy();
 			}
 		});
+
+		return this;
 	}
 
 

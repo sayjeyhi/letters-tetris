@@ -2,15 +2,15 @@
  * @module
  */
 
-/**
- * @class Words Helper to choose word and char
- */
-
-
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
 
+
+/**
+ * @class Words Helper to choose word and char
+ */
 export default class WordsHelper {
+
 	/**
      * Choose random words in game build to work with
      */
@@ -51,7 +51,7 @@ export default class WordsHelper {
 
 
 		// extra chars
-        if(Math.random()>0.7){
+        if(Math.random() > 0.9){
             let specialChar = document.createElement("i");
             specialChar.className = "linearicon linearicon-fire";
             specialChar.style.color = "#cc1800";

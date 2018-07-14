@@ -2,10 +2,6 @@
  * @module
  */
 
-/**
- * @class Gameplay
- */
-
 import TetrisGame from './TetrisGame';
 import Swipe from '../Swipe';
 import Sound from '../Sound';
@@ -15,8 +11,13 @@ import Modal from '../Modal';
 import Matrix from '../Matrix';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
+import ScoreHandler from "./ScoreHandler";
 
+/**
+ * @class Gameplay
+ */
 export default class Gameplay {
+
 	/**
      * Start Game play
      */
@@ -108,6 +109,11 @@ export default class Gameplay {
      * Reset Game play
      */
 	static restart() {
+
+	    if(TetrisGame.initValues.wordsFinished){
+	        window.location.reload();
+        }
+
 		// kill all intervals
 		TetrisGame.interval.clearAll();
 
@@ -145,30 +151,34 @@ export default class Gameplay {
 		this._buttonManager('.restartGame', '.startGame,.pauseGame,.resumeGame');
 
 		initValues.finished = true;
-		const time = TetrisGame.timer.pause() || 0;
+		TetrisGame.timer.pause();
 
 
 		const wordsAverageLength = initValues.wordsLengthTotal / initValues.wordsFounded;
-
-		console.log(wordsAverageLength, initValues.wordDirectionCounter, initValues.wordsFounded);
-
-		const showScore = TetrisGame._getScore();
+		const showScore = Math.round(TetrisGame._getScore());
+		const gamingTime = TetrisGame.timer.currentTime;
 
 		const gamingInfo = `
-            <div class="">${lang.sumScore} :‌ ${Math.round(showScore)}</div>
-            <div class="">${lang.foundWords} :‌ ${initValues.wordsFounded}</div>
-            <div class="">${lang.wordLengthAverage} :‌ ${wordsAverageLength}</div>
-            <div class="">${lang.spentTimeModal} :‌ ${time} ${lang.second}</div>
-        `;
+            <div class="gameStatics">
+                <div class="scorePart">${lang.sumScore} : ‌<span class="value">${showScore}</span></div>
+                <div class="wordsFoundedPart">${lang.foundWords} :‌ <span class="value">${initValues.wordsFounded} ${lang.word}</span></div>
+                <div class="averageLengthPart">${lang.wordLengthAverage} :‌<span class="value"> ${Math.round(wordsAverageLength)} ${lang.character}</span></div>
+                <div class="timePart">${lang.spentTimeModal} :‌ <span class="value">${gamingTime}</span></div>
+            </div>`;
 
 
-		let modalHeader, modalContent, modalType;
+		let scoreModal,modalHeader, modalContent, modalType;
 		const modalButtons = [
 			{
 				text: lang.saveScore,
 				isOk: true,
 				onclick() {
-					console.log('save score !');
+
+				    // destroy score modal
+                    scoreModal.destroy();
+
+                    // display save score modal
+                    ScoreHandler.submit(gamingInfo , showScore , gamingTime);
 				}
 			}
 		];
@@ -184,13 +194,13 @@ export default class Gameplay {
 					text: lang.restartGame,
 					isOk: true,
 					onclick() {
-						modal.destroy();
-						TetrisGame.restartGamePlay();
+                        scoreModal.destroy();
+						Gameplay.restart();
 					}
 				}, {
 					text: lang.modalOkButton,
 					onclick() {
-						modal.destroy();
+                        scoreModal.destroy();
 					}
 				}
 			);
@@ -208,7 +218,7 @@ export default class Gameplay {
 			);
 		}
 
-		const modal = new Modal({
+        scoreModal = new Modal({
 			animate: config.useAnimationFlag,
 			dark: (config.level === 3),
 			type: modalType,
@@ -219,8 +229,8 @@ export default class Gameplay {
 
 		Timeout.request(
 			() => {
-				modal.show();
-			}, 300
+                scoreModal.show();
+			}, 1300
 		);
 	}
 

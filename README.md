@@ -1,4 +1,4 @@
-# Fanavard 96 Contest, UI Development 1397
+# Fanavard 97 Contest, UI Development 1397
 
 
 ## Personal Information:
@@ -11,14 +11,14 @@
 **Team Members** : Jafar Rezaei, Mohammad Toosi, Jafar Akhondali
 ## Project Information - Technology:
 
-* ES6 [Without using babel as transpiler]
+* ES6 browser compatible features[Without using babel as transpiler]
 * Webpack as module bundler and dev server
 * Jasmine - A unit test framework for javascript
 * Karma - A test Runner framework which supports jasmine
 * JsDoc3 - Generate api documents by parsing comments and source code
 * tui-jsdoc-template - A template for JsDoc3 with search ability
 * AesJs - A library to do AES encryption in pure javascript
-* Some more github sources [emoji.css - caretPositionComponent] with MIT licence
+* Some more github sources with MIT licence
 
  
  ---- 

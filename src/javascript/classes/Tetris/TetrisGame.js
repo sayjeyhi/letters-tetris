@@ -2,7 +2,6 @@
  * @module
  */
 
-
 import Timer from '../Timer';
 import Interval from '../Interval';
 import Sound from '../Sound';
@@ -39,7 +38,7 @@ import Helper from '../Helper';
 
 
 /**
- *
+ * Main class of
  */
 export default class TetrisGame {
 	/**
@@ -111,27 +110,102 @@ export default class TetrisGame {
 	}
 
 
-	/**
-     * Get a valid column number [min-max]
+    /**
+     * Select editor element with class search emoji
+     * @type {HTMLElement | null}
      */
-	static getValidColumnsNumber() {
-		const config = this.config;
-		let columnsNumber = config.columnsMin;
+    static build() {
+        const initValues = this.initValues;
+        const config = this.config;
 
-		for (let i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
-			if (window.TetrisWords[i]) {
-				const thisWordLength = window.TetrisWords[i].word.length;
-				if (thisWordLength > columnsNumber) {
-					columnsNumber = thisWordLength;
-				}
-			}
-		}
+        if (config.do_encryption) {
+            const encryptionKeySize = config.encryptionKeySize;
+            for (let i=0; i<encryptionKeySize; ++i) initValues.encryptionKey.push(1+Math.floor(Math.random()*253));
+            Storage.setEncrypted('score', 0, initValues.encryptionKey);
+        } else {
+            Storage.set('score', '0');
+        }
 
-		// plus 2 extra block than max word length
-		columnsNumber += 2;
-		columnsNumber = config.columnsMax < columnsNumber ? config.columnsMax : columnsNumber;
-		return columnsNumber % 2 === 0 ? columnsNumber : columnsNumber + 1;
-	}
+
+        // blob for timer
+        window.blobTiming = new Blob([
+            Helper._('#workerTiming').textContent
+        ], { type: 'text/javascript' });
+
+
+        // set Timer instance to current TetrisGame.timer
+        this.timer = new Timer({
+            blobTiming,
+            onStart() {
+                initValues.paused = false;
+            },
+            workerOnMessage(event) {
+                // Storage.set('seconds', event.data);
+            },
+            onPause() {
+                initValues.paused = true;
+            },
+            onResume() {
+                initValues.paused = false;
+            }
+        });
+
+
+        // set interval class
+        this.interval = new Interval();
+
+
+        // control key codes
+        // In LTR languages, Left and Right should be swapped
+        this.controlCodes = {
+            LEFT: (!lang.rtl) ? CONTROL_CODES.RIGHT : CONTROL_CODES.LEFT,
+            RIGHT: (!lang.rtl) ? CONTROL_CODES.LEFT : CONTROL_CODES.RIGHT,
+            DOWN: CONTROL_CODES.DOWN
+        };
+
+        const ltrClass = (!lang.rtl) ? 'isLtr' : '';
+
+
+        if (initValues.isFirstRun) {
+            initValues.bgSound = Sound.playByKey('background', true);
+            initValues.isFirstRun = false;
+        }
+
+
+        // set game settings from local storage
+        Settings.set();
+
+
+        // add main html to page
+        const gameHtmlContent
+            = `<div class="gameHolder ${ltrClass}">
+                <div class="behindPlayBoard">
+                    <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span></div>
+                    <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
+                    <div class="gameControlButtons" >
+                        <div onclick="Gameplay.start();" class="startGame">${lang.startGame}</div>
+                        <div onclick="Gameplay.pause();" class="pauseGame" style="display: none">${lang.pauseGame}</div>
+                        <div onclick="Gameplay.resume();" class="resumeGame" style="display: none">${lang.resumeGame}</div>
+                        <div onclick="Gameplay.restart();" class="restartGame" style="display: none">${lang.restartGame}</div>
+                    </div>
+                   <div class="courseArea">
+                       <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
+                       <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> </div>
+                       <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
+                       <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
+                   </div>
+               </div>
+               <div class="playBoard"><span class="emptyPlayBoard">${lang.clickStartGame}</span></div>
+            </div>
+            <footer class="page-footer">
+                <div class="container">
+                    <i class="linearicon linearicon-brain"></i> ${lang.copyRight}
+                </div>
+            </footer>`;
+
+
+        Helper._('#container').innerHTML = gameHtmlContent;
+    }
 
 
 	/**
@@ -168,7 +242,32 @@ export default class TetrisGame {
 	}
 
 
-	/**
+
+    /**
+     * Get a valid column number [min-max]
+     */
+    static getValidColumnsNumber() {
+        const config = this.config;
+        let columnsNumber = config.columnsMin;
+
+        for (let i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
+            if (window.TetrisWords[i]) {
+                const thisWordLength = window.TetrisWords[i].word.length;
+                if (thisWordLength > columnsNumber) {
+                    columnsNumber = thisWordLength;
+                }
+            }
+        }
+
+        // plus 2 extra block than max word length
+        columnsNumber += 2;
+        columnsNumber = config.columnsMax < columnsNumber ? config.columnsMax : columnsNumber;
+        return columnsNumber % 2 === 0 ? columnsNumber : columnsNumber + 1;
+    }
+
+
+
+    /**
      * Check if could find a success word
      * @param {Charblock} lastChar
      */
@@ -179,20 +278,15 @@ export default class TetrisGame {
 		const callBack = successObject => {
 			if (!successObject) {
 				// no words has been found, resume the game
-				TetrisGame.initValues.paused=false;
+				initValues.paused=false;
 				return;
-			}else if(lastChar.type==="bomb"){
+			} else if(lastChar.type==="bomb"){
 			    console.log("BOOOOOOM");
 
 			    //Explode the characters
                 successObject.explodedChars.map((item, index) => {
-                    Timeout.request(
-                        () => {
-                            //TODO: Jafar rezayi Change animation for exploding
-                            Charblock.fallNodeAnimate(item.y, item.x, null, null);
-                        }, index * config.successAnimationIterationDuration
-                        //TODO: Jafar, If we remove this extra timing, all of them will fall together, should we do it?
-                    );
+                    //TODO: Jafar rezayi Change animation for exploding
+                    Charblock.fallNodeAnimate(item.y, item.x, null, null);
                 });
 
 
@@ -208,10 +302,10 @@ export default class TetrisGame {
                             }, index * config.successAnimationIterationDuration
                         );
                     });
-                },successObject.explodedChars.length * config.successAnimationIterationDuration)
+                },successObject.explodedChars.length * config.successAnimationIterationDuration);
 
                 Timeout.request(()=>{
-                    TetrisGame.initValues.paused=false;
+                    initValues.paused=false;
                 },successObject.fallingCharacters.length*config.successAnimationIterationDuration);
 
                 return;
@@ -249,7 +343,7 @@ export default class TetrisGame {
 				);
 			});
 
-			TetrisGame.initValues.paused = false;
+			initValues.paused = false;
 
 			Timeout.request(
 				() => {
@@ -264,15 +358,14 @@ export default class TetrisGame {
 					Timeout.request(
 						() => {
 							// Resume game after all animations has been finished
-							TetrisGame.initValues.paused = false;
+							initValues.paused = false;
 						}, successObject.fallingCharacters.length * config.successAnimationIterationDuration
 					);
 				}, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
 			);
 		};
 
-		//todo: Jafar rezayi, is this correct?
-		TetrisGame.initValues.paused = true;
+		initValues.paused = true;
 
 
 		TetrisGame.matrix.checkWords(
@@ -296,7 +389,8 @@ export default class TetrisGame {
 			columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
 			hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
 			foundWordDisplayEl = Helper._('.foundWordAnimation', TetrisGame.playBoard),
-			fixerDistance = (charLength % 2 === 1) ? 0 : -(hidedWord.width/4);
+			fixerDistance = (charLength % 2 === 1) ? 0 : (hidedWord.width/4) * -1;
+
 
 		foundWordDisplayEl.innerHTML = word;
 		foundWordDisplayEl.style.display = 'block';
@@ -317,11 +411,6 @@ export default class TetrisGame {
 	}
 
 
-
-
-
-
-
 	/**
      * Get score of user from Storage
      * @returns {number}
@@ -339,8 +428,8 @@ export default class TetrisGame {
 
     /**
      * Updates stats of game
-     * @param successObject
      * @param word
+     * @param direction
      */
 	static _updateStats(word,direction){
         // Update stats related to word
@@ -364,7 +453,7 @@ export default class TetrisGame {
      * @param word
      * @private
      */
-    static _UpdateScore(word){
+    static _updateScore(word){
 
         // Get encrypted value of Score wtih our random generated key
         let score = TetrisGame._getScore();
@@ -386,109 +475,13 @@ export default class TetrisGame {
 
 	/**
      * Update score and set it to panel
-     * @param successObject
      * @param word
+     * @param direction
      */
 	static _updateScoreAndStats(word,direction) {
         this._updateStats(word,direction);
-        this._UpdateScore(word);
+        this._updateScore(word);
 	}
 
 
-	/**
-     * Select editor element with class search emoji
-     * @type {HTMLElement | null}
-     */
-	static build() {
-		const initValues = this.initValues;
-		const config = this.config;
-
-		if (config.do_encryption) {
-			const encryptionKeySize = config.encryptionKeySize;
-			for (let i=0; i<encryptionKeySize; ++i) initValues.encryptionKey.push(1+Math.floor(Math.random()*253));
-			Storage.setEncrypted('score', 0, initValues.encryptionKey);
-		} else {
-			Storage.set('score', '0');
-		}
-
-
-		// blob for timer
-		window.blobTiming = new Blob([
-			Helper._('#workerTiming').textContent
-		], { type: 'text/javascript' });
-
-
-		// set Timer instance to current TetrisGame.timer
-		this.timer = new Timer({
-			blobTiming,
-			onStart() {
-				initValues.paused = false;
-			},
-			workerOnMessage(event) {
-				// Storage.set('seconds', event.data);
-			},
-			onPause() {
-				initValues.paused = true;
-			},
-			onResume() {
-				initValues.paused = false;
-			}
-		});
-
-
-		// set interval class
-		this.interval = new Interval();
-
-
-		// control key codes
-		// In LTR languages, Left and Right should be swapped
-		this.controlCodes = {
-			LEFT: (!lang.rtl) ? CONTROL_CODES.RIGHT : CONTROL_CODES.LEFT,
-			RIGHT: (!lang.rtl) ? CONTROL_CODES.LEFT : CONTROL_CODES.RIGHT,
-			DOWN: CONTROL_CODES.DOWN
-		};
-
-		const ltrClass = (!lang.rtl) ? 'isLtr' : '';
-
-
-		if (initValues.isFirstRun) {
-			initValues.bgSound = Sound.playByKey('background', true);
-			initValues.isFirstRun = false;
-		}
-
-
-		// set game settings from local storage
-		Settings.set();
-
-
-		// add main html to page
-		const gameHtmlContent
-            = `<div class="gameHolder ${ltrClass}">
-                <div class="behindPlayBoard">
-                    <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span></div>
-                    <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
-                    <div class="gameControlButtons" >
-                        <div onclick="Gameplay.start();" class="startGame">${lang.startGame}</div>
-                        <div onclick="Gameplay.pause();" class="pauseGame" style="display: none">${lang.pauseGame}</div>
-                        <div onclick="Gameplay.resume();" class="resumeGame" style="display: none">${lang.resumeGame}</div>
-                        <div onclick="Gameplay.restart();" class="restartGame" style="display: none">${lang.restartGame}</div>
-                    </div>
-                   <div class="courseArea">
-                       <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
-                       <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> </div>
-                       <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
-                       <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
-                   </div>
-               </div>
-               <div class="playBoard"><span class="emptyPlayBoard">${lang.clickStartGame}</span></div>
-            </div>
-            <footer class="page-footer">
-                <div class="container">
-                    <i class="linearicon linearicon-brain"></i> ${lang.copyRight}
-                </div>
-            </footer>`;
-
-
-		Helper._('#container').innerHTML = gameHtmlContent;
-	}
 }

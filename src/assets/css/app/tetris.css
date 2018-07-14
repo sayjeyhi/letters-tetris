@@ -114,6 +114,9 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .modal .footerModal .buttonModal:first-child{margin:0!important}
 .modal .footerModal .buttonModal.isOk{background:#6bd849;color:#fff}
 .modal .footerModal .buttonModal.notOk{background:#f96e6e;color:#fff}
+.modal.ltr{
+    font-family: 'Tahoma',sans-serif !important;
+}
 .modal.rtl .titleModal{text-align:right!important}
 .modal.rtl .titleModal .closeModal{float:left;left:-3px;right:auto;top:-8px}
 .modal.rtl .footerModal .buttonModal{padding:8px 12px!important}
@@ -223,6 +226,51 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .cssRadio.animatedSpan input[type="radio"] + label > span{-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out}
 .cssRadio input[type="radio"]:checked + label > span{cursor:default;color:#fff;background:#6e8ff0!important}
 
+.submitScore .gameStatics{
+    padding-top: 25px !important;
+}
+
+#enterName{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-family: 'BYekan','SDF','Tahoma',sans-serif;
+    text-align: center;
+    font-size: 14px;
+    top: 70px;
+}
+
+#enterName:focus {
+    outline: none !important;
+    border:1px solid #cca894;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+.gameStatics {
+    border:1px dashed #ccc;
+    padding:5px;
+    margin:25px 5px 0 5px;
+    border-radius:6px
+}
+.gameStatics > div{
+    position:relative;
+    margin:6px
+}
+.gameStatics > div .value{
+    position:absolute;
+    right:40%;
+    color:#80d811;
+    font-size:14px;
+}
+
+.modal.ltr .gameStatics > div .value{
+    right:auto;
+    left:40%
+}
+
 
 @media (max-width: 868px) {
     .page-footer div{text-align:center;margin-top:20px}
@@ -254,6 +302,12 @@ svg :not(.doNotUnfill){stroke:currentColor}
 @media (max-width: 480px) {
     body{margin: 0 !important;}
     footer{display: none;}
+    .gameStatics > div .value{
+        right: 53%;
+    }
+    .modal.ltr .gameStatics > div .value{
+        left:53%
+    }
 }
 
 

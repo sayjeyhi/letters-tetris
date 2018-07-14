@@ -40,8 +40,6 @@ export default class Charblock {
         if(typeof this.char === "object" && this.char.special === "true"){
             this.type = this.char.type;
             this.typeSize = 1;
-            this.isRegular = false;
-            Helper.log(this.char.type);
         }else{
             this.type = "regular";
         }
@@ -221,6 +219,7 @@ export default class Charblock {
 				{
 					color: oldColor,
 					char: oldChar,
+                    type: 'regular',
 					animateInClass: 'fadeInDown'
 				}, this._getEl(newRow, newColumn)
 			);

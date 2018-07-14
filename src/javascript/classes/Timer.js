@@ -25,21 +25,21 @@
  *
  *
  * @example
-*    let timer = new Timer({
-*        onStart: function(){
-*            TetrisGame.initValues.paused = false;
-*        },
-*        workerOnMessage:function (event) {
-*            Storage.set('seconds', event.data);
-*        },
-*        onPause:function () {
-*            TetrisGame.initValues.paused = true;
-*        },
-*        onResume:function () {
-*            TetrisGame.initValues.paused = false;
-*        },
-*        blobTiming: new Blob([Helper._('#workerTiming').textContent], { type: "text/javascript" });,
-*    });
+ *    let timer = new Timer({
+ *        onStart: function(){
+ *            TetrisGame.initValues.paused = false;
+ *        },
+ *        workerOnMessage:function (event) {
+ *            Storage.set('seconds', event.data);
+ *        },
+ *        onPause:function () {
+ *            TetrisGame.initValues.paused = true;
+ *        },
+ *        onResume:function () {
+ *            TetrisGame.initValues.paused = false;
+ *        },
+ *        blobTiming: new Blob([Helper._('#workerTiming').textContent], { type: "text/javascript" });,
+ *    });
  */
 export default class Timer {
 	/**
@@ -71,6 +71,10 @@ export default class Timer {
 			}
 		};
 
+
+		// save current time
+        this.currentTime = `0 ${lang.second}`;
+
 		// Extend config
 		this.config = Object.assign(defaultConfig, config);
 	}
@@ -90,7 +94,8 @@ export default class Timer {
 			}
 
 			this.timerWorker.onmessage = event => {
-				timerDisplayEl.innerHTML = this.config.beautifySecond(event.data);
+			    this.currentTime = this.config.beautifySecond(event.data);
+				timerDisplayEl.innerHTML = this.currentTime;
 				this.config.workerOnMessage(event);
 			};
 			this.config.onStart();

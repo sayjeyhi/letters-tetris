@@ -2,16 +2,14 @@
  * @module
  */
 
-/**
- * @class Settings to show and set game settings
- */
-
-
 import TetrisGame from './TetrisGame';
 import Storage from '../Storage';
 import Modal from '../Modal';
 import Helper from '../Helper';
 
+/**
+ * @class Settings to show and set game settings
+ */
 export default class Settings {
 	/**
      * Set settings from localStorage OR settings Object
@@ -74,63 +72,59 @@ export default class Settings {
 
 
 		// create setting modal content
-		const content
-            = `<form id="settingForm" class="cssRadio ${spanAnimationClass}">`
-            + '<div class="formRow">'
-            + `<div class="formLabel"><i class="linearicon linearicon-music-note2"></i> ${lang.backgroundMusic}</div>`
-            + '<div class="formData">'
-            + `<input id="soundPlayYes" type="radio" class="soundPlay" name="soundPlay" value="1" ${settings.soundPlay === 1 ? 'checked' : ''} />`
-            + `<label for="soundPlayYes"><span>${lang.active}</span></label>`
-            + `<input id="soundPlayNo" type="radio" class="soundPlay" name="soundPlay" value="0" ${settings.soundPlay === 0 ? 'checked' : ''} />`
-            + `<label for="soundPlayNo"><span>${lang.deActive}</span></label>`
-            + '</div>'
-            + '</div>'
-
-            + '<div class="formRow">'
-            + `<div class="formLabel"><i class="linearicon linearicon-music-note"></i> ${lang.eventsMusic}</div>`
-            + '<div class="formData">'
-            + `<input id="eventSoundsYes" type="radio" class="eventSounds" name="eventSounds" value="1" ${settings.eventSounds === 1 ? 'checked' : ''} />`
-            + `<label for="eventSoundsYes"><span>${lang.active}</span></label>`
-            + `<input id="eventSoundsNo" type="radio" class="eventSounds" name="eventSounds" value="0" ${settings.eventSounds === 0 ? 'checked' : ''} />`
-            + `<label for="eventSoundsNo"><span>${lang.deActive}</span></label>`
-            + '</div>'
-            + '</div>'
-
-
-            + '<div class="formRow">'
-            + `<div class="formLabel"><i class="linearicon linearicon-magic-wand"></i> ${lang.animation}</div>`
-            + '<div class="formData">'
-            + `<input id="useAnimationYes" type="radio" class="useAnimation" name="useAnimation" value="1" ${settings.useAnimation === 1 ? 'checked' : ''} />`
-            + `<label for="useAnimationYes"><span>${lang.active}</span></label>`
-            + `<input id="useAnimationNo" type="radio" class="useAnimation" name="useAnimation" value="0" ${settings.useAnimation === 0 ? 'checked' : ''} />`
-            + `<label for="useAnimationNo"><span>${lang.deActive}</span></label>`
-            + '</div>'
-            + '</div>'
-
-            + '<div class="formRow">'
-            + `<div class="formLabel"><i class="linearicon linearicon-grid"></i> ${lang.showGrids}</div>`
-            + '<div class="formData">'
-            + `<input id="showGridsYes" type="radio" class="showGrids" name="showGrids" value="1" ${settings.showGrids === 1 ? 'checked' : ''} />`
-            + `<label for="showGridsYes"><span>${lang.active}</span></label>`
-            + `<input id="showGridsNo" type="radio" class="showGrids" name="showGrids" value="0" ${settings.showGrids === 0 ? 'checked' : ''} />`
-            + `<label for="showGridsNo"><span>${lang.deActive}</span></label>`
-            + '</div>'
-            + '</div>'
-
-
-            + '<div class="formRow">'
-            + `<div class="formLabel"><i class="linearicon linearicon-game"></i> ${lang.gameLevel}</div>`
-            + '<div class="formData">'
-            + `<input id="gameLevelEasy" type="radio" class="gameLevel" name="gameLevel" value="1" ${settings.gameLevel === 1 ? 'checked' : ''} />`
-            + `<label for="gameLevelEasy"><span>${lang.simple}</span></label>`
-            + `<input id="gameLevelMedium" type="radio" class="gameLevel" name="gameLevel" value="2" ${settings.gameLevel === 2 ? 'checked' : ''} />`
-            + `<label for="gameLevelMedium"><span>${lang.medium}</span></label>`
-            + `<input id="gameLevelExpert" type="radio" class="gameLevel" name="gameLevel" value="3" ${settings.gameLevel === 3 ? 'checked' : ''} />`
-            + `<label for="gameLevelExpert"><span>${lang.expert}</span></label>`
-            + '</div>'
-            + '</div>'
-
-            + '</form>';
+		const content = `<form id="settingForm" class="cssRadio ${spanAnimationClass}">
+                <div class="formRow">
+                    <div class="formLabel"><i class="linearicon linearicon-music-note2"></i> ${lang.backgroundMusic}</div>
+                    <div class="formData">
+                        <input id="soundPlayYes" type="radio" class="soundPlay" name="soundPlay" value="1" ${settings.soundPlay === 1 ? 'checked' : ''} />
+                        <label for="soundPlayYes"><span>${lang.active}</span></label>
+                        <input id="soundPlayNo" type="radio" class="soundPlay" name="soundPlay" value="0" ${settings.soundPlay === 0 ? 'checked' : ''} />
+                        <label for="soundPlayNo"><span>${lang.deActive}</span></label>
+                    </div>
+                </div>
+                <div class="formRow">
+                    <div class="formLabel"><i class="linearicon linearicon-music-note"></i> ${lang.eventsMusic}</div>
+                    <div class="formData">
+                        <input id="eventSoundsYes" type="radio" class="eventSounds" name="eventSounds" value="1" ${settings.eventSounds === 1 ? 'checked' : ''} />
+                        <label for="eventSoundsYes"><span>${lang.active}</span></label>
+                        <input id="eventSoundsNo" type="radio" class="eventSounds" name="eventSounds" value="0" ${settings.eventSounds === 0 ? 'checked' : ''} />
+                        <label for="eventSoundsNo"><span>${lang.deActive}</span></label>
+                    </div>
+                </div>
+    
+                <div class="formRow">
+                    <div class="formLabel"><i class="linearicon linearicon-magic-wand"></i> ${lang.animation}</div>
+                    <div class="formData">
+                        <input id="useAnimationYes" type="radio" class="useAnimation" name="useAnimation" value="1" ${settings.useAnimation === 1 ? 'checked' : ''} />
+                        <label for="useAnimationYes"><span>${lang.active}</span></label>
+                        <input id="useAnimationNo" type="radio" class="useAnimation" name="useAnimation" value="0" ${settings.useAnimation === 0 ? 'checked' : ''} />
+                        <label for="useAnimationNo"><span>${lang.deActive}</span></label>
+                    </div>
+                </div>
+    
+                <div class="formRow">
+                    <div class="formLabel"><i class="linearicon linearicon-grid"></i> ${lang.showGrids}</div>
+                    <div class="formData">
+                        <input id="showGridsYes" type="radio" class="showGrids" name="showGrids" value="1" ${settings.showGrids === 1 ? 'checked' : ''} />
+                        <label for="showGridsYes"><span>${lang.active}</span></label>
+                        <input id="showGridsNo" type="radio" class="showGrids" name="showGrids" value="0" ${settings.showGrids === 0 ? 'checked' : ''} />
+                        <label for="showGridsNo"><span>${lang.deActive}</span></label>
+                    </div>
+                </div>
+    
+    
+                <div class="formRow">
+                    <div class="formLabel"><i class="linearicon linearicon-game"></i> ${lang.gameLevel}</div>
+                    <div class="formData">
+                        <input id="gameLevelEasy" type="radio" class="gameLevel" name="gameLevel" value="1" ${settings.gameLevel === 1 ? 'checked' : ''} />
+                        <label for="gameLevelEasy"><span>${lang.simple}</span></label>
+                        <input id="gameLevelMedium" type="radio" class="gameLevel" name="gameLevel" value="2" ${settings.gameLevel === 2 ? 'checked' : ''} />
+                        <label for="gameLevelMedium"><span>${lang.medium}</span></label>
+                        <input id="gameLevelExpert" type="radio" class="gameLevel" name="gameLevel" value="3" ${settings.gameLevel === 3 ? 'checked' : ''} />
+                        <label for="gameLevelExpert"><span>${lang.expert}</span></label>
+                    </div>
+                </div>
+            </form>`;
 
 		// show setting modal
 		const settingModal = new Modal({
