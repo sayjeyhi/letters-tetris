@@ -48,6 +48,19 @@ export default class WordsHelper {
 		let choosedChar,
 			initValues = TetrisGame.initValues;
 
+
+
+		// extra chars
+        if(Math.random()>0.5){
+            let specialChar = document.createElement("i");
+            specialChar.className = "linearicon linearicon-fire";
+            specialChar.style.color = "#cc1800";
+            specialChar.type = "bomb";
+            specialChar.special = "true";
+            return specialChar;
+        }
+
+
 		let availableChars = initValues.choosedWords.map(e => {
 			return e ? e.word : '';
 		}).join('');

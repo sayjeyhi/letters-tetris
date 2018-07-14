@@ -112,7 +112,7 @@ export default class Matrix {
             char = lastChar.char;
 
         if(lastChar.type && lastChar.type==="bomb"){
-            this._explode(rowId,colId,lastChar.bombSize, successCallback);
+            this._explode(rowId,colId,lastChar.typeSize, successCallback);
             return;
         }
 

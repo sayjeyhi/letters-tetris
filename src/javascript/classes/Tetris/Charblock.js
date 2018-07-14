@@ -14,6 +14,7 @@ import Helper from '../Helper';
 
 
 export default class Charblock {
+
 	/**
      * Create new char block
      * @return {*}
@@ -32,18 +33,18 @@ export default class Charblock {
 
 		this.column = Math.random() * initValues.validatedColumnsCount << 0;
 		this.row = 0; // top is 0 and bottom is max
+        this.char = initValues.nextChar === '' ? WordsHelper.chooseChar() : initValues.nextChar;
 
 
-        //TODO: Jafar rezayi, I dont know where should i add bomb :| fix it please
-        //Let's show a bomb :|
-		if(Math.random()>0.9){
-		    this.char="~";
-            this.type="bomb";
-            this.bombSize=1;
+        // is character special ?
+        if(typeof this.char === "object" && this.char.special === "true"){
+            this.type = this.char.type;
+            this.typeSize = 1;
+            this.isRegular = false;
+            Helper.log(this.char.type);
         }else{
-            this.char = initValues.nextChar === '' ? WordsHelper.chooseChar() : initValues.nextChar;
+            this.type = "regular";
         }
-
 
 
 		this.color = MaterialColor.getRandomColor(); // random material color
@@ -146,10 +147,18 @@ export default class Charblock {
 		}
 
 		const charBlockEl = document.createElement('span');
-		const animateClass = TetrisGame.config.useAnimationFlag ? ' animated ' : '';
+		let animateClass = TetrisGame.config.useAnimationFlag ? ' animated ' : '';
 
-		charBlockEl.style.background = charblock.color;
-		charBlockEl.innerHTML = charblock.char;
+		if(charblock.type === "regular") {
+            charBlockEl.style.background = charblock.color;
+            charBlockEl.innerHTML = charblock.char;
+        }else{
+            charBlockEl.style.background = "#fff";
+		    charBlockEl.style.fontSize = "2rem";
+            charBlockEl.appendChild(charblock.char);
+            Helper.log(charblock.char);
+        }
+
 		charBlockEl.className = `charBlock ${animateClass}${charblock.animateInClass || ''}`;
 
 		charblock.element = charBlockEl;
@@ -310,16 +319,25 @@ export default class Charblock {
      * @private
      */
 	static _showUpComingChar() {
-		TetrisGame.initValues.nextChar = WordsHelper.chooseChar();
 
-		const upComingCharHolder = TetrisGame.initValues.upComingCharEl;
-		const upcommingCharEl = document.createElement('span');
+	    let initValues = TetrisGame.initValues;
+
+		initValues.nextChar = WordsHelper.chooseChar();
+
+		const upComingCharHolder = initValues.upComingCharEl;
+		const upcomingCharEl = document.createElement('span');
 		const animateClass = TetrisGame.config.useAnimationFlag ? ' animated bounceIn' : '';
 
 		upComingCharHolder.innerHTML = '';
-		upcommingCharEl.className = animateClass;
-		upcommingCharEl.innerHTML = TetrisGame.initValues.nextChar || '';
-		upComingCharHolder.appendChild(upcommingCharEl);
+        upcomingCharEl.className = animateClass;
+
+		if(typeof initValues.nextChar === "object"){
+            upcomingCharEl.appendChild(initValues.nextChar);
+        }else{
+            upcomingCharEl.innerHTML = initValues.nextChar || '';
+        }
+
+		upComingCharHolder.appendChild(upcomingCharEl);
 	}
 
 
