@@ -180,7 +180,41 @@ export default class TetrisGame {
 				// no words has been found, resume the game
 				TetrisGame.initValues.paused=false;
 				return;
-			}
+			}else if(lastChar.type==="bomb"){
+			    console.log("BOOOOOOM");
+
+			    //Explode the characters
+                successObject.explodedChars.map((item, index) => {
+                    Timeout.request(
+                        () => {
+                            //TODO: Jafar rezayi Change animation for exploding
+                            Charblock.fallNodeAnimate(item.y, item.x, null, null);
+                        }, index * config.successAnimationIterationDuration
+                        //TODO: Jafar, If we remove this extra timing, all of them will fall together, should we do it?
+                    );
+                });
+
+
+                //Fall characters at top of exploded chars
+                Timeout.request(()=>{
+                    successObject.fallingCharacters.map((item, index) => {
+                        Timeout.request(
+                            () => {
+                                Charblock.fallNodeAnimate(item.oldY, item.oldX, item.newY, item.newX);
+                            }, index * config.successAnimationIterationDuration
+                        );
+                    });
+                },successObject.explodedChars.length * config.successAnimationIterationDuration)
+
+                Timeout.request(()=>{
+                    TetrisGame.initValues.paused=false;
+                },successObject.fallingCharacters.length*config.successAnimationIterationDuration);
+
+                return;
+            }
+
+
+
 
 
 			const word = initValues.choosedWords[successObject.wordId].word;

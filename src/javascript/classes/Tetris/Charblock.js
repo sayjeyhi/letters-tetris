@@ -32,7 +32,20 @@ export default class Charblock {
 
 		this.column = Math.random() * initValues.validatedColumnsCount << 0;
 		this.row = 0; // top is 0 and bottom is max
-		this.char = initValues.nextChar === '' ? WordsHelper.chooseChar() : initValues.nextChar;
+
+
+        //TODO: Jafar rezayi, I dont know where should i add bomb :| fix it please
+        //Let's show a bomb :|
+		if(Math.random()>0.9){
+		    this.char="~";
+            this.type="bomb";
+            this.bombSize=1;
+        }else{
+            this.char = initValues.nextChar === '' ? WordsHelper.chooseChar() : initValues.nextChar;
+        }
+
+
+
 		this.color = MaterialColor.getRandomColor(); // random material color
 		this.element = null; // holds our character element
 

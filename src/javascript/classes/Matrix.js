@@ -350,7 +350,7 @@ export default class Matrix {
      */
     _explode(rowID,colID,power,successCallBack){
         let callbackObject = {
-            explodedChars: [],
+            explodedChars: [{y:rowID ,x:colID}],
             fallingCharacters: []
         };
 
@@ -361,8 +361,8 @@ export default class Matrix {
             }
 
             for(let startY = -power, yPos = startY+rowID; startY <= power && yPos < this.height ; startY++,yPos++){
-                if(xPos===colID)
-                    continue; // This block is where bomb has been placed, So we should check it's Ups
+                // if(xPos===colID)
+                //     continue; // This block is where bomb has been placed, So we should check it's Ups
                 let characterDeleteResult = this.safeDeleteCharacter(yPos, xPos);
 
                 if(characterDeleteResult === IS_OK){
