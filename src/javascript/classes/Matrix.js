@@ -36,6 +36,16 @@ export default class Matrix {
 	}
 
 
+    /**
+     * Deletes a single cell in Matrix
+     * @param y
+     * @param x
+     */
+    deleteCharacter(y,x){
+        this.matrix[y][x]= ' ';
+    }
+
+
 	/**
      * Check word happens
      * @param {String[]} words - To search in strings
@@ -201,7 +211,8 @@ export default class Matrix {
 		if (checkType.ltr) {
 			// Clear characters in matrix
 			for (let c=0, i = occurancePositionFrom; i<occurancePositionFrom+occurancePositionLenght; i++, c++) {
-				this.matrix[rowId][i]=' ';
+
+                this.deleteCharacter(rowId,i);
 				if (hasCallback) {
 					callbackObject.wordCharacterPositions.push({ y: rowId, x: i });
 				}
@@ -209,7 +220,7 @@ export default class Matrix {
 				// Move upper blocks to bottom
 				for (let upIndex=rowId; this.matrix[upIndex-1][i] !== ' ' && upIndex>=0; upIndex--) {
 					this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
-					this.matrix[upIndex-1][i] = ' ';
+                    this.deleteCharacter(upIndex-1,i);
 					if (hasCallback) {
 						callbackObject.fallingCharacters.push({ oldY: upIndex-1, oldX: i, newY: upIndex, newX: i });
 					}
@@ -218,18 +229,16 @@ export default class Matrix {
 		} else if (checkType.rtl) {
 			// Clear characters in matrix
 			for (let c=0, i=occurancePositionFrom; i>occurancePositionFrom-occurancePositionLenght; --i, ++c) {
-				this.matrix[rowId][i]=' ';
-
+                this.deleteCharacter(rowId,i);
 				if (hasCallback) {
 					callbackObject.wordCharacterPositions.push({ y: rowId, x: i });
 				}
 
 
-				// debugger;
 				// Move upper blocks to bottom
 				for (let upIndex=rowId; this.matrix[upIndex-1][i] !== ' ' && upIndex>=0; upIndex--) {
 					this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
-					this.matrix[upIndex-1][i] = ' ';
+                    this.deleteCharacter(upIndex-1,i);
 					if (hasCallback) {
 						callbackObject.fallingCharacters.push({ oldY: upIndex-1, oldX: i, newY: upIndex, newX: i });
 					}
@@ -237,7 +246,7 @@ export default class Matrix {
 			}
 		} else if (checkType.ttd) {
 			for (let c=0, i = occurancePositionFrom; i<occurancePositionFrom+occurancePositionLenght; i++, c++) {
-				this.matrix[i][colId]=' ';
+                this.deleteCharacter(i,colId);
 				if (hasCallback) {
 					callbackObject.wordCharacterPositions.push({ y: i, x: colId });
 				}
@@ -247,14 +256,14 @@ export default class Matrix {
 
 			for (let upIndex=occurancePositionFrom-occurancePositionLenght; upIndex>0 &&this.matrix[upIndex-1][colId] !== ' '; upIndex--) {
 				this.matrix[upIndex+occurancePositionLenght-1][colId] = this.matrix[upIndex-1][colId];
-				this.matrix[upIndex-1][colId] = ' ';
+                this.deleteCharacter(upIndex-1,colId);
 				if (hasCallback) {
 					callbackObject.fallingCharacters.push({ oldY: upIndex-1, oldX: colId, newY: upIndex+occurancePositionLenght-1, newX: colId });
 				}
 			}
 		} else if (checkType.dtt) {
 			for (let c=0, i=occurancePositionFrom; i>occurancePositionFrom-occurancePositionLenght; --i, ++c) {
-				this.matrix[i][colId]=' ';
+                this.deleteCharacter(i,colId);
 				if (hasCallback) {
 					callbackObject.wordCharacterPositions.push({ y: i, x: colId });
 				}
@@ -264,7 +273,7 @@ export default class Matrix {
 			// Move upper blocks to bottom
 			for (let upIndex=occurancePositionFrom; upIndex-occurancePositionLenght>=0 &&this.matrix[upIndex-occurancePositionLenght][colId] !== ' '; upIndex--) {
 				this.matrix[upIndex-occurancePositionLenght][colId] = this.matrix[upIndex][colId];
-				this.matrix[upIndex-occurancePositionLenght][colId] = ' ';
+                this.deleteCharacter(upIndex,colId);
 				if (hasCallback) {
 					callbackObject.fallingCharacters.push({ oldY: upIndex, oldX: colId, newY: upIndex-occurancePositionLenght, newX: colId });
 				}
