@@ -51,7 +51,7 @@ export default class WordsHelper {
 
 
 		// extra chars
-        if(Math.random()>0.5){
+        if(Math.random()>0.7){
             let specialChar = document.createElement("i");
             specialChar.className = "linearicon linearicon-fire";
             specialChar.style.color = "#cc1800";

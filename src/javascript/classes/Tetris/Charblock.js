@@ -156,7 +156,6 @@ export default class Charblock {
             charBlockEl.style.background = "#fff";
 		    charBlockEl.style.fontSize = "2rem";
             charBlockEl.appendChild(charblock.char);
-            Helper.log(charblock.char);
         }
 
 		charBlockEl.className = `charBlock ${animateClass}${charblock.animateInClass || ''}`;
@@ -168,7 +167,7 @@ export default class Charblock {
 	}
 
 
-	/**
+    /**
      * Fall node with animation
      * @param oldRow {Number}
      * @param oldColumn {Number}

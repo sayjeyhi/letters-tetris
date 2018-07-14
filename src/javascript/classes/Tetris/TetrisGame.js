@@ -70,7 +70,7 @@ export default class TetrisGame {
 				dtt: false // check down to top
 			},
 			scoreCalculator: word => {
-				return Math.pow(1.3, word.length); // Larger words will have better score
+				return Math.pow(word.length, 1.3); // Larger words will have better score
 			},
 			chooseedWordKind: {},
 
@@ -160,7 +160,8 @@ export default class TetrisGame {
 				rtl: 0,
 				ltr: 0,
 				ttd: 0,
-				dtp: 0
+				dtp: 0,
+                exploded: 0
 			},
 			isMobile: Helper.isMobile()
 		};
@@ -197,6 +198,9 @@ export default class TetrisGame {
 
                 //Fall characters at top of exploded chars
                 Timeout.request(()=>{
+                    //Update score after other blocks falled down
+                    this._updateScoreAndStats(successObject.explodedChars, "exploded");
+
                     successObject.fallingCharacters.map((item, index) => {
                         Timeout.request(
                             () => {
@@ -214,9 +218,6 @@ export default class TetrisGame {
             }
 
 
-
-
-
 			const word = initValues.choosedWords[successObject.wordId].word;
 
 			// Remove word from choosed words
@@ -227,7 +228,7 @@ export default class TetrisGame {
 
 
 			// Update score
-			this._updateScore(successObject, word);
+			this._updateScoreAndStats(word, successObject.direction);
 
 			// Remove characters from choosed characters
 			word.split('').map(char => {
@@ -335,36 +336,62 @@ export default class TetrisGame {
 		return score;
 	}
 
+
+    /**
+     * Updates stats of game
+     * @param successObject
+     * @param word
+     */
+	static _updateStats(word,direction){
+        // Update stats related to word
+
+        console.log(this.initValues.wordsLengthTotal)
+        if(direction!=="exploded"){
+            this.initValues.wordsFounded++;
+            this.initValues.wordsLengthTotal += word.length;
+        }
+        console.log(this.initValues.wordsLengthTotal)
+        this.initValues.wordDirectionCounter[direction]++;
+        // console.log(this.initValues.wordsLengthTotal);
+
+        console.log(this.initValues.wordsFounded)
+        Helper._('.wordCounterHolder').innerHTML = Math.round(this.initValues.wordsFounded);
+    }
+
+
+    /**
+     *
+     * @param word
+     * @private
+     */
+    static _UpdateScore(word){
+
+        // Get encrypted value of Score wtih our random generated key
+        let score = TetrisGame._getScore();
+
+        // Increase value by scoreCalculator from config
+        score += this.config.scoreCalculator(word);
+
+        // Update our fake score variable to let hacker think they are dealing with real variable
+        this.initValues.score = score;
+
+        // Update & encrypt score in Storage
+        if (this.config.do_encryption) {
+            Storage.setEncrypted('score', score, this.initValues.encryptionKey);
+        } else {
+            Storage.set('score', score);
+        }
+        Helper._('.scoreHolder').innerHTML = Math.round(score);
+    }
+
 	/**
      * Update score and set it to panel
      * @param successObject
      * @param word
-     * @private
      */
-	static _updateScore(successObject, word) {
-		// Update stats related to word
-		this.initValues.wordsFounded++;
-		this.initValues.wordDirectionCounter[successObject.direction]++;
-		this.initValues.wordsLengthTotal += word.length;
-
-		// Get encrypted value of Score wtih our random generated key
-		let score = TetrisGame._getScore();
-
-		// Increase value by scoreCalculator from config
-		score += this.config.scoreCalculator(word);
-
-		// Update our fake score variable to let hacker think they are dealing with real variable
-		this.initValues.score = score;
-
-		// Update & encrypt score in Storage
-		if (this.config.do_encryption) {
-			Storage.setEncrypted('score', score, this.initValues.encryptionKey);
-		} else {
-			Storage.set('score', score);
-		}
-
-		Helper._('.wordCounterHolder').innerHTML = Math.round(this.initValues.wordsFounded);
-		Helper._('.scoreHolder').innerHTML = Math.round(score);
+	static _updateScoreAndStats(word,direction) {
+        this._updateStats(word,direction);
+        this._UpdateScore(word);
 	}
 
 
