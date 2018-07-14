@@ -17,7 +17,7 @@
         "view-test": "opener test_result/report.html",
         "wiki": "http-server ./wiki/_book/ --gzip -o -p 8183",
         "check": "eslint src/javascript/**/*",
-        "fix": "eslint src/javascript/**/*"
+        "fix": "eslint src/javascript/**/* --fix"
     },
     "repository": {
         "type": "git",
