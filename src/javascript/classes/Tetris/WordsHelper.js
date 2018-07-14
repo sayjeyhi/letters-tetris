@@ -4,6 +4,7 @@
 
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
+import Sound from "../Sound";
 
 
 /**
@@ -51,13 +52,13 @@ export default class WordsHelper {
 
 
 		// extra chars
-        if(Math.random() > 0.9){
-            let specialChar = document.createElement("i");
-            specialChar.className = "linearicon linearicon-fire";
-            specialChar.style.color = "#cc1800";
-            specialChar.type = "bomb";
-            specialChar.special = "true";
-            return specialChar;
+        if(Math.random() > 0.5){
+            let bombCharacter = document.createElement("img");
+            bombCharacter.src = "/assets/img/bomb.gif";
+            bombCharacter.className = "bomb";
+            bombCharacter.type = "bomb";
+            bombCharacter.special = "true";
+            return bombCharacter;
         }
 
 

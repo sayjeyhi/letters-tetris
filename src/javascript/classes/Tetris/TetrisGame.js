@@ -281,8 +281,11 @@ export default class TetrisGame {
 				initValues.paused=false;
 				return;
 			} else if(lastChar.type==="bomb"){
+
 			    console.log("BOOOOOOM");
 
+                Sound.PauseByKey('firing',config.playEventsSound);
+                Sound.playByKey('explode', config.playEventsSound);
 			    //Explode the characters
                 successObject.explodedChars.map((item, index) => {
                     //TODO: Jafar rezayi Change animation for exploding

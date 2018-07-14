@@ -40,6 +40,8 @@ export default class Charblock {
         if(typeof this.char === "object" && this.char.special === "true"){
             this.type = this.char.type;
             this.typeSize = 1;
+            Helper.log("Incominggggg");
+            Sound.playByKey("firing", TetrisGame.config.playEventsSound,true);
         }else{
             this.type = "regular";
         }

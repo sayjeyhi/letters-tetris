@@ -65,11 +65,12 @@ export default class Sound {
 
 	/**
      * Play sound based on it's name
-     * @param key
-     * @param canPlay
+     * @param key {String} - Name of sound to play
+     * @param canPlay {Boolean} - Setting to check if audio should get played
+     * @param loop {Boolean} [false] - Sets if audio should get looped
      * @return Audio
      */
-	static playByKey(key, canPlay) {
+	static playByKey(key, canPlay, loop=false) {
 		if (!canPlay) {
 			return false;
 		}
@@ -77,6 +78,7 @@ export default class Sound {
 		let audioInstance;
 		if (!(audioInstance = Sound._getInstance(key))) {
 			audioInstance = new Audio(`assets/mp3/${key}.mp3`);
+			audioInstance.loop=loop;
 			Sound._setInstance(key, audioInstance);
 		}
 
@@ -84,4 +86,22 @@ export default class Sound {
 
 		return audioInstance;
 	}
+
+
+    /**
+     * Play sound based on it's name
+     * @param key
+     * @param canPlay
+     * @return Audio
+     */
+    static PauseByKey(key, canPlay) {
+        if (!canPlay) {
+            return false;
+        }
+        let audioInstance = Sound._getInstance(key);
+        audioInstance.pause();
+        return audioInstance;
+    }
+
+
 }
