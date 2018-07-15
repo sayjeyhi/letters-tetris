@@ -22,6 +22,7 @@ export default class ScoreHandler {
      * @param gamingTime
      */
 	static submit(gamingInfo, showScore, gamingTime) {
+
 		const config = TetrisGame.config;
 		const submitScoreContent = `
             <div class="submitScore">
@@ -46,31 +47,12 @@ export default class ScoreHandler {
 					text: lang.saveScore,
 					isOk: true,
 					onclick() {
-						let submitted = ScoreHandler.getSubmitted();
-						const saveInfo = {};
-						saveInfo.userName = Helper._('#enterName', submitScore.modal).value;
-						saveInfo.score = showScore;
-						saveInfo.time = gamingTime;
-
-						// we just hold 10 last scores
-                        submitted = submitted.slice(Math.max(submitted.length - 9, 1));
-						submitted.push(saveInfo);
-						Storage.setObject('scores', submitted);
-						submitScore.destroy();
-
-
-						// show success message
-                        const submitScoreResult = new Modal({
-                            animate: config.useAnimationFlag,
-                            dark: (config.level === 3),
-                            onShow: () => {
-                                Timeout.request(() => {submitScoreResult.destroy()} , 2000)
-                            },
-                            header: lang.saveOperation,
-                            content: lang.saveOperationDone
-                        }, lang.rtl);
-                        submitScoreResult.show();
-
+					    ScoreHandler._saveScore({
+                            userName : Helper._('#enterName', submitScore.modal).value || "--",
+                            score : showScore ,
+                            time : gamingTime
+                        });
+                        submitScore.destroy();
 					}
 				}, {
 					text: lang.restartGame,
@@ -96,9 +78,7 @@ export default class ScoreHandler {
      */
 	static showScores(){
         const config = TetrisGame.config;
-        const submitted = ScoreHandler.getSubmitted('sort');
-
-
+        const submitted = ScoreHandler._getSubmitted('sort');
 
         let content = `<div class="scoresTable">`;
         submitted.forEach((item) => {
@@ -130,12 +110,43 @@ export default class ScoreHandler {
         submitScore.show();
     }
 
+
+    /**
+     * Save user gained score
+     * @private
+     */
+    static _saveScore(scoreData){
+        let submitted = ScoreHandler._getSubmitted();
+
+        // we just hold 10 last scores
+        submitted = submitted.slice(Math.max(submitted.length - 9, 1));
+        submitted.push(scoreData);
+        Storage.setObject('scores', submitted);
+
+
+        // show success message
+        const submitScoreResult = new Modal({
+            animate: config.useAnimationFlag,
+            dark: (config.level === 3),
+            onShow: () => {
+                Timeout.request(
+                    () => {submitScoreResult.destroy()}, 2000
+                )
+            },
+            header: lang.saveOperation,
+            content: lang.saveOperationDone
+        }, lang.rtl);
+
+        submitScoreResult.show();
+    }
+
+
 	/**
      * Get submitted scores
      * @param sort
      * @return {string|*}
      */
-	static getSubmitted(sort) {
+	static _getSubmitted(sort) {
 		let scores = Storage.getObject('scores', []);
 		if(sort){
 		    scores.sort((a, b) => {
