@@ -53,7 +53,7 @@ export default class TetrisGame {
          * Base config for game
          */
 		this.config = {
-			rows: 11,
+			rows: 10,
 			columnsMin: 6,
 			columnsMax: 16,
 			workingWordCount: 1,
@@ -515,6 +515,8 @@ export default class TetrisGame {
 
 	static _RemoveCurrentWord(id) {
 	    const currentWord = Helper._(`.currentWorkingWords #word_${id}`);
-		currentWord.parentNode.removeChild(currentWord);
+	    if(currentWord !== null) {
+            currentWord.parentNode.removeChild(currentWord);
+        }
 	}
 }

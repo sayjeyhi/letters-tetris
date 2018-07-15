@@ -255,7 +255,6 @@ export default class Gameplay {
 			playBoardTable += '</div>';
 		}
 
-		playBoardTable += '';
 		TetrisGame.playBoard.innerHTML = playBoardTable;
 
 		return matrixRowArray;

@@ -57,7 +57,7 @@ export default class ScoreHandler {
 						saveInfo.time = gamingTime;
 
 						submitted.push(saveInfo);
-						Storage.set('scores', submitted);
+						Storage.setObject('scores', submitted);
 						submitScore.destroy();
 					}
 				}, {
@@ -83,6 +83,6 @@ export default class ScoreHandler {
      * @return {string|*}
      */
 	static getSubmitted() {
-		return Storage.get('scores', []);
+		return Storage.getObject('scores', []);
 	}
 }
