@@ -147,6 +147,30 @@ export default class Helper {
 	}
 
 
+
+    /**
+     * Returns a random number between min (inclusive) and max (exclusive)
+     */
+    static getRandomArbitrary(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    /**
+     * Returns a random integer between min (inclusive) and max (inclusive)
+     * Using Math.round() will give you a non-uniform distribution!
+     */
+    static getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+
+
+    /**
+     * This function will shake a Dom
+     * @param element {HTMLElement} - Dom to shake
+     * @param magnitude {Number} [16] - magnitude of earthquake
+     * @param angular {Boolean} [false] - angular of shaking
+     */
 	static Shake(element, magnitude = 16, angular = false) {
 		const shakingElements = [];
 
