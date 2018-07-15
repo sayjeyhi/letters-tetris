@@ -47,12 +47,12 @@ export default class ScoreHandler {
 					text: lang.saveScore,
 					isOk: true,
 					onclick() {
+                        submitScore.destroy();
 					    ScoreHandler._saveScore({
                             userName : Helper._('#enterName', submitScore.modal).value || "--",
                             score : showScore ,
                             time : gamingTime
                         });
-                        submitScore.destroy();
 					}
 				}, {
 					text: lang.restartGame,
@@ -81,13 +81,17 @@ export default class ScoreHandler {
         const submitted = ScoreHandler._getSubmitted('sort');
 
         let content = `<div class="scoresTable">`;
-        submitted.forEach((item) => {
-            content += `<div class="scoreRow">
+        if(submitted.length > 0) {
+            submitted.forEach((item) => {
+                content += `<div class="scoreRow">
                 <div class="userName">${item.userName}</div>
                 <div class="scoreAmount">${item.score}</div>
                 <div class="timeValue">${item.time}</div>
             </div>`;
-        });
+            });
+        }else{
+            content += `<div class="scoreRow">بدون رکورد ثبت شده</div>`;
+        }
         content += `</div>`;
 
         // show scores list modal
@@ -116,10 +120,12 @@ export default class ScoreHandler {
      * @private
      */
     static _saveScore(scoreData){
+
+        const config = TetrisGame.config;
         let submitted = ScoreHandler._getSubmitted();
 
         // we just hold 10 last scores
-        submitted = submitted.slice(Math.max(submitted.length - 9, 1));
+        submitted = submitted.slice(-9);
         submitted.push(scoreData);
         Storage.setObject('scores', submitted);
 

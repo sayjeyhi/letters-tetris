@@ -154,29 +154,16 @@ export default class Gameplay {
         initValues.finished = true;
         TetrisGame.timer.pause();
 
-        const wordsAverageLength =
-            initValues.wordsLengthTotal / initValues.wordsFounded;
+        const wordsAverageLength = (initValues.wordsLengthTotal / initValues.wordsFounded) || 0;
         const showScore = Math.round(TetrisGame._getScore());
         const gamingTime = TetrisGame.timer.currentTime;
 
         const gamingInfo = `
-            <div class="gameStatics">
-                <div class="scorePart">${
-                    lang.sumScore
-                } : ‌<span class="value">${showScore}</span></div>
-                <div class="wordsFoundedPart">${
-                    lang.foundWords
-                } :‌ <span class="value">${initValues.wordsFounded} ${
-            lang.word
-        }</span></div>
-                <div class="averageLengthPart">${
-                    lang.wordLengthAverage
-                } :‌<span class="value"> ${Math.round(wordsAverageLength)} ${
-            lang.character
-        }</span></div>
-                <div class="timePart">${
-                    lang.spentTimeModal
-                } :‌ <span class="value">${gamingTime}</span></div>
+             <div class="gameStatics">
+                <div class="scorePart">${lang.sumScore} : ‌<span class="value">${showScore}</span></div>
+                <div class="wordsFoundedPart">${lang.foundWords} :‌ <span class="value">${initValues.wordsFounded} ${lang.word}</span></div>
+                <div class="averageLengthPart">${lang.wordLengthAverage} :‌<span class="value"> ${Math.round(wordsAverageLength)} ${lang.character}</span></div>
+                <div class="timePart">${lang.spentTimeModal} :‌ <span class="value">${gamingTime}</span></div>
             </div>`;
 
         let scoreModal, modalHeader, modalContent, modalType;
@@ -288,12 +275,12 @@ export default class Gameplay {
     static _makeMovingEvents() {
         // fire on arrow keys down
         document.onkeydown = function(e) {
-            e.preventDefault();
             if (
                 !TetrisGame.initValues.paused &&
                 [37, 39, 40].indexOf(e.keyCode) > -1
             ) {
                 TetrisGame.initValues.activeChar.move(e.keyCode);
+                e.preventDefault();
             }
         };
 
