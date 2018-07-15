@@ -21,6 +21,22 @@ export default class Helper {
 
 
     /**
+     * Shuffles dom childs
+     * @param parentDom {HTMLElement}
+     */
+	static ShuffleDom(parentDom){
+        for (let i = parentDom.children.length; i >= 0; i--) {
+            parentDom.appendChild(parentDom.children[Math.random() * i | 0]);
+        }
+    }
+
+
+    static removeDom(dom){
+        dom.parentNode.removeChild(dom);
+    }
+
+
+    /**
      * Checks if device is mobile
      * @returns {boolean} - Return true if device is mobile
      */

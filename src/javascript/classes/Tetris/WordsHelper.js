@@ -34,6 +34,7 @@ export default class WordsHelper {
 			value.word = value.word.toLowerCase();
 		}
 
+
 		Helper.log(value);
 
 		// delete choosed word form list
@@ -52,7 +53,7 @@ export default class WordsHelper {
 
 
 		// extra chars
-        if(Math.random() > 0.5){
+        if(Math.random() > 0.9){
             let bombCharacter = document.createElement("img");
             bombCharacter.src = "/assets/img/bomb.gif";
             bombCharacter.className = "bomb";
@@ -72,8 +73,8 @@ export default class WordsHelper {
 
 		if (availableChars.length === 0) {
 			const newWord = this.chooseWord();
-			if (newWord !== false) {
-				TetrisGame.initValues.choosedWords.push(newWord);
+			if (newWord !== false){
+                TetrisGame._AddCurrentWord(TetrisGame.initValues.choosedWords.push(newWord)-1);
 				return this.chooseChar();
 			}
 		} else {

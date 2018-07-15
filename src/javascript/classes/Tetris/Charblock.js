@@ -44,10 +44,9 @@ export default class Charblock {
             Sound.playByKey("firing", TetrisGame.config.playEventsSound,true);
         }else{
             this.type = "regular";
+            this.color = MaterialColor.getRandomColor(); // random material color
         }
 
-
-		this.color = MaterialColor.getRandomColor(); // random material color
 		this.element = null; // holds our character element
 
 
@@ -153,7 +152,7 @@ export default class Charblock {
             charBlockEl.style.background = charblock.color;
             charBlockEl.innerHTML = charblock.char;
         }else{
-            charBlockEl.style.background = "#fff";
+            charBlockEl.style.background = "transparent";
 		    charBlockEl.style.fontSize = "2rem";
             charBlockEl.appendChild(charblock.char);
         }

@@ -62,8 +62,15 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .chooseWordKindTooltip ul > li .linearicon{font-size:16px;position:relative;bottom:-3px;margin:0 13px;color:#26a718;left:5px}
 
 .gameHolder{background:#f6f6f6;padding:8px;box-shadow:0 25px 20px -21px rgba(153,153,153,0.3);border-radius:10px!important;position:relative;width:800px;right:50%;margin-right:-400px;margin-top:20px}
-.gameHolder .playBoard{width:75%;display:inline-block;background:#fff;padding:3px;min-height:460px;position:relative;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px}
-.gameHolder .playBoard .emptyPlayBoard{font-size:17px;color:rgba(186,183,183,0.5);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.gameHolder .playBoard {
+    width:75%;
+    display:inline-block;
+
+    background: url('/assets/img/bg.png') 50% 50%;
+    background-size: cover;
+
+    padding:3px;min-height:460px;position:relative;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px}
+.gameHolder .playBoard .emptyPlayBoard{font-size:17px;color:rgba(186,183,183,0.7);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;text-shadow: 1px 1px #000}
 .gameHolder .playBoard .charBlock{border-radius:5px;text-align:center;color:#fff!important;position:absolute;width:99%;height:99%;line-height:44px;left:0;top:0}
 .gameHolder .playBoard .isRow{height:40px;margin-bottom:1px}
 .playBoard.showGrids .isRow{border-bottom:1px dashed #efefef}
@@ -231,16 +238,30 @@ svg :not(.doNotUnfill){stroke:currentColor}
 }
 
 .currentWorkingWords{
-    background: #e3f1df;
+    background: #00796b;
     font-size: 13px;
     border-radius: 4px;
-    padding: 9px 3px;
+    padding: 7px 3px;
     text-align: center;
-    color: #000;
+    color: #fefefe;
 }
-.currentWorkingWords .currentWords{
-    margin-left:10px;
+
+
+.currentWorkingWords .currentWords {
+    display: inline-block;
+    padding: 1px 10px;
+    border-radius: 50px;
+    border: solid 1px #fff;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.5s ease-in-out;
 }
+
+.currentWorkingWords .currentWords:hover{
+    background-color: #fff;
+    color: #00796b
+}
+
 .currentWorkingWords .currentWords:last-child{
     margin:0
 }

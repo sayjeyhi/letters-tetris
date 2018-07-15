@@ -282,7 +282,7 @@ export default class TetrisGame {
 				return;
 			} else if(lastChar.type==="bomb"){
 
-			    console.log("BOOOOOOM");
+			    Helper.log("BOOOOOOM");
 
                 Sound.PauseByKey('firing',config.playEventsSound);
                 Sound.playByKey('explode', config.playEventsSound);
@@ -319,6 +319,10 @@ export default class TetrisGame {
 
 			// Remove word from choosed words
 			initValues.choosedWords.splice(successObject.wordId, 1);
+
+			//Remove from UI
+            this._RemoveCurrentWord(successObject.wordId);
+
 
 			// animate found word
 			TetrisGame.showFoundWordAnimated(word, successObject);
@@ -485,6 +489,23 @@ export default class TetrisGame {
         this._updateStats(word,direction);
         this._updateScore(word);
 	}
+
+
+
+	static _AddCurrentWord(id){
+	    let parent = Helper._(".currentWorkingWords");
+	    let currentWord = document.createElement("span");
+	    currentWord.innerText   = this.initValues.choosedWords[id].word;
+        currentWord.className   = "currentWords";
+        currentWord.id          = "word_"+id;
+	    parent.appendChild(currentWord);
+	    Helper.ShuffleDom(parent);
+    }
+
+    static _RemoveCurrentWord(id){
+	    let currentWord = Helper._(".currentWorkingWords #word_"+id );
+        currentWord.parentNode.removeChild(currentWord);
+    }
 
 
 }
