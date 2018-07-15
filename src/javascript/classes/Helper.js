@@ -31,6 +31,24 @@ export default class Helper {
     }
 
 
+    /**
+     * Vibrate device, If it's mobile
+     * @param timeMs
+     */
+    static vibrate(timeMs){
+	    if(Helper.isMobile()){
+	        try{
+                window.navigator.vibrate(timeMs);
+            }catch (e) {
+                //Who cares?
+            }
+        }
+    }
+
+    /**
+     * Removes a dom :|
+     * @param dom
+     */
     static removeDom(dom){
         dom.parentNode.removeChild(dom);
     }

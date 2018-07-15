@@ -25,6 +25,7 @@ import Helper from '../Helper';
  * @property simpleFallDownAnimateSpeed=700 {Number} Duration of animation when characters are falling down in simple mode
  * @property mediumFallDownAnimateSpeed=500 {Number} Duration of animation when characters are falling down in medium mode
  * @property expertFallDownAnimateSpeed=200 {Number} Duration of animation when characters are falling down in expert mode
+ * @property vibrationDuration=200 {Number} - Duration of vibration when bomb is exploded
  * @property successAnimationIterationDuration=100 {Number} Duration between animation of exploding chars when characters found
  * @property playBackgroundSound=true {Boolean} Option to disable music in background
  * @property playEventsSound=true {Boolean} Option to disable sound of events
@@ -60,6 +61,7 @@ export default class TetrisGame {
 			mediumFallDownAnimateSpeed: 500,
 			expertFallDownAnimateSpeed: 200,
 			successAnimationIterationDuration: 100,
+            vibrationDuration:200,
 			do_encryption: true, // Enables encryption when saving score
 			encryptionKeySize: 16, // Size of key Used in encryption
 			directionWordChecks: {
@@ -286,6 +288,9 @@ export default class TetrisGame {
 
                 Sound.PauseByKey('firing',config.playEventsSound);
                 Sound.playByKey('explode', config.playEventsSound);
+
+                Helper.vibrate(TetrisGame.config.vibrationDuration);
+
 			    //Explode the characters
                 successObject.explodedChars.map((item, index) => {
                     //TODO: Jafar rezayi Change animation for exploding

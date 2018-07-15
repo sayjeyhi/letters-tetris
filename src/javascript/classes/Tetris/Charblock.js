@@ -176,7 +176,7 @@ export default class Charblock {
 	static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
 		let deleteTiming = 0;
 		const domToDelete = this._getEl(oldRow, oldColumn, true);
-		if (!domToDelete) return false;
+		if (!domToDelete || typeof domToDelete ==="undefined") return false;
 		const gameConfig = TetrisGame.config;
 		const oldChar = domToDelete.innerText;
 		const oldColor = domToDelete.style.backgroundColor;
