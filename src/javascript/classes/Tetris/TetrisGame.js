@@ -287,11 +287,13 @@ export default class TetrisGame {
 			} else if (lastChar.type==='bomb') {
 
 			    Helper.log('BOOOOOOM');
+
 				// Sound.PauseByKey('firing', config.playEventsSound);
 				Sound.playByKey('explode', config.playEventsSound);
 				if(TetrisGame.config.do_shake){
                     Helper.Shake(this.playBoard, lastChar.typeSize*16);
                 }
+
                 if(TetrisGame.config.do_vibrate){
                     Helper.vibrate(TetrisGame.config.vibrationDuration);
                 }
