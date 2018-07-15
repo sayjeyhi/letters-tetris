@@ -51,7 +51,7 @@ export default class Gameplay {
 			if (!choosedWord) {
 				Gameplay.finish('finishWords');
 			} else {
-				TetrisGame._AddCurrentWord(TetrisGame.initValues.choosedWords.push(choosedWord)-1);
+				TetrisGame._addCurrentWord(TetrisGame.initValues.choosedWords.push(choosedWord)-1);
 			}
 		}
 
@@ -238,11 +238,17 @@ export default class Gameplay {
      * @private
      */
 	static _makeGameBoard() {
-		let playBoardTable = `<div class="foundWordAnimation animatedMaxTime jackInTheBox"></div>
+		let rowsCount = TetrisGame.config.rows,
+            playBoardTable = `<div class="foundWordAnimation animatedMaxTime jackInTheBox"></div>
             <div class="currentWorkingWords"> </div>`;
 		const matrixRowArray = [];
 
-		const rowsCount = TetrisGame.initValues.isMobile ? 9 : TetrisGame.config.rows;
+
+		// we have eight rows on mobile
+        if(TetrisGame.initValues.isMobile) {
+            TetrisGame.playBoard.style.minHeight = "350px";
+            rowsCount = TetrisGame.config.rows = 8 ;
+        }
 
 		for (let r = 0; r < rowsCount; r++) {
 			const matrixColumn = [];

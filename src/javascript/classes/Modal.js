@@ -54,11 +54,12 @@ export default class Modal {
      * @param isRtl
      */
 	constructor(options, isRtl) {
-		this.onDestroy = options.onDestroy || (() => {});
-		this.isRtl = typeof isRtl === 'undefined' ? false : isRtl;
-		this.animate = typeof options.animate === 'undefined' ? false : options.animate;
-		this.dark = options.dark ? ' dark ' : '';
-		this.type = options.type ? options.type : '';
+		this.onDestroy  = options.onDestroy || (() => {});
+		this.onShow     = options.onShow || (() => {});
+		this.isRtl      = typeof isRtl === 'undefined' ? false : isRtl;
+		this.animate    = typeof options.animate === 'undefined' ? false : options.animate;
+		this.dark       = options.dark ? ' dark ' : '';
+		this.type       = options.type ? options.type : '';
 
 
 		const modalHolder = document.createElement('div');
@@ -175,6 +176,7 @@ export default class Modal {
      * Show modal
      */
 	show() {
+	    this.onShow();
 		document.getElementById('container').classList.add('blur');
 	}
 

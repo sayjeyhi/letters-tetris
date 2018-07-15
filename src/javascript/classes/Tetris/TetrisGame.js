@@ -57,7 +57,7 @@ export default class TetrisGame {
 			columnsMin: 6,
 			columnsMax: 16,
 			workingWordCount: 1,
-			charSpeed: 1000, // 1 second - get division to level when making game harder
+			charSpeed: 800, // 1 second - get division to level when making game harder
 			useLowercase: false,
 			simpleFallDownAnimateSpeed: 700,
 			mediumFallDownAnimateSpeed: 500,
@@ -290,7 +290,7 @@ export default class TetrisGame {
 				Sound.PauseByKey('firing', config.playEventsSound);
 				Sound.playByKey('explode', config.playEventsSound);
 				if(TetrisGame.config.do_shake){
-                    Helper.Shake(Helper._('.playBoard'),lastChar.typeSize*16);
+                    Helper.Shake(this.playBoard, lastChar.typeSize*16);
                 }
                 if(TetrisGame.config.do_vibrate){
                     Helper.vibrate(TetrisGame.config.vibrationDuration);
@@ -334,7 +334,7 @@ export default class TetrisGame {
 			initValues.choosedWords.splice(successObject.wordId, 1);
 
 			// Remove from UI
-			this._RemoveCurrentWord(successObject.wordId);
+			this._removeCurrentWord(successObject.wordId);
 
 
 			// animate found word
@@ -469,7 +469,7 @@ export default class TetrisGame {
 
 
 	/**
-     *
+     * Update game score in UI and Data
      * @param word
      * @private
      */
@@ -503,7 +503,7 @@ export default class TetrisGame {
 	}
 
 
-	static _AddCurrentWord(id) {
+	static _addCurrentWord(id) {
 	    const parent = Helper._('.currentWorkingWords');
 	    const currentWord = document.createElement('span');
 	    currentWord.innerText = this.initValues.choosedWords[id].word;
@@ -513,7 +513,11 @@ export default class TetrisGame {
 	    Helper.ShuffleDom(parent);
 	}
 
-	static _RemoveCurrentWord(id) {
+	static _removeCurrentWord(id) {
+
+	    // TODO : jafar akhondAli we have some bug here !
+        // the word id is not correct
+	    Helper.log("WordID : " + id);
 	    const currentWord = Helper._(`.currentWorkingWords #word_${id}`);
 	    if(currentWord !== null) {
             currentWord.parentNode.removeChild(currentWord);

@@ -111,7 +111,7 @@ export default class WordsHelper {
         if (availableChars.length === 0) {
             const newWord = this.chooseWord();
             if (newWord !== false) {
-                TetrisGame._AddCurrentWord(TetrisGame.initValues.choosedWords.push(newWord)-1);
+                TetrisGame._addCurrentWord(TetrisGame.initValues.choosedWords.push(newWord)-1);
                 return this.chooseChar();
             }
         } else {

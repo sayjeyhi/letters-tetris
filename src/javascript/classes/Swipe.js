@@ -64,14 +64,14 @@ export default class Swipe {
 			startX = touchObject.pageX;
 			startY = touchObject.pageY;
 			startTime = new Date().getTime(); // record time when finger first makes contact with surface
-			this._onTouchStart(this.onTouchStartCallback);
+            Swipe._onTouchStart(this.onTouchStartCallback);
 			e.preventDefault();
 		}, false);
 
 
 		// listen touch move
 		this.touchSurface.addEventListener('touchmove', e => {
-			this._whileTouch(this.whileTouchCallback);
+            Swipe._whileTouch(this.whileTouchCallback);
 			e.preventDefault(); // prevent scrolling when inside DIV
 		}, false);
 
@@ -90,7 +90,7 @@ export default class Swipe {
 				}
 			}
 			this.handleSwipe(swipeDirection);
-			this._onTouchEnd(this.onTouchEndCallback);
+			Swipe._onTouchEnd(this.onTouchEndCallback);
 			e.preventDefault();
 		}, false);
 	}

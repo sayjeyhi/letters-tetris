@@ -223,7 +223,7 @@ class ArshLoader {
 
 
 		const tetrisGameConfig = {
-			rows: 11,
+			rows: 10,
 			columnsMin: 6,
 			columnsMax: 16,
 			workingWordCount: 1,
