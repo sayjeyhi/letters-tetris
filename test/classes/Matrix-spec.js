@@ -408,7 +408,7 @@ describe("Matrix Class", function() {
         ];
         var matrix = new Matrix(matrixArray);
         var words = [];
-        var lastChar = {row: 10, column:7, char:'Doesnt Matter',type:'bomb',bombSize:1};
+        var lastChar = {row: 10, column:7, char:'Doesnt Matter',type:'bomb',typeSize:1};
         var foundCallback = function (successObject) {
             exploded = successObject;
             done();
@@ -423,10 +423,12 @@ describe("Matrix Class", function() {
 
 
         let didExplod =
-            ex[0].y === 9 &&
-            ex[0].x === 6 &&
-            ex[1].y === 10 &&
-            ex[1].x === 6;
+            ex[0].y === 10 &&
+            ex[0].x === 7 &&
+            ex[1].y === 9 &&
+            ex[1].x === 6 &&
+            ex[2].y === 10 &&
+            ex[2].x === 6;
         expect(didExplod).toBeTruthy();
 
 
@@ -453,6 +455,43 @@ describe("Matrix Class", function() {
 
         expect(didFall).toBeTruthy()
 
+    })
+});
 
+
+
+
+
+describe("Matrix Class", function() {
+    var exploded;
+    beforeEach(function(done) {
+        var matrixArray = [
+            // X:       0   1   2   3   4   5   6   7
+            /* 0 */   [" "," "," "," "," "," "," "," "], //0
+            /* 1 */   [" "," "," "," "," "," "," "," "], //1
+            /* 2 */   [" "," "," "," "," "," "," "," "], //2
+            /* 3 */   [" "," "," "," "," "," "," "," "], //3
+            /* 4 */   [" "," "," "," "," "," "," "," "], //4
+            /* 5 */   [" "," "," "," "," "," "," "," "], //5
+            /* 6 */   [" "," "," "," "," "," "," "," "], //6
+            /* 7 */   [" "," "," "," "," "," "," "," "], //7
+            /* 8 */   [" "," "," "," "," "," "," "," "], //8
+            /* 9 */   [" "," "," ","f","o"," "," "," "], //9
+            /* 10 */  [" ","t","e","s","t ","o"," "," "],//10
+            // X:       0   1   2   3   4   5   6   7
+        ];
+        var matrix = new Matrix(matrixArray);
+        var words = [];
+        var lastChar = {row: 10, column:7, char:'Doesnt Matter',type:'bomb',typeSize:1};
+        var foundCallback = function (successObject) {
+            exploded = successObject;
+            done();
+        };
+        matrix.checkWords(words,lastChar,{dtt:true},foundCallback);
+    });
+
+    it("Bomb should delete characters near it: ", function() {
+        let ex = exploded.explodedChars;
+        let falled = exploded.fallingCharacters;
     })
 });

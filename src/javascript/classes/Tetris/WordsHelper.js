@@ -65,8 +65,6 @@ export default class WordsHelper {
         let choosedChar,
             initValues = TetrisGame.initValues;
 
-
-        console.log(TetrisGame.config.level );
         if(TetrisGame.config.level === 1){
             if (Math.random() > 0.85){
                 let roll = Helper.getRandomInt(0,20);
