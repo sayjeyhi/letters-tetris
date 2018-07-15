@@ -87,7 +87,7 @@ export default class Charblock {
 		const moveTo = this._generateMove(eventKeyCode, position);
 
 		// if move to is out of range
-		if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0) {
+		if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0 || initValues.finished) {
 			return false;
 		}
 

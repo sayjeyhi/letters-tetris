@@ -241,7 +241,8 @@ export default class Gameplay {
      * @private
      */
 	static _makeGameBoard() {
-		let playBoardTable = '';
+		let playBoardTable = `<div class="foundWordAnimation animatedMaxTime jackInTheBox"></div>
+            <div class="currentWorkingWords"><span class="currentWords">کلمه</span></div>`;
 		const matrixRowArray = [];
 
 		const rowsCount = TetrisGame.initValues.isMobile ? 9 : TetrisGame.config.rows;
@@ -257,7 +258,7 @@ export default class Gameplay {
 			playBoardTable += '</div>';
 		}
 
-		playBoardTable += '<div class="foundWordAnimation animatedMaxTime jackInTheBox"></div>';
+		playBoardTable += '';
 		TetrisGame.playBoard.innerHTML = playBoardTable;
 
 		return matrixRowArray;

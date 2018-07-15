@@ -230,6 +230,21 @@ svg :not(.doNotUnfill){stroke:currentColor}
     padding-top: 25px !important;
 }
 
+.currentWorkingWords{
+    background: #e3f1df;
+    font-size: 13px;
+    border-radius: 4px;
+    padding: 9px 3px;
+    text-align: center;
+    color: #000;
+}
+.currentWorkingWords .currentWords{
+    margin-left:10px;
+}
+.currentWorkingWords .currentWords:last-child{
+    margin:0
+}
+
 #enterName{
     position: absolute;
     left: 50%;
