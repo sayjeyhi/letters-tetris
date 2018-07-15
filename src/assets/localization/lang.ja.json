@@ -46,6 +46,7 @@
     "records" : "記録",
     "last10Record" : "過去10回のレコード",
     "saveOperationDone" : "保存操作が正常に完了しました !",
+    "noSubmittedScore" : "提出された記録はありません !",
 
 
     "hour": " 時間 ",

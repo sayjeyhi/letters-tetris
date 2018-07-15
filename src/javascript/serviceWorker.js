@@ -6,7 +6,31 @@ const CACHE_NAME = 'persian-tetris-v1';
 const urlsToCache = [
 	'/',
 	'/assets/css/app/tetris.css',
-	'/bundle.js'
+	'/bundle.js',
+	'/assets/localization/lang.en.json',
+	'/assets/localization/lang.fa.json',
+	'/assets/localization/lang.ja.json',
+	'/assets/en/animals.json',
+	'/assets/en/colors.json',
+	'/assets/en/fruits.json',
+	'/assets/en/things.json',
+    '/assets/fa/animals.json',
+    '/assets/fa/colors.json',
+    '/assets/fa/fruits.json',
+    '/assets/fa/things.json',
+    '/assets/ja/animals.json',
+    '/assets/ja/colors.json',
+    '/assets/ja/fruits.json',
+    '/assets/ja/things.json',
+    '/assets/mp3/background.mp3',
+    '/assets/mp3/explode.mp3',
+    '/assets/mp3/finishGame.mp3',
+    '/assets/mp3/foundWord.mp3',
+    '/assets/mp3/loading.mp3',
+    '/assets/mp3/moveChar.mp3',
+    '/assets/mp3/pause.mp3',
+    '/assets/mp3/start.mp3',
+    '/assets/img/background.png',
 ];
 
 self.addEventListener('install', event => {

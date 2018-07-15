@@ -46,6 +46,7 @@
     "records" : "Records",
     "last10Record" : "Last 10 records",
     "saveOperationDone" : "Save operation successfully done !",
+    "noSubmittedScore" : "There is no submitted record !",
 
 
     "hour": " hour ",

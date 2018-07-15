@@ -26,7 +26,7 @@ export default class WordsHelper {
         }
 
         // normalize word chars
-        value.word = value.word.replace(/[^\u4e00-\u9fff\u3400-\u4dff\uf900-\ufaffA-Za-zآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]/g, '');
+        value.word = value.word.replace(/[^\W\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4‌​e00-\u9faf\u3400-\u4dbfA-Za-zآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]/g, '');
 
         // use lower case of characters
         if (TetrisGame.config.useLowercase) {

@@ -183,8 +183,7 @@ export default class TetrisGame {
 
 
 		// add main html to page
-		const gameHtmlContent
-            = `<div class="gameHolder ${ltrClass}">
+		const gameHtmlContent = `<div class="gameHolder ${ltrClass}">
                 <div class="behindPlayBoard">
                     <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
                     <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
@@ -196,7 +195,7 @@ export default class TetrisGame {
                     </div>
                    <div class="courseArea">
                        <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
-                       <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> - <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="linearicon linearicon-shovel"></i> ${lang.records}</span> </div>
+                       <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> &nbsp;|&nbsp; <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="linearicon linearicon-shovel"></i> ${lang.records}</span> </div>
                        <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
                        <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
                    </div>
@@ -405,6 +404,8 @@ export default class TetrisGame {
      * @param successObject
      */
 	static showFoundWordAnimated(word, successObject) {
+
+	    Helper.log(successObject);
 		let wordFound = successObject.wordCharacterPositions,
 			charLength = wordFound.length - 1,
 			rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,

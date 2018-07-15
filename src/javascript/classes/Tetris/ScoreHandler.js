@@ -90,7 +90,7 @@ export default class ScoreHandler {
             </div>`;
             });
         }else{
-            content += `<div class="scoreRow">بدون رکورد ثبت شده</div>`;
+            content += `<div class="scoreRow">${lang.noSubmittedScore}</div>`;
         }
         content += `</div>`;
 
