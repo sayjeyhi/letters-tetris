@@ -3,7 +3,7 @@
 @font-face{font-family:'SDF';src:url(../Fonts/IRANSansMedium.woff) format("woff"),url(../Fonts/IRANSansMedium.ttf) format("truetype");font-weight:700}
 @font-face{font-family:'BYekan';src:url(../Fonts/BYekan.eot) format("eot"),url(../Fonts/BYekan.woff) format("woff"),url(../Fonts/BYekan.ttf) format("truetype")}
 
-body{margin:0 0 40px;font-family:'BYekan','SDF','Tahoma',sans-serif;font-weight:200;color:#666}
+body{margin:0 0;font-family:'BYekan','SDF','Tahoma',sans-serif;font-weight:200;color:#666}
 
 .byekan,fieldset,legend,strong,.btn,.smalltext,table,.tooltip{font-family:'BYekan','SDF','Tahoma',sans-serif}
 .sdf{font-family:'SDF','BYekan','Tahoma',sans-serif}
