@@ -4,14 +4,13 @@
 
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
-import Sound from "../Sound";
+import Sound from '../Sound';
 
 
 /**
  * @class Words Helper to choose word and char
  */
 export default class WordsHelper {
-
 	/**
      * Choose random words in game build to work with
      */
@@ -51,16 +50,15 @@ export default class WordsHelper {
 			initValues = TetrisGame.initValues;
 
 
-
 		// extra chars
-        if(Math.random() > 0.9){
-            let bombCharacter = document.createElement("img");
-            bombCharacter.src = "/assets/img/bomb.gif";
-            bombCharacter.className = "bomb";
-            bombCharacter.type = "bomb";
-            bombCharacter.special = "true";
-            return bombCharacter;
-        }
+		if (Math.random() > 0.9) {
+			const bombCharacter = document.createElement('img');
+			bombCharacter.src = '/assets/img/bomb.gif';
+			bombCharacter.className = 'bomb';
+			bombCharacter.type = 'bomb';
+			bombCharacter.special = 'true';
+			return bombCharacter;
+		}
 
 
 		let availableChars = initValues.choosedWords.map(e => {
@@ -73,8 +71,8 @@ export default class WordsHelper {
 
 		if (availableChars.length === 0) {
 			const newWord = this.chooseWord();
-			if (newWord !== false){
-                TetrisGame._AddCurrentWord(TetrisGame.initValues.choosedWords.push(newWord)-1);
+			if (newWord !== false) {
+				TetrisGame._AddCurrentWord(TetrisGame.initValues.choosedWords.push(newWord)-1);
 				return this.chooseChar();
 			}
 		} else {

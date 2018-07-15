@@ -242,7 +242,7 @@ class ArshLoader {
 				dtt: true // check down to top
 			},
 			scoreCalculator: word => {
-                return Math.pow(word.length, 1.3); // Larger words will have better score
+				return Math.pow(word.length, 1.3); // Larger words will have better score
 			},
 
 			// user setting values

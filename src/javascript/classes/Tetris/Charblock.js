@@ -14,7 +14,6 @@ import Helper from '../Helper';
 
 
 export default class Charblock {
-
 	/**
      * Create new char block
      * @return {*}
@@ -33,19 +32,19 @@ export default class Charblock {
 
 		this.column = Math.random() * initValues.validatedColumnsCount << 0;
 		this.row = 0; // top is 0 and bottom is max
-        this.char = initValues.nextChar === '' ? WordsHelper.chooseChar() : initValues.nextChar;
+		this.char = initValues.nextChar === '' ? WordsHelper.chooseChar() : initValues.nextChar;
 
 
-        // is character special ?
-        if(typeof this.char === "object" && this.char.special === "true"){
-            this.type = this.char.type;
-            this.typeSize = 1;
-            Helper.log("Incominggggg");
-            Sound.playByKey("firing", TetrisGame.config.playEventsSound,true);
-        }else{
-            this.type = "regular";
-            this.color = MaterialColor.getRandomColor(); // random material color
-        }
+		// is character special ?
+		if (typeof this.char === 'object' && this.char.special === 'true') {
+			this.type = this.char.type;
+			this.typeSize = 1;
+			Helper.log('Incominggggg');
+			Sound.playByKey('firing', TetrisGame.config.playEventsSound, true);
+		} else {
+			this.type = 'regular';
+			this.color = MaterialColor.getRandomColor(); // random material color
+		}
 
 		this.element = null; // holds our character element
 
@@ -146,16 +145,16 @@ export default class Charblock {
 		}
 
 		const charBlockEl = document.createElement('span');
-		let animateClass = TetrisGame.config.useAnimationFlag ? ' animated ' : '';
+		const animateClass = TetrisGame.config.useAnimationFlag ? ' animated ' : '';
 
-		if(charblock.type === "regular") {
-            charBlockEl.style.background = charblock.color;
-            charBlockEl.innerHTML = charblock.char;
-        }else{
-            charBlockEl.style.background = "transparent";
-		    charBlockEl.style.fontSize = "2rem";
-            charBlockEl.appendChild(charblock.char);
-        }
+		if (charblock.type === 'regular') {
+			charBlockEl.style.background = charblock.color;
+			charBlockEl.innerHTML = charblock.char;
+		} else {
+			charBlockEl.style.background = 'transparent';
+		    charBlockEl.style.fontSize = '2rem';
+			charBlockEl.appendChild(charblock.char);
+		}
 
 		charBlockEl.className = `charBlock ${animateClass}${charblock.animateInClass || ''}`;
 
@@ -166,7 +165,7 @@ export default class Charblock {
 	}
 
 
-    /**
+	/**
      * Fall node with animation
      * @param oldRow {Number}
      * @param oldColumn {Number}
@@ -176,7 +175,7 @@ export default class Charblock {
 	static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
 		let deleteTiming = 0;
 		const domToDelete = this._getEl(oldRow, oldColumn, true);
-		if (!domToDelete || typeof domToDelete ==="undefined") return false;
+		if (!domToDelete || typeof domToDelete ==='undefined') return false;
 		const gameConfig = TetrisGame.config;
 		const oldChar = domToDelete.innerText;
 		const oldColor = domToDelete.style.backgroundColor;
@@ -220,7 +219,7 @@ export default class Charblock {
 				{
 					color: oldColor,
 					char: oldChar,
-                    type: 'regular',
+					type: 'regular',
 					animateInClass: 'fadeInDown'
 				}, this._getEl(newRow, newColumn)
 			);
@@ -318,8 +317,7 @@ export default class Charblock {
      * @private
      */
 	static _showUpComingChar() {
-
-	    let initValues = TetrisGame.initValues;
+	    const initValues = TetrisGame.initValues;
 
 		initValues.nextChar = WordsHelper.chooseChar();
 
@@ -328,13 +326,13 @@ export default class Charblock {
 		const animateClass = TetrisGame.config.useAnimationFlag ? ' animated bounceIn' : '';
 
 		upComingCharHolder.innerHTML = '';
-        upcomingCharEl.className = animateClass;
+		upcomingCharEl.className = animateClass;
 
-		if(typeof initValues.nextChar === "object"){
-            upcomingCharEl.appendChild(initValues.nextChar);
-        }else{
-            upcomingCharEl.innerHTML = initValues.nextChar || '';
-        }
+		if (typeof initValues.nextChar === 'object') {
+			upcomingCharEl.appendChild(initValues.nextChar);
+		} else {
+			upcomingCharEl.innerHTML = initValues.nextChar || '';
+		}
 
 		upComingCharHolder.appendChild(upcomingCharEl);
 	}

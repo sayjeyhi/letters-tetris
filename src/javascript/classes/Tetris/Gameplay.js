@@ -11,13 +11,12 @@ import Modal from '../Modal';
 import Matrix from '../Matrix';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
-import ScoreHandler from "./ScoreHandler";
+import ScoreHandler from './ScoreHandler';
 
 /**
  * @class Gameplay
  */
 export default class Gameplay {
-
 	/**
      * Start Game play
      */
@@ -52,7 +51,7 @@ export default class Gameplay {
 			if (!choosedWord) {
 				Gameplay.finish('finishWords');
 			} else {
-                TetrisGame._AddCurrentWord(TetrisGame.initValues.choosedWords.push(choosedWord)-1)
+				TetrisGame._AddCurrentWord(TetrisGame.initValues.choosedWords.push(choosedWord)-1);
 			}
 		}
 
@@ -109,10 +108,9 @@ export default class Gameplay {
      * Reset Game play
      */
 	static restart() {
-
-	    if(TetrisGame.initValues.wordsFinished){
+	    if (TetrisGame.initValues.wordsFinished) {
 	        window.location.reload();
-        }
+		}
 
 		// kill all intervals
 		TetrisGame.interval.clearAll();
@@ -167,18 +165,17 @@ export default class Gameplay {
             </div>`;
 
 
-		let scoreModal,modalHeader, modalContent, modalType;
+		let scoreModal, modalHeader, modalContent, modalType;
 		const modalButtons = [
 			{
 				text: lang.saveScore,
 				isOk: true,
 				onclick() {
-
 				    // destroy score modal
-                    scoreModal.destroy();
+					scoreModal.destroy();
 
-                    // display save score modal
-                    ScoreHandler.submit(gamingInfo , showScore , gamingTime);
+					// display save score modal
+					ScoreHandler.submit(gamingInfo, showScore, gamingTime);
 				}
 			}
 		];
@@ -194,13 +191,13 @@ export default class Gameplay {
 					text: lang.restartGame,
 					isOk: true,
 					onclick() {
-                        scoreModal.destroy();
+						scoreModal.destroy();
 						Gameplay.restart();
 					}
 				}, {
 					text: lang.modalOkButton,
 					onclick() {
-                        scoreModal.destroy();
+						scoreModal.destroy();
 					}
 				}
 			);
@@ -218,7 +215,7 @@ export default class Gameplay {
 			);
 		}
 
-        scoreModal = new Modal({
+		scoreModal = new Modal({
 			animate: config.useAnimationFlag,
 			dark: (config.level === 3),
 			type: modalType,
@@ -229,7 +226,7 @@ export default class Gameplay {
 
 		Timeout.request(
 			() => {
-                scoreModal.show();
+				scoreModal.show();
 			}, 1300
 		);
 	}

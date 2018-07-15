@@ -73,7 +73,7 @@ export default class Timer {
 
 
 		// save current time
-        this.currentTime = `0 ${lang.second}`;
+		this.currentTime = `0 ${lang.second}`;
 
 		// Extend config
 		this.config = Object.assign(defaultConfig, config);
