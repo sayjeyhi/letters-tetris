@@ -80,7 +80,7 @@ class ArshLoader {
                 const chooseWordsKind = document.createElement("div");
 
                 chooseWordsKind.innerHTML =
-                    "<div data-choosedWordsKind='animals-حیوانات' class='wordsKind'>" +
+                    "<div data-choosedWordsKind='animals-حیوانات-動物' class='wordsKind'>" +
                     '<div class="persianTitle">حیوانات</div>' +
                     '<div class="englishTitle">Animals</div>' +
                     '<div class="japaneseTitle">動物</div>' +
@@ -199,7 +199,7 @@ class ArshLoader {
         Helper._(".persianTitle", chooserEl).innerHTML = choosedPersianTitle;
         Helper._(".englishTitle", chooserEl).innerHTML = choosedEnglishTitle;
         Helper._(".japaneseTitle", chooserEl).innerHTML = choosedJapaneseTitle;
-        chooserEl.dataset.choosedwordskind = `${name.toString()}-${choosedPersianTitle.toString()}`;
+        chooserEl.dataset.choosedwordskind = `${name.toString()}-${choosedPersianTitle.toString()}-${choosedJapaneseTitle.toString()}`;
         // this.chooseWordKind.dataset.opened = "no";
         Helper._(".wordsKind").parentElement.dataset.opened = "no";
     }
@@ -221,7 +221,6 @@ class ArshLoader {
      */
     static startGame(lang, wordsType) {
         wordsType = wordsType.split("-");
-
         Helper.fetchJson(`assets/localization/lang.${lang}.json`)
             .then(langFiles => {
                 window.lang = langFiles;
@@ -279,7 +278,8 @@ class ArshLoader {
             showGrids: true, // Show grids flag
             chooseedWordKind: {
                 persianTitle: wordsType[1],
-                englishTitle: wordsType[0]
+                englishTitle: wordsType[0],
+                japaneseTitle: wordsType[2],
             }
         };
 
