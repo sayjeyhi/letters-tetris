@@ -25,103 +25,103 @@
  *
  *
  * @example
-*    let timer = new Timer({
-*        onStart: function(){
-*            TetrisGame.initValues.paused = false;
-*        },
-*        workerOnMessage:function (event) {
-*            Storage.set('seconds', event.data);
-*        },
-*        onPause:function () {
-*            TetrisGame.initValues.paused = true;
-*        },
-*        onResume:function () {
-*            TetrisGame.initValues.paused = false;
-*        },
-*        blobTiming: new Blob([Helper._('#workerTiming').textContent], { type: "text/javascript" });,
-*    });
+ *    let timer = new Timer({
+ *        onStart: function(){
+ *            TetrisGame.initValues.paused = false;
+ *        },
+ *        workerOnMessage:function (event) {
+ *            Storage.set('seconds', event.data);
+ *        },
+ *        onPause:function () {
+ *            TetrisGame.initValues.paused = true;
+ *        },
+ *        onResume:function () {
+ *            TetrisGame.initValues.paused = false;
+ *        },
+ *        blobTiming: new Blob([Helper._('#workerTiming').textContent], { type: "text/javascript" });,
+ *    });
  */
 export default class Timer {
-
-    /**
+	/**
      * Create instance for timing
      * @param config
      */
-    constructor(config) {
+	constructor(config) {
+		// worker of our timer
+		this.timerWorker = null;
 
-        // worker of our timer
-        this.timerWorker = null;
-
-        //Default config
-        let defaultConfig = {
-            cssClsss: ".timerDisplay",
-            onStart: () => { },
-            onPause: () => { },
-            onResume: () => { },
-            blobTiming: '',
-            workerOnMessage: (event) => { },
-            beautifySecond: (s) => {
-                if (s > 3600) {
-                    // 1 hour and 34 min
-                    return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
-                } else if (s > 60 && s <= 3600) {
-                    // 4 min and 3 s
-                    return (Math.ceil(s / 60) + lang.minute + lang.and + s % 60 + lang.second);
-                } else {
-                    return (s + lang.second);
-                }
-            }
-        };
-
-        //Extend config
-        this.config = Object.assign(defaultConfig, config);
-    }
+		// Default config
+		const defaultConfig = {
+			cssClsss: '.timerDisplay',
+			onStart: () => { },
+			onPause: () => { },
+			onResume: () => { },
+			blobTiming: '',
+			workerOnMessage: event => { },
+			beautifySecond: s => {
+				if (s > 3600) {
+					// 1 hour and 34 min
+					return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
+				} else if (s > 60 && s <= 3600) {
+					// 4 min and 3 s
+					return (Math.ceil(s / 60) + lang.minute + lang.and + s % 60 + lang.second);
+				} else {
+					return (s + lang.second);
+				}
+			}
+		};
 
 
-    /**
+		// save current time
+		this.currentTime = `0 ${lang.second}`;
+
+		// Extend config
+		this.config = Object.assign(defaultConfig, config);
+	}
+
+
+	/**
      * Starts the timer
      */
-    start() {
-        let timerDisplayEl = Helper._(this.config.cssClsss);
-        if (typeof (Worker) !== "undefined") {
-            if (!this.timerWorker) {
-                this.timerWorker = new Worker(window.URL.createObjectURL(this.config.blobTiming));
-            } else {
-                // stop timer if running already
-                this.pause();
-            }
+	start() {
+		const timerDisplayEl = document.querySelector(this.config.cssClsss);
+		if (typeof (Worker) !== 'undefined') {
+			if (!this.timerWorker) {
+				this.timerWorker = new Worker(window.URL.createObjectURL(this.config.blobTiming));
+			} else {
+				// stop timer if running already
+				this.pause();
+			}
 
-            this.timerWorker.onmessage = (event) => {
-                timerDisplayEl.innerHTML = this.config.beautifySecond(event.data);
-                this.config.workerOnMessage(event);
-            }
-            this.config.onStart();
-        } else {
-            timerDisplayEl.innerHTML = lang.webWorkerNotSupported;
-        }
-    }
+			this.timerWorker.onmessage = event => {
+			    this.currentTime = this.config.beautifySecond(event.data);
+				timerDisplayEl.innerHTML = this.currentTime;
+				this.config.workerOnMessage(event);
+			};
+			this.config.onStart();
+		} else {
+			timerDisplayEl.innerHTML = lang.webWorkerNotSupported;
+		}
+	}
 
-    /**
+	/**
      * Pauses the timer
      */
-    pause() {
-        if(this.timerWorker) {
-            this.timerWorker.postMessage({'pause_flag': true});
-        }
-        this.config.onPause();
+	pause() {
+		this.config.onPause();
+		if (this.timerWorker) {
+			return this.timerWorker.postMessage({ 'pause_flag': true });
+		}
+	}
 
-    }
 
-
-    /**
+	/**
      * Resumes the timer
      */
-    resume() {
-        if(this.timerWorker) {
-            this.timerWorker.postMessage({'pause_flag': false});
-        }
-        this.config.onResume();
-    }
-
+	resume() {
+		this.config.onResume();
+		if (this.timerWorker) {
+			return this.timerWorker.postMessage({ 'pause_flag': false });
+		}
+	}
 }
-

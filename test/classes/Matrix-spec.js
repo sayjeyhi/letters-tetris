@@ -384,3 +384,75 @@ describe("Matrix Class", function() {
         expect(foundWord).toBeTruthy("test");
     })
 });
+
+
+
+
+describe("Matrix Class", function() {
+    var exploded;
+    beforeEach(function(done) {
+        var matrixArray = [
+            // X:       0   1   2   3   4   5   6   7
+            /* 0 */   [" "," "," "," "," "," "," "," "], //0
+            /* 1 */   [" "," "," "," "," "," "," "," "], //1
+            /* 2 */   [" "," "," "," "," "," "," "," "], //2
+            /* 3 */   [" "," "," "," "," "," "," "," "], //3
+            /* 4 */   [" "," "," "," "," "," "," "," "], //4
+            /* 5 */   [" "," "," "," "," "," ","f"," "], //5
+            /* 6 */   [" "," "," "," "," "," ","a"," "], //6
+            /* 7 */   [" "," "," "," "," "," ","l"," "], //7
+            /* 8 */   [" "," "," "," "," "," ","l"," "], //8
+            /* 9 */   [" "," ","r","a","n","d","o"," "], //9
+            /* 10 */  ["1","2","3","s","o","m","e"," "],//10
+            // X:       0   1   2   3   4   5   6   7
+        ];
+        var matrix = new Matrix(matrixArray);
+        var words = [];
+        var lastChar = {row: 10, column:7, char:'Doesnt Matter',type:'bomb',bombSize:1};
+        var foundCallback = function (successObject) {
+            exploded = successObject;
+            done();
+        };
+        matrix.checkWords(words,lastChar,{dtt:true},foundCallback);
+    });
+
+    it("Bomb should delete characters near it: ", function() {
+        let ex = exploded.explodedChars;
+        let falled = exploded.fallingCharacters;
+
+
+
+        let didExplod =
+            ex[0].y === 9 &&
+            ex[0].x === 6 &&
+            ex[1].y === 10 &&
+            ex[1].x === 6;
+        expect(didExplod).toBeTruthy();
+
+
+        let didFall =
+            falled[0].oldY === 8 &&
+            falled[0].oldX === 6 &&
+            falled[0].newY === 10 &&
+            falled[0].newX === 6 &&
+
+            falled[1].oldY === 7 &&
+            falled[1].oldX === 6 &&
+            falled[1].newY === 9 &&
+            falled[1].newX === 6 &&
+
+            falled[2].oldY === 6 &&
+            falled[2].oldX === 6 &&
+            falled[2].newY === 8 &&
+            falled[2].newX === 6 &&
+
+            falled[3].oldY === 5 &&
+            falled[3].oldX === 6 &&
+            falled[3].newY === 7 &&
+            falled[3].newX === 6
+
+        expect(didFall).toBeTruthy()
+
+
+    })
+});

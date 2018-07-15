@@ -2,237 +2,242 @@
  * @module
  */
 
-import TetrisGame from "./TetrisGame"
-import Gameplay from "./Gameplay"
-import Sound from "../Sound"
-import WordsHelper from "./WordsHelper"
-import MaterialColor from "../MaterialColor"
-import Explosion from "../Explosion";
-import Timeout from "../Timeout";
-import Matrix from "../Matrix";
-import Helper from "../Helper";
+import TetrisGame from './TetrisGame';
+import Gameplay from './Gameplay';
+import Sound from '../Sound';
+import WordsHelper from './WordsHelper';
+import MaterialColor from '../MaterialColor';
+import Explosion from '../Explosion';
+import Timeout from '../Timeout';
+import Matrix from '../Matrix';
+import Helper from '../Helper';
 
 
 export default class Charblock {
-
-    /**
+	/**
      * Create new char block
      * @return {*}
      */
-    static getNew() {
-
-        let initValues = TetrisGame.initValues;
-        let config = TetrisGame.config;
-
-
-        // if game is finished
-        if (initValues.finished) {
-            initValues.upComingCharEl.innerHTML = "";
-            return false;
-        }
+	static getNew() {
+		const initValues = TetrisGame.initValues;
+		const config = TetrisGame.config;
 
 
-        this.column = Math.random() * initValues.validatedColumnsCount << 0;
-        this.row = 0;                                   // top is 0 and bottom is max
-        this.char = initValues.nextChar === "" ? WordsHelper.chooseChar() : initValues.nextChar;
-        this.color = MaterialColor.getRandomColor();    // random material color
-        this.element = null;                            // holds our character element
+		// if game is finished
+		if (initValues.finished) {
+			initValues.upComingCharEl.innerHTML = '';
+			return false;
+		}
 
 
-        // interval
-        this.interval = TetrisGame.interval.make(
-            () => {
-                if (!initValues.paused) {
-                    this.move(40);
-                }
-            },
-            config.charSpeed / config.level
-        );
+		this.column = Math.random() * initValues.validatedColumnsCount << 0;
+		this.row = 0; // top is 0 and bottom is max
+		this.char = initValues.nextChar === '' ? WordsHelper.chooseChar() : initValues.nextChar;
 
 
-        // create and show up coming char
-        this._showUpComingChar();
+		// is character special ?
+		if (typeof this.char === 'object' && this.char.special === 'true') {
+			this.type = this.char.type;
+			this.typeSize = 1;
+			Helper.log('Incominggggg');
+			Sound.playByKey('firing', TetrisGame.config.playEventsSound, true);
+		} else {
+			this.type = 'regular';
+			this.color = MaterialColor.getRandomColor(); // random material color
+		}
 
-        // add this char as active char
-        initValues.activeChar = this;
-
-        return this;
-    }
+		this.element = null; // holds our character element
 
 
+		// interval
+		this.interval = TetrisGame.interval.make(
+			() => {
+				if (!initValues.paused) {
+					this.move(40);
+				}
+			},
+			config.charSpeed / config.level
+		);
 
-    /**
+
+		// create and show up coming char
+		this._showUpComingChar();
+
+		// add this char as active char
+		initValues.activeChar = this;
+
+		return this;
+	}
+
+
+	/**
      * Move char block
      * @param eventKeyCode
      * @param position
      * @return {boolean}
      */
-    static move(eventKeyCode , position) {
-
-        let initValues = TetrisGame.initValues;
-        let config = TetrisGame.config;
-        let isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
-
-
-        let moveTo = this._generateMove(eventKeyCode, position);
-
-        // if move to is out of range
-        if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0) {
-            return false;
-        }
-
-        let destinationEl = this._getEl(moveTo.row, moveTo.column) || null;
-        if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== "")) {
+	static move(eventKeyCode, position) {
+		const initValues = TetrisGame.initValues;
+		const config = TetrisGame.config;
+		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
 
 
-            if (isBottomMove) {
+		const moveTo = this._generateMove(eventKeyCode, position);
 
-                // stop interval
-                TetrisGame.interval.clear(this.interval);
+		// if move to is out of range
+		if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0 || initValues.finished) {
+			return false;
+		}
 
-                // check words
-                TetrisGame.checkWordSuccess(this);
+		const destinationEl = this._getEl(moveTo.row, moveTo.column) || null;
+		if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== '')) {
+			if (isBottomMove) {
+				// stop interval
+				TetrisGame.interval.clear(this.interval);
 
-                if (this.row !== 0) {
+				// check words
+				TetrisGame.checkWordSuccess(this);
 
-                    if (initValues.wordsFinished) {
-                        Gameplay.finish("finishWords");
-                    } else {
+				if (this.row !== 0) {
+					if (initValues.wordsFinished) {
+						Gameplay.finish('finishWords');
+					} else {
+						// add new char
+						Charblock.factory();
+					}
+				} else {
+					Gameplay.finish('gameOver');
+				}
+			}
+		} else {
+			// remove char with animation
+			this._destroy(this.element, moveTo.animateOutClass);
 
-                        // add new char
-                        Charblock.factory();
-                    }
-                } else {
-                    Gameplay.finish("gameOver");
-                }
-            }
+			// update current char info
+			this.row = moveTo.row;
+			this.column = moveTo.column;
+			this.animateInClass = moveTo.animateInClass;
 
-        } else {
+			// add our char in destination
+			Charblock.factory(this, destinationEl);
+		}
 
-            // remove char with animation
-            this._destroy(this.element, moveTo.animateOutClass);
-
-            // update current char info
-            this.row = moveTo.row;
-            this.column = moveTo.column;
-            this.animateInClass = moveTo.animateInClass;
-
-            // add our char in destination
-            Charblock.factory(this, destinationEl);
-        }
-
-        // play move char
-        Sound.playByKey('moveChar' , config.playEventsSound);
-    }
+		// play move char
+		Sound.playByKey('moveChar', config.playEventsSound);
+	}
 
 
-    /**
+	/**
      * Factory of character
      * @param charblock
      * @param initializeElement
      */
-    static factory(charblock, initializeElement) {
+	static factory(charblock, initializeElement) {
+		// if char is not supplied create new one
+		if (typeof charblock === 'undefined') {
+			charblock = Charblock.getNew();
 
-        // if char is not supplied create new one
-        if (typeof charblock === "undefined") {
+			if (Object.keys(charblock).length !== 0) {
+				initializeElement = this._getEl(charblock.row, charblock.column);
+			} else {
+				return false;
+			}
+		}
 
-            charblock = Charblock.getNew();
+		const charBlockEl = document.createElement('span');
+		const animateClass = TetrisGame.config.useAnimationFlag ? ' animated ' : '';
 
-            if (Object.keys(charblock).length !== 0) {
-                initializeElement = this._getEl(charblock.row, charblock.column);
-            } else {
-                return false;
-            }
-        }
+		if (charblock.type === 'regular') {
+			charBlockEl.style.background = charblock.color;
+			charBlockEl.innerHTML = charblock.char;
+		} else {
+			charBlockEl.style.background = 'transparent';
+		    charBlockEl.style.fontSize = '2rem';
+			charBlockEl.appendChild(charblock.char);
+		}
 
-        let charBlockEl = document.createElement('span');
-        let animateClass = TetrisGame.config.useAnimationFlag ? " animated " : "";
+		charBlockEl.className = `charBlock ${animateClass}${charblock.animateInClass || ''}`;
 
-        charBlockEl.style.background = charblock.color;
-        charBlockEl.innerHTML = charblock.char;
-        charBlockEl.className = "charBlock " + animateClass + (charblock.animateInClass || "");
+		charblock.element = charBlockEl;
 
-        charblock.element = charBlockEl;
-
-        initializeElement.innerHTML = '';
-        initializeElement.appendChild(charBlockEl);
-
-    }
+		initializeElement.innerHTML = '';
+		initializeElement.appendChild(charBlockEl);
+	}
 
 
-    /**
+	/**
      * Fall node with animation
      * @param oldRow {Number}
      * @param oldColumn {Number}
      * @param newRow {Number}
      * @param newColumn {Number}
      */
-    static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn){
-        let deleteTiming = 0;
-        let domToDelete = this._getEl(oldRow , oldColumn , true);
-        if(!domToDelete) return false;
-        let gameConfig = TetrisGame.config;
-        let oldChar = domToDelete.innerText;
-        let oldColor = domToDelete.style.backgroundColor;
-        let domParent = domToDelete.parentNode;
-        let isFallingDown = (newRow !== null && newColumn !== null);
+	static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
+		let deleteTiming = 0;
+		const domToDelete = this._getEl(oldRow, oldColumn, true);
+		if (!domToDelete || typeof domToDelete ==='undefined') return false;
+		const gameConfig = TetrisGame.config;
+		const oldChar = domToDelete.innerText;
+		const oldColor = domToDelete.style.backgroundColor;
+		const domParent = domToDelete.parentNode;
+		const isFallingDown = (newRow !== null && newColumn !== null);
 
-        if(gameConfig.useAnimationFlag) {
-            let animateClass;
-            switch (gameConfig.level){
-                case 3:
-                    deleteTiming = gameConfig.expertFallDownAnimateSpeed;
-                    animateClass = "fallDownExpert";
-                    break;
-                case 2:
-                    deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
-                    animateClass = "fallDownCharMedium";
-                    break;
-                default:
-                    animateClass =  "fallDownSimple";
-                    deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
-            }
-            domToDelete.classList.add(animateClass , isFallingDown ? "fadeOutDown" : "zoomOutDown");
-
-
-            // create explosion effect
-            if(!isFallingDown){
-                Explosion.explode(domParent , 35 , 10);
-            }
-        }
-
-        Timeout.request(
-            () => {
-                if(domToDelete.parentElement === domParent)
-                    domParent.removeChild(domToDelete);
-            }, deleteTiming
-        );
+		if (gameConfig.useAnimationFlag) {
+			let animateClass;
+			switch (gameConfig.level) {
+				case 3:
+					deleteTiming = gameConfig.expertFallDownAnimateSpeed;
+					animateClass = 'fallDownExpert';
+					break;
+				case 2:
+					deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
+					animateClass = 'fallDownCharMedium';
+					break;
+				default:
+					animateClass = 'fallDownSimple';
+					deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
+			}
+			domToDelete.classList.add(animateClass, isFallingDown ? 'fadeOutDown' : 'zoomOutDown');
 
 
-        // animate up char to down
-        if(isFallingDown) {
-            this.factory(
-                {
-                    color: oldColor,
-                    char: oldChar,
-                    animateInClass: "fadeInDown"
-                }, this._getEl(newRow , newColumn)
-            );
-        }
-    }
+			// create explosion effect
+			if (!isFallingDown) {
+				Explosion.explode(domParent, 35, 10);
+			}
+		}
+
+		Timeout.request(
+			() => {
+				if (domToDelete.parentElement === domParent) domParent.removeChild(domToDelete);
+			}, deleteTiming
+		);
 
 
-    static getBlockPosition(row , column){
-        let blockElement = this._getEl(row,column);
-        return {
-            top : blockElement.offsetTop,
-            left : blockElement.offsetLeft,
-            width : blockElement.offsetWidth
-        };
-    }
+		// animate up char to down
+		if (isFallingDown) {
+			this.factory(
+				{
+					color: oldColor,
+					char: oldChar,
+					type: 'regular',
+					animateInClass: 'fadeInDown'
+				}, this._getEl(newRow, newColumn)
+			);
+		}
+	}
 
 
-    /**
+	static getBlockPosition(row, column) {
+		const blockElement = this._getEl(row, column);
+		return {
+			top: blockElement.offsetTop,
+			left: blockElement.offsetLeft,
+			width: blockElement.offsetWidth
+		};
+	}
+
+
+	/**
      * Gets an element from cache or create it
      * @param row
      * @param column
@@ -240,29 +245,28 @@ export default class Charblock {
      * @return {*}
      * @private
      */
-    static _getEl(row, column , charBlock){
+	static _getEl(row, column, charBlock) {
+		let charBlockString = '';
+		if (typeof charBlock !== 'undefined' && charBlock) {
+			charBlockString = ' .charBlock';
+		}
 
-        let charBlockString = "";
-        if(typeof charBlock !== "undefined" && charBlock){
-            charBlockString = " .charBlock";
-        }
-
-        let cachedRow = TetrisGame.initValues.cachedRows[row] || false;
-        if(Object.keys(cachedRow) > 0){
-            return  Helper._('.column_' + column + charBlockString , TetrisGame.initValues.cachedRows[row]);
-        }else {
-            let rowElement = Helper._('.row_' + row , TetrisGame.playBoard);
-            if (rowElement) {
-                TetrisGame.initValues.cachedRows[row] = rowElement;
-                return Helper._('.column_' + column + charBlockString , rowElement);
-            }else{
-                return null;
-            }
-        }
-    }
+		const cachedRow = TetrisGame.initValues.cachedRows[row] || false;
+		if (Object.keys(cachedRow) > 0) {
+			return Helper._(`.column_${column}${charBlockString}`, TetrisGame.initValues.cachedRows[row]);
+		} else {
+			const rowElement = Helper._(`.row_${row}`, TetrisGame.playBoard);
+			if (rowElement) {
+				TetrisGame.initValues.cachedRows[row] = rowElement;
+				return Helper._(`.column_${column}${charBlockString}`, rowElement);
+			} else {
+				return null;
+			}
+		}
+	}
 
 
-    /**
+	/**
      * Generate charBlock movement
      *
      * @param keyCode
@@ -270,83 +274,89 @@ export default class Charblock {
      * @return {*}
      * @private
      */
-    static _generateMove(keyCode , position){
-        let moveTo;
-        let row = this.row;
-        let column = this.column;
+	static _generateMove(keyCode, position) {
+		let moveTo;
+		const row = this.row;
+		const column = this.column;
 
-        switch (keyCode) {
-            case TetrisGame.controlCodes.LEFT:  // left
-                moveTo = {
-                    row: row,
-                    column: column + 1,
-                    animateOutClass: (lang.rtl ? "fadeOutLeft" : "fadeOutRight"),
-                    animateInClass: (lang.rtl ? "fadeInRight" : "fadeInLeft")
-                };
-                break;
-            case TetrisGame.controlCodes.RIGHT:  // right
-                moveTo = {
-                    row: row,
-                    column: column - 1,
-                    animateOutClass: (lang.rtl ? "fadeOutRight" : "fadeOutLeft"),
-                    animateInClass: (lang.rtl ? "fadeInLeft" : "fadeInRight")
-                };
-                break;
-            case TetrisGame.controlCodes.DOWN:  // down
-                moveTo = {
-                    row: row + 1,
-                    column: column,
-                    animateOutClass: "fadeOutDown",
-                    animateInClass: "fadeInDown"
-                };
-                break;
-            default:
-                return false;
-        }
+		switch (keyCode) {
+			case TetrisGame.controlCodes.LEFT: // left
+				moveTo = {
+					row,
+					column: column + 1,
+					animateOutClass: (lang.rtl ? 'fadeOutLeft' : 'fadeOutRight'),
+					animateInClass: (lang.rtl ? 'fadeInRight' : 'fadeInLeft')
+				};
+				break;
+			case TetrisGame.controlCodes.RIGHT: // right
+				moveTo = {
+					row,
+					column: column - 1,
+					animateOutClass: (lang.rtl ? 'fadeOutRight' : 'fadeOutLeft'),
+					animateInClass: (lang.rtl ? 'fadeInLeft' : 'fadeInRight')
+				};
+				break;
+			case TetrisGame.controlCodes.DOWN: // down
+				moveTo = {
+					row: row + 1,
+					column,
+					animateOutClass: 'fadeOutDown',
+					animateInClass: 'fadeInDown'
+				};
+				break;
+			default:
+				return false;
+		}
 
-        return moveTo;
-    }
+		return moveTo;
+	}
 
 
-
-    /**
+	/**
      * Create and show upcoming character
      * @private
      */
-    static _showUpComingChar() {
+	static _showUpComingChar() {
+	    const initValues = TetrisGame.initValues;
 
-        TetrisGame.initValues.nextChar = WordsHelper.chooseChar();
+		initValues.nextChar = WordsHelper.chooseChar();
 
-        let upComingCharHolder = TetrisGame.initValues.upComingCharEl;
-        let upcommingCharEl = document.createElement('span');
-        let animateClass = TetrisGame.config.useAnimationFlag ? " animated bounceIn" : "";
+		const upComingCharHolder = initValues.upComingCharEl;
+		const upcomingCharEl = document.createElement('span');
+		const animateClass = TetrisGame.config.useAnimationFlag ? ' animated bounceIn' : '';
 
-        upComingCharHolder.innerHTML = '';
-        upcommingCharEl.className = animateClass;
-        upcommingCharEl.innerHTML = TetrisGame.initValues.nextChar || "";
-        upComingCharHolder.appendChild(upcommingCharEl);
-    }
+		upComingCharHolder.innerHTML = '';
+		upcomingCharEl.className = animateClass;
+
+		if (typeof initValues.nextChar === 'object') {
+			upcomingCharEl.appendChild(initValues.nextChar);
+		} else {
+			upcomingCharEl.innerHTML = initValues.nextChar || '';
+		}
+
+		upComingCharHolder.appendChild(upcomingCharEl);
+	}
 
 
-    /**
+	/**
      * Destroy char block
      * @param workingElement
      * @param outgoingAnimation
      * @private
      */
-    static _destroy(workingElement, outgoingAnimation) {
-        let config = TetrisGame.config;
-        let animateClass = config.useAnimationFlag ? " animated " : "";
+	static _destroy(workingElement, outgoingAnimation) {
+		const config = TetrisGame.config;
+		const animateClass = config.useAnimationFlag ? ' animated ' : '';
 
-        workingElement.className += animateClass + outgoingAnimation;
-        Timeout.request(
-            () => {
-                // remove current char
-                if(workingElement.parentNode) {
-                    workingElement.parentNode.removeChild(workingElement);
-                }
-            },
-            (config.useAnimationFlag ? 200/ config.level : 0)
-        );
-    }
+		workingElement.className += animateClass + outgoingAnimation;
+		Timeout.request(
+			() => {
+				// remove current char
+				if (workingElement.parentNode) {
+					workingElement.parentNode.removeChild(workingElement);
+				}
+			},
+			(config.useAnimationFlag ? 200/ config.level : 0)
+		);
+	}
 }

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 // Is the current build a development build
 const IS_DEV = (process.env.NODE_ENV === 'dev');
@@ -36,10 +37,23 @@ module.exports = {
             title: appHtmlTitle
         }),
 
-        new CopyWebpackPlugin([ { from: './src/assets/', to: './assets/' } ])
+        new CopyWebpackPlugin([ { from: './src/assets/', to: './assets/' } ]),
+
+        new CompressionPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$|\.json$/
+        })
     ],
     module: {
         rules: [
+            // {
+            //     test: /\.js$/,
+            //     include: path.join(__dirname, 'src/javascript'),
+            //     exclude: /node_modules/,
+            //     use: ['babel-loader', 'eslint-loader']
+            // }
+
             // // BABEL
             // {
             //     test: /\.js$/,
