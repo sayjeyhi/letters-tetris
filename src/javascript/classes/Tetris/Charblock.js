@@ -40,7 +40,7 @@ export default class Charblock {
 			this.type = this.char.type;
 			this.typeSize = 1;
 			Helper.log('Incominggggg');
-			Sound.playByKey('firing', TetrisGame.config.playEventsSound, true);
+			//Sound.playByKey('firing', TetrisGame.config.playEventsSound, true);
 		} else {
 			this.type = 'regular';
 			this.color = MaterialColor.getRandomColor(); // random material color

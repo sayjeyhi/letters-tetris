@@ -37,19 +37,15 @@ export default class ScoreHandler {
 			type: 'primary',
 			header: lang.submitScore,
 			content: submitScoreContent,
+            onShow: () => {
+			    // focus on name input
+			    Helper._("#enterName" , submitScore.modal).focus();
+            },
 			buttons: [
 				{
 					text: lang.saveScore,
 					isOk: true,
 					onclick() {
-						new Modal({
-							animate: config.useAnimationFlag,
-							dark: (config.level === 3),
-							header: lang.saveOperation,
-							content: lang.saveOperationDone
-						}, lang.rtl).show();
-
-
 						const submitted = ScoreHandler.getSubmitted();
 						const saveInfo = {};
 						saveInfo.userName = Helper._('#enterName', submitScore.modal).value;
@@ -57,8 +53,18 @@ export default class ScoreHandler {
 						saveInfo.time = gamingTime;
 
 						submitted.push(saveInfo);
-						Storage.set('scores', submitted);
+						Storage.setObject('scores', submitted);
 						submitScore.destroy();
+
+
+						// show success message
+                        new Modal({
+                            animate: config.useAnimationFlag,
+                            dark: (config.level === 3),
+                            header: lang.saveOperation,
+                            content: lang.saveOperationDone
+                        }, lang.rtl).show();
+
 					}
 				}, {
 					text: lang.restartGame,
@@ -78,11 +84,19 @@ export default class ScoreHandler {
 		);
 	}
 
+
+    /**
+     * Show scores modal
+     */
+	static showScores(){
+
+    }
+
 	/**
      * Get submitted scores
      * @return {string|*}
      */
 	static getSubmitted() {
-		return Storage.get('scores', []);
+		return Storage.getObject('scores', []);
 	}
 }
