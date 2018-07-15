@@ -33,6 +33,8 @@ import Helper from '../Helper';
  * @property useAnimationFlag=true {Boolean} - Make animate or not :|
  * @property showGrids=true {Boolean} - show grids flag
  * @property do_encryption=true {Boolean} - Enables encryption when saving score
+ * @property do_vibrate=true {Boolean} - Enables vibrating phone when bomb explodes
+ * @property do_shake=true {Boolean} - Enables vibrating the page when bomb explodes
  * @property encryptionKeySize=16 {Number} - Size of key used in encryption
  * @property scoreCalculator=(word)=>{Math.pow(1.3,word.length)} - Function to calculate score based on word. Larger words will have better score using Math.pow(1.3,word.length)
  */
@@ -62,6 +64,8 @@ export default class TetrisGame {
 			expertFallDownAnimateSpeed: 200,
 			successAnimationIterationDuration: 100,
 			vibrationDuration: 200,
+            do_vibrate: true,
+            do_shake: true,
 			do_encryption: true, // Enables encryption when saving score
 			encryptionKeySize: 16, // Size of key Used in encryption
 			directionWordChecks: {
@@ -285,8 +289,15 @@ export default class TetrisGame {
 			    Helper.log('BOOOOOOM');
 				Sound.PauseByKey('firing', config.playEventsSound);
 				Sound.playByKey('explode', config.playEventsSound);
-				Helper.vibrate(TetrisGame.config.vibrationDuration);
-				Helper.Shake(Helper._('.playBoard'),lastChar.typeSize*16);
+				if(TetrisGame.config.do_shake){
+                    Helper.Shake(Helper._('.playBoard'),lastChar.typeSize*16);
+                }
+                if(TetrisGame.config.do_vibrate){
+                    Helper.vibrate(TetrisGame.config.vibrationDuration);
+                }
+
+
+
 
 			    // Explode the characters
 				successObject.explodedChars.map((item, index) => {
