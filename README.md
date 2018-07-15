@@ -31,7 +31,7 @@
  
  ----
 **Usage:** 
- - Execute dev server: `yarn dev`
+ - Execute dev server: `yarn start`
  - Build dist files for production use `yarn build`
 
  

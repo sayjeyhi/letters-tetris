@@ -46,24 +46,30 @@ export default class ScoreHandler {
 					text: lang.saveScore,
 					isOk: true,
 					onclick() {
-						const submitted = ScoreHandler.getSubmitted();
+						let submitted = ScoreHandler.getSubmitted();
 						const saveInfo = {};
 						saveInfo.userName = Helper._('#enterName', submitScore.modal).value;
 						saveInfo.score = showScore;
 						saveInfo.time = gamingTime;
 
+						// we just hold 10 last scores
+                        submitted = submitted.slice(Math.max(submitted.length - 9, 1));
 						submitted.push(saveInfo);
 						Storage.setObject('scores', submitted);
 						submitScore.destroy();
 
 
 						// show success message
-                        new Modal({
+                        const submitScoreResult = new Modal({
                             animate: config.useAnimationFlag,
                             dark: (config.level === 3),
+                            onShow: () => {
+                                Timeout.request(() => {submitScoreResult.destroy()} , 2000)
+                            },
                             header: lang.saveOperation,
                             content: lang.saveOperationDone
-                        }, lang.rtl).show();
+                        }, lang.rtl);
+                        submitScoreResult.show();
 
 					}
 				}, {
@@ -89,14 +95,54 @@ export default class ScoreHandler {
      * Show scores modal
      */
 	static showScores(){
+        const config = TetrisGame.config;
+        const submitted = ScoreHandler.getSubmitted('sort');
 
+
+
+        let content = `<div class="scoresTable">`;
+        submitted.forEach((item) => {
+            content += `<div class="scoreRow">
+                <div class="userName">${item.userName}</div>
+                <div class="scoreAmount">${item.score}</div>
+                <div class="timeValue">${item.time}</div>
+            </div>`;
+        });
+        content += `</div>`;
+
+        // show scores list modal
+        const submitScore = new Modal({
+            animate: config.useAnimationFlag,
+            dark: (config.level === 3),
+            type: 'info',
+            header: lang.last10Record,
+            content: content,
+            buttons: [
+                {
+                    text: lang.modalOkButton,
+                    isOk: true,
+                    onclick() {
+                        submitScore.destroy();
+                    }
+                }
+            ]
+        }, lang.rtl);
+        submitScore.show();
     }
 
 	/**
      * Get submitted scores
+     * @param sort
      * @return {string|*}
      */
-	static getSubmitted() {
-		return Storage.getObject('scores', []);
+	static getSubmitted(sort) {
+		let scores = Storage.getObject('scores', []);
+		if(sort){
+		    scores.sort((a, b) => {
+                return parseInt(b.score) - parseInt(a.score);
+            });
+        }
+
+        return scores;
 	}
 }

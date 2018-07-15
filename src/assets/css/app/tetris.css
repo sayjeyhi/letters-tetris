@@ -225,6 +225,10 @@ svg :not(.doNotUnfill){stroke:currentColor}
 }
 
 
+.showScoresList{
+    cursor: pointer;
+    color: #42ad2d;
+}
 #settingForm .formLabel{display:inline-block;width:25%;font-size:14px;color:#515151;position:relative;margin-right:12px}
 #settingForm .formLabel .linearicon{position:absolute;right:-28px;font-size:32px;transform:rotate(-14deg);top:-9px;color:#d1d1d1b3}
 #settingForm .formData{display:inline-block}
@@ -305,11 +309,34 @@ svg :not(.doNotUnfill){stroke:currentColor}
 }
 
 
+.scoresTable{
+    border:1px solid rgba(41, 169, 68, 0.62);
+    border-radius:5px;
+}
+.scoresTable .scoreRow{
+    border-top:1px dashed #87ef95a3;
+    padding:5px 6px;
+    background:#fff;
+    border-radius:6px
+}
+.scoresTable .scoreRow:nth-child(2n){
+    background:#f7f9f5;
+}
+.scoresTable .scoreRow:first-child{
+    border-top : none ;
+}
+.scoresTable .scoreRow div{
+    width:30%;
+    display: inline-block;
+    overflow-x:hidden;
+    text-overflow:ellipsis;
+}
+
 @media (max-width: 868px) {
     .page-footer div{text-align:center;margin-top:20px}
     .gameHolder{width:96%;left:0;right:0;transform:none!important;margin:1%}
     .gameHolder .behindPlayBoard{position:relative;width:auto;display:block}
-    .gameHolder .playBoard{width:auto!important;display:block}
+    .gameHolder .playBoard{width:auto!important;display:block;}
     .gameHolder .behindPlayBoard .showUpComingLetter{position:absolute;width:100px;height:100px;top:58px;left:0;line-height:98px}
     .gameHolder .behindPlayBoard .showUpComingLetter::before{top:-56px}
     .gameHolder .behindPlayBoard .gameControlButtons{right:0;text-align:right;width:auto;position:relative;top:auto;margin:10px 0;display:block}
@@ -323,6 +350,10 @@ svg :not(.doNotUnfill){stroke:currentColor}
     .gameHolder.isLtr .behindPlayBoard .courseArea{text-align:left;margin-left:5px;position:relative;bottom:5px;font-size:11px}
     .modal{width:70%;}
 }
+
+@media (max-width: 868px) and (min-width: 648px) {
+    .gameHolder .playBoard{background-size: auto 65%;background-position: 100% 50%;}
+}
 @media (max-width: 648px) {
     .modal{width:85%;}
     .modal .formLabel {width: 40% !important;margin-right:0 !important}
@@ -330,9 +361,19 @@ svg :not(.doNotUnfill){stroke:currentColor}
     .modal .formData .textLabel{display:none !important}
     .modal .formData .linearicon{display:inline-block !important}
     .modal .formData label > span{margin:6px 2px !important;padding: 8px 16px;}
+    .gameHolder.playBoard{
+        background-size: auto 55%;
+        background-position: 100% 50%;
+    }
+}
+@media (max-width: 648px) and (min-width: 480px) {
+    .gameHolder .playBoard{
+        background-size: auto 55%;
+        background-position: 100% 50%;
+    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px ) {
     body{margin: 0 !important;}
     footer{display: none;}
     .gameStatics > div .value{
@@ -340,6 +381,13 @@ svg :not(.doNotUnfill){stroke:currentColor}
     }
     .modal.ltr .gameStatics > div .value{
         left:53%
+    }
+
+}
+@media (max-width: 480px) and (min-width: 180px) {
+    .gameHolder .playBoard{
+        background-size: auto 45%;
+        background-position: 100% 50%;
     }
 }
 

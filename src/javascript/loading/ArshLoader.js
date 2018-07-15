@@ -10,6 +10,7 @@ import Gameplay from '../classes/Tetris/Gameplay';
 import Settings from '../classes/Tetris/Settings';
 import Timeout from '../classes/Timeout';
 import Storage from '../classes/Storage';
+import ScoreHandler from "../classes/Tetris/ScoreHandler";
 
 
 /**
@@ -220,6 +221,7 @@ class ArshLoader {
 	static initGame(wordsType) {
 		window.Gameplay = Gameplay;
 		window.Settings = Settings;
+		window.ScoreHandler = ScoreHandler;
 
 
 		const tetrisGameConfig = {

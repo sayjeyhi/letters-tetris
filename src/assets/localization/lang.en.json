@@ -43,6 +43,8 @@
     "submitScore" : "Submit score",
     "enterName" : "Enter name",
     "saveOperation" : "Save record",
+    "records" : "Records",
+    "last10Record" : "Last 10 records",
     "saveOperationDone" : "Save operation successfully done !",
 
 

@@ -196,7 +196,7 @@ export default class TetrisGame {
                     </div>
                    <div class="courseArea">
                        <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
-                       <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> </div>
+                       <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> - <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="linearicon linearicon-shovel"></i> ${lang.records}</span> </div>
                        <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
                        <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
                    </div>
@@ -287,7 +287,7 @@ export default class TetrisGame {
 			} else if (lastChar.type==='bomb') {
 
 			    Helper.log('BOOOOOOM');
-				Sound.PauseByKey('firing', config.playEventsSound);
+				// Sound.PauseByKey('firing', config.playEventsSound);
 				Sound.playByKey('explode', config.playEventsSound);
 				if(TetrisGame.config.do_shake){
                     Helper.Shake(this.playBoard, lastChar.typeSize*16);

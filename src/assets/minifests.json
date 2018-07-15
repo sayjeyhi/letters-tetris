@@ -3,7 +3,7 @@
     "name": "Persian Tetris",
     "icons": [
         {
-            "src": "assets/img/fanavardLogo.png",
+            "src": "assets/img/gameIcon.png",
             "type": "image/png",
             "sizes": "192x192"
         }
