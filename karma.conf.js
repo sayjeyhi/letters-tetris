@@ -1,7 +1,6 @@
 // Karma configuration
 // Generated on Wed Jul 11 2018 06:12:40 GMT+0430 (+0430)
 var path = require('path');
-process.env.CHROME_BIN = require('puppeteer').executablePath()
 
 module.exports = function (config) {
     config.set({
@@ -79,7 +78,7 @@ module.exports = function (config) {
         customLaunchers: {
             FirefoxHeadless: {
                 base: 'Firefox',
-                flags: [ '-headless' ],
+                flags: ['-headless'],
             },
         },
 

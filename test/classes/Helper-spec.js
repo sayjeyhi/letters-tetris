@@ -16,10 +16,13 @@ describe("Helper class", function () {
         expect(Helper.log("foo log")).toBe(undefined);
     });
 
-    it("method fetchJson: should gets json resource from given API as argument", function () {
-        var fetchJson = Helper.fetchJson("/foo/bar/");
-        fetchJson.finally(function () {
-            expect(fetchJson.isFulfilled()).not.toBeTruthy();
+    it("method fetchJson: should throw error json resource from mistaken given API as argument", function () {
+        let data = JSON.stringify(require('../fakejson.json'));
+        console.log(data);
+        var fetchJson = Helper.fetchJson("../fakejson.json");
+        fetchJson.then(result => {
+            expect(result).toBe("data");
+        }).catch(error => {
         });
     });
 
