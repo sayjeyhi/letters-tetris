@@ -186,7 +186,7 @@ export default class TetrisGame {
 		const gameHtmlContent
             = `<div class="gameHolder ${ltrClass}">
                 <div class="behindPlayBoard">
-                    <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span></div>
+                    <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
                     <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
                     <div class="gameControlButtons" >
                         <div onclick="Gameplay.start();" class="startGame">${lang.startGame}</div>
