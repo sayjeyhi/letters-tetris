@@ -136,7 +136,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .gameHolder .behindPlayBoard .gameControlButtons > div{display:inline-block;border:none;padding:6px 10px;color:#fff;cursor:pointer;border-radius:5px!important;position:relative;font-size:14px;margin:1px!important;background:#6180ff}
 .gameHolder .behindPlayBoard .gameControlButtons .startGame{background:#37c328}
 .gameHolder .behindPlayBoard .gameControlButtons .restartGame{background:#c3450e;font-size:13px}
-.gameHolder.isLtr{direction:ltr}
+.gameHolder.isLtr{direction:ltr;font-family: sans-serif !important;}
 .gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before{left:-10px}
 .gameHolder.isLtr .behindPlayBoard .courseArea{text-align:left;margin-left:5px}
 .noselect,.wordsKind,.gameControlButtons{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
@@ -292,6 +292,10 @@ svg :not(.doNotUnfill){stroke:currentColor}
     display: inline-block;
     font-family: 'SDF' , BYekan , sans-serif;
 }
+.gameHolder.isLtr .currentWorkingWords .currentWords{
+    margin-left: 0;
+    margin-right: 16px;
+}
 .currentWorkingWords .currentWords:last-child{
     margin:0
 }
@@ -362,6 +366,13 @@ svg :not(.doNotUnfill){stroke:currentColor}
     text-overflow:ellipsis;
 }
 
+.modal.dark .scoresTable .scoreRow{
+    background:#4a4a4a;
+}
+.modal.dark .scoresTable .scoreRow:nth-child(2n){
+    background:#2f2f2f;
+}
+
 @media (max-width: 868px) {
     .page-footer div{text-align:center;margin-top:20px}
     .gameHolder{width:96%;left:0;right:0;transform:none!important;margin:1%}
@@ -395,6 +406,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
         background-size: auto 55%;
         background-position: 100% 50%;
     }
+    footer{display: none;}
 }
 @media (max-width: 648px) and (min-width: 480px) {
     .gameHolder .playBoard{
@@ -405,7 +417,6 @@ svg :not(.doNotUnfill){stroke:currentColor}
 
 @media (max-width: 480px ) {
     body{margin: 0 !important;}
-    footer{display: none;}
     .gameStatics > div .value{
         right: 53%;
     }

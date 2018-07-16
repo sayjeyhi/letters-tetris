@@ -306,7 +306,7 @@ export default class Gameplay {
                 }
             },
             {
-                threshold: 70
+                threshold: 40
             }
         );
     }

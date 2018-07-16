@@ -26,7 +26,11 @@ export default class WordsHelper {
         }
 
         // normalize word chars
-        value.word = value.word.replace(/[\s.,+?^=!:${}()|/\\]/g, '');
+        if(lang.name === "ja"){
+            value.word = value.word.replace(/[\x00-\x7F]/g , '');
+        }else{
+            value.word = value.word.replace(/[^A-Za-zآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]/g, '');
+        }
 
         // use lower case of characters
         if (TetrisGame.config.useLowercase) {
@@ -58,6 +62,7 @@ export default class WordsHelper {
         return bombCharacter;
     }
 
+
     /**
      * Choose a char of choosed words
      */
@@ -66,7 +71,6 @@ export default class WordsHelper {
             initValues = TetrisGame.initValues;
 
 
-        console.log(TetrisGame.config.level );
         if(TetrisGame.config.level === 1){
             if (Math.random() > 0.85){
                 let roll = Helper.getRandomInt(0,20);
