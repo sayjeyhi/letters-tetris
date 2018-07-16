@@ -8,7 +8,7 @@ body{
     font-weight:200;color:#666;
     background: #fff url(/assets/img/mainBackground.jpg) no-repeat center bottom ;
     background-size: 100%;
-    height: 100vh;
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
@@ -26,7 +26,7 @@ body.isMedium .gameHolder{background-color: #70e8a1!important;}
 p{line-height:2rem}
 
 .icon-block{padding:0 15px}
-footer.page-footer{margin:10px 0 30px;background-color:transparent!important;color: #e2e2e2;text-align:center}
+footer.page-footer{margin:25px 0;background-color:transparent!important;color: #e2e2e2;text-align:center}
 footer.page-footer i{font-size:18px;position:relative;bottom:-3px;margin-left:5px}
 footer.page-footer a{
     color: #90c3ef;}
@@ -83,7 +83,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
     margin-right: -17px;}
 .chooseWordKindTooltip ul > li .linearicon{font-size:16px;position:relative;bottom:-3px;margin:0 13px;color:#26a718;left:5px; display: none}
 
-.gameHolder{background:#f6f6f6;padding:8px;box-shadow:0 25px 20px -21px rgba(153,153,153,0.3);border-radius:10px!important;position:relative;width:800px;right:50%;margin-right:-400px;margin-top:20px}
+.gameHolder{background:#f6f6f6;padding:8px;box-shadow:0 25px 20px -21px rgba(153,153,153,0.3);border-radius:10px!important;position:relative;width:800px;right:50%;margin-right:-400px;top:20px}
 .gameHolder .playBoard {
     width:75%;
     display:inline-block;
@@ -375,7 +375,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
 
 @media (max-width: 868px) {
     .page-footer div{text-align:center;margin-top:20px}
-    .gameHolder{width:96%;left:0;right:0;transform:none!important;margin:1%}
+    .gameHolder{width:96%;left:0;right:0;transform:none!important;top: 5px;margin:0 1%}
     .gameHolder .behindPlayBoard{position:relative;width:auto;display:block}
     .gameHolder .playBoard{width:auto!important;display:block;}
     .gameHolder .behindPlayBoard .showUpComingLetter{position:absolute;width:100px;height:100px;top:58px;left:0;line-height:98px}
@@ -384,7 +384,7 @@ svg :not(.doNotUnfill){stroke:currentColor}
     .gameHolder .behindPlayBoard .courseArea{text-align:right;margin-right:5px;position:relative;bottom:5px}
     .gameHolder .behindPlayBoard .courseArea .setting{font-size:13px!important}
     .gameHolder .behindPlayBoard .gamingKind{margin:0}
-    .gameHolder.isLtr .behindPlayBoard .showUpComingLetter{right:0;float:right;left:auto!important;top:74px}
+    .gameHolder.isLtr .behindPlayBoard .showUpComingLetter{right:0;float:right;left:auto!important;top:59px}
     .gameHolder.isLtr .behindPlayBoard .gameControlButtons{left:0;text-align:left}
     .gameHolder.isLtr .behindPlayBoard .courseArea{text-align:left!important;margin-left:5px}
     .gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before{left:-10px}
