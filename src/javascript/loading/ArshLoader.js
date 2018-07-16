@@ -362,7 +362,7 @@ class ArshLoader {
             document
                 .getElementById("jafarRezaeiAnimate")
                 .addEventListener("click", () => {
-                    Helper._setRandomColor();
+                    ArshLoader._setRandomColor();
 
                     this.classList.remove("finished");
                     hi_jRun.reset().play();
