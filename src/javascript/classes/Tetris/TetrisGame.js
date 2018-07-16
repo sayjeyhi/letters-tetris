@@ -287,7 +287,6 @@ export default class TetrisGame {
 
 			    Helper.log('BOOOOOOM');
 
-				// Sound.PauseByKey('firing', config.playEventsSound);
 				Sound.playByKey('explode', config.playEventsSound);
 				if(TetrisGame.config.do_shake){
                     Helper.Shake(this.playBoard, lastChar.typeSize*16);
@@ -302,7 +301,6 @@ export default class TetrisGame {
 
 			    // Explode the characters
 				successObject.explodedChars.map((item, index) => {
-					// TODO: Jafar rezayi Change animation for exploding
 					Charblock.fallNodeAnimate(item.y, item.x, null, null);
 				});
 
@@ -334,8 +332,6 @@ export default class TetrisGame {
 			// Remove word from choosed words
 			initValues.choosedWords.splice(successObject.wordId, 1);
 
-			// Remove from UI
-			this._removeCurrentWord(successObject.wordId);
 
 
 			// animate found word
@@ -508,7 +504,9 @@ export default class TetrisGame {
 	static _addCurrentWord(id) {
 	    const parent = Helper._('.currentWorkingWords');
         let displayFiveWords = window.TetrisWords.sort(() => {return 0.5 - Math.random()} ).slice(0,3);
-        displayFiveWords.push(this.initValues.choosedWords[id]);
+        if(typeof id !== "undefined") {
+            displayFiveWords.push(this.initValues.choosedWords[id]);
+        }
 
         // make working words empty
         parent.innerHTML = '';
@@ -521,15 +519,4 @@ export default class TetrisGame {
 
 	}
 
-
-	static _removeCurrentWord(id) {
-
-	    // TODO : jafar akhondAli we have some bug here !
-        // the word id is not correct
-	    Helper.log("WordID : " + id);
-	    const currentWord = Helper._(`.currentWorkingWords #word_${id}`);
-	    if(currentWord !== null) {
-            currentWord.parentNode.removeChild(currentWord);
-        }
-	}
 }
