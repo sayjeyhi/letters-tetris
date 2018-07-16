@@ -47,9 +47,7 @@ export default class Gameplay {
             if (!choosedWord) {
                 Gameplay.finish("finishWords");
             } else {
-                TetrisGame._addCurrentWord(
-                    TetrisGame.initValues.choosedWords.push(choosedWord) - 1
-                );
+                TetrisGame._addCurrentWord(TetrisGame.initValues.choosedWords.push(choosedWord) - 1);
             }
         }
 
@@ -154,7 +152,7 @@ export default class Gameplay {
         initValues.finished = true;
         TetrisGame.timer.pause();
 
-        const wordsAverageLength = (initValues.wordsLengthTotal / initValues.wordsFounded) || 0;
+        const wordsAverageLength = (initValues.wordsLengthTotal / initValues.wordsFounded) || 1;
         const showScore = Math.round(TetrisGame._getScore());
         const gamingTime = TetrisGame.timer.currentTime;
 
@@ -308,7 +306,7 @@ export default class Gameplay {
                 }
             },
             {
-                threshold: 70
+                threshold: 40
             }
         );
     }

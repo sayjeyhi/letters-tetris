@@ -279,15 +279,17 @@ export default class TetrisGame {
 		const initValues = TetrisGame.initValues;
 
 		const callBack = successObject => {
+
+		    initValues.paused = true;
+
 			if (!successObject) {
 				// no words has been found, resume the game
-				initValues.paused=false;
+				initValues.paused = false;
 				return;
-			} else if (lastChar.type==='bomb') {
+			} else if (lastChar.type === 'bomb') {
 
 			    Helper.log('BOOOOOOM');
 
-				// Sound.PauseByKey('firing', config.playEventsSound);
 				Sound.playByKey('explode', config.playEventsSound);
 				if(TetrisGame.config.do_shake){
                     Helper.Shake(this.playBoard, lastChar.typeSize*16);
@@ -301,8 +303,7 @@ export default class TetrisGame {
 
 
 			    // Explode the characters
-				successObject.explodedChars.map((item, index) => {
-					// TODO: Jafar rezayi Change animation for exploding
+				successObject.explodedChars.map((item) => {
 					Charblock.fallNodeAnimate(item.y, item.x, null, null);
 				});
 
@@ -321,9 +322,11 @@ export default class TetrisGame {
 					});
 				}, successObject.explodedChars.length * config.successAnimationIterationDuration);
 
-				Timeout.request(() => {
-					initValues.paused=false;
-				}, successObject.fallingCharacters.length*config.successAnimationIterationDuration);
+				Timeout.request(
+				    () => {
+                        initValues.paused = false;
+                    }, config.successAnimationIterationDuration + 500 + (successObject.fallingCharacters.length * 250)
+                );
 
 				return;
 			}
@@ -334,8 +337,6 @@ export default class TetrisGame {
 			// Remove word from choosed words
 			initValues.choosedWords.splice(successObject.wordId, 1);
 
-			// Remove from UI
-			this._removeCurrentWord(successObject.wordId);
 
 
 			// animate found word
@@ -353,8 +354,6 @@ export default class TetrisGame {
 				}
 			});
 
-			Sound.playByKey('foundWord', config.playEventsSound);
-
 			// Animate FadingOut founded characters
 			successObject.wordCharacterPositions.map((item, index) => {
 				Timeout.request(
@@ -364,7 +363,9 @@ export default class TetrisGame {
 				);
 			});
 
-			initValues.paused = false;
+
+            Sound.playByKey('foundWord', config.playEventsSound);
+
 
 			Timeout.request(
 				() => {
@@ -380,7 +381,7 @@ export default class TetrisGame {
 						() => {
 							// Resume game after all animations has been finished
 							initValues.paused = false;
-						}, successObject.fallingCharacters.length * config.successAnimationIterationDuration
+						}, (successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
 					);
 				}, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
 			);
@@ -405,7 +406,6 @@ export default class TetrisGame {
      */
 	static showFoundWordAnimated(word, successObject) {
 
-	    Helper.log(successObject);
 		let wordFound = successObject.wordCharacterPositions,
 			charLength = wordFound.length - 1,
 			rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,
@@ -508,22 +508,21 @@ export default class TetrisGame {
 
 	static _addCurrentWord(id) {
 	    const parent = Helper._('.currentWorkingWords');
-	    const currentWord = document.createElement('span');
-	    currentWord.innerText = this.initValues.choosedWords[id].word;
-		currentWord.className = 'currentWords';
-		currentWord.id = `word_${id}`;
-	    parent.appendChild(currentWord);
-	    Helper.ShuffleDom(parent);
-	}
-
-	static _removeCurrentWord(id) {
-
-	    // TODO : jafar akhondAli we have some bug here !
-        // the word id is not correct
-	    Helper.log("WordID : " + id);
-	    const currentWord = Helper._(`.currentWorkingWords #word_${id}`);
-	    if(currentWord !== null) {
-            currentWord.parentNode.removeChild(currentWord);
+        let displayFiveWords = window.TetrisWords.sort(() => {return 0.5 - Math.random()} ).slice(0,3);
+        if(typeof id !== "undefined") {
+            displayFiveWords.push(this.initValues.choosedWords[id]);
+            displayFiveWords.sort(() => {return 0.5 - Math.random()});
         }
+
+        // make working words empty
+        parent.innerHTML = '';
+        displayFiveWords.forEach((item) => {
+            const currentWord = document.createElement('span');
+            currentWord.innerText = item.word;
+            currentWord.className = 'currentWords';
+            parent.appendChild(currentWord);
+        });
+
 	}
+
 }
