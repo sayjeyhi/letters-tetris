@@ -61,27 +61,65 @@ svg :not(.doNotUnfill){stroke:currentColor}
     100%{-webkit-transform:scale(1.0);transform:scale(1.0);opacity:0}
 }
 .center{display:block;position:absolute;left:0;bottom:-10px;right:0;margin:auto}
-.wordsKind{cursor:pointer;background:#fff;border-radius:8px;padding:20px 27px;display:inline-block;border:1px solid #efefef;margin:10px 15px 35px;font-size:13px;position:relative;width:125px;line-height:27px; transition: all 0.3s linear}
+.wordsKind{    cursor: pointer;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 27px;
+    display: inline-block;
+    border: 1px solid #efefef;
+    margin: 10px 15px 35px;
+    font-size: 13px;
+    position: relative;
+    width: 210px;
+    line-height: 27px;
+    transition: all 0.3s linear;}
 .wordsKind:hover {
     background-color: #eee;
 }
-.wordsKind .linearicon{font-size:16px;position:relative;bottom:-5px;margin:0 13px;color:#9878e1;left:5px; display: none}
+.wordsKind .linearicon{font-size: 16px;
+    position: absolute;
+    /* bottom: -5px; */
+    margin: 5px 5px;
+    color: #9878e1;
+    left: 5px;
+    /* display: none; */}
 .loadingText{position:relative;margin-bottom:20px}
-.chooseWordKindTooltip{position:absolute;top:52px;left:50%;background:#fff;box-shadow:0 6px 20px -21px rgba(153,153,153,0.3);border-radius:8px;display:none;padding:0;transform:translate(-50%,0);border:1px solid #37c32880}
+.chooseWordKindTooltip{overflow: hidden;position:absolute;top:52px;left:50%;background:#fff;box-shadow:0 6px 20px -21px rgba(153,153,153,0.3);border-radius:8px;display:none;padding:0;transform:translate(-50%,0);border:1px solid #37c32880}
 .chooseWordKindTooltip ul{list-style-type:none;padding:0;margin:0}
-.chooseWordKindTooltip ul > li{border-bottom:1px dashed #37c328;cursor:pointer;padding:20px 26px;font-size:13px;text-align:center;line-height:27px;position:relative;width:125px}
+.chooseWordKindTooltip ul > li{    border-bottom: 1px dashed #37c328;
+    cursor: pointer;
+    padding: 10px 0px 10px 26px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 27px;
+    position: relative;
+    width: 240px;}
 .chooseWordKindTooltip ul > li:hover {
     background-color: #eee;
 }
 .chooseWordKindTooltip ul > li:last-child{border:none}
-.chooseWordKindTooltip ul > li .englishTitle,.wordsKind .englishTitle{position:absolute;left:7px; top: 50%;
-    margin-top: -14px;}
-.chooseWordKindTooltip ul > li .persianTitle,.wordsKind .persianTitle{position:absolute;right:7px;     top: 50%;
-    margin-top: -14px;}
-.chooseWordKindTooltip ul > li .japaneseTitle,.wordsKind .japaneseTitle{position:absolute;    right: 50%; top: 50%;
-    margin-top: -14px;
-    margin-right: -17px;}
-.chooseWordKindTooltip ul > li .linearicon{font-size:16px;position:relative;bottom:-3px;margin:0 13px;color:#26a718;left:5px; display: none}
+.chooseWordKindTooltip ul > li .englishTitle,.wordsKind .englishTitle{    /* position: absolute; */
+    left: 7px;
+    top: 50%;
+    /* margin-top: -14px; */
+    display: inline-block;
+    /* margin-left: 10px; */
+    width: 33%;}
+.chooseWordKindTooltip ul > li .persianTitle,.wordsKind .persianTitle{    /* position: absolute; */
+    right: 7px;
+    top: 50%;
+    /* margin-top: -14px; */
+    display: inline-block;
+    /* margin-left: 10px; */
+    width: 33%;}
+.chooseWordKindTooltip ul > li .japaneseTitle,.wordsKind .japaneseTitle{    /* position: absolute; */
+    left: 7px;
+    top: 50%;
+    /* margin-top: -14px; */
+    display: inline-block;
+    /* margin-left: 10px; */
+    width: 33%;}
+.chooseWordKindTooltip ul > li .linearicon{font-size:16px;position:absolute;margin:5px 7px;color:#26a718;left:5px}
 
 .gameHolder{background:#f6f6f6;padding:8px;box-shadow:0 25px 20px -21px rgba(153,153,153,0.3);border-radius:10px!important;position:relative;width:800px;right:50%;margin-right:-400px;top:20px}
 .gameHolder .playBoard {
@@ -102,11 +140,12 @@ svg :not(.doNotUnfill){stroke:currentColor}
 .playBoard.showGrids .isRow:last-child{border:none}
 
 .gameHolder .playBoard .foundWordAnimation{
-    position:absolute;
-    left:20px;
-    bottom: 40px;
-    display: none;
-    font-size: 18px;color: #2aad1c;
+    font-size: 16px;
+    position: absolute;
+    /* bottom: -3px; */
+    margin: 5px 5px;
+    color: #26a718;
+    left: 5px;
 }
 .gameHolder .playBoard .isColumn{position:relative;display:inline-block;height:100%}
 .gameHolder .playBoard.is6Column .isColumn{width:16.66%}
