@@ -259,16 +259,13 @@ svg :not(.doNotUnfill){stroke:currentColor}
     color: #000;
 }
 .currentWorkingWords .currentWords{
-    margin-left: 16px;
     background: #fff;
     padding: 5px;
     border-radius: 5px;
     letter-spacing: 2px;
     color: #a867e0;
     display: inline-block;
-}
-.currentWorkingWords .currentWords:last-child{
-    margin:0
+    margin: 0 8px;
 }
 
 #enterName{

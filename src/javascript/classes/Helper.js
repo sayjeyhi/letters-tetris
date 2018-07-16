@@ -163,8 +163,6 @@ export default class Helper {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-
-
     /**
      * This function will shake a Dom
      * @param element {HTMLElement} - Dom to shake

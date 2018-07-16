@@ -3,6 +3,7 @@
  */
 
 import Helper from './Helper';
+import EasyMap from "./EasyMap";
 
 /**
  * This class will hold values of characters, find successful created words, delete them and etc
@@ -125,41 +126,39 @@ export default class Matrix {
 		const sentenceRTL = (Helper.reverse(sentenceLTR)); // Reverse it to get
 		const sentenceDTT = (Helper.reverse(sentenceTTD));
 
-
-		let foundWord = false;
+        let foundHappened = false;
 		for (let i = 0, len = words.length; i < len; i++) {
 			if (!words[i]) continue;
 			let pos,
 				checkPlace,
-				foundHappened = false,
 				startFrom,
 				word = words[i].word;
 
 			if (checkType.ltr && (pos = sentenceLTR.indexOf(word)) !== -1) {
 				Helper.log(`LTR--> Found valid word:${word} In:${sentenceLTR}`);
 				startFrom = colId - lefts.len + pos;
-				foundWord = foundHappened = true;
+				foundHappened = true;
 				checkPlace = {
 					ltr: true
 				};
 			} else if (checkType.rtl && (pos = sentenceRTL.indexOf(word)) !== -1) {
 				Helper.log(`RTL--> Found valid word:${word} In:${sentenceRTL}`);
 				startFrom = colId + rights.len - pos;
-				foundWord = foundHappened = true;
+				foundHappened = true;
 				checkPlace = {
 					rtl: true
 				};
 			} else if (checkType.ttd && (pos = sentenceTTD.indexOf(word)) !== -1) {
 				Helper.log(`TTD--> Found valid word:${word} In:${sentenceTTD}`);
 				startFrom = rowId - tops.len + pos;
-				foundWord = foundHappened = true;
+				foundHappened = true;
 				checkPlace = {
 					ttd: true
 				};
 			} else if (checkType.dtt && (pos = sentenceDTT.indexOf(word)) !== -1) {
 				Helper.log(`DTT--> Found valid word:${word} In:${sentenceDTT}`);
 				startFrom = rowId + downs.len - pos;
-				foundWord = foundHappened = true;
+				foundHappened = true;
 				checkPlace = {
 					dtt: true
 				};
@@ -170,9 +169,7 @@ export default class Matrix {
 				break;
 			}
 		}
-
-
-		if (!foundWord) {
+		if (!foundHappened) {
 			// No word has been found, call the callback, without param
 			successCallback();
 		}
@@ -234,6 +231,8 @@ export default class Matrix {
 		};
 	}
 
+
+
 	/**
      * @typedef {Object} CheckTypes - An object representing in which direction should function search for words
      * @property {Boolean} rtl - Determines if should check Right To Left direction
@@ -256,10 +255,11 @@ export default class Matrix {
 		// Determines if we need to store date to call the callback function if it exists
 		const hasCallback = Helper.isFunction(successCallBack);
 
+
 		const callbackObject = {
 			wordId,
 			wordCharacterPositions: [], // Array of {x,y}
-			fallingCharacters: [], // Array of {oldX,oldY,newX,newY}
+			fallingCharacters: new EasyMap(), // Array of {oldX,oldY,newX,newY}
 			direction: Object.keys(checkType)[0]
 		};
 
@@ -276,7 +276,7 @@ export default class Matrix {
 					this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
 					this.fastDeleteCharacter(upIndex-1, i);
 					if (hasCallback) {
-						callbackObject.fallingCharacters.push({ oldY: upIndex-1, oldX: i, newY: upIndex, newX: i });
+						callbackObject.fallingCharacters.append(i,{x:i, oldY: upIndex-1, newY: upIndex});
 					}
 				}
 			}
@@ -294,7 +294,7 @@ export default class Matrix {
 					this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
 					this.fastDeleteCharacter(upIndex-1, i);
 					if (hasCallback) {
-						callbackObject.fallingCharacters.push({ oldY: upIndex-1, oldX: i, newY: upIndex, newX: i });
+                        callbackObject.fallingCharacters.append(i,{x:i, oldY: upIndex-1, newY: upIndex});
 					}
 				}
 			}
@@ -307,12 +307,11 @@ export default class Matrix {
 			}
 
 			// Move upper blocks to bottom
-
 			for (let upIndex=occurancePositionFrom-occurancePositionLenght; upIndex>0 && this.isNotEmpty(upIndex-1, colId); upIndex--) {
 				this.matrix[upIndex+occurancePositionLenght-1][colId] = this.matrix[upIndex-1][colId];
 				this.fastDeleteCharacter(upIndex-1, colId);
 				if (hasCallback) {
-					callbackObject.fallingCharacters.push({ oldY: upIndex-1, oldX: colId, newY: upIndex+occurancePositionLenght-1, newX: colId });
+                    callbackObject.fallingCharacters.append(colId ,{x:colId, oldY: upIndex-1, newY: upIndex+occurancePositionLenght-1});
 				}
 			}
 		} else if (checkType.dtt) {
@@ -329,7 +328,7 @@ export default class Matrix {
 				this.matrix[upIndex-occurancePositionLenght][colId] = this.matrix[upIndex][colId];
 				this.fastDeleteCharacter(upIndex, colId);
 				if (hasCallback) {
-					callbackObject.fallingCharacters.push({ oldY: upIndex, oldX: colId, newY: upIndex-occurancePositionLenght, newX: colId });
+                    callbackObject.fallingCharacters.append(colId ,{x:colId, oldY: upIndex, newY: upIndex-occurancePositionLenght});
 				}
 			}
 		}
@@ -348,7 +347,7 @@ export default class Matrix {
 	_explode(rowID, colID, power, successCallBack) {
 		const callbackObject = {
 			explodedChars: [{ y: rowID, x: colID }],
-			fallingCharacters: []
+			fallingCharacters: new EasyMap()
 		};
 
 		for (let startX = -power, xPos=colID+startX; startX <= power && xPos < this.width; startX++, xPos++) {
@@ -377,7 +376,7 @@ export default class Matrix {
 					for (let upIndex=yPos; upIndex-occurancePositionLenght>=0 && this.isNotEmpty(upIndex-occurancePositionLenght, xPos); upIndex--) {
 						this.matrix[upIndex][xPos] = this.matrix[upIndex-occurancePositionLenght][xPos];
 						this.fastDeleteCharacter(upIndex-occurancePositionLenght, xPos);
-						callbackObject.fallingCharacters.push({ oldY: upIndex-occurancePositionLenght, oldX: xPos, newY: upIndex, newX: xPos });
+                        callbackObject.fallingCharacters.append(xPos, {x:xPos, oldY: upIndex-occurancePositionLenght, newY: upIndex});
 					}
 					break;
 				}

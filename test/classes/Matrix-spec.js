@@ -1,4 +1,5 @@
 import Matrix from "../../src/javascript/classes/Matrix";
+import Stack    from "../../src/javascript/classes/Stack";
 //
 //
 // describe("Matrix Class", function() {
@@ -464,9 +465,8 @@ import Matrix from "../../src/javascript/classes/Matrix";
 
 describe("Matrix Class", function() {
 
-    let Stack;
-
-    var exploded;
+    let Stack = new Stack();
+    var falled;
     beforeEach(function(done) {
         var matrixArray = [
             // X:       0   1   2   3   4   5   6   7
@@ -478,7 +478,7 @@ describe("Matrix Class", function() {
             /* 5 */   [" "," "," "," "," "," "," "," "], //5
             /* 6 */   [" "," "," "," "," "," "," "," "], //6
             /* 7 */   [" "," "," "," "," "," "," "," "], //7
-            /* 8 */   [" "," "," "," "," "," "," "," "], //8
+            /* 8 */   [" "," "," "," ","z"," "," "," "], //8
             /* 9 */   [" "," "," ","f","o"," "," "," "], //9
             /* 10 */  [" "," ","e","s","t ","o"," "," "],//10
             // X:       0   1   2   3   4   5   6   7
@@ -487,14 +487,19 @@ describe("Matrix Class", function() {
         var words = [{word:'test'},{word:'test'}];
         var lastChar = {row: 10, column:1, char:'t'};
         var foundCallback = function (successObject) {
-            exploded = successObject;
-            done();
-        };
+            falled = successObject.fallingCharacters;
+            for (let [key,value] of falled.entries()) {
+                console.log(key);
+                console.log(value);
+                console.log("=========");
+                done();
+            }
+        }
         matrix.checkWords(words,lastChar,{dtt:true,rtl:true,ltr:true,ttd:true},foundCallback);
     });
 
     it("Bomb should delete characters near it: ", function() {
-        let ex = exploded.explodedChars;
-        let falled = exploded.fallingCharacters;
+        // let ex = falled.explodedChars;
+        // let falled = falled.fallingCharacters;
     })
 });

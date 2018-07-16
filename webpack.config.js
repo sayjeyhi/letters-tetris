@@ -37,7 +37,10 @@ module.exports = {
             title: appHtmlTitle
         }),
 
-        new CopyWebpackPlugin([ { from: './src/assets/', to: './assets/' } ]),
+        new CopyWebpackPlugin([
+            {from: './src/assets/', to: './assets/' },
+            {from: './src/assets/wiki', to: './wiki/' }
+        ]),
 
         new CompressionPlugin({
             asset: '[path].gz[query]',
