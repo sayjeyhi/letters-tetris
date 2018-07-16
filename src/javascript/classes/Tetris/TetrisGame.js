@@ -279,11 +279,14 @@ export default class TetrisGame {
 		const initValues = TetrisGame.initValues;
 
 		const callBack = successObject => {
+
+		    initValues.paused = true;
+
 			if (!successObject) {
 				// no words has been found, resume the game
-				initValues.paused=false;
+				initValues.paused = false;
 				return;
-			} else if (lastChar.type==='bomb') {
+			} else if (lastChar.type === 'bomb') {
 
 			    Helper.log('BOOOOOOM');
 
@@ -300,7 +303,7 @@ export default class TetrisGame {
 
 
 			    // Explode the characters
-				successObject.explodedChars.map((item, index) => {
+				successObject.explodedChars.map((item) => {
 					Charblock.fallNodeAnimate(item.y, item.x, null, null);
 				});
 
@@ -319,9 +322,11 @@ export default class TetrisGame {
 					});
 				}, successObject.explodedChars.length * config.successAnimationIterationDuration);
 
-				Timeout.request(() => {
-					initValues.paused=false;
-				}, successObject.fallingCharacters.length*config.successAnimationIterationDuration);
+				Timeout.request(
+				    () => {
+                        initValues.paused = false;
+                    }, config.successAnimationIterationDuration + 500 + (successObject.fallingCharacters.length * 250)
+                );
 
 				return;
 			}
@@ -349,8 +354,6 @@ export default class TetrisGame {
 				}
 			});
 
-			Sound.playByKey('foundWord', config.playEventsSound);
-
 			// Animate FadingOut founded characters
 			successObject.wordCharacterPositions.map((item, index) => {
 				Timeout.request(
@@ -360,7 +363,9 @@ export default class TetrisGame {
 				);
 			});
 
-			initValues.paused = false;
+
+            Sound.playByKey('foundWord', config.playEventsSound);
+
 
 			Timeout.request(
 				() => {
@@ -376,7 +381,7 @@ export default class TetrisGame {
 						() => {
 							// Resume game after all animations has been finished
 							initValues.paused = false;
-						}, successObject.fallingCharacters.length * config.successAnimationIterationDuration
+						}, (successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
 					);
 				}, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
 			);
@@ -506,6 +511,7 @@ export default class TetrisGame {
         let displayFiveWords = window.TetrisWords.sort(() => {return 0.5 - Math.random()} ).slice(0,3);
         if(typeof id !== "undefined") {
             displayFiveWords.push(this.initValues.choosedWords[id]);
+            displayFiveWords.sort(() => {return 0.5 - Math.random()});
         }
 
         // make working words empty
