@@ -74,6 +74,10 @@ class ArshLoader {
             Helper._(".arshLoadingAnimation", loadingTextElement).className +=
                 " animated fadeOut";
 
+
+            // change color of logo loop
+            setInterval(()=> {ArshLoader._setRandomColor()} , 2000);
+
             Timeout.request(() => {
                 loadingTextElement.innerHTML = "";
 
@@ -209,7 +213,6 @@ class ArshLoader {
      */
     static _setRandomColor() {
         const color = MaterialColor.getRandomColor();
-        Helper._(".bloc").style.borderColor = color;
         Helper._("#jafarRezaeiAnimate").style.color = color;
         Helper._("#jafarRezaeiAnimate").style.fill = color;
     }
@@ -359,14 +362,12 @@ class ArshLoader {
                 }
             );
 
-            document
-                .getElementById("jafarRezaeiAnimate")
-                .addEventListener("click", () => {
-                    ArshLoader._setRandomColor();
-
-                    this.classList.remove("finished");
-                    hi_jRun.reset().play();
-                });
+            let animationHolder = document.getElementById("jafarRezaeiAnimate");
+            animationHolder.addEventListener("click", () => {
+                ArshLoader._setRandomColor();
+                animationHolder.classList.remove("finished");
+                hi_jRun.reset().play();
+            });
         } else {
             content +=
                 '<div class="logoLoading">تیم برنامه نویسی عرش</div>' +
@@ -383,11 +384,12 @@ class ArshLoader {
         // play loading sound
         Sound.playByKey("loading", this.soundPlay);
 
+
         // register service worker
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
                 navigator.serviceWorker
-                    .register("src/javascript/serviceWorker.js")
+                    .register("assets/serviceWorker.js")
                     .then(
                         registration => {
                             // Registration was successful
