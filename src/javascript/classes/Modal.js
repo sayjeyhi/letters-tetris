@@ -193,7 +193,8 @@ export default class Modal {
 		Timeout.request(
 			() => {
 				document.getElementById('container').classList.remove('blur');
-				this.node.parentNode.removeChild(this.node);
+				if(this.node.parentNode)
+				    this.node.parentNode.removeChild(this.node);
 			}, (this.animate ? 310 : 0)
 		);
 

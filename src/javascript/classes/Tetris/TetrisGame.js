@@ -405,7 +405,6 @@ export default class TetrisGame {
      */
 	static showFoundWordAnimated(word, successObject) {
 
-	    Helper.log(successObject);
 		let wordFound = successObject.wordCharacterPositions,
 			charLength = wordFound.length - 1,
 			rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,
@@ -508,13 +507,20 @@ export default class TetrisGame {
 
 	static _addCurrentWord(id) {
 	    const parent = Helper._('.currentWorkingWords');
-	    const currentWord = document.createElement('span');
-	    currentWord.innerText = this.initValues.choosedWords[id].word;
-		currentWord.className = 'currentWords';
-		currentWord.id = `word_${id}`;
-	    parent.appendChild(currentWord);
-	    Helper.ShuffleDom(parent);
+        let displayFiveWords = window.TetrisWords.sort(() => {return 0.5 - Math.random()} ).slice(0,3);
+        displayFiveWords.push(this.initValues.choosedWords[id]);
+
+        // make working words empty
+        parent.innerHTML = '';
+        displayFiveWords.forEach((item) => {
+            const currentWord = document.createElement('span');
+            currentWord.innerText = item.word;
+            currentWord.className = 'currentWords';
+            parent.appendChild(currentWord);
+        });
+
 	}
+
 
 	static _removeCurrentWord(id) {
 
