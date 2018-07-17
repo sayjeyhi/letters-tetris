@@ -47,7 +47,7 @@ export default class Gameplay {
             if (!choosedWord) {
                 Gameplay.finish("finishWords");
             } else {
-                TetrisGame._addCurrentWord(TetrisGame.initValues.choosedWords.push(choosedWord) - 1);
+                TetrisGame._addCurrentWord();
             }
         }
 

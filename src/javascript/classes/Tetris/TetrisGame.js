@@ -183,7 +183,8 @@ export default class TetrisGame {
 
 
         // add main html to page
-        const gameHtmlContent = `<div class="gameHolder ${ltrClass}">
+        Helper._('#container').innerHTML = `
+            <div class="gameHolder ${ltrClass}">
                 <div class="behindPlayBoard">
                     <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
                     <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
@@ -202,14 +203,16 @@ export default class TetrisGame {
                </div>
                <div class="playBoard"><span class="emptyPlayBoard">${lang.clickStartGame}</span></div>
             </div>
+            
+            <!--Lazy load bomb Gif-->
+            <img src="assets/img/bomb.gif" alt="bombChar" width="0" />
+            
             <footer class="page-footer">
                 <div class="container">
                     <i class="linearicon linearicon-brain"></i> ${lang.copyRight}
                 </div>
-            </footer>`;
-
-
-        Helper._('#container').innerHTML = gameHtmlContent;
+            </footer>
+        `;
     }
 
 
@@ -466,11 +469,11 @@ export default class TetrisGame {
     }
 
 
-    static _addCurrentWord(id) {
+    static _addCurrentWord() {
         const parent = Helper._('.currentWorkingWords');
         let displayFiveWords = window.TetrisWords.sort(() => {return 0.5 - Math.random()} ).slice(0,3);
         if(typeof id !== "undefined") {
-            displayFiveWords.push(this.initValues.choosedWords[id]);
+            displayFiveWords.push(this.initValues.choosedWords.slice(0,2));
             displayFiveWords.sort(() => {return 0.5 - Math.random()});
         }
 

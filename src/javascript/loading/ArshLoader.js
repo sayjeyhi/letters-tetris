@@ -72,7 +72,7 @@ class ArshLoader {
         if (!ArshLoader.isLoaded) {
             const loadingTextElement = Helper._(".loadingText");
             Helper._(".arshLoadingAnimation", loadingTextElement).className +=
-                " animated fadeOut";
+                " fallDownExpert fadeOut";
 
 
             // change color of logo loop
@@ -130,10 +130,8 @@ class ArshLoader {
                         "animales-حیوانات-動物";
                     ArshLoader.startGame("en", wordsType);
                 };
-                btnEn.className =
-                    "btnEnterProject animatedOneSecond bounceIn ltr";
-                btnEn.innerHTML =
-                    "<i class='linearicon linearicon-gamepad'></i> Enter Game";
+                btnEn.className = "btnEnterProject animatedOneSecond bounceIn ltr";
+                btnEn.innerHTML = "<i class='linearicon linearicon-gamepad'></i> Enter Game";
 
                 const btnJa = document.createElement("div");
                 btnJa.onclick = function() {
@@ -142,10 +140,8 @@ class ArshLoader {
                         "animales-حیوانات-動物";
                     ArshLoader.startGame("ja", wordsType);
                 };
-                btnJa.className =
-                    "btnEnterProject animatedOneSecond bounceIn ltr";
-                btnJa.innerHTML =
-                    "<i class='linearicon linearicon-gamepad'></i>ゲームに入る";
+                btnJa.className = "btnEnterProject animated bounceIn ltr";
+                btnJa.innerHTML = "<i class='linearicon linearicon-gamepad'></i>ゲームに入る";
 
                 const workKindChooser = document.createElement("div");
                 workKindChooser.className = "chooseWordKindTooltip";
@@ -213,8 +209,11 @@ class ArshLoader {
      */
     static _setRandomColor() {
         const color = MaterialColor.getRandomColor();
-        Helper._("#jafarRezaeiAnimate").style.color = color;
-        Helper._("#jafarRezaeiAnimate").style.fill = color;
+        const animateEl = Helper._("#jafarRezaeiAnimate");
+        if(animateEl){
+            animateEl.style.color = color;
+            animateEl.style.fill = color;
+        }
     }
 
     /**
@@ -255,7 +254,7 @@ class ArshLoader {
             columnsMin: 6,
             columnsMax: 16,
             workingWordCount: 1,
-            charSpeed: 1000, // 1 second - get division to level when making game harder
+            charSpeed: 800, // 1 second - get division to level when making game harder
             useLowercase: false,
             simpleFallDownAnimateSpeed: 700,
             mediumFallDownAnimateSpeed: 500,
@@ -301,7 +300,7 @@ class ArshLoader {
 
         let content =
             '    <div class="bloc">\n' +
-            '        <div><img src="assets/img/fanavardLogo.png" style="width:150px;height: auto"/></div>';
+            '        <div><img src="assets/img/fanavardLogo.png" alt="فن آورد" style="width:150px;height: auto"/></div>';
 
         if (this.useAnimation) {
             content +=
@@ -389,7 +388,7 @@ class ArshLoader {
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
                 navigator.serviceWorker
-                    .register("assets/serviceWorker.js")
+                    .register("serviceWorker.js" , { scope: '/' })
                     .then(
                         registration => {
                             // Registration was successful
@@ -406,6 +405,10 @@ class ArshLoader {
                             );
                         }
                     );
+
+                navigator.serviceWorker.ready.then( () => {
+                    console.log('Service Worker Ready');
+                });
             });
         }
     }

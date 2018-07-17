@@ -39,7 +39,11 @@ module.exports = {
 
         new CopyWebpackPlugin([
             {from: './src/assets/', to: './assets/' },
-            {from: './src/assets/wiki', to: './wiki/' }
+            {from: './src/assets/wiki', to: './wiki/' },
+            {from: './src/serviceWorker.js', to: './serviceWorker.js' },
+            {from: './src/manifests.json', to: './manifests.json' },
+            {from: './src/robots.txt', to: './robots.txt' },
+            {from: './src/humans.txt', to: './humans.txt' }
         ]),
 
         new CompressionPlugin({

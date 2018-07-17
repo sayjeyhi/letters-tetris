@@ -2,20 +2,20 @@
 @font-face {
     font-family: "SDF";
     src: url(../Fonts/IRANSansLight.woff) format("woff"),
-        url(../Fonts/IRANSansLight.ttf) format("truetype");
+    url(../Fonts/IRANSansLight.ttf) format("truetype");
     font-weight: 400;
 }
 @font-face {
     font-family: "SDF";
     src: url(../Fonts/IRANSansMedium.woff) format("woff"),
-        url(../Fonts/IRANSansMedium.ttf) format("truetype");
+    url(../Fonts/IRANSansMedium.ttf) format("truetype");
     font-weight: 700;
 }
 @font-face {
     font-family: "BYekan";
     src: url(../Fonts/BYekan.eot) format("eot"),
-        url(../Fonts/BYekan.woff) format("woff"),
-        url(../Fonts/BYekan.ttf) format("truetype");
+    url(../Fonts/BYekan.woff) format("woff"),
+    url(../Fonts/BYekan.ttf) format("truetype");
 }
 body {
     margin: 0 !important;
@@ -29,13 +29,8 @@ body {
 }
 
 .byekan,
-fieldset,
-legend,
-strong,
 .btn,
-.smalltext,
-table,
-.tooltip {
+.smalltext{
     font-family: "BYekan", "SDF", "Tahoma", sans-serif;
 }
 .sdf {
@@ -104,7 +99,7 @@ h3 {
 }
 .btnEnterProject {
     display: inline-block;
-    background: #37c328;
+    background: #857609;
     overflow: hidden;
     border: none;
     padding: 6px 38px 6px 17px;
@@ -112,14 +107,14 @@ h3 {
     cursor: pointer;
     border-radius: 7px !important;
     position: relative;
-    font-family: "SDF";
+    font-family: "SDF" , sans-serif;
     margin: 4px;
 }
 .btnEnterProject .linearicon {
     font-size: 37px;
     position: absolute;
     right: -5px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(164, 202, 156);
     transform: rotate(16deg);
     top: 0;
 }
@@ -265,7 +260,7 @@ svg :not(.doNotUnfill) {
 .chooseWordKindTooltip ul > li {
     border-bottom: 1px dashed #37c328;
     cursor: pointer;
-    padding: 10px 0px 10px 26px;
+    padding: 10px 0 10px 26px;
     font-size: 13px;
     text-align: center;
     line-height: 27px;
@@ -1071,9 +1066,9 @@ svg :not(.doNotUnfill) {
     height: 32px;
     width: 32px;
     -webkit-animation: arshLoadingAnimation-1 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
     animation: arshLoadingAnimation-1 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
 }
 @-webkit-keyframes arshLoadingAnimation-1 {
     0% {
@@ -1105,9 +1100,9 @@ svg :not(.doNotUnfill) {
     background: #6180ff;
     border-radius: 50%;
     -webkit-animation: arshLoadingAnimation-2 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
     animation: arshLoadingAnimation-2 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
 }
 @-webkit-keyframes arshLoadingAnimation-2 {
     0% {
@@ -1145,9 +1140,9 @@ svg :not(.doNotUnfill) {
     background: #6180ff;
     border-radius: 50%;
     -webkit-animation: arshLoadingAnimation-3 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
     animation: arshLoadingAnimation-3 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
 }
 @-webkit-keyframes arshLoadingAnimation-3 {
     0% {
@@ -1196,9 +1191,9 @@ svg :not(.doNotUnfill) {
     background: #6180ff;
     border-radius: 50%;
     -webkit-animation: arshLoadingAnimation-4 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
     animation: arshLoadingAnimation-4 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
 }
 @-webkit-keyframes arshLoadingAnimation-4 {
     0% {
@@ -1236,9 +1231,9 @@ svg :not(.doNotUnfill) {
     background: #6180ff;
     border-radius: 50%;
     -webkit-animation: arshLoadingAnimation-5 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
     animation: arshLoadingAnimation-5 2s cubic-bezier(0.77, 0, 0.175, 1)
-        infinite;
+    infinite;
 }
 @-webkit-keyframes arshLoadingAnimation-5 {
     0% {
