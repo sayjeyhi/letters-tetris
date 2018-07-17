@@ -1,5 +1,5 @@
 import Matrix from "../../src/javascript/classes/Matrix";
-import Stack    from "../../src/javascript/classes/Stack";
+import MapStack from "../../src/javascript/classes/MapStack";
 //
 //
 // describe("Matrix Class", function() {
@@ -465,37 +465,67 @@ import Stack    from "../../src/javascript/classes/Stack";
 
 describe("Matrix Class", function() {
 
-    let Stack = new Stack();
+    var falledStack = new MapStack();
     var falled;
+    var direction = {dtt:true,rtl:true,ltr:true,ttd:true};
+
+
+    var matrixArray = [
+        // X:       0   1   2   3   4   5   6   7
+        /* 0 */   [" "," "," "," "," "," "," "," "], //0
+        /* 1 */   [" "," "," "," "," "," "," "," "], //1
+        /* 2 */   [" "," "," "," "," "," "," "," "], //2
+        /* 3 */   [" "," "," "," "," "," "," "," "], //3
+        /* 4 */   [" "," "," "," "," "," "," "," "], //4
+        /* 5 */   [" "," "," "," "," "," "," "," "], //5
+        /* 6 */   [" "," "," "," "," "," "," "," "], //6
+        /* 7 */   [" "," "," "," "," "," "," "," "], //7
+        /* 8 */   [" "," "," ","o","z"," "," "," "], //8
+        /* 9 */   [" "," ","o","f","o"," "," "," "], //9
+        /* 10 */  [" "," ","e","s","t","o"," "," "],//10
+        // X:       0   1   2   3   4   5   6   7
+    ];
+    var matrix = new Matrix(matrixArray);
+    var words = [{word:'test'},{word:'foo'},{word:'zoo'}];
+    var lastChar = {row: 10, column:1, char:'t'};
+
     beforeEach(function(done) {
-        var matrixArray = [
-            // X:       0   1   2   3   4   5   6   7
-            /* 0 */   [" "," "," "," "," "," "," "," "], //0
-            /* 1 */   [" "," "," "," "," "," "," "," "], //1
-            /* 2 */   [" "," "," "," "," "," "," "," "], //2
-            /* 3 */   [" "," "," "," "," "," "," "," "], //3
-            /* 4 */   [" "," "," "," "," "," "," "," "], //4
-            /* 5 */   [" "," "," "," "," "," "," "," "], //5
-            /* 6 */   [" "," "," "," "," "," "," "," "], //6
-            /* 7 */   [" "," "," "," "," "," "," "," "], //7
-            /* 8 */   [" "," "," "," ","z"," "," "," "], //8
-            /* 9 */   [" "," "," ","f","o"," "," "," "], //9
-            /* 10 */  [" "," ","e","s","t ","o"," "," "],//10
-            // X:       0   1   2   3   4   5   6   7
-        ];
-        var matrix = new Matrix(matrixArray);
-        var words = [{word:'test'},{word:'test'}];
-        var lastChar = {row: 10, column:1, char:'t'};
-        var foundCallback = function (successObject) {
-            falled = successObject.fallingCharacters;
-            for (let [key,value] of falled.entries()) {
-                console.log(key);
-                console.log(value);
-                console.log("=========");
-                done();
+
+        function checkSuccessWordStack(mapStack){
+            let falledCharacter = mapStack.popItem();
+            if(falledCharacter === false){
+                //Stack is empty, resume the game
+                console.log(`Stack is empty`);
+                done()
+                return;
+            }
+            let x = falledCharacter.x;
+            let y = falledCharacter.newY;
+            console.log(`checking y: ${y}  x: ${x}`);
+            if(matrix.isNotEmpty(y,x))
+                matrix.checkWords(words,{row:y,column:x,char:matrix.getCharacter(y,x)},direction,foundCallback);
+            else{
+                checkSuccessWordStack(mapStack);
             }
         }
-        matrix.checkWords(words,lastChar,{dtt:true,rtl:true,ltr:true,ttd:true},foundCallback);
+
+
+
+        var foundCallback = function (successObject) {
+            if(!successObject){
+                checkSuccessWordStack(falledStack);
+            }
+            falled = successObject.fallingCharacters;
+            //Animate Falled, THEN AFTER ANIMATION,
+            //MERGE STACK
+            //CALL STACK CHECK
+            //If not empty, Pop & Check words
+
+            falledStack.merge(successObject.fallingCharacters);
+            checkSuccessWordStack(falledStack);
+            // done();
+        };
+        matrix.checkWords(words,lastChar,direction,foundCallback);
     });
 
     it("Bomb should delete characters near it: ", function() {

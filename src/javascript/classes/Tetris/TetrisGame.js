@@ -10,7 +10,7 @@ import Storage from '../Storage';
 import Charblock from './Charblock';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
-
+import MapStack from '../MapStack';
 
 /**
  * @typedef {Object} TetrisGameConfig
@@ -44,146 +44,146 @@ import Helper from '../Helper';
  * Main class of
  */
 export default class TetrisGame {
-	/**
+    /**
      *
      * @returns {TetrisGame}
      */
-	static init(config) {
-		/**
+    static init(config) {
+        /**
          * Base config for game
          */
-		this.config = {
-			rows: 10,
-			columnsMin: 6,
-			columnsMax: 16,
-			workingWordCount: 1,
-			charSpeed: 800, // 1 second - get division to level when making game harder
-			useLowercase: false,
-			simpleFallDownAnimateSpeed: 700,
-			mediumFallDownAnimateSpeed: 500,
-			expertFallDownAnimateSpeed: 200,
-			successAnimationIterationDuration: 100,
-			vibrationDuration: 200,
+        this.config = {
+            rows: 10,
+            columnsMin: 6,
+            columnsMax: 16,
+            workingWordCount: 1,
+            charSpeed: 800, // 1 second - get division to level when making game harder
+            useLowercase: false,
+            simpleFallDownAnimateSpeed: 700,
+            mediumFallDownAnimateSpeed: 500,
+            expertFallDownAnimateSpeed: 200,
+            successAnimationIterationDuration: 100,
+            vibrationDuration: 200,
             do_vibrate: true,
             do_shake: true,
-			do_encryption: true, // Enables encryption when saving score
-			encryptionKeySize: 16, // Size of key Used in encryption
-			directionWordChecks: {
-				ltr: true, // check left to right
-				rtl: true, // check right to left
-				ttd: true, // check top top down
-				dtt: false // check down to top
-			},
-			scoreCalculator: word => {
-				return Math.pow(word.length, 1.3); // Larger words will have better score
-			},
-			chooseedWordKind: {},
+            do_encryption: true, // Enables encryption when saving score
+            encryptionKeySize: 16, // Size of key Used in encryption
+            directionWordChecks: {
+                ltr: true, // check left to right
+                rtl: true, // check right to left
+                ttd: true, // check top top down
+                dtt: false // check down to top
+            },
+            scoreCalculator: word => {
+                return Math.pow(word.length, 1.3); // Larger words will have better score
+            },
+            chooseedWordKind: {},
 
 
-			// user setting values
-			playBackgroundSound: true,
-			playEventsSound: true,
-			level: 1, // Up to 3 - if it is big it is hard to play
-			useAnimationFlag: true, // Make animate or not
-			showGrids: true // Show grids flag
-		};
+            // user setting values
+            playBackgroundSound: true,
+            playEventsSound: true,
+            level: 1, // Up to 3 - if it is big it is hard to play
+            useAnimationFlag: true, // Make animate or not
+            showGrids: true // Show grids flag
+        };
 
-		// Extend config from user
-		Object.assign(this.config, config);
+        // Extend config from user
+        Object.assign(this.config, config);
 
 
-		/**
+        /**
          * We hold game values here
          */
-		this.setDefaultValues(true);
+        this.setDefaultValues(true);
 
 
-		/**
+        /**
          *  Global key codes config on window
          */
-		window.CONTROL_CODES = {
-			DOWN: 40,
-			LEFT: 37,
-			RIGHT: 39
-		};
+        window.CONTROL_CODES = {
+            DOWN: 40,
+            LEFT: 37,
+            RIGHT: 39
+        };
 
-		/**
+        /**
          * Game play board
          */
-		this.playBoard = null;
+        this.playBoard = null;
 
-		return this;
-	}
+        return this;
+    }
 
 
-	/**
+    /**
      * Select editor element with class search emoji
      * @type {HTMLElement | null}
      */
-	static build() {
-		const initValues = this.initValues;
-		const config = this.config;
+    static build() {
+        const initValues = this.initValues;
+        const config = this.config;
 
-		if (config.do_encryption) {
-			const encryptionKeySize = config.encryptionKeySize;
-			for (let i=0; i<encryptionKeySize; ++i) initValues.encryptionKey.push(1+Math.floor(Math.random()*253));
-			Storage.setEncrypted('score', 0, initValues.encryptionKey);
-		} else {
-			Storage.set('score', '0');
-		}
-
-
-		// blob for timer
-		window.blobTiming = new Blob([
-			Helper._('#workerTiming').textContent
-		], { type: 'text/javascript' });
+        if (config.do_encryption) {
+            const encryptionKeySize = config.encryptionKeySize;
+            for (let i=0; i<encryptionKeySize; ++i) initValues.encryptionKey.push(1+Math.floor(Math.random()*253));
+            Storage.setEncrypted('score', 0, initValues.encryptionKey);
+        } else {
+            Storage.set('score', '0');
+        }
 
 
-		// set Timer instance to current TetrisGame.timer
-		this.timer = new Timer({
-			blobTiming,
-			onStart() {
-				initValues.paused = false;
-			},
-			workerOnMessage(event) {
-				// Storage.set('seconds', event.data);
-			},
-			onPause() {
-				initValues.paused = true;
-			},
-			onResume() {
-				initValues.paused = false;
-			}
-		});
+        // blob for timer
+        window.blobTiming = new Blob([
+            Helper._('#workerTiming').textContent
+        ], { type: 'text/javascript' });
 
 
-		// set interval class
-		this.interval = new Interval();
+        // set Timer instance to current TetrisGame.timer
+        this.timer = new Timer({
+            blobTiming,
+            onStart() {
+                initValues.paused = false;
+            },
+            workerOnMessage(event) {
+                // Storage.set('seconds', event.data);
+            },
+            onPause() {
+                initValues.paused = true;
+            },
+            onResume() {
+                initValues.paused = false;
+            }
+        });
 
 
-		// control key codes
-		// In LTR languages, Left and Right should be swapped
-		this.controlCodes = {
-			LEFT: (!lang.rtl) ? CONTROL_CODES.RIGHT : CONTROL_CODES.LEFT,
-			RIGHT: (!lang.rtl) ? CONTROL_CODES.LEFT : CONTROL_CODES.RIGHT,
-			DOWN: CONTROL_CODES.DOWN
-		};
-
-		const ltrClass = (!lang.rtl) ? 'isLtr' : '';
+        // set interval class
+        this.interval = new Interval();
 
 
-		if (initValues.isFirstRun) {
-			initValues.bgSound = Sound.playByKey('background', true);
-			initValues.isFirstRun = false;
-		}
+        // control key codes
+        // In LTR languages, Left and Right should be swapped
+        this.controlCodes = {
+            LEFT: (!lang.rtl) ? CONTROL_CODES.RIGHT : CONTROL_CODES.LEFT,
+            RIGHT: (!lang.rtl) ? CONTROL_CODES.LEFT : CONTROL_CODES.RIGHT,
+            DOWN: CONTROL_CODES.DOWN
+        };
+
+        const ltrClass = (!lang.rtl) ? 'isLtr' : '';
 
 
-		// set game settings from local storage
-		Settings.set();
+        if (initValues.isFirstRun) {
+            initValues.bgSound = Sound.playByKey('background', true);
+            initValues.isFirstRun = false;
+        }
 
 
-		// add main html to page
-		const gameHtmlContent = `<div class="gameHolder ${ltrClass}">
+        // set game settings from local storage
+        Settings.set();
+
+
+        // add main html to page
+        const gameHtmlContent = `<div class="gameHolder ${ltrClass}">
                 <div class="behindPlayBoard">
                     <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
                     <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
@@ -209,305 +209,265 @@ export default class TetrisGame {
             </footer>`;
 
 
-		Helper._('#container').innerHTML = gameHtmlContent;
-	}
+        Helper._('#container').innerHTML = gameHtmlContent;
+    }
 
 
-	/**
+    /**
      * Sets default values of this.initValues
      * @param firstCall
      */
-	static setDefaultValues(firstCall) {
-		this.initValues = {
-			paused: false, // is game paused
-			finished: false, // is game finished
-			wordsFinished: false, // do we run out of words
-			isFirstRun: firstCall, // it is not first run
-			bgSound: (firstCall ? {} : this.initValues.bgSound), // is this my first run
-			cachedRows: (firstCall ? {} : this.initValues.cachedRows), // cache rows here
-			upComingCharEl: null,
-			score: 0, // This is fake, We will never show anything related to this to user
-			encryptionKey: [], // key of variables encryption
-			validatedColumnsCount: 0, // Count of columns which are validated
-			nextChar: '', // Next character
-			activeChar: {}, // Active character [not stopped] charBlock object
-			choosedWords: [], // Choosed words to work with them
-			choosedWordsUsedChars: [], // Chars that used from choosed words
-			wordsLengthTotal: 0, // Average length of words founded in games
-			wordsFounded: 0, // Counter to hold count of words found in game
-			wordDirectionCounter: { // Counter of founded word in each direction
-				rtl: 0,
-				ltr: 0,
-				ttd: 0,
-				dtp: 0,
-				exploded: 0
-			},
-			isMobile: Helper.isMobile()
-		};
-	}
+    static setDefaultValues(firstCall) {
+        this.initValues = {
+            paused: false, // is game paused
+            finished: false, // is game finished
+            wordsFinished: false, // do we run out of words
+            isFirstRun: firstCall, // it is not first run
+            bgSound: (firstCall ? {} : this.initValues.bgSound), // is this my first run
+            cachedRows: (firstCall ? {} : this.initValues.cachedRows), // cache rows here
+            upComingCharEl: null,
+            score: 0, // This is fake, We will never show anything related to this to user
+            encryptionKey: [], // key of variables encryption
+            validatedColumnsCount: 0, // Count of columns which are validated
+            nextChar: '', // Next character
+            activeChar: {}, // Active character [not stopped] charBlock object
+            choosedWords: [], // Choosed words to work with them
+            choosedWordsUsedChars: [], // Chars that used from choosed words
+            wordsLengthTotal: 0, // Average length of words founded in games
+            wordsFounded: 0, // Counter to hold count of words found in game
+            wordDirectionCounter: { // Counter of founded word in each direction
+                rtl: 0,
+                ltr: 0,
+                ttd: 0,
+                dtp: 0,
+                exploded: 0
+            },
+            isMobile: Helper.isMobile(),
+            falledStack: new MapStack()
+        };
+    }
 
 
-	/**
+    /**
      * Get a valid column number [min-max]
      */
-	static getValidColumnsNumber() {
-		const config = this.config;
-		let columnsNumber = config.columnsMin;
+    static getValidColumnsNumber() {
+        const config = this.config;
+        let columnsNumber = config.columnsMin;
 
-		for (let i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
-			if (window.TetrisWords[i]) {
-				const thisWordLength = window.TetrisWords[i].word.length;
-				if (thisWordLength > columnsNumber) {
-					columnsNumber = thisWordLength;
-				}
-			}
-		}
+        for (let i = Object.keys(window.TetrisWords).length - 1; i >= 0; i--) {
+            if (window.TetrisWords[i]) {
+                const thisWordLength = window.TetrisWords[i].word.length;
+                if (thisWordLength > columnsNumber) {
+                    columnsNumber = thisWordLength;
+                }
+            }
+        }
 
-		// plus 2 extra block than max word length
-		columnsNumber += 2;
-		columnsNumber = config.columnsMax < columnsNumber ? config.columnsMax : columnsNumber;
-		return columnsNumber % 2 === 0 ? columnsNumber : columnsNumber + 1;
-	}
+        // plus 2 extra block than max word length
+        columnsNumber += 2;
+        columnsNumber = config.columnsMax < columnsNumber ? config.columnsMax : columnsNumber;
+        return columnsNumber % 2 === 0 ? columnsNumber : columnsNumber + 1;
+    }
 
 
-	/**
+    /**
      * Check if could find a success word
      * @param {Charblock} lastChar
      */
-	static checkWordSuccess(lastChar) {
-		const config = TetrisGame.config;
-		const initValues = TetrisGame.initValues;
+    static checkWordSuccess(lastChar) {
+        const initValues = TetrisGame.initValues;
 
-		const callBack = successObject => {
+        initValues.paused = true;
 
-		    initValues.paused = true;
+        TetrisGame.matrix.checkWords(
+            initValues.choosedWords,
+            lastChar,
+            TetrisGame.config.directionWordChecks,
+            TetrisGame.checkWordsResult
+        );
+    }
 
-			if (!successObject) {
-				// no words has been found, resume the game
-				initValues.paused = false;
-				return;
-			} else if (lastChar.type === 'bomb') {
+    static checkWordsResult(lastChar,successObject) {
+        const config = TetrisGame.config;
+        const initValues = TetrisGame.initValues;
 
-			    Helper.log('BOOOOOOM');
+        initValues.paused = true;
 
-				Sound.playByKey('explode', config.playEventsSound);
-				if(TetrisGame.config.do_shake){
-                    Helper.Shake(this.playBoard, lastChar.typeSize*16);
-                }
+        if (!successObject) {
+            // no words has been found, resume the game
+            TetrisGame.checkSuccessWordStack();
+            return;
+        } else if (lastChar.type === 'bomb') {
+            //todo: where is lastChar :|
+            Helper.log('BOOOOOOM');
+            TetrisGame.animateExplode(successObject,lastChar);
+            return;
+        }
 
-                if(TetrisGame.config.do_vibrate){
-                    Helper.vibrate(TetrisGame.config.vibrationDuration);
-                }
+        const word = initValues.choosedWords[successObject.wordId].word;
 
+        // Update score
+        TetrisGame._updateScoreAndStats(word, successObject.direction);
+        TetrisGame.removeWordAndCharacters(word,successObject.wordId);
 
+        // animate found word
+        TetrisGame.showFoundWordAnimated(word, successObject.wordCharacterPositions);
 
+        TetrisGame.animateFoundedCharacters(successObject.wordCharacterPositions,config.successAnimationIterationDuration);
 
-			    // Explode the characters
-				successObject.explodedChars.map((item) => {
-					Charblock.fallNodeAnimate(item.y, item.x, null, null);
-				});
+        TetrisGame.initValues.falledStack.merge(successObject.fallingCharacters);
 
-
-				// Fall characters at top of exploded chars
-				Timeout.request(() => {
-					// Update score after other blocks falled down
-					this._updateScoreAndStats(successObject.explodedChars, 'exploded');
-
-					successObject.fallingCharacters.map((item, index) => {
-						Timeout.request(
-							() => {
-								Charblock.fallNodeAnimate(item.oldY, item.oldX, item.newY, item.newX);
-							}, index * config.successAnimationIterationDuration
-						);
-					});
-				}, successObject.explodedChars.length * config.successAnimationIterationDuration);
-
-				Timeout.request(
-				    () => {
-                        initValues.paused = false;
-                    }, config.successAnimationIterationDuration + 500 + (successObject.fallingCharacters.length * 250)
+        Timeout.request(
+            () => {
+                TetrisGame.animateFallCharacters(
+                    successObject.fallingCharacters, // MapStack of falling characters
+                    config.successAnimationIterationDuration, //Delay between falling
+                    TetrisGame.checkSuccessWordStack
                 );
-
-				return;
-			}
-
-
-			const word = initValues.choosedWords[successObject.wordId].word;
-
-			// Remove word from choosed words
-			initValues.choosedWords.splice(successObject.wordId, 1);
+            },
+            //(successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
+            successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
+        );
+    }
 
 
 
-			// animate found word
-			TetrisGame.showFoundWordAnimated(word, successObject);
+
+    static checkSuccessWordStack(){
+        const initValues = TetrisGame.initValues;
+        const config = TetrisGame.config;
+        let falledCharacter = TetrisGame.initValues.falledStack.popItem();
+        if(falledCharacter === false){
+            //Stack is empty, resume the game
+            console.log(`Stack is empty`);
+            initValues.paused=false;
+            return;
+        }
+        let x = falledCharacter.x;
+        let y = falledCharacter.newY;
+        // console.log(`checking y: ${y}  x: ${x}`);
+        if(TetrisGame.matrix.isNotEmpty(y,x))
+            TetrisGame.matrix.checkWords(
+                initValues.choosedWords,
+                {row:y,column:x,char:TetrisGame.matrix.getCharacter(y,x)},
+                config.directionWordChecks,
+                TetrisGame.checkWordsResult);
+        else{
+            TetrisGame.checkSuccessWordStack();
+        }
+    }
 
 
-			// Update score
-			this._updateScoreAndStats(word, successObject.direction);
-
-			// Remove characters from choosed characters
-			word.split('').map(char => {
-				const index = initValues.choosedWordsUsedChars.indexOf(char);
-				if (index!==-1) {
-					initValues.choosedWordsUsedChars.splice(index, 1);
-				}
-			});
-
-			// Animate FadingOut founded characters
-			successObject.wordCharacterPositions.map((item, index) => {
-				Timeout.request(
-					() => {
-						Charblock.fallNodeAnimate(item.y, item.x, null, null);
-					}, index * config.successAnimationIterationDuration
-				);
-			});
-
-
-            Sound.playByKey('foundWord', config.playEventsSound);
-
-
-			Timeout.request(
-				() => {
-					successObject.fallingCharacters.map((item, index) => {
-						Timeout.request(
-							() => {
-								Charblock.fallNodeAnimate(item.oldY, item.oldX, item.newY, item.newX);
-							}, index * config.successAnimationIterationDuration
-						);
-					});
-
-					Timeout.request(
-						() => {
-							// Resume game after all animations has been finished
-							initValues.paused = false;
-						}, (successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
-					);
-				}, successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
-			);
-		};
-
-		initValues.paused = true;
-
-
-		TetrisGame.matrix.checkWords(
-			initValues.choosedWords,
-			lastChar,
-			this.config.directionWordChecks,
-			callBack
-		);
-	}
-
-
-	/**
+    /**
      * Shows found word with animation
      * @param word
      * @param successObject
      */
-	static showFoundWordAnimated(word, successObject) {
+    static showFoundWordAnimated(word, wordCharacterPositions) {
 
-		let wordFound = successObject.wordCharacterPositions,
-			charLength = wordFound.length - 1,
-			rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,
-			columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
-			hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
-			foundWordDisplayEl = Helper._('.foundWordAnimation', TetrisGame.playBoard),
-			fixerDistance = (charLength % 2 === 1) ? 0 : (hidedWord.width/4) * -1;
-
-
-		foundWordDisplayEl.innerHTML = word;
-		foundWordDisplayEl.style.display = 'block';
-		foundWordDisplayEl.style.left = `${hidedWord.left - fixerDistance}px`;
-		foundWordDisplayEl.style.top = `${hidedWord.top - 10}px`;
-
-		if (this.config.useAnimationFlag) {
-			foundWordDisplayEl.classList.add('animatedOneSecond', 'jackInTheBox');
-		} else {
-			foundWordDisplayEl.classList.remove('animatedOneSecond', 'jackInTheBox');
-		}
-
-		Timeout.request(
-			() => {
-				foundWordDisplayEl.style.display = 'none';
-			}, 1200
-		);
-	}
+        let wordFound = wordCharacterPositions,
+            charLength = wordFound.length - 1,
+            rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,
+            columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
+            hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
+            foundWordDisplayEl = Helper._('.foundWordAnimation', TetrisGame.playBoard),
+            fixerDistance = (charLength % 2 === 1) ? 0 : (hidedWord.width/4) * -1;
 
 
-	/**
+        foundWordDisplayEl.innerHTML = word;
+        foundWordDisplayEl.style.display = 'block';
+        foundWordDisplayEl.style.left = `${hidedWord.left - fixerDistance}px`;
+        foundWordDisplayEl.style.top = `${hidedWord.top - 10}px`;
+
+        if (this.config.useAnimationFlag) {
+            foundWordDisplayEl.classList.add('animatedOneSecond', 'jackInTheBox');
+        } else {
+            foundWordDisplayEl.classList.remove('animatedOneSecond', 'jackInTheBox');
+        }
+
+        Timeout.request(
+            () => {
+                foundWordDisplayEl.style.display = 'none';
+            }, 1200
+        );
+    }
+
+
+    /**
      * Get score of user from Storage
      * @returns {number}
      */
-	static _getScore() {
-		let score;
-		if (this.config.do_encryption) {
-			score = Storage.getEncrypted('score', this.initValues.encryptionKey);
-		} else {
-			score = Storage.getInt('score', 0);
-		}
-		return score;
-	}
+    static _getScore() {
+        let score;
+        if (this.config.do_encryption) {
+            score = Storage.getEncrypted('score', this.initValues.encryptionKey);
+        } else {
+            score = Storage.getInt('score', 0);
+        }
+        return score;
+    }
 
 
-	/**
+    /**
      * Updates stats of game
      * @param word
      * @param direction
      */
-	static _updateStats(word, direction) {
-		// Update stats related to word
+    static _updateStats(word, direction) {
+        // Update stats related to word
 
-		console.log(this.initValues.wordsLengthTotal);
-		if (direction!=='exploded') {
-			this.initValues.wordsFounded++;
-			this.initValues.wordsLengthTotal += word.length;
-		}
-		console.log(this.initValues.wordsLengthTotal);
-		this.initValues.wordDirectionCounter[direction]++;
-		// console.log(this.initValues.wordsLengthTotal);
+        console.log(this.initValues.wordsLengthTotal);
+        if (direction!=='exploded') {
+            this.initValues.wordsFounded++;
+            this.initValues.wordsLengthTotal += word.length;
+        }
+        console.log(this.initValues.wordsLengthTotal);
+        this.initValues.wordDirectionCounter[direction]++;
+        // console.log(this.initValues.wordsLengthTotal);
 
-		console.log(this.initValues.wordsFounded);
-		Helper._('.wordCounterHolder').innerHTML = Math.round(this.initValues.wordsFounded);
-	}
+        console.log(this.initValues.wordsFounded);
+        Helper._('.wordCounterHolder').innerHTML = Math.round(this.initValues.wordsFounded);
+    }
 
 
-	/**
+    /**
      * Update game score in UI and Data
      * @param word
      * @private
      */
-	static _updateScore(word) {
-		// Get encrypted value of Score wtih our random generated key
-		let score = TetrisGame._getScore();
+    static _updateScore(word) {
+        // Get encrypted value of Score wtih our random generated key
+        let score = TetrisGame._getScore();
 
-		// Increase value by scoreCalculator from config
-		score += this.config.scoreCalculator(word);
+        // Increase value by scoreCalculator from config
+        score += this.config.scoreCalculator(word);
 
-		// Update our fake score variable to let hacker think they are dealing with real variable
-		this.initValues.score = score;
+        // Update our fake score variable to let hacker think they are dealing with real variable
+        this.initValues.score = score;
 
-		// Update & encrypt score in Storage
-		if (this.config.do_encryption) {
-			Storage.setEncrypted('score', score, this.initValues.encryptionKey);
-		} else {
-			Storage.set('score', score);
-		}
-		Helper._('.scoreHolder').innerHTML = Math.round(score);
-	}
+        // Update & encrypt score in Storage
+        if (this.config.do_encryption) {
+            Storage.setEncrypted('score', score, this.initValues.encryptionKey);
+        } else {
+            Storage.set('score', score);
+        }
+        Helper._('.scoreHolder').innerHTML = Math.round(score);
+    }
 
-	/**
+    /**
      * Update score and set it to panel
      * @param word
      * @param direction
      */
-	static _updateScoreAndStats(word, direction) {
-		this._updateStats(word, direction);
-		this._updateScore(word);
-	}
+    static _updateScoreAndStats(word, direction) {
+        this._updateStats(word, direction);
+        this._updateScore(word);
+    }
 
 
-	static _addCurrentWord(id) {
-	    const parent = Helper._('.currentWorkingWords');
+    static _addCurrentWord(id) {
+        const parent = Helper._('.currentWorkingWords');
         let displayFiveWords = window.TetrisWords.sort(() => {return 0.5 - Math.random()} ).slice(0,3);
         if(typeof id !== "undefined") {
             displayFiveWords.push(this.initValues.choosedWords[id]);
@@ -523,6 +483,82 @@ export default class TetrisGame {
             parent.appendChild(currentWord);
         });
 
-	}
+    }
+
+    static animateFoundedCharacters(wordCharacterPositions, successAnimationIterationDuration) {
+        const config = TetrisGame.config;
+        Sound.playByKey('foundWord', config.playEventsSound);
+
+        // Animate FadingOut founded characters
+        wordCharacterPositions.map((item, index) => {
+            Timeout.request(
+                () => {
+                    Charblock.fallNodeAnimate(item.y, item.x, null, null);
+                }, index * successAnimationIterationDuration
+            );
+        });
+    }
+
+    static animateFallCharacters(fallingCharacters, successAnimationIterationDuration, after) {
+
+        let index = 0;
+        for (let [key,value] of fallingCharacters.entries()) {
+            for(let item of value){
+                Timeout.request(
+                    () => {
+                        Charblock.fallNodeAnimate(item.oldY, item.x, item.newY, item.x);
+                    }, (index++) * successAnimationIterationDuration
+                );
+            }
+        }
+
+        if(Helper.isFunction(after)){
+            Timeout.request(after, successAnimationIterationDuration + 500 + (index * 250));
+        }
+    }
+
+    static animateExplode(successObject, lastChar) {
+        const config = TetrisGame.config;
+        Sound.playByKey('explode', config.playEventsSound);
+
+        if(TetrisGame.config.do_shake){
+            Helper.Shake(TetrisGame.playBoard, lastChar.typeSize*16);
+        }
+        if(TetrisGame.config.do_vibrate){
+            Helper.vibrate(TetrisGame.config.vibrationDuration);
+        }
+
+        // Explode the characters
+        successObject.explodedChars.map((item) => {
+            Charblock.fallNodeAnimate(item.y, item.x, null, null);
+        });
+
+        // Update score after other blocks falled down
+        TetrisGame._updateScoreAndStats(successObject.explodedChars, 'exploded');
+
+
+        TetrisGame.initValues.falledStack.merge(successObject.fallingCharacters);
+        // Fall characters at top of exploded chars
+        TetrisGame.animateFallCharacters(
+            successObject.fallingCharacters,
+            config.successAnimationIterationDuration,
+            () => {
+                TetrisGame.checkSuccessWordStack();
+            }
+        );
+    }
+
+    static removeWordAndCharacters(word, wordId) {
+        // Remove word from choosed words
+        TetrisGame.initValues.choosedWords.splice(wordId, 1);
+
+        // Remove characters from choosed characters
+        word.split('').map(char => {
+            const index = TetrisGame.initValues.choosedWordsUsedChars.indexOf(char);
+            if (index!==-1) {
+                TetrisGame.initValues.choosedWordsUsedChars.splice(index, 1);
+            }
+        });
+    }
 
 }

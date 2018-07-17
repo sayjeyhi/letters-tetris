@@ -3,7 +3,7 @@
  */
 
 import Helper from './Helper';
-import EasyMap from "./EasyMap";
+import MapStack from "./MapStack";
 
 /**
  * This class will hold values of characters, find successful created words, delete them and etc
@@ -87,6 +87,16 @@ export default class Matrix {
 		return this.matrix[y][x] === ' ';
 	}
 
+    /**
+     * Gets a character at position
+     * @param y {Number} - Row ID of character
+     * @param x {Number} - Column ID of character
+     * @returns {String}
+     */
+	getCharacter(y,x){
+	    return this.matrix[y][x];
+    }
+
 	/**
      * Checks if character is Empty
      * @param y {Number} - Row ID of character
@@ -106,6 +116,7 @@ export default class Matrix {
      * @param {Function} successCallback - Returns founded characters, Falling characters and
      */
 	checkWords(words, lastChar, checkType, successCallback) {
+	    this.lastChar = lastChar;
 		let rowId = lastChar.row,
 			colId = lastChar.column,
 			char = lastChar.char;
@@ -171,7 +182,7 @@ export default class Matrix {
 		}
 		if (!foundHappened) {
 			// No word has been found, call the callback, without param
-			successCallback();
+			successCallback(this.lastChar);
 		}
 	}
 
@@ -259,7 +270,7 @@ export default class Matrix {
 		const callbackObject = {
 			wordId,
 			wordCharacterPositions: [], // Array of {x,y}
-			fallingCharacters: new EasyMap(), // Array of {oldX,oldY,newX,newY}
+			fallingCharacters: new MapStack(), // Array of {oldX,oldY,newX,newY}
 			direction: Object.keys(checkType)[0]
 		};
 
@@ -333,7 +344,7 @@ export default class Matrix {
 			}
 		}
 
-		successCallBack(callbackObject);
+		successCallBack(this.lastChar, callbackObject);
 	}
 
 
@@ -347,7 +358,7 @@ export default class Matrix {
 	_explode(rowID, colID, power, successCallBack) {
 		const callbackObject = {
 			explodedChars: [{ y: rowID, x: colID }],
-			fallingCharacters: new EasyMap()
+			fallingCharacters: new MapStack()
 		};
 
 		for (let startX = -power, xPos=colID+startX; startX <= power && xPos < this.width; startX++, xPos++) {
@@ -384,6 +395,6 @@ export default class Matrix {
 		}
 
 
-		successCallBack(callbackObject);
+		successCallBack(this.lastChar, callbackObject);
 	}
 }
