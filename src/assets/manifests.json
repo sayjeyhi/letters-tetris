@@ -1,0 +1,20 @@
+{
+    "short_name": "Tetris",
+    "name": "Persian Tetris",
+    "icons": [
+        {
+            "src": "assets/img/gameIcon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },{
+            "src": "assets/img/gameIcon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "http://127.0.0.1:8185/assets/",
+    "scope": "http://127.0.0.1:8185/",
+    "background_color": "#3367D6",
+    "display": "standalone",
+    "theme_color": "#3367D6"
+}
