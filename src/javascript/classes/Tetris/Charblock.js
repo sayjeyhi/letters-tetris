@@ -269,11 +269,10 @@ export default class Charblock {
      * Generate charBlock movement
      *
      * @param keyCode
-     * @param position
      * @return {*}
      * @private
      */
-	_generateMove(keyCode, position) {
+	_generateMove(keyCode) {
 		let moveTo;
 		const row = this.row;
 		const column = this.column;
@@ -283,16 +282,16 @@ export default class Charblock {
 				moveTo = {
 					row,
 					column: column + 1,
-					animateOutClass: (lang.rtl ? 'fadeOutLeft' : 'fadeOutRight'),
-					animateInClass: (lang.rtl ? 'fadeInRight' : 'fadeInLeft')
+					animateOutClass: (window.lang.rtl ? 'fadeOutLeft' : 'fadeOutRight'),
+					animateInClass: (window.lang.rtl ? 'fadeInRight' : 'fadeInLeft')
 				};
 				break;
 			case TetrisGame.controlCodes.RIGHT: // right
 				moveTo = {
 					row,
 					column: column - 1,
-					animateOutClass: (lang.rtl ? 'fadeOutRight' : 'fadeOutLeft'),
-					animateInClass: (lang.rtl ? 'fadeInLeft' : 'fadeInRight')
+					animateOutClass: (window.lang.rtl ? 'fadeOutRight' : 'fadeOutLeft'),
+					animateInClass: (window.lang.rtl ? 'fadeInLeft' : 'fadeInRight')
 				};
 				break;
 			case TetrisGame.controlCodes.DOWN: // down

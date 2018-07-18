@@ -1,3 +1,9 @@
+/**
+ * @module WebAudio
+ */
+
+import Helper from 'Helper';
+
 export default class WebAudio {
 	constructor() {
 		try {

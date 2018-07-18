@@ -136,7 +136,7 @@ export default class TetrisGame {
 
 
 		// blob for timer
-		window.blobTiming = new Blob([
+		const blobTiming = new Blob([
 			Helper._('#workerTiming').textContent
 		], { type: 'text/javascript' });
 
@@ -147,7 +147,7 @@ export default class TetrisGame {
 			onStart() {
 				initValues.paused = false;
 			},
-			workerOnMessage(event) {
+			workerOnMessage() {
 				// Storage.set('seconds', event.data);
 			},
 			onPause() {
@@ -166,12 +166,12 @@ export default class TetrisGame {
 		// control key codes
 		// In LTR languages, Left and Right should be swapped
 		this.controlCodes = {
-			LEFT: (!lang.rtl) ? CONTROL_CODES.RIGHT : CONTROL_CODES.LEFT,
-			RIGHT: (!lang.rtl) ? CONTROL_CODES.LEFT : CONTROL_CODES.RIGHT,
-			DOWN: CONTROL_CODES.DOWN
+			LEFT: (!window.lang.rtl) ? window.CONTROL_CODES.RIGHT : window.CONTROL_CODES.LEFT,
+			RIGHT: (!window.lang.rtl) ? window.CONTROL_CODES.LEFT : window.CONTROL_CODES.RIGHT,
+			DOWN: window.CONTROL_CODES.DOWN
 		};
 
-		const ltrClass = (!lang.rtl) ? 'isLtr' : '';
+		const ltrClass = (!window.lang.rtl) ? 'isLtr' : '';
 
 
 		if (initValues.isFirstRun) {
@@ -189,21 +189,21 @@ export default class TetrisGame {
             <div class="gameHolder ${ltrClass}">
                 <div class="behindPlayBoard">
                     <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
-                    <div class="showUpComingLetter" title="${lang.nextLetter}:"></div>
+                    <div class="showUpComingLetter" title="${window.lang.nextLetter}:"></div>
                     <div class="gameControlButtons" >
-                        <div onclick="Gameplay.start();" class="startGame">${lang.startGame}</div>
-                        <div onclick="Gameplay.pause();" class="pauseGame" style="display: none">${lang.pauseGame}</div>
-                        <div onclick="Gameplay.resume();" class="resumeGame" style="display: none">${lang.resumeGame}</div>
-                        <div onclick="Gameplay.restart();" class="restartGame" style="display: none">${lang.restartGame}</div>
+                        <div onclick="Gameplay.start();" class="startGame">${window.lang.startGame}</div>
+                        <div onclick="Gameplay.pause();" class="pauseGame" style="display: none">${window.lang.pauseGame}</div>
+                        <div onclick="Gameplay.resume();" class="resumeGame" style="display: none">${window.lang.resumeGame}</div>
+                        <div onclick="Gameplay.restart();" class="restartGame" style="display: none">${window.lang.restartGame}</div>
                     </div>
                    <div class="courseArea">
-                       <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${lang.settings}</div>
-                       <div ><i class="linearicon linearicon-bag-pound"></i> ${lang.score} : <span class="scoreHolder"> 0 </span> &nbsp;|&nbsp; <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="linearicon linearicon-shovel"></i> ${lang.records}</span> </div>
-                       <div ><i class="linearicon linearicon-mustache-glasses"></i> ${lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
-                       <div ><i class="linearicon linearicon-clock"></i> ${lang.spentTime} : <span class="timerDisplay">0</span></div>
+                       <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${window.lang.settings}</div>
+                       <div ><i class="linearicon linearicon-bag-pound"></i> ${window.lang.score} : <span class="scoreHolder"> 0 </span> &nbsp;|&nbsp; <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="linearicon linearicon-shovel"></i> ${window.lang.records}</span> </div>
+                       <div ><i class="linearicon linearicon-mustache-glasses"></i> ${window.lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
+                       <div ><i class="linearicon linearicon-clock"></i> ${window.lang.spentTime} : <span class="timerDisplay">0</span></div>
                    </div>
                </div>
-               <div class="playBoard"><span class="emptyPlayBoard">${lang.clickStartGame}</span></div>
+               <div class="playBoard"><span class="emptyPlayBoard">${window.lang.clickStartGame}</span></div>
             </div>
             
             <!--Lazy load bomb Gif-->
@@ -211,7 +211,7 @@ export default class TetrisGame {
             
             <footer class="page-footer">
                 <div class="container">
-                    <i class="linearicon linearicon-brain"></i> ${lang.copyRight}
+                    <i class="linearicon linearicon-brain"></i> ${window.lang.copyRight}
                 </div>
             </footer>
         `;
@@ -384,7 +384,7 @@ export default class TetrisGame {
      * @param wordCharacterPositions
      */
 	static showFoundWordAnimated(word, wordCharacterPositions) {
-		let wordFound = wordCharacterPositions,
+		const wordFound = wordCharacterPositions,
 			charLength = wordFound.length - 1,
 			rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,
 			columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
@@ -465,7 +465,7 @@ export default class TetrisGame {
      */
 	static animateFallCharacters(fallingCharacters, successAnimationIterationDuration, after) {
 		let index = 0;
-		for (const [key, value] of fallingCharacters.entries()) {
+		for (const [_, value] of fallingCharacters.entries()) {
 			for (const item of value) {
 				Timeout.request(
 					() => {

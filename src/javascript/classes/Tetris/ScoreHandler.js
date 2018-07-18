@@ -25,7 +25,7 @@ export default class ScoreHandler {
 		const config = TetrisGame.config;
 		const submitScoreContent = `
             <div class="submitScore">
-                <input type="text" name="enterName" id="enterName" placeholder="${lang.enterName}" />
+                <input type="text" name="enterName" id="enterName" placeholder="${window.lang.enterName}" />
                 ${gamingInfo}
             </div>
         `;
@@ -35,7 +35,7 @@ export default class ScoreHandler {
 			animate: config.useAnimationFlag,
 			dark: (config.level === 3),
 			type: 'primary',
-			header: lang.submitScore,
+			header: window.lang.submitScore,
 			content: submitScoreContent,
 			onShow: () => {
 			    // focus on name input
@@ -43,7 +43,7 @@ export default class ScoreHandler {
 			},
 			buttons: [
 				{
-					text: lang.saveScore,
+					text: window.lang.saveScore,
 					isOk: true,
 					onclick() {
 						submitScore.destroy();
@@ -54,7 +54,7 @@ export default class ScoreHandler {
 						});
 					}
 				}, {
-					text: lang.restartGame,
+					text: window.lang.restartGame,
 					isOk: true,
 					onclick() {
 						submitScore.destroy();
@@ -62,7 +62,7 @@ export default class ScoreHandler {
 					}
 				}
 			]
-		}, lang.rtl);
+		}, window.lang.rtl);
 
 		Timeout.request(
 			() => {
@@ -89,7 +89,7 @@ export default class ScoreHandler {
             </div>`;
 			});
 		} else {
-			content += `<div class="scoreRow">${lang.noSubmittedScore}</div>`;
+			content += `<div class="scoreRow">${window.lang.noSubmittedScore}</div>`;
 		}
 		content += '</div>';
 
@@ -98,18 +98,18 @@ export default class ScoreHandler {
 			animate: config.useAnimationFlag,
 			dark: (config.level === 3),
 			type: 'info',
-			header: lang.last10Record,
+			header: window.lang.last10Record,
 			content,
 			buttons: [
 				{
-					text: lang.modalOkButton,
+					text: window.lang.modalOkButton,
 					isOk: true,
 					onclick() {
 						submitScore.destroy();
 					}
 				}
 			]
-		}, lang.rtl);
+		}, window.lang.rtl);
 		submitScore.show();
 	}
 
@@ -137,9 +137,9 @@ export default class ScoreHandler {
 					() => { submitScoreResult.destroy(); }, 2000
 				);
 			},
-			header: lang.saveOperation,
-			content: lang.saveOperationDone
-		}, lang.rtl);
+			header: window.lang.saveOperation,
+			content: window.lang.saveOperationDone
+		}, window.lang.rtl);
 
 		submitScoreResult.show();
 	}

@@ -57,23 +57,23 @@ export default class Timer {
 			onPause: () => { },
 			onResume: () => { },
 			blobTiming: '',
-			workerOnMessage: event => { },
+			workerOnMessage: () => { },
 			beautifySecond: s => {
 				if (s > 3600) {
 					// 1 hour and 34 min
-					return (Math.ceil(s / 3600) + lang.hour + lang.and + s % 3600 + lang.min);
+					return (Math.ceil(s / 3600) + window.lang.hour + window.lang.and + (s % 3600) + window.lang.min);
 				} else if (s > 60 && s <= 3600) {
 					// 4 min and 3 s
-					return (Math.ceil(s / 60) + lang.minute + lang.and + s % 60 + lang.second);
+					return (Math.ceil(s / 60) + window.lang.minute + window.lang.and + (s % 60) + window.lang.second);
 				} else {
-					return (s + lang.second);
+					return (s + window.lang.second);
 				}
 			}
 		};
 
 
 		// save current time
-		this.currentTime = `0 ${lang.second}`;
+		this.currentTime = `0 ${window.lang.second}`;
 
 		// Extend config
 		this.config = Object.assign(defaultConfig, config);
@@ -100,7 +100,7 @@ export default class Timer {
 			};
 			this.config.onStart();
 		} else {
-			timerDisplayEl.innerHTML = lang.webWorkerNotSupported;
+			timerDisplayEl.innerHTML = window.lang.webWorkerNotSupported;
 		}
 	}
 

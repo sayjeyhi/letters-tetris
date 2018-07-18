@@ -4,7 +4,6 @@
 
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
-import Sound from '../Sound';
 
 
 /**
@@ -26,7 +25,7 @@ export default class WordsHelper {
 		}
 
 		// normalize word chars
-		if (lang.name === 'ja') {
+		if (window.lang.name === 'ja') {
 			value.word = value.word.replace(/[\x00-\x7F]/g, '');
 		} else {
 			value.word = value.word.replace(/[^A-Za-zآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]/g, '');
@@ -67,8 +66,8 @@ export default class WordsHelper {
      * Choose a char of choosed words
      */
 	static chooseChar() {
-		let choosedChar,
-			initValues = TetrisGame.initValues;
+		let choosedChar;
+		const initValues = TetrisGame.initValues;
 
 
 		if (TetrisGame.config.level === 1) {

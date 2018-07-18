@@ -164,7 +164,8 @@ export default class Gameplay {
                 <div class="timePart">${window.lang.spentTimeModal} :‌ <span class="value">${gamingTime}</span></div>
             </div>`;
 
-		let scoreModal, modalHeader, modalContent, modalType;
+
+		let modalHeader, modalContent, modalType;
 		const modalButtons = [
 			{
 				text: window.lang.saveScore,
@@ -212,7 +213,7 @@ export default class Gameplay {
 			});
 		}
 
-		scoreModal = new Modal(
+		const scoreModal = new Modal(
 			{
 				animate: config.useAnimationFlag,
 				dark: config.level === 3,
