@@ -16,74 +16,74 @@ import ScoreHandler from '../classes/Tetris/ScoreHandler';
  * @class ArshLoader - makes animation of page loading on game load
  */
 class ArshLoader {
-	/**
+    /**
      * Set main properties of ArshLoader
      * @return {ArshLoader}
      */
-	static setProperties() {
-		// make animation frame available
-		Timeout.addAnimeFrame();
+    static setProperties() {
+        // make animation frame available
+        Timeout.addAnimeFrame();
 
-		/**
+        /**
          * Animate loading flag
          */
-		this.animationLoading = false;
+        this.animationLoading = false;
 
-		/**
+        /**
          * Is loaded scripts
          */
-		this.isLoaded = false;
+        this.isLoaded = false;
 
-		/**
+        /**
          * Timing properties for vivus
          */
-		this.timingProps = {
-			type: 'delayed',
-			duration: 150,
-			start: 'autostart'
-		};
+        this.timingProps = {
+            type: 'delayed',
+            duration: 150,
+            start: 'autostart'
+        };
 
-		/**
+        /**
          * Get game settings
          */
-		this._settings = this._getSettings();
+        this._settings = this._getSettings();
 
-		// could we use animation
-		this.useAnimation = this._settings.useAnimation === 1;
-		this.soundPlay = this._settings.soundPlay === 1;
-	}
+        // could we use animation
+        this.useAnimation = this._settings.useAnimation === 1;
+        this.soundPlay = this._settings.soundPlay === 1;
+    }
 
-	/**
+    /**
      * Get settings
      * @return {any}
      * @private
      */
-	static _getSettings() {
-		return Storage.getObject('settings', {
-			useAnimation: 1,
-			soundPlay: 1
-		});
-	}
+    static _getSettings() {
+        return Storage.getObject('settings', {
+            useAnimation: 1,
+            soundPlay: 1
+        });
+    }
 
-	/**
+    /**
      * Called after loading
      */
-	static afterLoad() {
-		if (!ArshLoader.isLoaded) {
-			const loadingTextElement = Helper._('.loadingText');
-			Helper._('.arshLoadingAnimation', loadingTextElement).className
+    static afterLoad() {
+        if (!ArshLoader.isLoaded) {
+            const loadingTextElement = Helper._('.loadingText');
+            Helper._('.arshLoadingAnimation', loadingTextElement).className
                 += ' fallDownExpert fadeOut';
 
 
-			// change color of logo loop
-			setInterval(() => { ArshLoader._setRandomColor(); }, 2000);
+            // change color of logo loop
+            setInterval(() => { ArshLoader._setRandomColor(); }, 2000);
 
-			Timeout.request(() => {
-				loadingTextElement.innerHTML = '';
+            Timeout.request(() => {
+                loadingTextElement.innerHTML = '';
 
-				const chooseWordsKind = document.createElement('div');
+                const chooseWordsKind = document.createElement('div');
 
-				chooseWordsKind.innerHTML
+                chooseWordsKind.innerHTML
                     = '<div data-choosedWordsKind=\'animals-حیوانات-動物\' class=\'wordsKind\'>'
                     + '<div class="persianTitle">حیوانات</div>'
                     + '<div class="englishTitle">Animals</div>'
@@ -91,60 +91,59 @@ class ArshLoader {
                     + '<i class="linearicon linearicon-chevrons-expand-vertical"></i>'
                     + '</div>';
 
-				Helper._('.wordsKind', chooseWordsKind).onclick = function(ev) {
-					ev.stopPropagation();
-					const openedStatus = chooseWordsKind.dataset.opened || 'no';
-					const newDisplay
+                Helper._('.wordsKind', chooseWordsKind).onclick = function(ev) {
+                    ev.stopPropagation();
+                    const openedStatus = chooseWordsKind.dataset.opened || 'no';
+                    const newDisplay
                         = openedStatus === 'yes' ? 'none' : 'inline-block';
-					chooseWordsKind.dataset.opened
+                    chooseWordsKind.dataset.opened
                         = openedStatus === 'yes' ? 'no' : 'yes';
-					Helper._(
-						'.chooseWordKindTooltip'
-					).style.display = newDisplay;
-				};
+                    Helper._(
+                        '.chooseWordKindTooltip'
+                    ).style.display = newDisplay;
+                };
 
-				window.onclick = function(ev) {
-					if (!ev.target.matches('.wordsKind')) {
-						chooseWordsKind.dataset.opened = 'no';
-						if (Helper._('.chooseWordKindTooltip'))
-							Helper._('.chooseWordKindTooltip').style.display = 'none';
-					}
-				};
+                window.onclick = function(ev) {
+                    if (!ev.target.matches('.wordsKind')) {
+                        chooseWordsKind.dataset.opened = 'no';
+                        if (Helper._('.chooseWordKindTooltip')) Helper._('.chooseWordKindTooltip').style.display = 'none';
+                    }
+                };
 
-				const btnFa = document.createElement('div');
-				btnFa.onclick = function() {
-					const wordsType
+                const btnFa = document.createElement('div');
+                btnFa.onclick = function() {
+                    const wordsType
                         = Helper._('.wordsKind').dataset.choosedwordskind
                         || 'animales-حیوانات-動物';
-					ArshLoader.startGame('fa', wordsType);
-				};
-				btnFa.className = 'btnEnterProject animatedOneSecond bounceIn';
-				btnFa.innerHTML
+                    ArshLoader.startGame('fa', wordsType);
+                };
+                btnFa.className = 'btnEnterProject animatedOneSecond bounceIn';
+                btnFa.innerHTML
                     = '<i class=\'linearicon linearicon-gamepad\'></i> ورود به بازی';
 
-				const btnEn = document.createElement('div');
-				btnEn.onclick = function() {
-					const wordsType
+                const btnEn = document.createElement('div');
+                btnEn.onclick = function() {
+                    const wordsType
                         = Helper._('.wordsKind').dataset.choosedwordskind
                         || 'animales-حیوانات-動物';
-					ArshLoader.startGame('en', wordsType);
-				};
-				btnEn.className = 'btnEnterProject animatedOneSecond bounceIn ltr';
-				btnEn.innerHTML = '<i class=\'linearicon linearicon-gamepad\'></i> Enter Game';
+                    ArshLoader.startGame('en', wordsType);
+                };
+                btnEn.className = 'btnEnterProject animatedOneSecond bounceIn ltr';
+                btnEn.innerHTML = '<i class=\'linearicon linearicon-gamepad\'></i> Enter Game';
 
-				const btnJa = document.createElement('div');
-				btnJa.onclick = function() {
-					const wordsType
+                const btnJa = document.createElement('div');
+                btnJa.onclick = function() {
+                    const wordsType
                         = Helper._('.wordsKind').dataset.choosedwordskind
                         || 'animales-حیوانات-動物';
-					ArshLoader.startGame('ja', wordsType);
-				};
-				btnJa.className = 'btnEnterProject animated bounceIn ltr';
-				btnJa.innerHTML = '<i class=\'linearicon linearicon-gamepad\'></i>ゲームに入る';
+                    ArshLoader.startGame('ja', wordsType);
+                };
+                btnJa.className = 'btnEnterProject animated bounceIn ltr';
+                btnJa.innerHTML = '<i class=\'linearicon linearicon-gamepad\'></i>ゲームに入る';
 
-				const workKindChooser = document.createElement('div');
-				workKindChooser.className = 'chooseWordKindTooltip';
-				workKindChooser.innerHTML
+                const workKindChooser = document.createElement('div');
+                workKindChooser.className = 'chooseWordKindTooltip';
+                workKindChooser.innerHTML
                     = '<ul>'
                     + '<li onclick="arshLoader.chooseWordKind(\'animals\' , this);" >'
                     + '<div class="persianTitle">حیوانات</div>'
@@ -172,138 +171,138 @@ class ArshLoader {
                     + '</li>'
                     + '</ul>';
 
-				loadingTextElement.appendChild(chooseWordsKind);
-				loadingTextElement.appendChild(btnFa);
-				loadingTextElement.appendChild(btnEn);
-				loadingTextElement.appendChild(btnJa);
-				loadingTextElement.appendChild(workKindChooser);
+                loadingTextElement.appendChild(chooseWordsKind);
+                loadingTextElement.appendChild(btnFa);
+                loadingTextElement.appendChild(btnEn);
+                loadingTextElement.appendChild(btnJa);
+                loadingTextElement.appendChild(workKindChooser);
 
-				ArshLoader.isLoaded = true;
-			}, 1000);
-		}
-	}
+                ArshLoader.isLoaded = true;
+            }, 1000);
+        }
+    }
 
-	/**
+    /**
      * Choose one of defined word kinds
      * @param name
      * @param el
      */
-	static chooseWordKind(name, el) {
-		const choosedPersianTitle = Helper._('.persianTitle', el).innerHTML;
-		const choosedEnglishTitle = Helper._('.englishTitle', el).innerHTML;
-		const choosedJapaneseTitle = Helper._('.japaneseTitle', el).innerHTML;
-		const chooserEl = Helper._('.wordsKind');
-		el.parentNode.parentNode.style.display = 'none';
+    static chooseWordKind(name, el) {
+        const choosedPersianTitle = Helper._('.persianTitle', el).innerHTML;
+        const choosedEnglishTitle = Helper._('.englishTitle', el).innerHTML;
+        const choosedJapaneseTitle = Helper._('.japaneseTitle', el).innerHTML;
+        const chooserEl = Helper._('.wordsKind');
+        el.parentNode.parentNode.style.display = 'none';
 
-		Helper._('.persianTitle', chooserEl).innerHTML = choosedPersianTitle;
-		Helper._('.englishTitle', chooserEl).innerHTML = choosedEnglishTitle;
-		Helper._('.japaneseTitle', chooserEl).innerHTML = choosedJapaneseTitle;
-		chooserEl.dataset.choosedwordskind = `${name.toString()}-${choosedPersianTitle.toString()}-${choosedJapaneseTitle.toString()}`;
-		// this.chooseWordKind.dataset.opened = "no";
-		Helper._('.wordsKind').parentElement.dataset.opened = 'no';
-	}
+        Helper._('.persianTitle', chooserEl).innerHTML = choosedPersianTitle;
+        Helper._('.englishTitle', chooserEl).innerHTML = choosedEnglishTitle;
+        Helper._('.japaneseTitle', chooserEl).innerHTML = choosedJapaneseTitle;
+        chooserEl.dataset.choosedwordskind = `${name.toString()}-${choosedPersianTitle.toString()}-${choosedJapaneseTitle.toString()}`;
+        // this.chooseWordKind.dataset.opened = "no";
+        Helper._('.wordsKind').parentElement.dataset.opened = 'no';
+    }
 
-	/**
+    /**
      * Set random color for our loader svg
      */
-	static _setRandomColor() {
-		const color = MaterialColor.getRandomColor();
-		const animateEl = Helper._('#jafarRezaeiAnimate');
-		if (animateEl) {
-			animateEl.style.color = color;
-			animateEl.style.fill = color;
-		}
-	}
+    static _setRandomColor() {
+        const color = MaterialColor.getRandomColor();
+        const animateEl = Helper._('#jafarRezaeiAnimate');
+        if (animateEl) {
+            animateEl.style.color = color;
+            animateEl.style.fill = color;
+        }
+    }
 
-	/**
+    /**
      * Start game when enter to game button clicked
      * @param lang
      * @param wordsType
      */
-	static startGame(lang, wordsType) {
-		wordsType = wordsType.split('-');
-		Helper.fetchJson(`assets/localization/lang.${lang}.json`)
-			.then(langFiles => {
-				window.lang = langFiles;
-				Helper.fetchJson(`assets/words/${lang}/${wordsType[0]}.json`)
-					.then(words => {
-						window.TetrisWords = words;
-						this.initGame(wordsType);
-					})
-					.catch(err => {
-						console.log(err);
-					});
-			})
-			.catch(err => {
-				console.log(err);
-			});
-	}
+    static startGame(lang, wordsType) {
+        wordsType = wordsType.split('-');
+        Helper.fetchJson(`assets/localization/lang.${lang}.json`)
+            .then(langFiles => {
+                window.lang = langFiles;
+                Helper.fetchJson(`assets/words/${lang}/${wordsType[0]}.json`)
+                    .then(words => {
+                        window.TetrisWords = words;
+                        this.initGame(wordsType);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
-	/**
+    /**
      * Initialize whole game
      * @param wordsType
      */
-	static initGame(wordsType) {
-		window.Gameplay = Gameplay;
-		window.Settings = Settings;
-		window.ScoreHandler = ScoreHandler;
-		window.ArshLoader = ArshLoader;
+    static initGame(wordsType) {
+        window.Gameplay = Gameplay;
+        window.Settings = Settings;
+        window.ScoreHandler = ScoreHandler;
+        window.ArshLoader = ArshLoader;
 
-		const tetrisGameConfig = {
-			rows: 10,
-			columnsMin: 6,
-			columnsMax: 16,
-			workingWordCount: 1,
-			charSpeed: 800, // 1 second - get division to level when making game harder
-			useLowercase: false,
-			simpleFallDownAnimateSpeed: 700,
-			mediumFallDownAnimateSpeed: 500,
-			expertFallDownAnimateSpeed: 200,
-			successAnimationIterationDuration: 100,
-			do_encryption: true, // Enables encryption when saving score
-			encryptionKeySize: 16, // Size of key Used in encryption
-			directionWordChecks: {
-				ltr: true, // check left to right
-				rtl: true, // check right to left
-				ttd: true, // check top top down
-				dtt: true // check down to top
-			},
-			scoreCalculator: word => {
-				return Math.pow(word.length, 1.3); // Larger words will have better score
-			},
+        const tetrisGameConfig = {
+            rows: 10,
+            columnsMin: 6,
+            columnsMax: 16,
+            workingWordCount: 1,
+            charSpeed: 800, // 1 second - get division to level when making game harder
+            useLowercase: false,
+            simpleFallDownAnimateSpeed: 700,
+            mediumFallDownAnimateSpeed: 500,
+            expertFallDownAnimateSpeed: 200,
+            successAnimationIterationDuration: 100,
+            do_encryption: true, // Enables encryption when saving score
+            encryptionKeySize: 16, // Size of key Used in encryption
+            directionWordChecks: {
+                ltr: true, // check left to right
+                rtl: true, // check right to left
+                ttd: true, // check top top down
+                dtt: true // check down to top
+            },
+            scoreCalculator: word => {
+                return Math.pow(word.length, 1.3); // Larger words will have better score
+            },
 
-			// user setting values
-			playBackgroundSound: true,
-			playEventsSound: true,
-			level: 1, // Up to 3 - if it is big it is hard to play
-			useAnimationFlag: true, // Make animate or not
-			showGrids: true, // Show grids flag
-			chooseedWordKind: {
-				persianTitle: wordsType[1],
-				englishTitle: wordsType[0],
-				japaneseTitle: wordsType[2]
-			}
-		};
+            // user setting values
+            playBackgroundSound: true,
+            playEventsSound: true,
+            level: 1, // Up to 3 - if it is big it is hard to play
+            useAnimationFlag: true, // Make animate or not
+            showGrids: true, // Show grids flag
+            chooseedWordKind: {
+                persianTitle: wordsType[1],
+                englishTitle: wordsType[0],
+                japaneseTitle: wordsType[2]
+            }
+        };
 
-		TetrisGame.init(tetrisGameConfig);
-		TetrisGame.build();
-	}
+        TetrisGame.init(tetrisGameConfig);
+        TetrisGame.build();
+    }
 
-	/**
+    /**
      * Build arsh loader when page is ready
      */
-	static build() {
-		window.arshLoader = ArshLoader;
+    static build() {
+        window.arshLoader = ArshLoader;
 
-		// register main fields of class
-		ArshLoader.setProperties();
+        // register main fields of class
+        ArshLoader.setProperties();
 
-		let content
+        let content
             = '    <div class="bloc">\n'
             + '        <div><img src="assets/img/fanavardLogo.png" alt="فن آورد" style="width:150px;height: auto"/></div>';
 
-		if (this.useAnimation) {
-			content
+        if (this.useAnimation) {
+            content
                 += '        <svg id="jafarRezaeiAnimate" viewBox="-17 -20 412.8504 64.80315" height="70.80315" width="412.8504" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width:400px;padding:50px 0 !important;height:auto">\n'
                 + '            <defs>\n'
                 + '                <filter id="dropshadow" height="50%">\n'
@@ -338,80 +337,80 @@ class ArshLoader {
                 + '       <div class="loadingText"><div class="arshLoadingAnimation center"><span></span></div></div>\n'
                 + '</div>';
 
-			Helper._('#container').innerHTML = content;
-			this._setRandomColor();
+            Helper._('#container').innerHTML = content;
+            this._setRandomColor();
 
-			const hi_jRun = new Vivus(
-				'jafarRezaeiAnimate',
-				{
-					type: 'oneByOne',
-					duration: 20,
-					start: 'autostart',
-					dashGap: 40,
-					forceRender: false
-				},
-				obj => {
-					Timeout.request(() => {
-						obj.el.classList.add('finished');
+            const hi_jRun = new Vivus(
+                'jafarRezaeiAnimate',
+                {
+                    type: 'oneByOne',
+                    duration: 20,
+                    start: 'autostart',
+                    dashGap: 40,
+                    forceRender: false
+                },
+                obj => {
+                    Timeout.request(() => {
+                        obj.el.classList.add('finished');
 
-						// load bundle of javascript pack here then do the job
-						ArshLoader.animationLoading = true;
-						ArshLoader.afterLoad();
-					}, 500);
-				}
-			);
+                        // load bundle of javascript pack here then do the job
+                        ArshLoader.animationLoading = true;
+                        ArshLoader.afterLoad();
+                    }, 500);
+                }
+            );
 
-			const animationHolder = document.getElementById('jafarRezaeiAnimate');
-			animationHolder.addEventListener('click', () => {
-				ArshLoader._setRandomColor();
-				animationHolder.classList.remove('finished');
-				hi_jRun.reset().play();
-			});
-		} else {
-			content
+            const animationHolder = document.getElementById('jafarRezaeiAnimate');
+            animationHolder.addEventListener('click', () => {
+                ArshLoader._setRandomColor();
+                animationHolder.classList.remove('finished');
+                hi_jRun.reset().play();
+            });
+        } else {
+            content
                 += '<div class="logoLoading">تیم برنامه نویسی عرش</div>'
                 + '<div class="loadingText"><div class="arshLoadingAnimation center"><span></span></div></div>\n'
                 + '</div>';
 
-			Helper._('#container').innerHTML = content;
+            Helper._('#container').innerHTML = content;
 
-			// load bundle of javascript pack here then do the job
-			ArshLoader.animationLoading = true;
-			ArshLoader.afterLoad();
-		}
+            // load bundle of javascript pack here then do the job
+            ArshLoader.animationLoading = true;
+            ArshLoader.afterLoad();
+        }
 
-		// play loading sound
-		Sound.playByKey('loading', this.soundPlay);
+        // play loading sound
+        Sound.playByKey('loading', this.soundPlay);
 
 
-		// register service worker
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker
-					.register('serviceWorker.js', { scope: '/' })
-					.then(
-						registration => {
-							// Registration was successful
-							console.log(
-								'ServiceWorker registration successful with scope: ',
-								registration.scope
-							);
-						},
-						err => {
-							// registration failed :(
-							console.log(
-								'ServiceWorker registration failed: ',
-								err
-							);
-						}
-					);
+        // register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker
+                    .register('serviceWorker.js', { scope: '/' })
+                    .then(
+                        registration => {
+                            // Registration was successful
+                            console.log(
+                                'ServiceWorker registration successful with scope: ',
+                                registration.scope
+                            );
+                        },
+                        err => {
+                            // registration failed :(
+                            console.log(
+                                'ServiceWorker registration failed: ',
+                                err
+                            );
+                        }
+                    );
 
-				navigator.serviceWorker.ready.then(() => {
-					console.log('Service Worker Ready');
-				});
-			});
-		}
-	}
+                navigator.serviceWorker.ready.then(() => {
+                    console.log('Service Worker Ready');
+                });
+            });
+        }
+    }
 }
 
 ArshLoader.build();
