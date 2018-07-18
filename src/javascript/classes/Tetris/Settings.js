@@ -138,7 +138,7 @@ export default class Settings {
 					TetrisGame.timer.resume();
 				}
 			}
-		}, window.rtl);
+		}, window.lang.rtl);
 		settingModal.show();
 
 

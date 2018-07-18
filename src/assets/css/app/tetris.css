@@ -436,6 +436,7 @@ svg :not(.doNotUnfill) {
     font-size: 12px;
     border-radius: 5px;
     line-height: 18px;
+	cursor: pointer;
 }
 .gameHolder .behindPlayBoard .gamingKind .english {
     float: left;
@@ -502,7 +503,8 @@ svg :not(.doNotUnfill) {
     font-family: sans-serif !important;
 }
 .gameHolder.isLtr .behindPlayBoard .showUpComingLetter::before {
-    left: -10px;
+	left: 7px;
+	right: auto !important;
 }
 .gameHolder.isLtr .behindPlayBoard .courseArea {
     text-align: left;

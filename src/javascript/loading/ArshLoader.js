@@ -247,6 +247,7 @@ class ArshLoader {
 		window.Gameplay = Gameplay;
 		window.Settings = Settings;
 		window.ScoreHandler = ScoreHandler;
+		window.ArshLoader = ArshLoader;
 
 		const tetrisGameConfig = {
 			rows: 10,

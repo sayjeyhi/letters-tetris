@@ -56,7 +56,7 @@ export default class TetrisGame {
 		this.config = {
 			rows: 10,
 			mobileRows: 8,
-			W: 6,
+			columnsMin: 6,
 			columnsMax: 16,
 			workingWordCount: 1,
 			charSpeed: 800, // 1 second - get division to level when making game harder
@@ -188,7 +188,7 @@ export default class TetrisGame {
 		Helper._('#container').innerHTML = `
             <div class="gameHolder ${ltrClass}">
                 <div class="behindPlayBoard">
-                    <div class="gamingKind"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
+                    <div class="gamingKind" onclick="Gameplay.restart();ArshLoader.build();"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
                     <div class="showUpComingLetter" title="${window.lang.nextLetter}:"></div>
                     <div class="gameControlButtons" >
                         <div onclick="Gameplay.start();" class="startGame">${window.lang.startGame}</div>
