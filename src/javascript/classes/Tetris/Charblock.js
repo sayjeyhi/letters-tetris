@@ -172,7 +172,8 @@ export default class Charblock {
      * @param newColumn {Number}
      */
 	static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
-		let deleteTiming = 0;
+		const animateConfig = TetrisGame.initValues.animateConfig;
+		const deleteTiming = animateConfig.deleteTiming;
 		const domToDelete = Charblock._getEl(oldRow, oldColumn, true);
 		if (!domToDelete || typeof domToDelete ==='undefined') return false;
 		const gameConfig = TetrisGame.config;
@@ -182,22 +183,8 @@ export default class Charblock {
 		const isFallingDown = (newRow !== null && newColumn !== null);
 
 		if (gameConfig.useAnimationFlag) {
-			let animateClass;
-			switch (gameConfig.level) {
-				case 3:
-					deleteTiming = gameConfig.expertFallDownAnimateSpeed;
-					animateClass = 'fallDownExpert';
-					break;
-				case 2:
-					deleteTiming = gameConfig.mediumFallDownAnimateSpeed;
-					animateClass = 'fallDownCharMedium';
-					break;
-				default:
-					animateClass = 'fallDownSimple';
-					deleteTiming = gameConfig.simpleFallDownAnimateSpeed;
-			}
+			const animateClass = animateConfig.animateClass;
 			domToDelete.classList.add(animateClass, isFallingDown ? 'fadeOutDown' : 'zoomOutDown');
-
 
 			// create explosion effect
 			if (!isFallingDown) {

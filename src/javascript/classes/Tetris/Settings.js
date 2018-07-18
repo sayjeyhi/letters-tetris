@@ -221,12 +221,28 @@ export default class Settings {
 				// use two word same time at hard mode
 				TetrisGame.config.workingWordCount = 2;
 
+				// Update animation timing and delete timing
+				TetrisGame.initValues.animateConfig = {
+					animateClass: 'fallDownExpert',
+					deleteTiming: TetrisGame.config.expertFallDownAnimateSpeed
+				};
+
 				break;
 			case 2:
 				bodyClass = 'isMedium';
+
+				TetrisGame.initValues.animateConfig = {
+					animateClass: 'fallDownCharMedium',
+					deleteTiming: TetrisGame.config.mediumFallDownAnimateSpeed
+				};
 				break;
 			default:
 				bodyClass = 'isSimple';
+
+				TetrisGame.initValues.animateConfig = {
+					animateClass: 'fallDownSimple',
+					deleteTiming: TetrisGame.config.simpleFallDownAnimateSpeed
+				};
 		}
 		document.body.classList.remove('isExpert', 'isMedium', 'isSimple');
 		document.body.classList.add(bodyClass);

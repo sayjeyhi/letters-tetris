@@ -248,7 +248,11 @@ export default class TetrisGame {
 				exploded: 0
 			},
 			isMobile: Helper.isMobile(),
-			falledStack: new MapStack()
+			falledStack: new MapStack(),
+			animateConfig:{
+				animateClass: 'fallDownSimple',
+				deleteTiming: TetrisGame.config.simpleFallDownAnimateSpeed
+			}
 		};
 	}
 
