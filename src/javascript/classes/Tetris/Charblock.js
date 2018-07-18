@@ -16,9 +16,9 @@ export default class Charblock {
      * Create new char block
      * @return {Charblock|boolean}
      */
-	constructor() {
-		const initValues = TetrisGame.initValues;
-		const config = TetrisGame.config;
+    static create() {
+        const initValues = TetrisGame.initValues;
+        const config = TetrisGame.config;
 
 
 		// if game is finished
@@ -60,11 +60,9 @@ export default class Charblock {
 		// create and show up coming char
 		this._showUpComingChar();
 
-		// add this char as active char
-		initValues.activeChar = this;
-
-		return this;
-	}
+        // add this char as active char
+        initValues.activeChar = this;
+    }
 
 
 	/**
@@ -132,7 +130,7 @@ export default class Charblock {
 	static factory(charblock, initializeElement) {
 		// if char is not supplied create new one
 		if (typeof charblock === 'undefined') {
-			charblock = new Charblock();
+			charblock = Charblock().create();
 
 			if (Object.keys(charblock).length !== 0) {
 				initializeElement = Charblock._getEl(charblock.row, charblock.column);
@@ -304,7 +302,7 @@ export default class Charblock {
      * Create and show upcoming character
      * @private
      */
-	_showUpComingChar() {
+	static _showUpComingChar() {
 	    const initValues = TetrisGame.initValues;
 
 		initValues.nextChar = WordsHelper.chooseChar();
@@ -332,7 +330,7 @@ export default class Charblock {
      * @param outgoingAnimation
      * @private
      */
-	_destroy(workingElement, outgoingAnimation) {
+	static _destroy(workingElement, outgoingAnimation) {
 		const config = TetrisGame.config;
 		const animateClass = config.useAnimationFlag ? ' animated ' : '';
 
