@@ -12,7 +12,7 @@ import Timeout from '../Timeout';
 import Helper from '../Helper';
 import MapStack from '../MapStack';
 import ScoreHandler from './ScoreHandler';
-import Animate from "../Animate";
+import Animate from '../Animate';
 
 /**
  * @typedef {Object} TetrisGameConfig
@@ -328,15 +328,15 @@ export default class TetrisGame {
         TetrisGame._removeWordAndCharacters(word, successObject.wordId);
 
         // animate found word
-        TetrisGame.showFoundWordAnimated(word, successObject.wordCharacterPositions);
+        Animate.showFoundWordAnimated(word, successObject.wordCharacterPositions);
 
-        TetrisGame._animateFoundedCharacters(successObject.wordCharacterPositions, config.successAnimationIterationDuration);
+        Animate._animateFoundedCharacters(successObject.wordCharacterPositions, config.successAnimationIterationDuration);
 
         initValues.falledStack.merge(successObject.fallingCharacters);
 
         Timeout.request(
             () => {
-                TetrisGame.animateFallCharacters(
+                Animate.animateFallCharacters(
                     successObject.fallingCharacters, // MapStack of falling characters
                     config.successAnimationIterationDuration, // Delay between falling
                     TetrisGame.checkSuccessWordStack
@@ -383,57 +383,20 @@ export default class TetrisGame {
         }
     }
 
-
-    /**
-     * Shows found word with animation
-     * @param word
-     * @param positions
-     */
-	static showFoundWordAnimated(word, positions) {
-
-
-		const charLength = positions.length - 1,
-			rowAverage = (positions[0].y + positions[charLength].y) / 2,
-			columnAverage = (positions[0].x + positions[charLength].x) / 2,
-			hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
-			foundWordDisplayEl = Helper._('.foundWordAnimation', TetrisGame.playBoard),
-			fixerDistance = (charLength % 2 === 1) ? 0 : (hidedWord.width/4) * -1;
-
-		console.log("want to show : " + word + " - show place : " + rowAverage + " - " +  columnAverage);
-
-        foundWordDisplayEl.innerHTML = word;
-        foundWordDisplayEl.style.display = 'block';
-        foundWordDisplayEl.style.left = `${hidedWord.left - fixerDistance}px`;
-        foundWordDisplayEl.style.top = `${hidedWord.top - 10}px`;
-
-        if (this.config.useAnimationFlag) {
-            foundWordDisplayEl.classList.add('animatedOneSecond', 'jackInTheBox');
-        } else {
-            foundWordDisplayEl.classList.remove('animatedOneSecond', 'jackInTheBox');
-        }
-
-        Timeout.request(
-            () => {
-                foundWordDisplayEl.style.display = 'none';
-            }, 1200
-        );
-    }
-
-
     /**
      * Adds current words to top of gamePlay
      * this words plus with random words of
      * current category
      */
-	static showShuffledWords() {
-		const parent = Helper._('.currentWorkingWords');
-		const randomizeFn = () => { return 0.5 - Math.random()};
-		let displayFiveWords = window.TetrisWords
-			.sort(randomizeFn)
-			.slice(0, TetrisGame.config.level + 1)
-			.concat(TetrisGame.initValues.choosedWords)
-			.sort(randomizeFn)
-			.slice(0,5);
+    static showShuffledWords() {
+        const parent = Helper._('.currentWorkingWords');
+        const randomizeFn = () => { return 0.5 - Math.random(); };
+        const displayFiveWords = window.TetrisWords
+            .sort(randomizeFn)
+            .slice(0, TetrisGame.config.level + 1)
+            .concat(TetrisGame.initValues.choosedWords)
+            .sort(randomizeFn)
+            .slice(0, 5);
 
         // make working words empty
         parent.innerHTML = '';
@@ -444,51 +407,6 @@ export default class TetrisGame {
             parent.appendChild(currentWord);
         });
     }
-
-
-    /**
-     * Animate found characters
-     * @param wordCharacterPositions
-     * @param successAnimationIterationDuration
-     */
-    static _animateFoundedCharacters(wordCharacterPositions, successAnimationIterationDuration) {
-        // play founded word sound
-        Sound.playByKey('foundWord', TetrisGame.config.playEventsSound);
-
-        // Animate FadingOut founded characters
-        wordCharacterPositions.map((item, index) => {
-            Timeout.request(
-                () => {
-                    Animate.fallNodeAnimate(item.y, item.x, null, null);
-                }, index * successAnimationIterationDuration
-            );
-        });
-    }
-
-
-    /**
-     * Animate fall characters
-     * @param fallingCharacters
-     * @param successAnimationIterationDuration
-     * @param after
-     */
-    static animateFallCharacters(fallingCharacters, successAnimationIterationDuration, after) {
-        let index = 0;
-        for (const [_, value] of fallingCharacters.entries()) {
-            for (const item of value) {
-                Timeout.request(
-                    () => {
-                        Animate.fallNodeAnimate(item.oldY, item.x, item.newY, item.x);
-                    }, (index++) * successAnimationIterationDuration
-                );
-            }
-        }
-
-        if (Helper.isFunction(after)) {
-            Timeout.request(after, ((index-1)*(successAnimationIterationDuration)) + TetrisGame.initValues.animateConfig.deleteTiming);
-        }
-    }
-
 
     /**
      * Animate explode
@@ -502,7 +420,7 @@ export default class TetrisGame {
         Sound.playByKey('explode', config.playEventsSound);
 
         if (config.do_shake) {
-            Helper.shake(TetrisGame.playBoard, lastChar.typeSize*16);
+            Animate.shake(TetrisGame.playBoard, lastChar.typeSize*16);
         }
         if (config.do_vibrate) {
             Helper.vibrate(config.vibrationDuration);
@@ -520,7 +438,7 @@ export default class TetrisGame {
         TetrisGame.initValues.falledStack.merge(successObject.fallingCharacters);
 
         // Fall characters at top of exploded chars
-        TetrisGame.animateFallCharacters(
+        Animate.animateFallCharacters(
             successObject.fallingCharacters,
             config.successAnimationIterationDuration,
             () => {
