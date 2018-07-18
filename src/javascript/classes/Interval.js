@@ -55,7 +55,8 @@ export default class Interval {
      * Clear all intervals
      */
 	clearAll() {
-		let all = Object.keys(this.intervals), len = all.length;
+		const all = Object.keys(this.intervals);
+		let len = all.length;
 
 		while (len-- > 0) {
 			const itemIndex = all.shift();

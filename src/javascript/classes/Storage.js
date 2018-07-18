@@ -30,7 +30,7 @@ export default class Storage {
      */
 	static getInt(key, default_value) {
 		default_value = typeof default_value === 'undefined' ? 0 : default_value;
-		return Number(get(key, default_value));
+		return Number(Storage.get(key, default_value));
 	}
 
 	/**

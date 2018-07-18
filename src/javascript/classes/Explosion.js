@@ -67,7 +67,9 @@ export default class Explosion {
      */
 	static _particle(c) {
 		const r = function(a, b, c) {
-			return parseFloat((Math.random()*((a?a:1)-(b?b:0))+(b?b:0)).toFixed(c?c:0));
+			return parseFloat(
+			    ((Math.random()*((a?a:1)-(b?b:0))) + (b?b:0)).toFixed(c?c:0)
+			);
 		};
 
 		return {

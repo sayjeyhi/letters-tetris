@@ -13,14 +13,14 @@ export default class Sound {
      * @return {Sound}
      */
 	static play(instance) {
-		if (instance !== undefined || this.audio) {
+		if (instance !== 'undefined' || this.audio) {
 			if (!instance) {
 				instance = this.audio;
 			}
 			instance.pause();
 			instance.currentTime = 0;
 			const noPromise = {
-				catch: new Function()
+				catch: () => {}
 			};
 			(instance.play() || noPromise).catch(() => {});
 		}

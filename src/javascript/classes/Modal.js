@@ -4,6 +4,7 @@
 
 
 import Timeout from './Timeout';
+import Helper from './Helper';
 
 /**
  * @class Modal
@@ -49,17 +50,17 @@ import Timeout from './Timeout';
  */
 export default class Modal {
 	/**
-     * Constructor of modal class
-     * @param options
-     * @param isRtl
-     */
+	 * Constructor of modal class
+	 * @param options
+	 * @param isRtl
+	 */
 	constructor(options, isRtl) {
-		this.onDestroy  = options.onDestroy || (() => {});
-		this.onShow     = options.onShow || (() => {});
-		this.isRtl      = typeof isRtl === 'undefined' ? false : isRtl;
-		this.animate    = typeof options.animate === 'undefined' ? false : options.animate;
-		this.dark       = options.dark ? ' dark ' : '';
-		this.type       = options.type ? options.type : '';
+		this.onDestroy = options.onDestroy;
+		this.onShow = options.onShow;
+		this.isRtl = typeof isRtl === 'undefined' ? false : isRtl;
+		this.animate = typeof options.animate === 'undefined' ? false : options.animate;
+		this.dark = options.dark ? ' dark ' : '';
+		this.type = options.type ? options.type : '';
 
 
 		const modalHolder = document.createElement('div');
@@ -107,11 +108,11 @@ export default class Modal {
 
 
 	/**
-     * Create modal header
-     * @param options
-     * @return {HTMLDivElement}
-     * @private
-     */
+	 * Create modal header
+	 * @param options
+	 * @return {HTMLDivElement}
+	 * @private
+	 */
 	static _createHeader(options) {
 		const modalTitle = document.createElement('div');
 		let HeaderHtml = options.header || '';
@@ -126,11 +127,11 @@ export default class Modal {
 
 
 	/**
-     * Create modal content
-     * @param options
-     * @return {HTMLDivElement}
-     * @private
-     */
+	 * Create modal content
+	 * @param options
+	 * @return {HTMLDivElement}
+	 * @private
+	 */
 	static _createContent(options) {
 		const modalContent = document.createElement('div');
 		modalContent.className = 'contentModal';
@@ -141,11 +142,11 @@ export default class Modal {
 
 
 	/**
-     * Create modal footer and its buttons
-     * @param options
-     * @return {*}
-     * @private
-     */
+	 * Create modal footer and its buttons
+	 * @param options
+	 * @return {*}
+	 * @private
+	 */
 	static _createFooter(options) {
 		// Do we have footer for modals , create it and buttons
 		if (options.buttons && options.buttons.length > 0) {
@@ -173,17 +174,19 @@ export default class Modal {
 
 
 	/**
-     * Show modal
-     */
+	 * Show modal
+	 */
 	show() {
-	    this.onShow();
-		document.getElementById('container').classList.add('blur');
+		if (Helper.isFunction(this.onShow)) {
+			this.onShow();
+			document.getElementById('container').classList.add('blur');
+		}
 	}
 
 
 	/**
-     * Removes modal from page
-     */
+	 * Removes modal from page
+	 */
 	destroy() {
 		if (this.animate) {
 			this.modal.classList.remove('pulse');
@@ -193,11 +196,11 @@ export default class Modal {
 		Timeout.request(
 			() => {
 				document.getElementById('container').classList.remove('blur');
-				if(this.node.parentNode)
-				    this.node.parentNode.removeChild(this.node);
+				if (this.node.parentNode) this.node.parentNode.removeChild(this.node);
 			}, (this.animate ? 310 : 0)
 		);
-
-		this.onDestroy();
+		if (Helper.isFunction(this.onDestroy)) {
+			this.onDestroy();
+		}
 	}
 }

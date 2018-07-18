@@ -3,7 +3,7 @@
  */
 
 import Helper from './Helper';
-import MapStack from "./MapStack";
+import MapStack from './MapStack';
 
 /**
  * This class will hold values of characters, find successful created words, delete them and etc
@@ -87,15 +87,15 @@ export default class Matrix {
 		return this.matrix[y][x] === ' ';
 	}
 
-    /**
+	/**
      * Gets a character at position
      * @param y {Number} - Row ID of character
      * @param x {Number} - Column ID of character
      * @returns {String}
      */
-	getCharacter(y,x){
+	getCharacter(y, x) {
 	    return this.matrix[y][x];
-    }
+	}
 
 	/**
      * Checks if character is Empty
@@ -117,7 +117,7 @@ export default class Matrix {
      */
 	checkWords(words, lastChar, checkType, successCallback) {
 	    this.lastChar = lastChar;
-		let rowId = lastChar.row,
+	    const rowId = lastChar.row,
 			colId = lastChar.column,
 			char = lastChar.char;
 
@@ -137,13 +137,13 @@ export default class Matrix {
 		const sentenceRTL = (Helper.reverse(sentenceLTR)); // Reverse it to get
 		const sentenceDTT = (Helper.reverse(sentenceTTD));
 
-        let foundHappened = false;
+		let foundHappened = false;
 		for (let i = 0, len = words.length; i < len; i++) {
 			if (!words[i]) continue;
 			let pos,
 				checkPlace,
-				startFrom,
-				word = words[i].word;
+				startFrom;
+			const word = words[i].word;
 
 			if (checkType.ltr && (pos = sentenceLTR.indexOf(word)) !== -1) {
 				Helper.log(`LTR--> Found valid word:${word} In:${sentenceLTR}`);
@@ -243,7 +243,6 @@ export default class Matrix {
 	}
 
 
-
 	/**
      * @typedef {Object} CheckTypes - An object representing in which direction should function search for words
      * @property {Boolean} rtl - Determines if should check Right To Left direction
@@ -287,7 +286,7 @@ export default class Matrix {
 					this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
 					this.fastDeleteCharacter(upIndex-1, i);
 					if (hasCallback) {
-						callbackObject.fallingCharacters.append(i,{x:i, oldY: upIndex-1, newY: upIndex});
+						callbackObject.fallingCharacters.append(i, { x: i, oldY: upIndex-1, newY: upIndex });
 					}
 				}
 			}
@@ -305,7 +304,7 @@ export default class Matrix {
 					this.matrix[upIndex][i] = this.matrix[upIndex-1][i];
 					this.fastDeleteCharacter(upIndex-1, i);
 					if (hasCallback) {
-                        callbackObject.fallingCharacters.append(i,{x:i, oldY: upIndex-1, newY: upIndex});
+						callbackObject.fallingCharacters.append(i, { x: i, oldY: upIndex-1, newY: upIndex });
 					}
 				}
 			}
@@ -322,7 +321,7 @@ export default class Matrix {
 				this.matrix[upIndex+occurancePositionLenght-1][colId] = this.matrix[upIndex-1][colId];
 				this.fastDeleteCharacter(upIndex-1, colId);
 				if (hasCallback) {
-                    callbackObject.fallingCharacters.append(colId ,{x:colId, oldY: upIndex-1, newY: upIndex+occurancePositionLenght-1});
+					callbackObject.fallingCharacters.append(colId, { x: colId, oldY: upIndex-1, newY: upIndex+occurancePositionLenght-1 });
 				}
 			}
 		} else if (checkType.dtt) {
@@ -339,7 +338,7 @@ export default class Matrix {
 				this.matrix[upIndex-occurancePositionLenght][colId] = this.matrix[upIndex][colId];
 				this.fastDeleteCharacter(upIndex, colId);
 				if (hasCallback) {
-                    callbackObject.fallingCharacters.append(colId ,{x:colId, oldY: upIndex, newY: upIndex-occurancePositionLenght});
+					callbackObject.fallingCharacters.append(colId, { x: colId, oldY: upIndex, newY: upIndex-occurancePositionLenght });
 				}
 			}
 		}
@@ -387,7 +386,7 @@ export default class Matrix {
 					for (let upIndex=yPos; upIndex-occurancePositionLenght>=0 && this.isNotEmpty(upIndex-occurancePositionLenght, xPos); upIndex--) {
 						this.matrix[upIndex][xPos] = this.matrix[upIndex-occurancePositionLenght][xPos];
 						this.fastDeleteCharacter(upIndex-occurancePositionLenght, xPos);
-                        callbackObject.fallingCharacters.append(xPos, {x:xPos, oldY: upIndex-occurancePositionLenght, newY: upIndex});
+						callbackObject.fallingCharacters.append(xPos, { x: xPos, oldY: upIndex-occurancePositionLenght, newY: upIndex });
 					}
 					break;
 				}

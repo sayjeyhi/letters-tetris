@@ -2,5 +2,6 @@
     "extends": "adpyke-es6",
     "parser": "babel-eslint",
     "rules": {
+			"no-empty-function": ["error", { "allow": ["arrowFunctions"] }]
     }
 }

@@ -147,23 +147,22 @@ export default class Helper {
 	}
 
 
-
-    /**
+	/**
      * Returns a random number between min (inclusive) and max (exclusive)
      */
-    static getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
-    }
+	static getRandomArbitrary(min, max) {
+		return (Math.random() * (max - min)) + min;
+	}
 
-    /**
+	/**
      * Returns a random integer between min (inclusive) and max (inclusive)
      * Using Math.round() will give you a non-uniform distribution!
      */
-    static getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+	static getRandomInt(min, max) {
+		return Math.floor((Math.random() * (max - min + 1))) + min;
+	}
 
-    /**
+	/**
      * This function will shake a Dom
      * @param element {HTMLElement} - Dom to shake
      * @param magnitude {Number} [16] - magnitude of earthquake
@@ -183,7 +182,7 @@ export default class Helper {
 
 		// Capture the element's position and angle so you can
 		// restore them after the shaking has finished
-		let startX = 0,
+		const startX = 0,
 			startY = 0,
 			startAngle = 0;
 
@@ -196,69 +195,69 @@ export default class Helper {
 			return Math.floor(Math.random() * (max - min + 1)) + min;
 		};
 
-        // The `upAndDownShake` function
-        const upAndDownShake= ()=>{
-            // Shake the element while the `counter` is less than
-            // the `numberOfShakes`
-            if (counter < numberOfShakes) {
-                // Reset the element's position at the start of each shake
-                element.style.transform = `translate(${startX}px, ${startY}px)`;
+		// The `upAndDownShake` function
+		const upAndDownShake= () => {
+			// Shake the element while the `counter` is less than
+			// the `numberOfShakes`
+			if (counter < numberOfShakes) {
+				// Reset the element's position at the start of each shake
+				element.style.transform = `translate(${startX}px, ${startY}px)`;
 
-                // Reduce the magnitude
-                magnitude -= magnitudeUnit;
+				// Reduce the magnitude
+				magnitude -= magnitudeUnit;
 
-                // Randomly change the element's position
-                const randomX = randomInt(-magnitude, magnitude);
-                const randomY = randomInt(-magnitude, magnitude);
+				// Randomly change the element's position
+				const randomX = randomInt(-magnitude, magnitude);
+				const randomY = randomInt(-magnitude, magnitude);
 
-                element.style.transform = `translate(${randomX}px, ${randomY}px)`;
+				element.style.transform = `translate(${randomX}px, ${randomY}px)`;
 
-                // Add 1 to the counter
-                counter += 1;
+				// Add 1 to the counter
+				counter += 1;
 
-                requestAnimationFrame(upAndDownShake);
-            }
+				requestAnimationFrame(upAndDownShake);
+			}
 
-            // When the shaking is finished, restore the element to its original
-            // position and remove it from the `shakingElements` array
-            if (counter >= numberOfShakes) {
-                element.style.transform = `translate(${startX}, ${startY})`;
-                shakingElements.splice(shakingElements.indexOf(element), 1);
-            }
-        }
+			// When the shaking is finished, restore the element to its original
+			// position and remove it from the `shakingElements` array
+			if (counter >= numberOfShakes) {
+				element.style.transform = `translate(${startX}, ${startY})`;
+				shakingElements.splice(shakingElements.indexOf(element), 1);
+			}
+		};
 
-        // The `angularShake` function
-        const angularShake = () =>{
-            if (counter < numberOfShakes) {
-                console.log(tiltAngle);
-                // Reset the element's rotation
-                element.style.transform = `rotate(${startAngle}deg)`;
+		// The `angularShake` function
+		const angularShake = () => {
+			if (counter < numberOfShakes) {
+				console.log(tiltAngle);
+				// Reset the element's rotation
+				element.style.transform = `rotate(${startAngle}deg)`;
 
-                // Reduce the magnitude
-                magnitude -= magnitudeUnit;
+				// Reduce the magnitude
+				magnitude -= magnitudeUnit;
 
-                // Rotate the element left or right, depending on the direction,
-                // by an amount in radians that matches the magnitude
-                const angle = Number(magnitude * tiltAngle).toFixed(2);
-                console.log(angle);
-                element.style.transform = `rotate(${angle}deg)`;
-                counter += 1;
+				// Rotate the element left or right, depending on the direction,
+				// by an amount in radians that matches the magnitude
+				const angle = Number(magnitude * tiltAngle).toFixed(2);
+				console.log(angle);
+				element.style.transform = `rotate(${angle}deg)`;
+				counter += 1;
 
-                // Reverse the tilt angle so that the element is tilted
-                // in the opposite direction for the next shake
-                tiltAngle *= -1;
+				// Reverse the tilt angle so that the element is tilted
+				// in the opposite direction for the next shake
+				tiltAngle *= -1;
 
-                requestAnimationFrame(angularShake);
-            }
+				requestAnimationFrame(angularShake);
+			}
 
-            // When the shaking is finished, reset the element's angle and
-            // remove it from the `shakingElements` array
-            if (counter >= numberOfShakes) {
-                element.style.transform = `rotate(${startAngle}deg)`;
-                shakingElements.splice(shakingElements.indexOf(element), 1);
-                // console.log("removed")
-            }
-        }
+			// When the shaking is finished, reset the element's angle and
+			// remove it from the `shakingElements` array
+			if (counter >= numberOfShakes) {
+				element.style.transform = `rotate(${startAngle}deg)`;
+				shakingElements.splice(shakingElements.indexOf(element), 1);
+				// console.log("removed")
+			}
+		};
 		// Add the element to the `shakingElements` array if it
 		// isn't already there
 		if (shakingElements.indexOf(element) === -1) {
