@@ -3,6 +3,6 @@
 	"parser": "babel-eslint",
 	"rules": {
 		"no-empty-function": ["error", { "allow": ["arrowFunctions"] }],
-		"indent": ["warn",4]
+		"indent": ["error","tab"]
 	}
 }
