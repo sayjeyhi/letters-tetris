@@ -46,10 +46,11 @@ export default class Gameplay {
 			const choosedWord = WordsHelper.chooseWord();
 			if (!choosedWord) {
 				Gameplay.finish('finishWords');
-			} else {
-				TetrisGame._addCurrentWord();
 			}
 		}
+
+		// show words on playBoard top
+		TetrisGame.showShuffledWords();
 
 		// start game timer
 		TetrisGame.timer.start();

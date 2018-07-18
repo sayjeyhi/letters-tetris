@@ -106,8 +106,8 @@ class ArshLoader {
 				window.onclick = function(ev) {
 					if (!ev.target.matches('.wordsKind')) {
 						chooseWordsKind.dataset.opened = 'no';
-						if (Helper._('.chooseWordKindTooltip')) Helper._('.chooseWordKindTooltip').style.display
-                                = 'none';
+						if (Helper._('.chooseWordKindTooltip'))
+							Helper._('.chooseWordKindTooltip').style.display = 'none';
 					}
 				};
 

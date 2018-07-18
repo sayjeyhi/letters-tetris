@@ -21,17 +21,6 @@ export default class Helper {
 
 
 	/**
-     * Shuffles dom childs
-     * @param parentDom {HTMLElement}
-     */
-	static ShuffleDom(parentDom) {
-		for (let i = parentDom.children.length; i >= 0; i--) {
-			parentDom.appendChild(parentDom.children[Math.random() * i | 0]);
-		}
-	}
-
-
-	/**
      * Vibrate device, If it's mobile
      * @param timeMs
      */

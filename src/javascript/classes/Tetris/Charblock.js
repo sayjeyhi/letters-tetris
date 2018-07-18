@@ -39,7 +39,6 @@ export default class Charblock {
 			this.type = this.char.type;
 			this.typeSize = 1;
 			Helper.log('Incominggggg');
-			// Sound.playByKey('firing', TetrisGame.config.playEventsSound, true);
 		} else {
 			this.type = 'regular';
 			this.color = MaterialColor.getRandomColor(); // random material color
@@ -81,7 +80,7 @@ export default class Charblock {
 		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
 
 
-		const moveTo = this._generateMove(eventKeyCode, position);
+		const moveTo = this._generateMove(eventKeyCode);
 
 		// if move to is out of range
 		if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0 || initValues.finished) {

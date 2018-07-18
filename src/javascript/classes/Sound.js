@@ -8,6 +8,16 @@
  */
 export default class Sound {
 	/**
+	 * Play an audio from url
+	 * @param name
+	 * @return {Sound}
+	 */
+	constructor (name){
+		this.audio = new Audio('assets/mp3/' + name + '.mp3');
+		return this;
+	}
+
+	/**
      * Plays the current instance of media
      * @param instance
      * @return {Sound}
@@ -94,7 +104,7 @@ export default class Sound {
      * @param canPlay
      * @return Audio
      */
-	static PauseByKey(key, canPlay) {
+	static pauseByKey(key, canPlay) {
 		if (!canPlay) {
 			return false;
 		}

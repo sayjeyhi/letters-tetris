@@ -421,15 +421,13 @@ export default class TetrisGame {
      * Adds current words to top of gamePlay
      * this words plus with random words of
      * current category
-     * @private
      */
-	static _addCurrentWord() {
+	static showShuffledWords() {
 		const parent = Helper._('.currentWorkingWords');
-		const displayFiveWords = window.TetrisWords.sort(() => { return 0.5 - Math.random(); }).slice(0, 3);
-		if (typeof id !== 'undefined') {
-			displayFiveWords.push(this.initValues.choosedWords.slice(0, 2));
-			displayFiveWords.sort(() => { return 0.5 - Math.random(); });
-		}
+		let displayFiveWords = window.TetrisWords
+			.concat(TetrisGame.initValues.choosedWords)
+			.sort(() => { return 0.5 - Math.random()})
+			.slice(0, 5);
 
 		// make working words empty
 		parent.innerHTML = '';

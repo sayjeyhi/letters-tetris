@@ -37,6 +37,9 @@ export default class WordsHelper {
 		}
 
 
+		// add word to active words array
+		TetrisGame.initValues.choosedWords.push(value);
+
 		Helper.log(value);
 
 		// delete choosed word form list
@@ -113,7 +116,7 @@ export default class WordsHelper {
 		if (availableChars.length === 0) {
 			const newWord = this.chooseWord();
 			if (newWord !== false) {
-				TetrisGame._addCurrentWord(TetrisGame.initValues.choosedWords.push(newWord)-1);
+				TetrisGame.showShuffledWords();
 				return this.chooseChar();
 			}
 		} else {
