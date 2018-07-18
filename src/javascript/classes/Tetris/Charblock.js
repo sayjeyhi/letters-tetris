@@ -15,9 +15,9 @@ import Helper from '../Helper';
 export default class Charblock {
 	/**
      * Create new char block
-     * @return {*}
+     * @return {Charblock|boolean}
      */
-	static getNew() {
+	constructor() {
 		const initValues = TetrisGame.initValues;
 		const config = TetrisGame.config;
 
@@ -75,7 +75,7 @@ export default class Charblock {
      * @param position
      * @return {boolean}
      */
-	static move(eventKeyCode, position) {
+	move(eventKeyCode, position) {
 		const initValues = TetrisGame.initValues;
 		const config = TetrisGame.config;
 		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
@@ -88,7 +88,7 @@ export default class Charblock {
 			return false;
 		}
 
-		const destinationEl = this._getEl(moveTo.row, moveTo.column) || null;
+		const destinationEl = Charblock._getEl(moveTo.row, moveTo.column) || null;
 		if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== '')) {
 			if (isBottomMove) {
 				// stop interval
@@ -134,10 +134,10 @@ export default class Charblock {
 	static factory(charblock, initializeElement) {
 		// if char is not supplied create new one
 		if (typeof charblock === 'undefined') {
-			charblock = Charblock.getNew();
+			charblock = new Charblock();
 
 			if (Object.keys(charblock).length !== 0) {
-				initializeElement = this._getEl(charblock.row, charblock.column);
+				initializeElement = Charblock._getEl(charblock.row, charblock.column);
 			} else {
 				return false;
 			}
@@ -173,7 +173,7 @@ export default class Charblock {
      */
 	static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
 		let deleteTiming = 0;
-		const domToDelete = this._getEl(oldRow, oldColumn, true);
+		const domToDelete = Charblock._getEl(oldRow, oldColumn, true);
 		if (!domToDelete || typeof domToDelete ==='undefined') return false;
 		const gameConfig = TetrisGame.config;
 		const oldChar = domToDelete.innerText;
@@ -273,7 +273,7 @@ export default class Charblock {
      * @return {*}
      * @private
      */
-	static _generateMove(keyCode, position) {
+	_generateMove(keyCode, position) {
 		let moveTo;
 		const row = this.row;
 		const column = this.column;
@@ -315,7 +315,7 @@ export default class Charblock {
      * Create and show upcoming character
      * @private
      */
-	static _showUpComingChar() {
+	_showUpComingChar() {
 	    const initValues = TetrisGame.initValues;
 
 		initValues.nextChar = WordsHelper.chooseChar();
@@ -343,7 +343,7 @@ export default class Charblock {
      * @param outgoingAnimation
      * @private
      */
-	static _destroy(workingElement, outgoingAnimation) {
+	_destroy(workingElement, outgoingAnimation) {
 		const config = TetrisGame.config;
 		const animateClass = config.useAnimationFlag ? ' animated ' : '';
 

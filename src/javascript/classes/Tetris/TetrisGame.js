@@ -11,6 +11,7 @@ import Charblock from './Charblock';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
 import MapStack from '../MapStack';
+import ScoreHandler from "./ScoreHandler";
 
 /**
  * @typedef {Object} TetrisGameConfig
@@ -54,7 +55,8 @@ export default class TetrisGame {
          */
         this.config = {
             rows: 10,
-            columnsMin: 6,
+            mobileRows : 8,
+            W: 6,
             columnsMax: 16,
             workingWordCount: 1,
             charSpeed: 800, // 1 second - get division to level when making game harder
@@ -279,19 +281,26 @@ export default class TetrisGame {
      * @param {Charblock} lastChar
      */
     static checkWordSuccess(lastChar) {
-        const initValues = TetrisGame.initValues;
 
-        initValues.paused = true;
+        // pause game while checking and animating
+        this.initValues.paused = true;
 
-        TetrisGame.matrix.checkWords(
-            initValues.choosedWords,
+        // check word happens and then call checkWordsResult fn
+        this.matrix.checkWords(
+            this.initValues.choosedWords,
             lastChar,
-            TetrisGame.config.directionWordChecks,
-            TetrisGame.checkWordsResult
+            this.config.directionWordChecks,
+            this.checkWordsResult
         );
     }
 
-    static checkWordsResult(lastChar,successObject) {
+
+    /**
+     * Calls after word success check
+     * @param lastChar
+     * @param successObject
+     */
+    static checkWordsResult(lastChar, successObject) {
         const config = TetrisGame.config;
         const initValues = TetrisGame.initValues;
 
@@ -304,22 +313,22 @@ export default class TetrisGame {
         } else if (lastChar.type === 'bomb') {
             //todo: where is lastChar :|
             Helper.log('BOOOOOOM');
-            TetrisGame.animateExplode(successObject,lastChar);
+            TetrisGame._animateExplode(successObject,lastChar);
             return;
         }
 
         const word = initValues.choosedWords[successObject.wordId].word;
 
         // Update score
-        TetrisGame._updateScoreAndStats(word, successObject.direction);
-        TetrisGame.removeWordAndCharacters(word,successObject.wordId);
+        ScoreHandler._updateScoreAndStats(word, successObject.direction);
+        TetrisGame._removeWordAndCharacters(word,successObject.wordId);
 
         // animate found word
         TetrisGame.showFoundWordAnimated(word, successObject.wordCharacterPositions);
 
-        TetrisGame.animateFoundedCharacters(successObject.wordCharacterPositions,config.successAnimationIterationDuration);
+        TetrisGame._animateFoundedCharacters(successObject.wordCharacterPositions,config.successAnimationIterationDuration);
 
-        TetrisGame.initValues.falledStack.merge(successObject.fallingCharacters);
+        initValues.falledStack.merge(successObject.fallingCharacters);
 
         Timeout.request(
             () => {
@@ -335,12 +344,16 @@ export default class TetrisGame {
     }
 
 
-
-
+    /**
+     * Check words success of stack after an explosion success
+     * we check if we have another completed words
+     */
     static checkSuccessWordStack(){
+
         const initValues = TetrisGame.initValues;
         const config = TetrisGame.config;
-        let falledCharacter = TetrisGame.initValues.falledStack.popItem();
+
+        let falledCharacter = initValues.falledStack.popItem();
         if(falledCharacter === false){
             //Stack is empty, resume the game
             console.log(`Stack is empty`);
@@ -353,9 +366,15 @@ export default class TetrisGame {
         if(TetrisGame.matrix.isNotEmpty(y,x))
             TetrisGame.matrix.checkWords(
                 initValues.choosedWords,
-                {row:y,column:x,char:TetrisGame.matrix.getCharacter(y,x)},
+                {
+                    row:y,
+                    column:x,
+                    char:TetrisGame.
+                    matrix.getCharacter(y,x)
+                },
                 config.directionWordChecks,
-                TetrisGame.checkWordsResult);
+                TetrisGame.checkWordsResult
+            );
         else{
             TetrisGame.checkSuccessWordStack();
         }
@@ -365,7 +384,7 @@ export default class TetrisGame {
     /**
      * Shows found word with animation
      * @param word
-     * @param successObject
+     * @param wordCharacterPositions
      */
     static showFoundWordAnimated(word, wordCharacterPositions) {
 
@@ -398,77 +417,11 @@ export default class TetrisGame {
 
 
     /**
-     * Get score of user from Storage
-     * @returns {number}
-     */
-    static _getScore() {
-        let score;
-        if (this.config.do_encryption) {
-            score = Storage.getEncrypted('score', this.initValues.encryptionKey);
-        } else {
-            score = Storage.getInt('score', 0);
-        }
-        return score;
-    }
-
-
-    /**
-     * Updates stats of game
-     * @param word
-     * @param direction
-     */
-    static _updateStats(word, direction) {
-        // Update stats related to word
-
-        console.log(this.initValues.wordsLengthTotal);
-        if (direction!=='exploded') {
-            this.initValues.wordsFounded++;
-            this.initValues.wordsLengthTotal += word.length;
-        }
-        console.log(this.initValues.wordsLengthTotal);
-        this.initValues.wordDirectionCounter[direction]++;
-        // console.log(this.initValues.wordsLengthTotal);
-
-        console.log(this.initValues.wordsFounded);
-        Helper._('.wordCounterHolder').innerHTML = Math.round(this.initValues.wordsFounded);
-    }
-
-
-    /**
-     * Update game score in UI and Data
-     * @param word
+     * Adds current words to top of gamePlay
+     * this words plus with random words of
+     * current category
      * @private
      */
-    static _updateScore(word) {
-        // Get encrypted value of Score wtih our random generated key
-        let score = TetrisGame._getScore();
-
-        // Increase value by scoreCalculator from config
-        score += this.config.scoreCalculator(word);
-
-        // Update our fake score variable to let hacker think they are dealing with real variable
-        this.initValues.score = score;
-
-        // Update & encrypt score in Storage
-        if (this.config.do_encryption) {
-            Storage.setEncrypted('score', score, this.initValues.encryptionKey);
-        } else {
-            Storage.set('score', score);
-        }
-        Helper._('.scoreHolder').innerHTML = Math.round(score);
-    }
-
-    /**
-     * Update score and set it to panel
-     * @param word
-     * @param direction
-     */
-    static _updateScoreAndStats(word, direction) {
-        this._updateStats(word, direction);
-        this._updateScore(word);
-    }
-
-
     static _addCurrentWord() {
         const parent = Helper._('.currentWorkingWords');
         let displayFiveWords = window.TetrisWords.sort(() => {return 0.5 - Math.random()} ).slice(0,3);
@@ -485,12 +438,18 @@ export default class TetrisGame {
             currentWord.className = 'currentWords';
             parent.appendChild(currentWord);
         });
-
     }
 
-    static animateFoundedCharacters(wordCharacterPositions, successAnimationIterationDuration) {
-        const config = TetrisGame.config;
-        Sound.playByKey('foundWord', config.playEventsSound);
+
+    /**
+     * Animate found characters
+     * @param wordCharacterPositions
+     * @param successAnimationIterationDuration
+     */
+    static _animateFoundedCharacters(wordCharacterPositions, successAnimationIterationDuration) {
+
+        // play founded word sound
+        Sound.playByKey('foundWord', TetrisGame.config.playEventsSound);
 
         // Animate FadingOut founded characters
         wordCharacterPositions.map((item, index) => {
@@ -502,6 +461,13 @@ export default class TetrisGame {
         });
     }
 
+
+    /**
+     * Animate fall characters
+     * @param fallingCharacters
+     * @param successAnimationIterationDuration
+     * @param after
+     */
     static animateFallCharacters(fallingCharacters, successAnimationIterationDuration, after) {
 
         let index = 0;
@@ -520,15 +486,24 @@ export default class TetrisGame {
         }
     }
 
-    static animateExplode(successObject, lastChar) {
+
+    /**
+     * Animate explode
+     * @param successObject
+     * @param lastChar
+     */
+    static _animateExplode(successObject, lastChar) {
+
         const config = TetrisGame.config;
+
+        // explode sound play
         Sound.playByKey('explode', config.playEventsSound);
 
-        if(TetrisGame.config.do_shake){
-            Helper.Shake(TetrisGame.playBoard, lastChar.typeSize*16);
+        if(config.do_shake){
+            Helper.shake(TetrisGame.playBoard, lastChar.typeSize*16);
         }
-        if(TetrisGame.config.do_vibrate){
-            Helper.vibrate(TetrisGame.config.vibrationDuration);
+        if(config.do_vibrate){
+            Helper.vibrate(config.vibrationDuration);
         }
 
         // Explode the characters
@@ -537,10 +512,11 @@ export default class TetrisGame {
         });
 
         // Update score after other blocks falled down
-        TetrisGame._updateScoreAndStats(successObject.explodedChars, 'exploded');
+        ScoreHandler._updateScoreAndStats(successObject.explodedChars, 'exploded');
 
 
         TetrisGame.initValues.falledStack.merge(successObject.fallingCharacters);
+
         // Fall characters at top of exploded chars
         TetrisGame.animateFallCharacters(
             successObject.fallingCharacters,
@@ -551,14 +527,21 @@ export default class TetrisGame {
         );
     }
 
-    static removeWordAndCharacters(word, wordId) {
+
+    /**
+     * Remove words and characters which we found or explode
+     * @param word
+     * @param wordId
+     */
+    static _removeWordAndCharacters(word, wordId) {
+
         // Remove word from choosed words
         TetrisGame.initValues.choosedWords.splice(wordId, 1);
 
         // Remove characters from choosed characters
         word.split('').map(char => {
             const index = TetrisGame.initValues.choosedWordsUsedChars.indexOf(char);
-            if (index!==-1) {
+            if (index !== -1) {
                 TetrisGame.initValues.choosedWordsUsedChars.splice(index, 1);
             }
         });

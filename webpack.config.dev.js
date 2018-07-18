@@ -11,7 +11,7 @@ module.exports = merge(webpackConfig, {
     output: {
         pathinfo: true,
         publicPath: '/',
-        filename: '[name].js'
+        filename: 'App_[name].js'
     },
 
     devServer: {

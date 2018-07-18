@@ -153,7 +153,7 @@ export default class Gameplay {
         TetrisGame.timer.pause();
 
         const wordsAverageLength = (initValues.wordsLengthTotal / initValues.wordsFounded) || 1;
-        const showScore = Math.round(TetrisGame._getScore());
+        const showScore = Math.round(ScoreHandler._getScore());
         const gamingTime = TetrisGame.timer.currentTime;
 
         const gamingInfo = `
@@ -243,7 +243,7 @@ export default class Gameplay {
         // we have eight rows on mobile
         if (TetrisGame.initValues.isMobile) {
             TetrisGame.playBoard.style.minHeight = "350px";
-            rowsCount = TetrisGame.config.rows = 8;
+            rowsCount = TetrisGame.config.rows = TetrisGame.config.mobileRows;
         }
 
         for (let r = 0; r < rowsCount; r++) {

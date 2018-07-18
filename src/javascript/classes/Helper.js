@@ -169,7 +169,7 @@ export default class Helper {
      * @param magnitude {Number} [16] - magnitude of earthquake
      * @param angular {Boolean} [false] - angular of shaking
      */
-	static Shake(element, magnitude = 16, angular = false) {
+	static shake(element, magnitude = 16, angular = false) {
 		const shakingElements = [];
 
 		// First set the initial tilt angle to the right (+1)

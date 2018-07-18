@@ -162,4 +162,84 @@ export default class ScoreHandler {
 
         return scores;
 	}
+
+
+
+    /**
+     * Get score of user from Storage
+     * @returns {number}
+     */
+    static _getScore() {
+        let score;
+        if (TetrisGame.config.do_encryption) {
+            score = Storage.getEncrypted('score', TetrisGame.initValues.encryptionKey);
+        } else {
+            score = Storage.getInt('score', 0);
+        }
+        return score;
+    }
+
+
+    /**
+     * Updates stats of game
+     * @param word
+     * @param direction
+     */
+    static _updateStats(word, direction) {
+
+        let initValues = TetrisGame.initValues;
+        // Update stats related to word
+
+        console.log(initValues.wordsLengthTotal);
+        if (direction!=='exploded') {
+            initValues.wordsFounded++;
+            initValues.wordsLengthTotal += word.length;
+        }
+        console.log(initValues.wordsLengthTotal);
+        initValues.wordDirectionCounter[direction]++;
+        // console.log(initValues.wordsLengthTotal);
+
+        console.log(initValues.wordsFounded);
+        Helper._('.wordCounterHolder').innerHTML = Math.round(initValues.wordsFounded);
+    }
+
+
+    /**
+     * Update game score in UI and Data
+     * @param word
+     * @private
+     */
+    static _updateScore(word) {
+
+        let initValues = TetrisGame.initValues;
+
+        // Get encrypted value of Score with our random generated key
+        let score = ScoreHandler._getScore();
+
+        // Increase value by scoreCalculator from config
+        score += TetrisGame.config.scoreCalculator(word);
+
+        // Update our fake score variable to let hacker think they are dealing with real variable
+        initValues.score = score;
+
+        // Update & encrypt score in Storage
+        if (TetrisGame.config.do_encryption) {
+            Storage.setEncrypted('score', score, initValues.encryptionKey);
+        } else {
+            Storage.set('score', score);
+        }
+        Helper._('.scoreHolder').innerHTML = Math.round(score);
+    }
+
+
+    /**
+     * Update score and set it to panel
+     * @param word
+     * @param direction
+     */
+    static _updateScoreAndStats(word, direction) {
+        this._updateStats(word, direction);
+        this._updateScore(word);
+    }
+
 }
