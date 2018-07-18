@@ -249,7 +249,7 @@ export default class TetrisGame {
 			},
 			isMobile: Helper.isMobile(),
 			falledStack: new MapStack(),
-			animateConfig:{
+			animateConfig: {
 				animateClass: 'fallDownSimple',
 				deleteTiming: TetrisGame.config.simpleFallDownAnimateSpeed
 			}
@@ -342,7 +342,8 @@ export default class TetrisGame {
 				);
 			},
 			// (successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
-			successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
+			// successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
+			(successObject.wordCharacterPositions.length-1)*(config.successAnimationIterationDuration) + TetrisGame.initValues.animateConfig.deleteTiming
 		);
 	}
 
@@ -480,7 +481,7 @@ export default class TetrisGame {
 		}
 
 		if (Helper.isFunction(after)) {
-			Timeout.request(after, successAnimationIterationDuration + 500 + (index * 250));
+			Timeout.request(after, (index-1)*(successAnimationIterationDuration) + TetrisGame.initValues.animateConfig.deleteTiming);
 		}
 	}
 
