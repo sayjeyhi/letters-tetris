@@ -212,6 +212,12 @@ export default class Charblock {
 	}
 
 
+	/**
+	 * Get charBlock position and width in page
+	 * @param row
+	 * @param column
+	 * @return {{top: number, left: number, width: number}}
+	 */
 	static getBlockPosition(row, column) {
 		const blockElement = this._getEl(row, column);
 		return {

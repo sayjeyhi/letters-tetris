@@ -119,7 +119,9 @@ export default class Gameplay {
 		TetrisGame.setDefaultValues(false);
 
 		// destroy swiper
-		TetrisGame.swipe.destroy();
+		if(TetrisGame.swipe) {
+			TetrisGame.swipe.destroy();
+		}
 
 		// play resume sound
 		Sound.playByKey('pause', TetrisGame.config.playEventsSound);
