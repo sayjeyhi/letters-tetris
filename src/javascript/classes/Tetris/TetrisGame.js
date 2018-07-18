@@ -12,6 +12,7 @@ import Timeout from '../Timeout';
 import Helper from '../Helper';
 import MapStack from '../MapStack';
 import ScoreHandler from './ScoreHandler';
+import Animate from "../Animate";
 
 /**
  * @typedef {Object} TetrisGameConfig
@@ -453,7 +454,7 @@ export default class TetrisGame {
         wordCharacterPositions.map((item, index) => {
             Timeout.request(
                 () => {
-                    Charblock.fallNodeAnimate(item.y, item.x, null, null);
+                    Animate.fallNodeAnimate(item.y, item.x, null, null);
                 }, index * successAnimationIterationDuration
             );
         });
@@ -472,7 +473,7 @@ export default class TetrisGame {
             for (const item of value) {
                 Timeout.request(
                     () => {
-                        Charblock.fallNodeAnimate(item.oldY, item.x, item.newY, item.x);
+                        Animate.fallNodeAnimate(item.oldY, item.x, item.newY, item.x);
                     }, (index++) * successAnimationIterationDuration
                 );
             }
@@ -504,7 +505,7 @@ export default class TetrisGame {
 
         // Explode the characters
         successObject.explodedChars.map(item => {
-            Charblock.fallNodeAnimate(item.y, item.x, null, null);
+            Animate.fallNodeAnimate(item.y, item.x, null, null);
         });
 
         // Update score after other blocks falled down

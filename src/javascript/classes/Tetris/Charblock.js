@@ -7,7 +7,6 @@ import Gameplay from './Gameplay';
 import Sound from '../Sound';
 import WordsHelper from './WordsHelper';
 import MaterialColor from '../MaterialColor';
-import Explosion from '../Explosion';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
 
@@ -163,55 +162,6 @@ export default class Charblock {
     }
 
 
-    /**
-     * Fall node with animation
-     * @param oldRow {Number}
-     * @param oldColumn {Number}
-     * @param newRow {Number}
-     * @param newColumn {Number}
-     */
-    static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
-        const animateConfig = TetrisGame.initValues.animateConfig;
-        const deleteTiming = animateConfig.deleteTiming;
-        const domToDelete = Charblock._getEl(oldRow, oldColumn, true);
-        if (!domToDelete || typeof domToDelete ==='undefined') return false;
-        const gameConfig = TetrisGame.config;
-        const oldChar = domToDelete.innerText;
-        const oldColor = domToDelete.style.backgroundColor;
-        const domParent = domToDelete.parentNode;
-        const isFallingDown = (newRow !== null && newColumn !== null);
-
-        if (gameConfig.useAnimationFlag) {
-            const animateClass = animateConfig.animateClass;
-            domToDelete.classList.add(animateClass, isFallingDown ? 'fadeOutDown' : 'zoomOutDown');
-
-            // create explosion effect
-            if (!isFallingDown) {
-                Explosion.explode(domParent, 35, 10);
-            }
-        }
-
-        Timeout.request(
-            () => {
-                if (domToDelete.parentElement === domParent) domParent.removeChild(domToDelete);
-            }, deleteTiming
-        );
-
-
-        // animate up char to down
-        if (isFallingDown) {
-            this.factory(
-                {
-                    color: oldColor,
-                    char: oldChar,
-                    type: 'regular',
-                    animateInClass: 'fadeInDown'
-                }, this._getEl(newRow, newColumn)
-            );
-        }
-    }
-
-
     static getBlockPosition(row, column) {
         const blockElement = this._getEl(row, column);
         return {
@@ -228,7 +178,6 @@ export default class Charblock {
      * @param column
      * @param charBlock
      * @return {*}
-     * @private
      */
     static _getEl(row, column, charBlock) {
         let charBlockString = '';
