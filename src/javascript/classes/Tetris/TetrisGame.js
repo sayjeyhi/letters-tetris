@@ -387,17 +387,19 @@ export default class TetrisGame {
     /**
      * Shows found word with animation
      * @param word
-     * @param wordCharacterPositions
+     * @param positions
      */
-    static showFoundWordAnimated(word, wordCharacterPositions) {
-        const wordFound = wordCharacterPositions,
-            charLength = wordFound.length - 1,
-            rowAverage = (wordFound[0].y + wordFound[charLength].y) / 2,
-            columnAverage = (wordFound[0].x + wordFound[charLength].x) / 2,
-            hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
-            foundWordDisplayEl = Helper._('.foundWordAnimation', TetrisGame.playBoard),
-            fixerDistance = (charLength % 2 === 1) ? 0 : (hidedWord.width/4) * -1;
+	static showFoundWordAnimated(word, positions) {
 
+
+		const charLength = positions.length - 1,
+			rowAverage = (positions[0].y + positions[charLength].y) / 2,
+			columnAverage = (positions[0].x + positions[charLength].x) / 2,
+			hidedWord = Charblock.getBlockPosition(parseInt(rowAverage), parseInt(columnAverage)),
+			foundWordDisplayEl = Helper._('.foundWordAnimation', TetrisGame.playBoard),
+			fixerDistance = (charLength % 2 === 1) ? 0 : (hidedWord.width/4) * -1;
+
+		console.log("want to show : " + word + " - show place : " + rowAverage + " - " +  columnAverage);
 
         foundWordDisplayEl.innerHTML = word;
         foundWordDisplayEl.style.display = 'block';
@@ -423,12 +425,15 @@ export default class TetrisGame {
      * this words plus with random words of
      * current category
      */
-    static showShuffledWords() {
-        const parent = Helper._('.currentWorkingWords');
-        const displayFiveWords = window.TetrisWords
-            .concat(TetrisGame.initValues.choosedWords)
-            .sort(() => { return 0.5 - Math.random(); })
-            .slice(0, 5);
+	static showShuffledWords() {
+		const parent = Helper._('.currentWorkingWords');
+		const randomizeFn = () => { return 0.5 - Math.random()};
+		let displayFiveWords = window.TetrisWords
+			.sort(randomizeFn)
+			.slice(0, TetrisGame.config.level + 1)
+			.concat(TetrisGame.initValues.choosedWords)
+			.sort(randomizeFn)
+			.slice(0,5);
 
         // make working words empty
         parent.innerHTML = '';
