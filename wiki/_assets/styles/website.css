@@ -1,0 +1,88 @@
+@font-face {
+    font-family: "SDF";
+    src: url(../fonts/IRANSansLight.woff) format("woff"),
+        url(../fonts/IRANSansLight.ttf) format("truetype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "SDF";
+    src: url(../fonts/IRANSansMedium.woff) format("woff"),
+        url(../fonts/IRANSansMedium.ttf) format("truetype");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "BYekan";
+    src: url(../fonts/BYekan.eot) format("eot"),
+        url(../fonts/BYekan.woff) format("woff"),
+        url(../fonts/BYekan.ttf) format("truetype");
+}
+
+body {
+    font-family: "BYekan" !important;
+}
+
+body {
+    direction: rtl;
+}
+
+.book-summary {
+    font-family: "BYekan";
+    border-right: none;
+    border-left: 1px solid rgba(0, 0, 0, 0.07);
+    left: auto;
+    right: -300px;
+    -webkit-transition: right 250ms ease;
+    -moz-transition: right 250ms ease;
+    -o-transition: right 250ms ease;
+    transition: right 250ms ease;
+}
+
+.book.with-summary .book-summary {
+    left: auto;
+    right: 0;
+}
+@media (min-width: 600px) {
+    .book.with-summary .book-body {
+        left: 0;
+        right: 300px;
+    }
+}
+
+.book-body {
+    -webkit-transition: right 250ms ease;
+    -moz-transition: right 250ms ease;
+    -o-transition: right 250ms ease;
+    transition: right 250ms ease;
+}
+
+.navigation.navigation-next {
+    margin-right: 0 !important;
+}
+
+.markdown-section img {
+    vertical-align: middle;
+}
+
+/*
+    themes customize
+*/
+.book.color-theme-1 .book-summary {
+    border-right: none;
+    border-left: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.book.font-family-1 {
+    font-family: "BYekan";
+}
+
+.articles-state-icon {
+    transform-origin: center;
+    position: absolute;
+    left: 30px;
+}
+.articles-state-icon.rotate {
+    transform: rotate(180deg);
+}
+/*
+	customize gitbook plugins
+*/

@@ -33,7 +33,7 @@ export default class ScoreHandler {
 		// show new modal to submit score
 		const submitScore = new Modal({
 			animate: config.useAnimationFlag,
-			dark: (config.level === 3),
+			dark: config.colorMode,
 			type: 'primary',
 			header: window.lang.submitScore,
 			content: submitScoreContent,
@@ -66,6 +66,7 @@ export default class ScoreHandler {
 
 		Timeout.request(
 			() => {
+				// show submit score modal
 				submitScore.show();
 			}, 1000
 		);
@@ -96,7 +97,7 @@ export default class ScoreHandler {
 		// show scores list modal
 		const submitScore = new Modal({
 			animate: config.useAnimationFlag,
-			dark: (config.level === 3),
+			dark: config.colorMode,
 			type: 'info',
 			header: window.lang.last10Record,
 			content,
@@ -125,13 +126,13 @@ export default class ScoreHandler {
 		// we just hold 10 last scores
 		submitted = submitted.slice(-9);
 		submitted.push(scoreData);
-		Storage.setObject('scores', submitted);
+		Storage.setObject(`scores_${window.lang.name}`, submitted);
 
 
 		// show success message
 		const submitScoreResult = new Modal({
 			animate: config.useAnimationFlag,
-			dark: (config.level === 3),
+			dark: config.colorMode,
 			onShow: () => {
 				Timeout.request(
 					() => { submitScoreResult.destroy(); }, 2000
@@ -151,7 +152,7 @@ export default class ScoreHandler {
      * @return {string|*}
      */
 	static _getSubmitted(sort) {
-		const scores = Storage.getObject('scores', []);
+		const scores = Storage.getObject(`scores_${window.lang.name}`, []);
 		if (sort) {
 		    scores.sort((a, b) => {
 				return parseInt(b.score) - parseInt(a.score);
@@ -184,18 +185,14 @@ export default class ScoreHandler {
      */
 	static _updateStats(word, direction) {
 		const initValues = TetrisGame.initValues;
-		// Update stats related to word
 
-		console.log(initValues.wordsLengthTotal);
+		// Update stats related to word
 		if (direction!=='exploded') {
 			initValues.wordsFounded++;
 			initValues.wordsLengthTotal += word.length;
 		}
-		console.log(initValues.wordsLengthTotal);
 		initValues.wordDirectionCounter[direction]++;
-		// console.log(initValues.wordsLengthTotal);
 
-		console.log(initValues.wordsFounded);
 		Helper._('.wordCounterHolder').innerHTML = Math.round(initValues.wordsFounded);
 	}
 

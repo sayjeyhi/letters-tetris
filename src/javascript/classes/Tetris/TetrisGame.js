@@ -68,7 +68,6 @@ export default class TetrisGame {
 			expertFallDownAnimateSpeed: 200,
 			successAnimationIterationDuration: 100,
 			vibrationDuration: 200,
-			do_vibrate: true,
 			do_shake: true,
 			do_encryption: true, // Enables encryption when saving score
 			encryptionKeySize: 16, // Size of key Used in encryption
@@ -88,7 +87,9 @@ export default class TetrisGame {
 			level: 1, // Up to 3 - if it is big it is hard to play
 			useAnimationFlag: true, // Make animate or not
 			showGrids: true, // Show grids flag
-			enable_special_characters: true
+			enable_special_characters: true,
+			colorMode: (Helper.isDay() ? 0 : 1), // 0 = dayMode , 1 = nightMode
+			do_vibrate: true
 		};
 
 		// Extend config from user
