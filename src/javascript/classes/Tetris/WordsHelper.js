@@ -123,7 +123,7 @@ export default class WordsHelper {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(randrange100>85){
+					}else if(randrange100>83){
 						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				}

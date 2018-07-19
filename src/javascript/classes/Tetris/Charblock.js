@@ -98,7 +98,7 @@ export default class Charblock {
 				charBlockEl.style.backgroundColor='#000';
 				charBlockEl.style.border = 'solid 2px #e66';
 				// Register click listener on charblock
-				Charblock._registerSkullClick(charblock);
+				Charblock._registerSkullClick(charBlockEl);
 			}
 			charBlockEl.style.fontSize = '2rem';
 			charBlockEl.appendChild(charblock.char);
@@ -120,7 +120,6 @@ export default class Charblock {
 	 * @return {boolean}
 	 */
 	static move(eventKeyCode, position) {
-
 		const initValues = TetrisGame.initValues;
 		const config = TetrisGame.config;
 		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
@@ -137,7 +136,8 @@ export default class Charblock {
 		if (moveTo.row >= config.rows || (destinationEl.innerHTML.trim() !== '')) {
 			if (isBottomMove) {
 				// Remove onclick if element reached bottom
-				this.element.onclick = function() { return false; };
+				this.element.removeEventListener('click',Charblock.skullClick,true);
+				this.element.removeEventListener('touchstart',Charblock.skullClick,true);
 
 				// check words
 				TetrisGame.checkWordSuccess(this);
@@ -145,18 +145,16 @@ export default class Charblock {
 				if (this.row !== 0) {
 					if (initValues.wordsFinished) {
 						Gameplay.finish('finishWords');
-					}
-					else {
+					} else {
 						// add new char
 						Charblock.factory();
-						console.log("Will add new char !");
+						console.log('Will add new char !');
 					}
 				} else {
 					Gameplay.finish('gameOver');
 				}
 			}
 		} else {
-
 			// remove char with animation
 			Charblock._destroy(this.element, moveTo.animateOutClass);
 
@@ -298,32 +296,32 @@ export default class Charblock {
 		const column = this.column;
 
 		switch (keyCode) {
-			case TetrisGame.controlCodes.LEFT: // left
-				moveTo = {
-					row,
-					column: column + 1,
-					animateOutClass: (window.lang.rtl ? 'fadeOutLeft' : 'fadeOutRight'),
-					animateInClass: (window.lang.rtl ? 'fadeInRight' : 'fadeInLeft')
-				};
-				break;
-			case TetrisGame.controlCodes.RIGHT: // right
-				moveTo = {
-					row,
-					column: column - 1,
-					animateOutClass: (window.lang.rtl ? 'fadeOutRight' : 'fadeOutLeft'),
-					animateInClass: (window.lang.rtl ? 'fadeInLeft' : 'fadeInRight')
-				};
-				break;
-			case TetrisGame.controlCodes.DOWN: // down
-				moveTo = {
-					row: row + 1,
-					column,
-					animateOutClass: 'fadeOutDown',
-					animateInClass: 'fadeInDown'
-				};
-				break;
-			default:
-				return false;
+		case TetrisGame.controlCodes.LEFT: // left
+			moveTo = {
+				row,
+				column: column + 1,
+				animateOutClass: (window.lang.rtl ? 'fadeOutLeft' : 'fadeOutRight'),
+				animateInClass: (window.lang.rtl ? 'fadeInRight' : 'fadeInLeft')
+			};
+			break;
+		case TetrisGame.controlCodes.RIGHT: // right
+			moveTo = {
+				row,
+				column: column - 1,
+				animateOutClass: (window.lang.rtl ? 'fadeOutRight' : 'fadeOutLeft'),
+				animateInClass: (window.lang.rtl ? 'fadeInLeft' : 'fadeInRight')
+			};
+			break;
+		case TetrisGame.controlCodes.DOWN: // down
+			moveTo = {
+				row: row + 1,
+				column,
+				animateOutClass: 'fadeOutDown',
+				animateInClass: 'fadeInDown'
+			};
+			break;
+		default:
+			return false;
 		}
 
 		return moveTo;
@@ -379,24 +377,32 @@ export default class Charblock {
 	}
 
 	static _registerSkullClick(charBlockEl) {
-		{
-			charBlockEl.onclick = ()=>{
-				if (!TetrisGame.initValues.paused) {
-					const skullCharacter = charBlockEl.childNodes[0];
-					const remainingClicks = Helper.int(skullCharacter.title)-1;
-					if (remainingClicks	>=0) {
-						skullCharacter.title = remainingClicks;
-					} else {
-						const YX = Helper.getYX(skullCharacter);
-						console.log('EXPLODING SKULL');
-						console.log(YX);
-						Explosion.explode(skullCharacter, YX.x, YX.y);
-						Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+		charBlockEl.addEventListener('click',Charblock.skullClick,true);
+		charBlockEl.addEventListener('touchstart',Charblock.skullClick,true);
+	}
 
-						// get next char
-						Charblock.factory();
-					}
-				}
+	/**
+	 *
+	 * @param charBlockEl
+	 */
+	static skullClick(event) {
+		console.log(event);
+		const charBlockEl = event.currentTarget;
+		if (!charBlockEl) return;
+		if (!TetrisGame.initValues.paused) {
+			const skullCharacter = charBlockEl.childNodes[0];
+			const remainingClicks = Helper.int(skullCharacter.title)-1;
+			if (remainingClicks	>=0) {
+				skullCharacter.title = remainingClicks;
+			} else {
+				const YX = Helper.getYX(skullCharacter);
+				console.log('EXPLODING SKULL');
+				console.log(YX);
+				Explosion.explode(skullCharacter, YX.x, YX.y);
+				Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+
+				// get next char
+				Charblock.factory();
 			}
 		}
 	}
