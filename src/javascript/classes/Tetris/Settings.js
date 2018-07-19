@@ -11,68 +11,68 @@ import Helper from '../Helper';
  * @class Settings to show and set game settings
  */
 export default class Settings {
-    /**
+	/**
      * Set settings from localStorage OR settings Object
      * @param settings
      */
-    static set(settings) {
-        if (typeof settings !== 'undefined') {
-            // save setting data
-            Storage.set('settings', settings);
-        } else {
-            settings = Storage.getObject('settings', false);
-            if (!settings) {
-                return false;
-            }
-        }
+	static set(settings) {
+		if (typeof settings !== 'undefined') {
+			// save setting data
+			Storage.set('settings', settings);
+		} else {
+			settings = Storage.getObject('settings', false);
+			if (!settings) {
+				return false;
+			}
+		}
 
-        const config = TetrisGame.config;
+		const config = TetrisGame.config;
 
-        config.useAnimationFlag = parseInt(settings.useAnimation) === 1;
-        config.playEventsSound = parseInt(settings.eventSounds) === 1;
-        config.playBackgroundSound = parseInt(settings.soundPlay) === 1;
-        config.showGrids = parseInt(settings.showGrids) === 1;
-        config.level = parseInt(settings.gameLevel) || 1;
-
-
-        // Apply setting for music
-        Settings._setMusicSetting();
-
-        // Apply setting for grids
-        Settings._setGridsSetting();
-
-        // Apply setting for level
-        Settings._setLevelSetting(settings.gameLevel);
-    }
+		config.useAnimationFlag = parseInt(settings.useAnimation) === 1;
+		config.playEventsSound = parseInt(settings.eventSounds) === 1;
+		config.playBackgroundSound = parseInt(settings.soundPlay) === 1;
+		config.showGrids = parseInt(settings.showGrids) === 1;
+		config.level = parseInt(settings.gameLevel) || 1;
 
 
-    /**
+		// Apply setting for music
+		Settings._setMusicSetting();
+
+		// Apply setting for grids
+		Settings._setGridsSetting();
+
+		// Apply setting for level
+		Settings._setLevelSetting(settings.gameLevel);
+	}
+
+
+	/**
      * Show game settings
      */
-    static show() {
-        // get defined settings
-        const settings = Storage.getObject('settings', {
-            soundPlay: 1,
-            eventSounds: 1,
-            useAnimation: 1,
-            gameLevel: 1,
-            showGrids: 0
-        });
+	static show() {
+		// get defined settings
+		const settings = Storage.getObject('settings', {
+			soundPlay: 1,
+			eventSounds: 1,
+			useAnimation: 1,
+			gameLevel: 1,
+			showGrids: 0
+		});
 
-        // was game paused already
-        const wasPausedFlag = TetrisGame.initValues.paused === true;
+		// was game paused already
+		const wasPausedFlag = TetrisGame.initValues.paused === true;
 
-        // pause game timer
-        if (!wasPausedFlag) {
-            TetrisGame.timer.pause();
-        }
+		// pause game timer
+		if (!wasPausedFlag) {
+			TetrisGame.timer.pause();
+		}
 
-        // should we animate span ?
-        const spanAnimationClass = (TetrisGame.config.useAnimationFlag ? ' animatedSpan' : '');
+		// should we animate span ?
+		const spanAnimationClass = (TetrisGame.config.useAnimationFlag ? ' animatedSpan' : '');
 
 
-        // create setting modal content
-        const content = `<form id="settingForm" class="cssRadio ${spanAnimationClass}">
+		// create setting modal content
+		const content = `<form id="settingForm" class="cssRadio ${spanAnimationClass}">
                 <div class="formRow">
                     <div class="formLabel"><i class="linearicon linearicon-music-note2"></i> ${window.lang.backgroundMusic}</div>
                     <div class="formData">
@@ -126,125 +126,130 @@ export default class Settings {
                 </div>
             </form>`;
 
-        // show setting modal
-        const settingModal = new Modal({
-            animate: TetrisGame.config.useAnimationFlag,
-            header: window.lang.settingModalTitle,
-            content,
-            dark: settings.gameLevel === 3,
-            onDestroy() {
-                if (!wasPausedFlag) {
-                    // resume timer
-                    TetrisGame.timer.resume();
-                }
-            }
-        }, window.lang.rtl);
-        settingModal.show();
+		// show setting modal
+		const settingModal = new Modal({
+			animate: TetrisGame.config.useAnimationFlag,
+			header: window.lang.settingModalTitle,
+			content,
+			dark: settings.gameLevel === 3,
+			onDestroy() {
+				if (!wasPausedFlag) {
+					// resume timer
+					TetrisGame.timer.resume();
+				}
+			}
+		}, window.lang.rtl);
+		settingModal.show();
 
 
-        // changing setting values
-        settingModal.modal.querySelectorAll('input').forEach(input => {
-            input.onchange = function() {
-                // catch data
-                const modalItSelf = settingModal.modal;
-                const settingForm = Helper._('#settingForm', modalItSelf);
-                const settingData = {};
-                settingData.soundPlay = Settings._getIntValue(settingForm, 'soundPlay');
-                settingData.eventSounds = Settings._getIntValue(settingForm, 'eventSounds');
-                settingData.useAnimation = Settings._getIntValue(settingForm, 'useAnimation');
-                settingData.gameLevel = Settings._getIntValue(settingForm, 'gameLevel');
-                settingData.showGrids = Settings._getIntValue(settingForm, 'showGrids');
+		// changing setting values
+		settingModal.modal.querySelectorAll('input').forEach(input => {
+			input.onchange = function() {
+				// catch data
+				const modalItSelf = settingModal.modal;
+				const settingForm = Helper._('#settingForm', modalItSelf);
+				const settingData = {};
+				settingData.soundPlay = Settings._getIntValue(settingForm, 'soundPlay');
+				settingData.eventSounds = Settings._getIntValue(settingForm, 'eventSounds');
+				settingData.useAnimation = Settings._getIntValue(settingForm, 'useAnimation');
+				settingData.gameLevel = Settings._getIntValue(settingForm, 'gameLevel');
+				settingData.showGrids = Settings._getIntValue(settingForm, 'showGrids');
 
-                if (settingData.gameLevel === 3) {
-                    modalItSelf.classList.add('dark');
-                } else {
-                    modalItSelf.classList.remove('dark');
-                }
+				if (settingData.gameLevel === 3) {
+					modalItSelf.classList.add('dark');
+				} else {
+					modalItSelf.classList.remove('dark');
+				}
 
-                // apply setting and save it
-                Settings.set(settingData);
-            };
-        });
-    }
+				// apply setting and save it
+				Settings.set(settingData);
+			};
+		});
+	}
 
 
-    /**
+	/**
      * Get int value of a form element
      * @return {number}
      * @private
      */
-    static _getIntValue(settingForm, name) {
-        return parseInt(Helper._(`.${name}:checked`, settingForm).value);
-    }
+	static _getIntValue(settingForm, name) {
+		return parseInt(Helper._(`.${name}:checked`, settingForm).value);
+	}
 
 
-    /**
+	/**
      * Pause/play background music
      * @private
      */
-    static _setMusicSetting() {
-        if (!TetrisGame.config.playBackgroundSound) {
-            TetrisGame.initValues.bgSound.pause();
-        } else {
-            TetrisGame.initValues.bgSound.play();
-        }
-    }
+	static _setMusicSetting() {
+		if (!TetrisGame.config.playBackgroundSound) {
+			TetrisGame.initValues.bgSound.pause();
+		} else {
+			TetrisGame.initValues.bgSound.play();
+		}
+	}
 
 
-    /**
+	/**
      * Manage grids on play board
      * @private
      */
-    static _setGridsSetting() {
-        const playBoard = TetrisGame.playBoard;
-        if (playBoard) {
-            if (TetrisGame.config.showGrids) {
-                playBoard.classList.add('showGrids');
-            } else {
-                playBoard.classList.remove('showGrids');
-            }
-        }
-    }
+	static _setGridsSetting() {
+		const playBoard = TetrisGame.playBoard;
+		if (playBoard) {
+			if (TetrisGame.config.showGrids) {
+				playBoard.classList.add('showGrids');
+			} else {
+				playBoard.classList.remove('showGrids');
+			}
+		}
+	}
 
 
-    /**
+	/**
      * Add level class to body AND do staffs about leveling
      * @param gameLevel
      * @private
      */
-    static _setLevelSetting(gameLevel) {
-        let bodyClass = '';
-        switch (gameLevel) {
-        case 3:
-            bodyClass = 'isExpert';
+	static _setLevelSetting(gameLevel) {
+		let bodyClass = '';
+		let config = TetrisGame.config;
 
-            // use two word same time at hard mode
-            TetrisGame.config.workingWordCount = 2;
+		// update interval speed
+		TetrisGame.interval.update(config.charSpeed / config.level);
 
-            // Update animation timing and delete timing
-            TetrisGame.initValues.animateConfig = {
-                animateClass: 'fallDownExpert',
-                deleteTiming: TetrisGame.config.expertFallDownAnimateSpeed
-            };
+		switch (gameLevel) {
+		case 3:
+			bodyClass = 'isExpert';
 
-            break;
-        case 2:
-            bodyClass = 'isMedium';
+			// use two word same time at hard mode
+			TetrisGame.config.workingWordCount = 2;
 
-            TetrisGame.initValues.animateConfig = {
-                animateClass: 'fallDownCharMedium',
-                deleteTiming: TetrisGame.config.mediumFallDownAnimateSpeed
-            };
-            break;
-        default:
-            bodyClass = 'isSimple';
+			// Update animation timing and delete timing
+			TetrisGame.initValues.animateConfig = {
+				animateClass: 'fallDownExpert',
+				deleteTiming: config.expertFallDownAnimateSpeed
+			};
 
-            TetrisGame.initValues.animateConfig = {
-                animateClass: 'fallDownSimple',
-                deleteTiming: TetrisGame.config.simpleFallDownAnimateSpeed
-            };
-        }
-        document.body.classList.remove('isExpert', 'isMedium', 'isSimple');
-        document.body.classList.add(bodyClass);
-    }
+			break;
+		case 2:
+			bodyClass = 'isMedium';
+
+			TetrisGame.initValues.animateConfig = {
+				animateClass: 'fallDownCharMedium',
+				deleteTiming: config.mediumFallDownAnimateSpeed
+			};
+			break;
+		default:
+			bodyClass = 'isSimple';
+
+			TetrisGame.initValues.animateConfig = {
+				animateClass: 'fallDownSimple',
+				deleteTiming: config.simpleFallDownAnimateSpeed
+			};
+		}
+		document.body.classList.remove('isExpert', 'isMedium', 'isSimple');
+		document.body.classList.add(bodyClass);
+	}
 }
