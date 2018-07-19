@@ -76,18 +76,18 @@ export default class Settings {
                 <div class="formRow">
                     <div class="formLabel"><i class="icon-sound2"></i> ${window.lang.backgroundMusic}</div>
                     <div class="formData">
-                        <input id="soundPlayYes" type="radio" class="soundPlay" name="soundPlay" value="1" ${settings.soundPlay === 1 ? 'checked' : ''} />
+                        <input id="soundPlayYes" type="radio" class="soundPlay" name="soundPlay" value="1" ${settings.soundPlay ? 'checked' : ''} />
                         <label for="soundPlayYes"><span>${window.lang.activeSound}</span></label>
-                        <input id="soundPlayNo" type="radio" class="soundPlay" name="soundPlay" value="0" ${settings.soundPlay === 0 ? 'checked' : ''} />
+                        <input id="soundPlayNo" type="radio" class="soundPlay" name="soundPlay" value="0" ${!settings.soundPlay ? 'checked' : ''} />
                         <label for="soundPlayNo"><span>${window.lang.deActiveSound}</span></label>
                     </div>
                 </div>
                 <div class="formRow">
                     <div class="formLabel"><i class="icon-sound1"></i> ${window.lang.eventsMusic}</div>
                     <div class="formData">
-                        <input id="eventSoundsYes" type="radio" class="eventSounds" name="eventSounds" value="1" ${settings.eventSounds === 1 ? 'checked' : ''} />
+                        <input id="eventSoundsYes" type="radio" class="eventSounds" name="eventSounds" value="1" ${settings.eventSounds ? 'checked' : ''} />
                         <label for="eventSoundsYes"><span>${window.lang.activeSound}</span></label>
-                        <input id="eventSoundsNo" type="radio" class="eventSounds" name="eventSounds" value="0" ${settings.eventSounds === 0 ? 'checked' : ''} />
+                        <input id="eventSoundsNo" type="radio" class="eventSounds" name="eventSounds" value="0" ${!settings.eventSounds ? 'checked' : ''} />
                         <label for="eventSoundsNo"><span>${window.lang.deActiveSound}</span></label>
                     </div>
                 </div>
@@ -95,9 +95,9 @@ export default class Settings {
                 <div class="formRow">
                     <div class="formLabel"><i class="icon-magic"></i> ${window.lang.animation}</div>
                     <div class="formData">
-                        <input id="useAnimationYes" type="radio" class="useAnimation" name="useAnimation" value="1" ${settings.useAnimation === 1 ? 'checked' : ''} />
+                        <input id="useAnimationYes" type="radio" class="useAnimation" name="useAnimation" value="1" ${settings.useAnimation ? 'checked' : ''} />
                         <label for="useAnimationYes"><span>${window.lang.active}</span></label>
-                        <input id="useAnimationNo" type="radio" class="useAnimation" name="useAnimation" value="0" ${settings.useAnimation === 0 ? 'checked' : ''} />
+                        <input id="useAnimationNo" type="radio" class="useAnimation" name="useAnimation" value="0" ${!settings.useAnimation ? 'checked' : ''} />
                         <label for="useAnimationNo"><span>${window.lang.deActive}</span></label>
                     </div>
                 </div>
@@ -105,9 +105,9 @@ export default class Settings {
                 <div class="formRow">
                     <div class="formLabel"><i class="icon-borders"></i> ${window.lang.showGrids}</div>
                     <div class="formData">
-                        <input id="showGridsYes" type="radio" class="showGrids" name="showGrids" value="1" ${settings.showGrids === 1 ? 'checked' : ''} />
+                        <input id="showGridsYes" type="radio" class="showGrids" name="showGrids" value="1" ${settings.showGrids ? 'checked' : ''} />
                         <label for="showGridsYes"><span>${window.lang.active}</span></label>
-                        <input id="showGridsNo" type="radio" class="showGrids" name="showGrids" value="0" ${settings.showGrids === 0 ? 'checked' : ''} />
+                        <input id="showGridsNo" type="radio" class="showGrids" name="showGrids" value="0" ${!settings.showGrids ? 'checked' : ''} />
                         <label for="showGridsNo"><span>${window.lang.deActive}</span></label>
                     </div>
                 </div>
@@ -116,9 +116,9 @@ export default class Settings {
                 <div class="formRow isVibrateControl">
                     <div class="formLabel"><i class="icon-mobile"></i> ${window.lang.vibration}</div>
                     <div class="formData">
-                        <input id="vibrationYes" type="radio" class="vibration" name="vibration" value="1" ${settings.vibration === 1 ? 'checked' : ''} />
+                        <input id="vibrationYes" type="radio" class="vibration" name="vibration" value="1" ${settings.vibration ? 'checked' : ''} />
                         <label for="vibrationYes"><span>${window.lang.activeVibrate}</span></label>
-                        <input id="vibrationNo" type="radio" class="vibration" name="vibration" value="0" ${settings.vibration === 0 ? 'checked' : ''} />
+                        <input id="vibrationNo" type="radio" class="vibration" name="vibration" value="0" ${!settings.vibration ? 'checked' : ''} />
                         <label for="vibrationNo"><span>${window.lang.deActiveVibrate}</span></label>
                     </div>
                 </div>

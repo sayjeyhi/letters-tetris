@@ -60,19 +60,23 @@ export default class WordsHelper {
 		const bombCharacter = document.createElement('img');
 		bombCharacter.src = '/assets/img/bomb.gif';
 		bombCharacter.className = 'bomb';
+		bombCharacter.dataset.size = size.toString();
 		bombCharacter.type = 'bomb';
-		bombCharacter.typeSize = size;
 		bombCharacter.special = 'true';
 		return bombCharacter;
 	}
 
+
+	/**
+	 * Gives us an skull character
+	 * @param clickCount
+	 * @return {HTMLElement}
+	 */
 	static giveMeAnSkull(clickCount) {
 		Helper.log(`Skull click needs: ${clickCount}`);
-		const skullCharacter = document.createElement('img');
-		skullCharacter.src = '/assets/img/skull.gif';
-		skullCharacter.className = 'skull';
-		skullCharacter.title= clickCount;
-		skullCharacter.typeSize = clickCount;
+		const skullCharacter = document.createElement('i');
+		skullCharacter.className = 'skull icon-skelete';
+		skullCharacter.dataset.clicks = clickCount;
 		skullCharacter.type = 'skull';
 		skullCharacter.special = 'true';
 		return skullCharacter;
@@ -87,12 +91,13 @@ export default class WordsHelper {
 		const initValues	= TetrisGame.initValues;
 		const config		= TetrisGame.config;
 		if (config.enable_special_characters) {
+
 			// Dont bomb empty field :|
-			if (TetrisGame.matrix.filledCharacters > 0) {
-				const randrange100 = Helper.getRandomInt(0,100);
+			if (TetrisGame.matrix.filledCharacters > 1) {
+				const randRange100 = Helper.getRandomInt(0,100);
 
 				if (config.level === 1) {
-					if (randrange100 > 90) {
+					if (randRange100 > 90) {
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
 						if (roll===20){
@@ -101,29 +106,29 @@ export default class WordsHelper {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(randrange100>87){
+					}else if(randRange100 > 87){
 						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				} else if (config.level=== 2) {
-					if (randrange100 > 93) {
+					if (randRange100 > 93) {
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
-						if (roll>=19) {
+						if (roll >= 19) {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(randrange100>87){
+					}else if(randRange100 > 87){
 						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				} else if (config.level=== 3) {
-					if(randrange100 > 96){
+					if(randRange100 > 96){
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
-						if (roll===20) {
-							bombSize=2;
+						if (roll === 20) {
+							bombSize = 2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(randrange100>83){
+					}else if(randRange100 > 85){
 						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				}

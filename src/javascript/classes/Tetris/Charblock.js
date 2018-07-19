@@ -87,6 +87,7 @@ export default class Charblock {
 
 		const charBlockEl = document.createElement('span');
 		const animateClass = TetrisGame.config.useAnimationFlag ? ' animated ' : '';
+		let plusCharBlockClass = '';
 
 		if (charblock.type === 'regular') {
 			charBlockEl.style.background = charblock.color;
@@ -95,16 +96,18 @@ export default class Charblock {
 			if (charblock.type === 'bomb') {
 				charBlockEl.style.background = 'transparent';
 			} else if (charblock.type === 'skull') {
-				charBlockEl.style.backgroundColor='#000';
-				charBlockEl.style.border = 'solid 2px #e66';
+
+				// set skull styling class
+				plusCharBlockClass = "skullBlock";
+				charBlockEl.style.background = "#000";
+
 				// Register click listener on charblock
 				Charblock._registerSkullClick(charBlockEl);
 			}
-			charBlockEl.style.fontSize = '2rem';
 			charBlockEl.appendChild(charblock.char);
 		}
 
-		charBlockEl.className = `charBlock ${animateClass}${charblock.animateInClass || ''}`;
+		charBlockEl.className = `charBlock ${plusCharBlockClass} ${animateClass}${charblock.animateInClass || ''}`;
 
 		charblock.element = charBlockEl;
 
@@ -135,6 +138,10 @@ export default class Charblock {
 		const destinationEl = Charblock._getEl(moveTo.row, moveTo.column) || null;
 		if (moveTo.row >= config.rows || (destinationEl.innerHTML.trim() !== '')) {
 			if (isBottomMove) {
+
+				// remove styles of coming
+				this.element.classList.remove("skullBlock" , "bombBlock");
+
 				// Remove onclick if element reached bottom
 				this.element.removeEventListener('click',Charblock.skullClick,true);
 				this.element.removeEventListener('touchstart',Charblock.skullClick,true);
@@ -400,6 +407,21 @@ export default class Charblock {
 				console.log(YX);
 				Explosion.explode(skullCharacter, YX.x, YX.y);
 				Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+
+		return () => {
+
+			// just use when game is playing
+			if (!TetrisGame.initValues.paused) {
+				const skullCharacter = charBlockEl.childNodes[0];
+				const remainingClicks = Helper.int(skullCharacter.dataset.clicks) - 1;
+				if (remainingClicks	> 0) {
+					skullCharacter.dataset.clicks = remainingClicks.toString();
+				} else {
+					const YX = Helper.getYX(skullCharacter);
+
+					// explode the skull block
+					Explosion.explode(skullCharacter, YX.x, YX.y);
+					Animate.fallNodeAnimate(YX.y, YX.x, null, null);
 
 				// get next char
 				Charblock.factory();
