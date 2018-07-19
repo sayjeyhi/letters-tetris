@@ -86,39 +86,45 @@ export default class WordsHelper {
 		let choosedChar;
 		const initValues	= TetrisGame.initValues;
 		const config		= TetrisGame.config;
-		if (config.enable_bomb) {
+		if (config.enable_special_characters) {
 			// Dont bomb empty field :|
 			if (TetrisGame.matrix.filledCharacters > 0) {
+				const randrange100 = Helper.getRandomInt(0,100);
+
 				if (config.level === 1) {
-					if (Math.random() > 0.90) {
+					if (randrange100 > 90) {
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
-						if (roll===20) {
+						if (roll===20){
 							bombSize=3;
 						} else if (roll>=16) {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(Math.random()>0.7){
+					}else if(randrange100>87){
 						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				} else if (config.level=== 2) {
-					if (Math.random() > 0.93) {
+					if (randrange100 > 93) {
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
 						if (roll>=19) {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
+					}else if(randrange100>87){
+						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				} else if (config.level=== 3) {
-					if (Math.random() > 0.96) {
+					if(randrange100 > 96){
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
 						if (roll===20) {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
+					}else if(randrange100>85){
+						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				}
 			}

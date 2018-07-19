@@ -81,15 +81,13 @@ export default class TetrisGame {
 				return Math.pow(word.length, 1.3); // Larger words will have better score
 			},
 			chooseedWordKind: {},
-			enable_bomb: true,
-
-
-			// user setting modal can change values
+			// user setting values
 			playBackgroundSound: true,
 			playEventsSound: true,
 			level: 1, // Up to 3 - if it is big it is hard to play
 			useAnimationFlag: true, // Make animate or not
 			showGrids: true, // Show grids flag
+			enable_special_characters: true,
 			colorMode: (Helper.isDay() ? 0 : 1), // 0 = dayMode , 1 = nightMode
 			do_vibrate: true
 		};
