@@ -88,7 +88,7 @@ class ArshLoader {
                     + '<div class="persianTitle">حیوانات</div>'
                     + '<div class="englishTitle">Animals</div>'
                     + '<div class="japaneseTitle">動物</div>'
-                    + '<i class="linearicon linearicon-chevrons-expand-vertical"></i>'
+                    + '<i class="icon-upDown"></i>'
                     + '</div>';
 
 				Helper._('.wordsKind', chooseWordsKind).onclick = function(ev) {
@@ -119,7 +119,7 @@ class ArshLoader {
 				};
 				btnFa.className = 'btnEnterProject animatedOneSecond bounceIn';
 				btnFa.innerHTML
-                    = '<i class=\'linearicon linearicon-gamepad\'></i> ورود به بازی';
+                    = '<i class=\'icon-uniE685\'></i> ورود به بازی';
 
 				const btnEn = document.createElement('div');
 				btnEn.onclick = function() {
@@ -129,7 +129,7 @@ class ArshLoader {
 					ArshLoader.startGame('en', wordsType);
 				};
 				btnEn.className = 'btnEnterProject animatedOneSecond bounceIn ltr';
-				btnEn.innerHTML = '<i class=\'linearicon linearicon-gamepad\'></i> Enter Game';
+				btnEn.innerHTML = '<i class=\'icon-uniE685\'></i> Enter Game';
 
 				const btnJa = document.createElement('div');
 				btnJa.onclick = function() {
@@ -139,7 +139,7 @@ class ArshLoader {
 					ArshLoader.startGame('ja', wordsType);
 				};
 				btnJa.className = 'btnEnterProject animated bounceIn ltr';
-				btnJa.innerHTML = '<i class=\'linearicon linearicon-gamepad\'></i>ゲームに入る';
+				btnJa.innerHTML = '<i class=\'icon-uniE685\'></i>ゲームに入る';
 
 				const workKindChooser = document.createElement('div');
 				workKindChooser.className = 'chooseWordKindTooltip';
@@ -149,25 +149,25 @@ class ArshLoader {
                     + '<div class="persianTitle">حیوانات</div>'
                     + '<div class="englishTitle">Animals</div>'
                     + '<div class="japaneseTitle">動物</div>'
-                    + '<i class="linearicon linearicon-fish"></i>'
+                    + '<i class="icon-fish"></i>'
                     + '</li>'
                     + '<li onclick="arshLoader.chooseWordKind(\'colors\' , this);">'
                     + '<div class="persianTitle">رنگ ها</div>'
                     + '<div class="englishTitle">Colors</div>'
                     + '<div class="japaneseTitle">色</div>'
-                    + '<i class="linearicon linearicon-brush2"></i>'
+                    + '<i class="icon-brush"></i>'
                     + '</li>'
                     + '<li onclick="arshLoader.chooseWordKind(\'things\' ,this);">'
                     + '<div class="persianTitle">اشیا</div>'
                     + '<div class="englishTitle">Things</div>'
                     + '<div class="japaneseTitle">もの</div>'
-                    + '<i class="linearicon linearicon-socks"></i>'
+                    + '<i class="icon-jorab"></i>'
                     + '</li>'
                     + '<li onclick="arshLoader.chooseWordKind(\'fruits\' , this);">'
                     + '<div class="persianTitle">میوه ها</div>'
                     + '<div class="englishTitle">Fruits</div>'
                     + '<div class="japaneseTitle">もの</div>'
-                    + '<i class="linearicon linearicon-cherry"></i>'
+                    + '<i class="icon-albalo"></i>'
                     + '</li>'
                     + '</ul>';
 
@@ -250,7 +250,6 @@ class ArshLoader {
 		window.Gameplay = Gameplay;
 		window.Settings = Settings;
 		window.ScoreHandler = ScoreHandler;
-		window.ArshLoader = ArshLoader;
 
 		const tetrisGameConfig = {
 			rows: 10,

@@ -17,6 +17,96 @@
 	url(../Fonts/BYekan.woff) format("woff"),
 	url(../Fonts/BYekan.ttf) format("truetype");
 }
+
+@font-face {
+	font-family: 'tetris_webfont';
+	src: url(../Fonts/tetris_webfont.eot?92703314);
+	src: url(../Fonts/tetris_webfont.eot?92703314#iefix) format("embedded-opentype"),
+	url(../Fonts/tetris_webfont.woff2?92703314) format("woff2"),
+	url(../Fonts/tetris_webfont.woff?92703314) format("woff"),
+	url(../Fonts/tetris_webfont.ttf?92703314) format("truetype"),
+	url(../Fonts/tetris_webfont.svg?92703314#tetris_webfont) format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	font-family: "tetris_webfont" , sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	speak: none;
+	line-height:1;
+
+	display: inline-block;
+	text-decoration: inherit;
+	text-align: center;
+
+	/* For safety - reset parent styles, that can break glyph codes*/
+	font-variant: normal;
+	text-transform: none;
+
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon-one:before { content: '\e800';}
+.icon-two:before { content: '\e801';}
+.icon-three:before { content: '\e802';}
+.icon-uniE685:before { content: '\e803';}
+.icon-bil:before { content: '\e804';}
+.icon-upDown:before { content: '\e805';}
+.icon-fish:before { content: '\e806';}
+.icon-albalo:before { content: '\e807';}
+.icon-swipeLR:before { content: '\e808';}
+.icon-swipeTD:before { content: '\e809';}
+.icon-packMan:before { content: '\e80a';}
+.icon-brain:before { content: '\e80b';}
+.icon-hover:before { content: '\e80c';}
+.icon-skelete:before { content: '\e80d';}
+.icon-jorab:before { content: '\e80e';}
+.icon-jam:before { content: '\e80f';}
+.icon-number1:before { content: '\e810';}
+.icon-number2:before { content: '\e811';}
+.icon-number3:before { content: '\e812';}
+.icon-sound1:before { content: '\e813';}
+.icon-sound2:before { content: '\e814';}
+.icon-brush:before { content: '\e815';}
+.icon-money:before { content: '\e816';}
+.icon-clock:before { content: '\e817';}
+.icon-setting:before { content: '\e818';}
+.icon-borders:before { content: '\e819';}
+.icon-sibil:before { content: '\e81a';}
+.icon-responsive:before { content: '\e81b';}
+.icon-keyBoard:before { content: '\e81c';}
+.icon-ok:before { content: '\e81d';}
+.icon-close:before { content: '\e81e';}
+.icon-bug:before { content: '\e81f';}
+.icon-magic:before { content: '\e820';}
+.icon-uniE95A:before { content: '\e821';}
+.icon-uniE959:before { content: '\e822';}
+.icon-uniE790:before { content: '\e823';}
+.icon-notVibrate:before { content: '\e824';}
+.icon-vibrate:before { content: '\e825';}
+.icon-uniE7BE:before { content: '\e826';}
+.icon-uniE7BC:before { content: '\e827';}
+.icon-gem:before { content: '\e828';}
+.icon-coffee:before { content: '\e829';}
+.icon-uniE91D:before { content: '\e82a';}
+.icon-uniE952:before { content: '\e82b';}
+.icon-minimize:before { content: '\e82c';}
+.icon-leftRight:before { content: '\e82d';}
+.icon-hasSound:before { content: '\e82e';}
+.icon-colorPelete:before { content: '\e82f';}
+.icon-notSound:before { content: '\e830';}
+.icon-mobile:before { content: '\e831';}
+.icon-chimistry:before { content: '\e832';}
+.icon-desktop:before { content: '\e833';}
+.icon-abnabat:before { content: '\e834';}
+
+
 body {
 	margin: 0 !important;
 	font-family: "BYekan", "SDF", "Tahoma", sans-serif;
@@ -110,7 +200,7 @@ h3 {
 	font-family: "SDF" , sans-serif;
 	margin: 4px;
 }
-.btnEnterProject .linearicon {
+.btnEnterProject i {
 	font-size: 37px;
 	position: absolute;
 	right: -5px;
@@ -121,7 +211,7 @@ h3 {
 .btnEnterProject.ltr {
 	padding: 6px 17px 6px 38px;
 }
-.btnEnterProject.ltr .linearicon {
+.btnEnterProject.ltr i {
 	left: -5px !important;
 	right: auto !important;
 }
@@ -226,7 +316,7 @@ svg :not(.doNotUnfill) {
 .wordsKind:hover {
 	background-color: #eee;
 }
-.wordsKind .linearicon {
+.wordsKind i {
 	font-size: 16px;
 	position: absolute;
 	/* bottom: -5px; */
@@ -303,7 +393,7 @@ svg :not(.doNotUnfill) {
 	/* margin-left: 10px; */
 	width: 33%;
 }
-.chooseWordKindTooltip ul > li .linearicon {
+.chooseWordKindTooltip ul > li i {
 	font-size: 16px;
 	position: absolute;
 	margin: 5px 7px;
@@ -430,7 +520,7 @@ svg :not(.doNotUnfill) {
 	cursor: pointer;
 	font-size: 14px;
 }
-.gameHolder .behindPlayBoard .courseArea .linearicon {
+.gameHolder .behindPlayBoard .courseArea i {
 	position: relative;
 	bottom: -2px;
 	margin-left: 4px;
@@ -596,7 +686,7 @@ svg :not(.doNotUnfill) {
 	padding: 8px;
 	margin-top: 10px;
 }
-.modal .formData .linearicon {
+.modal .formData i {
 	display: none;
 }
 .modal .footerModal .buttonModal {
@@ -742,7 +832,7 @@ svg :not(.doNotUnfill) {
 	position: relative;
 	margin-right: 12px;
 }
-#settingForm .formLabel .linearicon {
+#settingForm .formLabel i {
 	position: absolute;
 	right: -28px;
 	font-size: 32px;
@@ -750,17 +840,22 @@ svg :not(.doNotUnfill) {
 	top: -9px;
 	color: #d1d1d1b3;
 }
+
 #settingForm .formData {
 	display: inline-block;
 }
 
-.modal.ltr #settingForm .formLabel .linearicon {
+.modal.ltr #settingForm .formLabel i {
 	left: -28px;
 	right: auto !important;
 }
 .modal.ltr #settingForm .formLabel {
 	margin-left: 12px !important;
 	margin-right: 0 !important;
+}
+
+.modal.dark #settingForm .formLabel i {
+	color: #d1d1d15e !important
 }
 
 .cssRadio input[type="radio"] {
@@ -987,13 +1082,13 @@ svg :not(.doNotUnfill) {
 		width: 40% !important;
 		margin-right: 0 !important;
 	}
-	.modal .formLabel .linearicon {
+	.modal .formLabel i {
 		font-size: 27px !important;
 	}
 	.modal .formData .textLabel {
 		display: none !important;
 	}
-	.modal .formData .linearicon {
+	.modal .formData i {
 		display: inline-block !important;
 	}
 	.modal .formData label > span {

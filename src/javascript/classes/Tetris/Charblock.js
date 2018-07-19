@@ -12,7 +12,9 @@ import Helper from '../Helper';
 import Explosion from '../Explosion';
 import Animate from '../Animate';
 
-
+/**
+ * @class Charblock make easier our life on manage characters block
+ */
 export default class Charblock {
 	/**
      * Create new char block
@@ -36,8 +38,8 @@ export default class Charblock {
 		// is character special ?
 		if (typeof this.char === 'object' && this.char.special === 'true') {
 			this.type = this.char.type;
-			this.typeSize = 1;
-			Helper.log('Incominggggg bomb :|');
+			this.typeSize = this.char.typeSize;
+			Helper.log('Incominggggg');
 		} else {
 			this.type = 'regular';
 			this.color = MaterialColor.getRandomColor(); // random material color
@@ -132,6 +134,7 @@ export default class Charblock {
      * @return {boolean}
      */
 	static move(eventKeyCode, position) {
+
 		const initValues = TetrisGame.initValues;
 		const config = TetrisGame.config;
 		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
@@ -156,9 +159,11 @@ export default class Charblock {
 				if (this.row !== 0) {
 					if (initValues.wordsFinished) {
 						Gameplay.finish('finishWords');
-					} else {
+					}
+					else {
 						// add new char
 						Charblock.factory();
+						console.log("Will add new char !");
 					}
 				} else {
 					Gameplay.finish('gameOver');

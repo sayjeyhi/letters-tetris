@@ -6,6 +6,7 @@ import TetrisGame from './TetrisGame';
 import Storage from '../Storage';
 import Modal from '../Modal';
 import Helper from '../Helper';
+import Charblock from "./Charblock";
 
 /**
  * @class Settings to show and set game settings
@@ -56,7 +57,9 @@ export default class Settings {
 			eventSounds: 1,
 			useAnimation: 1,
 			gameLevel: 1,
-			showGrids: 0
+			showGrids: 0,
+			vibration: 1,
+			colorMode: Helper.isDay()
 		});
 
 		// was game paused already
@@ -72,28 +75,29 @@ export default class Settings {
 
 
 		// create setting modal content
-		const content = `<form id="settingForm" class="cssRadio ${spanAnimationClass}">
+		const content =
+			`<form id="settingForm" class="cssRadio ${spanAnimationClass}">
                 <div class="formRow">
-                    <div class="formLabel"><i class="linearicon linearicon-music-note2"></i> ${window.lang.backgroundMusic}</div>
+                    <div class="formLabel"><i class="icon-sound2"></i> ${window.lang.backgroundMusic}</div>
                     <div class="formData">
                         <input id="soundPlayYes" type="radio" class="soundPlay" name="soundPlay" value="1" ${settings.soundPlay === 1 ? 'checked' : ''} />
-                        <label for="soundPlayYes"><span>${window.lang.active}</span></label>
+                        <label for="soundPlayYes"><span>${window.lang.activeSound}</span></label>
                         <input id="soundPlayNo" type="radio" class="soundPlay" name="soundPlay" value="0" ${settings.soundPlay === 0 ? 'checked' : ''} />
-                        <label for="soundPlayNo"><span>${window.lang.deActive}</span></label>
+                        <label for="soundPlayNo"><span>${window.lang.deActiveSound}</span></label>
                     </div>
                 </div>
                 <div class="formRow">
-                    <div class="formLabel"><i class="linearicon linearicon-music-note"></i> ${window.lang.eventsMusic}</div>
+                    <div class="formLabel"><i class="icon-sound1"></i> ${window.lang.eventsMusic}</div>
                     <div class="formData">
                         <input id="eventSoundsYes" type="radio" class="eventSounds" name="eventSounds" value="1" ${settings.eventSounds === 1 ? 'checked' : ''} />
-                        <label for="eventSoundsYes"><span>${window.lang.active}</span></label>
+                        <label for="eventSoundsYes"><span>${window.lang.activeSound}</span></label>
                         <input id="eventSoundsNo" type="radio" class="eventSounds" name="eventSounds" value="0" ${settings.eventSounds === 0 ? 'checked' : ''} />
-                        <label for="eventSoundsNo"><span>${window.lang.deActive}</span></label>
+                        <label for="eventSoundsNo"><span>${window.lang.deActiveSound}</span></label>
                     </div>
                 </div>
     
                 <div class="formRow">
-                    <div class="formLabel"><i class="linearicon linearicon-magic-wand"></i> ${window.lang.animation}</div>
+                    <div class="formLabel"><i class="icon-magic"></i> ${window.lang.animation}</div>
                     <div class="formData">
                         <input id="useAnimationYes" type="radio" class="useAnimation" name="useAnimation" value="1" ${settings.useAnimation === 1 ? 'checked' : ''} />
                         <label for="useAnimationYes"><span>${window.lang.active}</span></label>
@@ -103,7 +107,7 @@ export default class Settings {
                 </div>
     
                 <div class="formRow">
-                    <div class="formLabel"><i class="linearicon linearicon-grid"></i> ${window.lang.showGrids}</div>
+                    <div class="formLabel"><i class="icon-borders"></i> ${window.lang.showGrids}</div>
                     <div class="formData">
                         <input id="showGridsYes" type="radio" class="showGrids" name="showGrids" value="1" ${settings.showGrids === 1 ? 'checked' : ''} />
                         <label for="showGridsYes"><span>${window.lang.active}</span></label>
@@ -113,8 +117,29 @@ export default class Settings {
                 </div>
     
     
+                <div class="formRow isVibrateControl">
+                    <div class="formLabel"><i class="icon-mobile"></i> ${window.lang.vibration}</div>
+                    <div class="formData">
+                        <input id="vibrationYes" type="radio" class="vibration" name="vibration" value="1" ${settings.vibration === 1 ? 'checked' : ''} />
+                        <label for="vibrationYes"><span>${window.lang.activeVibrate}</span></label>
+                        <input id="vibrationNo" type="radio" class="vibration" name="vibration" value="0" ${settings.vibration === 0 ? 'checked' : ''} />
+                        <label for="vibrationNo"><span>${window.lang.deActiveVibrate}</span></label>
+                    </div>
+                </div>
+    
+    
                 <div class="formRow">
-                    <div class="formLabel"><i class="linearicon linearicon-game"></i> ${window.lang.gameLevel}</div>
+                    <div class="formLabel"><i class="icon-colorPelete"></i> ${window.lang.colorMode}</div>
+                    <div class="formData">
+                        <input id="colorModeDay" type="radio" class="colorMode" name="colorMode" value="1" ${settings.colorMode === 1 ? 'checked' : ''} />
+                        <label for="colorModeDay"><span>${window.lang.activeDay}</span></label>
+                        <input id="colorModeNight" type="radio" class="colorMode" name="colorMode" value="0" ${settings.colorMode === 0 ? 'checked' : ''} />
+                        <label for="colorModeNight"><span>${window.lang.activeNight}</span></label>
+                    </div>
+                </div>
+    
+                <div class="formRow">
+                    <div class="formLabel"><i class="icon-packMan"></i> ${window.lang.gameLevel}</div>
                     <div class="formData">
                         <input id="gameLevelEasy" type="radio" class="gameLevel" name="gameLevel" value="1" ${settings.gameLevel === 1 ? 'checked' : ''} />
                         <label for="gameLevelEasy"><span>${window.lang.simple}</span></label>
@@ -217,14 +242,14 @@ export default class Settings {
 		let config = TetrisGame.config;
 
 		// update interval speed
-		TetrisGame.interval.update(config.charSpeed / config.level);
+		TetrisGame.interval.update(Charblock.getInterval());
 
 		switch (gameLevel) {
 		case 3:
 			bodyClass = 'isExpert';
 
 			// use two word same time at hard mode
-			TetrisGame.config.workingWordCount = 2;
+			config.workingWordCount = 2;
 
 			// Update animation timing and delete timing
 			TetrisGame.initValues.animateConfig = {

@@ -70,7 +70,7 @@ export default class Interval {
 	reset(intervalData){
 
 		// update fn and delay
-		this.update(intervalData.fn , intervalData.delay);
+		this.update(intervalData);
 
 		this.start = new Date().getTime();
 		this.wait = true;
@@ -78,12 +78,11 @@ export default class Interval {
 
 	/**
 	 * Update our rAF interval
-	 * @param fn
-	 * @param delay
+	 * @param intervalData
 	 */
-	update(fn, delay){
-		this.fn = fn;
-		this.delay = delay;
+	update(intervalData){
+		this.fn = intervalData.fn;
+		this.delay = intervalData.delay;
 	}
 
 

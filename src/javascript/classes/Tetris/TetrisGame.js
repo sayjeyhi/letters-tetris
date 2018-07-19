@@ -198,10 +198,10 @@ export default class TetrisGame {
                         <div onclick="Gameplay.restart();" class="restartGame" style="display: none">${window.lang.restartGame}</div>
                     </div>
                    <div class="courseArea">
-                       <div class="setting" onclick="Settings.show();"><i class="linearicon linearicon-cog"></i> ${window.lang.settings}</div>
-                       <div ><i class="linearicon linearicon-bag-pound"></i> ${window.lang.score} : <span class="scoreHolder"> 0 </span> &nbsp;|&nbsp; <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="linearicon linearicon-shovel"></i> ${window.lang.records}</span> </div>
-                       <div ><i class="linearicon linearicon-mustache-glasses"></i> ${window.lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
-                       <div ><i class="linearicon linearicon-clock"></i> ${window.lang.spentTime} : <span class="timerDisplay">0</span></div>
+                       <div class="setting" onclick="Settings.show();"><i class="icon-setting"></i> ${window.lang.settings}</div>
+                       <div ><i class="icon-money"></i> ${window.lang.score} : <span class="scoreHolder"> 0 </span> &nbsp;|&nbsp; <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="icon-bil"></i> ${window.lang.records}</span> </div>
+                       <div ><i class="icon-sibil"></i> ${window.lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
+                       <div ><i class="icon-clock"></i> ${window.lang.spentTime} : <span class="timerDisplay">0</span></div>
                    </div>
                </div>
                <div class="playBoard"><span class="emptyPlayBoard">${window.lang.clickStartGame}</span></div>
@@ -213,7 +213,7 @@ export default class TetrisGame {
             
             <footer class="page-footer">
                 <div class="container">
-                    <i class="linearicon linearicon-brain"></i> ${window.lang.copyRight}
+                    <i class="icon-brain"></i> ${window.lang.copyRight}
                 </div>
             </footer>
         `;
@@ -375,25 +375,27 @@ export default class TetrisGame {
 		if (falledCharacter === false) {
 			// Stack is empty, resume the game
 			console.log('Stack is empty');
-			initValues.paused=false;
-			// TODO: Jafar rezayi: Show new character here
+			initValues.paused = false;
+
+			//Charblock.factory();
+
 			return;
 		}
 		const x = falledCharacter.x;
 		const y = falledCharacter.newY;
 		// console.log(`checking y: ${y}  x: ${x}`);
-		if (TetrisGame.matrix.isNotEmpty(y, x)) TetrisGame.matrix.checkWords(
-			initValues.choosedWords,
-			{
-				row: y,
-				column: x,
-				char: TetrisGame
-					.matrix.getCharacter(y, x)
-			},
-			config.directionWordChecks,
-			TetrisGame.checkWordsResult
-		);
-		else {
+		if (TetrisGame.matrix.isNotEmpty(y, x)) {
+			TetrisGame.matrix.checkWords(
+				initValues.choosedWords,
+				{
+					row: y,
+					column: x,
+					char: TetrisGame.matrix.getCharacter(y, x)
+				},
+				config.directionWordChecks,
+				TetrisGame.checkWordsResult
+			);
+		} else {
 			TetrisGame.checkSuccessWordStack();
 		}
 	}
