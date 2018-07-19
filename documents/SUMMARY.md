@@ -33,3 +33,5 @@
 -   [Timer](src/14-Timer/0-README.md)
 
 -   [Swipe](src/15-Swipe/0-README.md)
+
+-   [Matrix](src/16-Matrix/0-README.md)
