@@ -132,6 +132,21 @@ export default class Gameplay {
 		TetrisGame.build();
 	}
 
+
+	/**
+	 * Restart whole game and back to arshLoader
+	 */
+	static restartWholeGame(){
+		this.restart();
+
+		// pause background music
+		Sound.pauseByKey('background');
+
+		// build again loading
+		ArshLoader.build();
+	}
+
+
 	/**
      * Game is finished [gameOver OR finishWords]
      * @param mode
