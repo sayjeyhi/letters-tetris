@@ -28,3 +28,5 @@ node_modules
 book.pdf
 book.epub
 book.mobi
+
+_book/
