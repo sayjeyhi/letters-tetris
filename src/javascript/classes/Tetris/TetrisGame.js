@@ -88,7 +88,7 @@ export default class TetrisGame {
 			level: 1, // Up to 3 - if it is big it is hard to play
 			useAnimationFlag: true, // Make animate or not
 			showGrids: true, // Show grids flag
-			enable_bomb: true
+			enable_special_characters: true
 		};
 
 		// Extend config from user

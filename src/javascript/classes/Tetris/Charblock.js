@@ -17,9 +17,9 @@ import Animate from '../Animate';
  */
 export default class Charblock {
 	/**
-     * Create new char block
-     * @return {boolean}
-     */
+	 * Create new char block
+	 * @return {boolean}
+	 */
 	static create() {
 		const initValues = TetrisGame.initValues;
 
@@ -98,24 +98,7 @@ export default class Charblock {
 				charBlockEl.style.backgroundColor='#000';
 				charBlockEl.style.border = 'solid 2px #e66';
 				// Register click listener on charblock
-				charBlockEl.onclick = () => {
-					if (!TetrisGame.initValues.paused) {
-						const skullCharacter = charBlockEl.childNodes[0];
-						const remainingClicks = Helper.int(skullCharacter.title)-1;
-						if (remainingClicks	>=0) {
-							skullCharacter.title = remainingClicks;
-						} else {
-							const YX = Helper.getYX(skullCharacter);
-							console.log('EXPLODING SKULL');
-							console.log(YX);
-							Explosion.explode(skullCharacter, YX.x, YX.y);
-							Animate.fallNodeAnimate(YX.y, YX.x, null, null);
-
-							// get next char
-							Charblock.factory();
-						}
-					}
-				};
+				Charblock._registerSkullClick(charblock);
 			}
 			charBlockEl.style.fontSize = '2rem';
 			charBlockEl.appendChild(charblock.char);
@@ -131,11 +114,11 @@ export default class Charblock {
 
 
 	/**
-     * Move char block
-     * @param eventKeyCode
-     * @param position
-     * @return {boolean}
-     */
+	 * Move char block
+	 * @param eventKeyCode
+	 * @param position
+	 * @return {boolean}
+	 */
 	static move(eventKeyCode, position) {
 
 		const initValues = TetrisGame.initValues;
@@ -210,12 +193,12 @@ export default class Charblock {
 
 
 	/**
-     * Fall node with animation
-     * @param oldRow {Number}
-     * @param oldColumn {Number}
-     * @param newRow {Number}
-     * @param newColumn {Number}
-     */
+	 * Fall node with animation
+	 * @param oldRow {Number}
+	 * @param oldColumn {Number}
+	 * @param newRow {Number}
+	 * @param newColumn {Number}
+	 */
 	static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
 		const animateConfig = TetrisGame.initValues.animateConfig;
 		const deleteTiming = animateConfig.deleteTiming;
@@ -275,12 +258,12 @@ export default class Charblock {
 
 
 	/**
-     * Gets an element from cache or create it
-     * @param row
-     * @param column
-     * @param charBlock
-     * @return {*}
-     */
+	 * Gets an element from cache or create it
+	 * @param row
+	 * @param column
+	 * @param charBlock
+	 * @return {*}
+	 */
 	static _getEl(row, column, charBlock) {
 		let charBlockString = '';
 		if (typeof charBlock !== 'undefined' && charBlock) {
@@ -303,44 +286,44 @@ export default class Charblock {
 
 
 	/**
-     * Generate charBlock movement
-     *
-     * @param keyCode
-     * @return {*}
-     * @private
-     */
+	 * Generate charBlock movement
+	 *
+	 * @param keyCode
+	 * @return {*}
+	 * @private
+	 */
 	static _generateMove(keyCode) {
 		let moveTo;
 		const row = this.row;
 		const column = this.column;
 
 		switch (keyCode) {
-		case TetrisGame.controlCodes.LEFT: // left
-			moveTo = {
-				row,
-				column: column + 1,
-				animateOutClass: (window.lang.rtl ? 'fadeOutLeft' : 'fadeOutRight'),
-				animateInClass: (window.lang.rtl ? 'fadeInRight' : 'fadeInLeft')
-			};
-			break;
-		case TetrisGame.controlCodes.RIGHT: // right
-			moveTo = {
-				row,
-				column: column - 1,
-				animateOutClass: (window.lang.rtl ? 'fadeOutRight' : 'fadeOutLeft'),
-				animateInClass: (window.lang.rtl ? 'fadeInLeft' : 'fadeInRight')
-			};
-			break;
-		case TetrisGame.controlCodes.DOWN: // down
-			moveTo = {
-				row: row + 1,
-				column,
-				animateOutClass: 'fadeOutDown',
-				animateInClass: 'fadeInDown'
-			};
-			break;
-		default:
-			return false;
+			case TetrisGame.controlCodes.LEFT: // left
+				moveTo = {
+					row,
+					column: column + 1,
+					animateOutClass: (window.lang.rtl ? 'fadeOutLeft' : 'fadeOutRight'),
+					animateInClass: (window.lang.rtl ? 'fadeInRight' : 'fadeInLeft')
+				};
+				break;
+			case TetrisGame.controlCodes.RIGHT: // right
+				moveTo = {
+					row,
+					column: column - 1,
+					animateOutClass: (window.lang.rtl ? 'fadeOutRight' : 'fadeOutLeft'),
+					animateInClass: (window.lang.rtl ? 'fadeInLeft' : 'fadeInRight')
+				};
+				break;
+			case TetrisGame.controlCodes.DOWN: // down
+				moveTo = {
+					row: row + 1,
+					column,
+					animateOutClass: 'fadeOutDown',
+					animateInClass: 'fadeInDown'
+				};
+				break;
+			default:
+				return false;
 		}
 
 		return moveTo;
@@ -348,11 +331,11 @@ export default class Charblock {
 
 
 	/**
-     * Create and show upcoming character
-     * @private
-     */
+	 * Create and show upcoming character
+	 * @private
+	 */
 	static _showUpComingChar() {
-	    const initValues = TetrisGame.initValues;
+		const initValues = TetrisGame.initValues;
 
 		initValues.nextChar = WordsHelper.chooseChar();
 
@@ -374,11 +357,11 @@ export default class Charblock {
 
 
 	/**
-     * Destroy char block
-     * @param workingElement
-     * @param outgoingAnimation
-     * @private
-     */
+	 * Destroy char block
+	 * @param workingElement
+	 * @param outgoingAnimation
+	 * @private
+	 */
 	static _destroy(workingElement, outgoingAnimation) {
 		const config = TetrisGame.config;
 		const animateClass = config.useAnimationFlag ? ' animated ' : '';
@@ -393,5 +376,28 @@ export default class Charblock {
 			},
 			(config.useAnimationFlag ? 200 / config.level : 0)
 		);
+	}
+
+	static _registerSkullClick(charBlockEl) {
+		{
+			charBlockEl.onclick = ()=>{
+				if (!TetrisGame.initValues.paused) {
+					const skullCharacter = charBlockEl.childNodes[0];
+					const remainingClicks = Helper.int(skullCharacter.title)-1;
+					if (remainingClicks	>=0) {
+						skullCharacter.title = remainingClicks;
+					} else {
+						const YX = Helper.getYX(skullCharacter);
+						console.log('EXPLODING SKULL');
+						console.log(YX);
+						Explosion.explode(skullCharacter, YX.x, YX.y);
+						Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+
+						// get next char
+						Charblock.factory();
+					}
+				}
+			}
+		}
 	}
 }
