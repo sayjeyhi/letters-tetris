@@ -126,7 +126,7 @@ export default class ScoreHandler {
 		// we just hold 10 last scores
 		submitted = submitted.slice(-9);
 		submitted.push(scoreData);
-		Storage.setObject('scores', submitted);
+		Storage.setObject(`scores_${window.lang.name}`, submitted);
 
 
 		// show success message
@@ -152,7 +152,7 @@ export default class ScoreHandler {
      * @return {string|*}
      */
 	static _getSubmitted(sort) {
-		const scores = Storage.getObject('scores', []);
+		const scores = Storage.getObject(`scores_${window.lang.name}`, []);
 		if (sort) {
 		    scores.sort((a, b) => {
 				return parseInt(b.score) - parseInt(a.score);
