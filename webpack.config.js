@@ -38,12 +38,12 @@ module.exports = {
 		}),
 
 		new CopyWebpackPlugin([
-			{ from: './src/assets/', to: './assets/' },
-			{ from: './wiki/_book', to: './wiki/' },
-			{ from: './src/serviceWorker.js', to: './serviceWorker.js' },
-			{ from: './src/manifests.json', to: './manifests.json' },
-			{ from: './src/robots.txt', to: './robots.txt' },
-			{ from: './src/humans.txt', to: './humans.txt' }
+			{ from: path.join(__dirname, './src/assets/'), to: './assets/' },
+			{ from: path.join(__dirname, './wiki/_book'), to: './wiki/' },
+			{ from: path.join(__dirname, './src/serviceWorker.js'), to: './serviceWorker.js' },
+			{ from: path.join(__dirname, './src/manifests.json'), to: './manifests.json' },
+			{ from: path.join(__dirname, './src/robots.txt'), to: './robots.txt' },
+			{ from: path.join(__dirname, './src/humans.txt'), to: './humans.txt' }
 		]),
 
 		new CompressionPlugin({
