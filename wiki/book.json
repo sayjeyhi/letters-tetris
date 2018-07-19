@@ -1,9 +1,9 @@
 {
     "language": "fa",
     "direction": "rtl",
-    "plugins": ["-sharing"],
+    "plugins": ["-sharing", "scripts"],
     "styles": {
-        "website": "assets/styles/website.css"
+        "website": "_assets/styles/website.css"
     },
     "pluginsConfig": {
         "sharing": {
@@ -14,6 +14,9 @@
             "instapaper": false,
             "vk": false,
             "all": ["facebook"]
+        },
+        "scripts": {
+            "files": ["_assets/js/app.js"]
         }
     }
 }
