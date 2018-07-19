@@ -35,7 +35,7 @@ export default class Charblock {
 		// is character special ?
 		if (typeof this.char === 'object' && this.char.special === 'true') {
 			this.type = this.char.type;
-			this.typeSize = 1;
+			this.typeSize = this.char.typeSize;
 			Helper.log('Incominggggg');
 		} else {
 			this.type = 'regular';
@@ -132,9 +132,11 @@ export default class Charblock {
 				if (this.row !== 0) {
 					if (initValues.wordsFinished) {
 						Gameplay.finish('finishWords');
-					} else {
+					}
+					else {
 						// add new char
 						Charblock.factory();
+						console.log("Will add new char !");
 					}
 				} else {
 					Gameplay.finish('gameOver');

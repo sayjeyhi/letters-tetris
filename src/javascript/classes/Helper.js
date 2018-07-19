@@ -166,6 +166,5 @@ export default class Helper {
 	 */
 	static isNight() {
 		return !Helper.isDay();
-
 	}
 }

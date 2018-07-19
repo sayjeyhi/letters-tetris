@@ -117,7 +117,7 @@ export default class Modal {
 		const modalTitle = document.createElement('div');
 		let HeaderHtml = options.header || '';
 
-		HeaderHtml += '<i class="linearicon linearicon-cross-circle closeModal"></i>';
+		HeaderHtml += '<i class="icon-uniE95A closeModal"></i>';
 
 		modalTitle.className = 'titleModal';
 		modalTitle.innerHTML = HeaderHtml;
