@@ -208,7 +208,7 @@ export default class TetrisGame {
             </div>
             
             <!--Lazy load bomb Gif-->
-            <img src="assets/img/bomb.gif" alt="bombChar" width="0" />
+            <img src="assets/img/bomb.gif" alt="bombChar" width="0" />  
             
             <footer class="page-footer">
                 <div class="container">
@@ -216,6 +216,10 @@ export default class TetrisGame {
                 </div>
             </footer>
         `;
+		const lazyLoadSounds = ['start', 'moveChar', 'explode', 'foundWord', 'finishGame'];
+		for (const sound of lazyLoadSounds) {
+			new Sound(sound);
+		}
 	}
 
 
@@ -370,7 +374,7 @@ export default class TetrisGame {
 			// Stack is empty, resume the game
 			console.log('Stack is empty');
 			initValues.paused=false;
-			//TODO: Jafar rezayi: Show new character here
+			// TODO: Jafar rezayi: Show new character here
 			return;
 		}
 		const x = falledCharacter.x;

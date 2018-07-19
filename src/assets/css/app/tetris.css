@@ -1998,3 +1998,8 @@ svg :not(.doNotUnfill) {
 	-webkit-animation-name: pulse;
 	animation-name: pulse;
 }
+
+.transitioned{
+	opacity: 1;
+	transition: all .7s ease-in-out;
+}

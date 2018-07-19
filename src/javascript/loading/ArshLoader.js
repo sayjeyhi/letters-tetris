@@ -221,6 +221,8 @@ class ArshLoader {
      */
 	static startGame(lang, wordsType) {
 		wordsType = wordsType.split('-');
+		//Hide other buttons
+		Helper._('.loadingText').style.display = 'none';
 		Helper.fetchJson(`assets/localization/lang.${lang}.json`)
 			.then(langFiles => {
 				window.lang = langFiles;
@@ -231,10 +233,12 @@ class ArshLoader {
 					})
 					.catch(err => {
 						console.log(err);
+						Helper._('.loadingText').style.display = 'block';
 					});
 			})
 			.catch(err => {
 				console.log(err);
+				Helper._('.loadingText').style.display = 'block';
 			});
 	}
 
