@@ -29,3 +29,5 @@
 -   [Timeout](src/12-Timeout/0-README.md)
 
 -   [Interval](src/13-Interval/0-README.md)
+
+-   [Timer](src/14-Timer/0-README.md)
