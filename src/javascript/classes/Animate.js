@@ -70,7 +70,7 @@ export default class Animate {
 	 * @param wordCharacterPositions
 	 * @param successAnimationIterationDuration
 	 */
-	static _animateFoundedCharacters(wordCharacterPositions, successAnimationIterationDuration) {
+	static animateFoundedCharacters(wordCharacterPositions, successAnimationIterationDuration) {
 		// play founded word sound
 		Sound.playByKey('foundWord', TetrisGame.config.playEventsSound);
 

@@ -240,7 +240,7 @@ export default class Gameplay {
      */
 	static _makeGameBoard() {
 		let rowsCount = TetrisGame.config.rows,
-			playBoardTable = `<div class="foundWordAnimation animatedMaxTime jackInTheBox"></div>
+			playBoardTable = `<div class="foundWordAnimation animatedMaxTime jackInTheBox animatedOneSecond" style="display: none;left:1px;top:1px"></div>
             <div class="currentWorkingWords"> </div>`;
 		const matrixRowArray = [];
 

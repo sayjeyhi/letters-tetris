@@ -330,7 +330,7 @@ export default class TetrisGame {
 		// animate found word
 		Animate.showFoundWordAnimated(word, successObject.wordCharacterPositions);
 
-		Animate._animateFoundedCharacters(successObject.wordCharacterPositions, config.successAnimationIterationDuration);
+		Animate.animateFoundedCharacters(successObject.wordCharacterPositions, config.successAnimationIterationDuration);
 
 		initValues.falledStack.merge(successObject.fallingCharacters);
 
