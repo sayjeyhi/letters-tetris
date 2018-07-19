@@ -52,7 +52,9 @@ export default class Gameplay {
 
 
 		// reset delay of interval
-		TetrisGame.interval.reset();
+		TetrisGame.interval.reset(
+			Charblock.getInterval()
+		);
 
 
 		// create first char block

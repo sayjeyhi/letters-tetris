@@ -1,5 +1,8 @@
 /** @module */
 
+import TetrisGame from "./Tetris/TetrisGame";
+import Charblock from "./Tetris/Charblock";
+
 /**
  *  Interval setting control - Better way to manage setInterval and make it easily to destroy
  */
@@ -11,6 +14,7 @@ export default class Interval {
         // to keep a reference to all the intervals
         this.intervals = {};
         this.delay = 100;
+        this.fn = () => {};
 
 		// requestAnimationFrame() shim by Paul Irish
 		window.requestAnimFrame = (function() {
@@ -31,6 +35,9 @@ export default class Interval {
 	request(fn, delay) {
 
 		this.delay = delay;
+		this.fn = fn;
+		this.wait = false;
+
 
 		if( !window.requestAnimationFrame       &&
 			!window.webkitRequestAnimationFrame )
@@ -42,9 +49,11 @@ export default class Interval {
 			let current = new Date().getTime(),
 				delta = current - this.start;
 
-			if(delta >= this.delay) {
-				fn.call(true);
+			if(delta >= this.delay && !this.wait) {
+				this.fn.call(true);
 				this.start = new Date().getTime();
+			}else{
+				this.wait = false;
 			}
 
 			myReq = requestAnimFrame(loop);
@@ -58,15 +67,22 @@ export default class Interval {
 	/**
 	 * Reset animation frame
 	 */
-	reset(){
+	reset(intervalData){
+
+		// update fn and delay
+		this.update(intervalData.fn , intervalData.delay);
+
 		this.start = new Date().getTime();
+		this.wait = true;
 	}
 
 	/**
 	 * Update our rAF interval
+	 * @param fn
 	 * @param delay
 	 */
-	update(delay){
+	update(fn, delay){
+		this.fn = fn;
 		this.delay = delay;
 	}
 

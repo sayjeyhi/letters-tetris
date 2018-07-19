@@ -9,6 +9,7 @@ import WordsHelper from './WordsHelper';
 import MaterialColor from '../MaterialColor';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
+import Explosion from '../Explosion'
 
 
 export default class Charblock {
@@ -18,8 +19,6 @@ export default class Charblock {
      */
     static create() {
         const initValues = TetrisGame.initValues;
-        const config = TetrisGame.config;
-
 
 		// if game is finished
 		if (initValues.finished) {
@@ -48,13 +47,10 @@ export default class Charblock {
 
 		// interval
 		if(!this.interval) {
+			let intervalData = this.getInterval();
 			this.interval = TetrisGame.interval.make(
-				() => {
-					if (!initValues.paused) {
-						Charblock.move(40);
-					}
-				},
-				config.charSpeed / config.level
+				intervalData.fn,
+				intervalData.delay
 			);
 		}
 
@@ -159,6 +155,24 @@ export default class Charblock {
 
 		// play move char
 		Sound.playByKey('moveChar', config.playEventsSound);
+	}
+
+
+	/**
+	 * Get interval used data
+	 * @return {{fn: function(), delay: number}}
+	 */
+	static getInterval(){
+		let config = TetrisGame.config;
+
+		return {
+			fn: () => {
+				if (!TetrisGame.initValues.paused) {
+					Charblock.move(40);
+				}
+			},
+			delay: (config.charSpeed / config.level)
+		};
 	}
 
 
