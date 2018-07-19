@@ -22,7 +22,7 @@ const
 	CHARBLOCK_TYPE_SKULL	= 'skull';
 
 // Special types value
-const SKULL_VALUE= '-+';
+const SKULL_VALUE= '-';
 
 export default class Matrix {
 	/**
