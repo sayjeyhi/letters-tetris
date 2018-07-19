@@ -101,15 +101,9 @@ export default class Sound {
 	/**
      * Play sound based on it's name
      * @param key
-     * @param canPlay
-     * @return Audio
      */
-	static pauseByKey(key, canPlay) {
-		if (!canPlay) {
-			return false;
-		}
+	static pauseByKey(key) {
 		const audioInstance = Sound._getInstance(key);
 		audioInstance.pause();
-		return audioInstance;
 	}
 }

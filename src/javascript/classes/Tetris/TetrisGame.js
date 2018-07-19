@@ -189,7 +189,7 @@ export default class TetrisGame {
 		Helper._('#container').innerHTML = `
             <div class="gameHolder ${ltrClass}">
                 <div class="behindPlayBoard">
-                    <div class="gamingKind" onclick="Gameplay.restart();ArshLoader.build();"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
+                    <div class="gamingKind" onclick="Gameplay.restartWholeGame();"><span class="persian">${config.chooseedWordKind.persianTitle}</span><span class="english">${config.chooseedWordKind.englishTitle}</span><span class="japanese">${config.chooseedWordKind.japaneseTitle}</span></div>
                     <div class="showUpComingLetter" title="${window.lang.nextLetter}:"></div>
                     <div class="gameControlButtons" >
                         <div onclick="Gameplay.start();" class="startGame">${window.lang.startGame}</div>

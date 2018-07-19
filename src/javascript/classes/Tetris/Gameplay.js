@@ -52,7 +52,9 @@ export default class Gameplay {
 
 
 		// reset delay of interval
-		TetrisGame.interval.reset();
+		TetrisGame.interval.reset(
+			Charblock.getInterval()
+		);
 
 
 		// create first char block
@@ -129,6 +131,21 @@ export default class Gameplay {
 		// re-build game
 		TetrisGame.build();
 	}
+
+
+	/**
+	 * Restart whole game and back to arshLoader
+	 */
+	static restartWholeGame(){
+		this.restart();
+
+		// pause background music
+		Sound.pauseByKey('background');
+
+		// build again loading
+		ArshLoader.build();
+	}
+
 
 	/**
      * Game is finished [gameOver OR finishWords]
