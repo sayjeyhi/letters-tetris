@@ -1,3 +1,3 @@
-## متد setGridsSetting
+### متد setGridsSetting
 
 اعمال تنظیمات گریدها

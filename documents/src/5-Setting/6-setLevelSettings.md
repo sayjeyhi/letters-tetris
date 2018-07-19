@@ -1,3 +1,3 @@
-## متد setLevelSetting
+### متد setLevelSetting
 
 برای تنظیم سختی بازی

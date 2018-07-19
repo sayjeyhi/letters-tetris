@@ -1,3 +1,3 @@
-## متد showFoundWordAnimated
+### متد showFoundWordAnimated
 
 این متد کلمه پیدا شده را با افکت انیمیشنی در بالای کاراکتر های کلمه نمایش داده و fadeOut می کند.

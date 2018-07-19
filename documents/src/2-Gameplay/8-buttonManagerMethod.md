@@ -1,3 +1,3 @@
-## متد buttonManager\_
+### متد buttonManager\_
 
 متدی برای کنترل دکمه های بازی
