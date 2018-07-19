@@ -1,6 +1,8 @@
+-   [معرفی کلی](README.md)
+
 ## راهنمای بازی
 
--   [معرفی](src/1-game-help/README.md)
+-   [معرفی](src/1-game-help/0-README.md)
 -   [- ورود به بازی](src/1-game-help/part1/entergame.md)
 
 -   [- معرفی محیط بازی](src/1-game-help/part1/enviroment.md)
@@ -13,8 +15,6 @@
     -   [۶- محیط اصلی بازی](src/1-game-help/part1/enviroments/6-main-game.md)
 
 -   [پایان بازی](src/1-game-help/part1/endgame.md)
-
-<hr />
 
 ## مستندات فنی
 
