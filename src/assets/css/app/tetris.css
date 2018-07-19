@@ -368,7 +368,7 @@ svg :not(.doNotUnfill) {
 	font-size: 20px;
 	position: absolute;
 	font-weight: bold;
-	font-family: 'SDF' ,Helvetica;
+	font-family: 'SDF' , Helvetica , sans-serif;
 	text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #e0dada, 0 4px 0 #d0cbcb, 0 5px 0 #cac8c8, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2);
 	z-index: 99999;
 	/* bottom: -3px; */
@@ -649,7 +649,7 @@ svg :not(.doNotUnfill) {
 .modal.dark #settingForm .formLabel {
 	color: #2aff2a !important;
 	letter-spacing: 0 !important;
-	font-family: "SDF";
+	font-family: "SDF" ,sans-serif;
 	font-weight: 100;
 	font-size: 12px;
 }

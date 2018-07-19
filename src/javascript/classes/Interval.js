@@ -10,14 +10,12 @@ export default class Interval {
     constructor() {
         // to keep a reference to all the intervals
         this.intervals = {};
+        this.delay = 100;
 
 		// requestAnimationFrame() shim by Paul Irish
 		window.requestAnimFrame = (function() {
 			return  window.requestAnimationFrame       ||
 				window.webkitRequestAnimationFrame ||
-				window.mozRequestAnimationFrame    ||
-				window.oRequestAnimationFrame      ||
-				window.msRequestAnimationFrame     ||
 				function(/* function */ callback, /* DOMElement */ element){
 					window.setTimeout(callback, 1000 / 60);
 				};
@@ -31,48 +29,45 @@ export default class Interval {
 	 * @param {int} delay The delay in milliseconds
 	 */
 	request(fn, delay) {
+
+		this.delay = delay;
+
 		if( !window.requestAnimationFrame       &&
-			!window.webkitRequestAnimationFrame &&
-			!(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
-			!window.oRequestAnimationFrame      &&
-			!window.msRequestAnimationFrame )
+			!window.webkitRequestAnimationFrame )
 			return window.setInterval(fn, delay);
 
-		let start = new Date().getTime(),
-			handle = {};
+		let myReq;
 
 		const loop = () => {
 			let current = new Date().getTime(),
-				delta = current - start;
+				delta = current - this.start;
 
-			if(delta >= delay) {
+			if(delta >= this.delay) {
 				fn.call(true);
-				start = new Date().getTime();
+				this.start = new Date().getTime();
 			}
 
-			handle.value = requestAnimFrame(loop);
+			myReq = requestAnimFrame(loop);
 		};
 
-		handle.value = requestAnimFrame(loop);
-		return handle.value;
+		myReq = requestAnimFrame(loop);
+
+		return myReq;
 	}
 
 	/**
-	 * Behaves the same as clearInterval except uses cancelRequestAnimationFrame() where possible for better performance
-	 * @param {int|object} handle The callback function
+	 * Reset animation frame
 	 */
-	clear(handle) {
+	reset(){
+		this.start = new Date().getTime();
+	}
 
-		console.log(handle);
-		this._removeIndex(handle);
-
-		window.cancelAnimationFrame ? window.cancelAnimationFrame(handle) :
-			window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle) :
-				window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle) : /* Support for legacy API */
-					window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle) :
-						window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle) :
-							window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle) :
-								clearInterval(handle);
+	/**
+	 * Update our rAF interval
+	 * @param delay
+	 */
+	update(delay){
+		this.delay = delay;
 	}
 
 
@@ -89,31 +84,40 @@ export default class Interval {
         //     [usedFunction, delay].concat([].slice.call(arguments, 2))
         // );
 
+		this.start = new Date().getTime();
 		const newInterval = this.request(usedFunction , delay);
 
+		console.log(newInterval);
         this.intervals[newInterval] = true;
         return newInterval;
     }
 
 
-    // /**
-    //  * Clear a single interval
-    //  * @param id
-    //  */
-    // clear(id) {
-    //     this._removeIndex(id);
-    //     return clearInterval(id);
-    // }
+	/**
+	 * Removes an interval from list
+	 * @param index
+	 * @private
+	 */
+	_removeIndex(index) {
+		delete this.intervals[index];
+	}
 
 
-    /**
-     * Removes an interval from list
-     * @param index
-     * @private
-     */
-    _removeIndex(index) {
-        delete this.intervals[index];
-    }
+	/**
+	 * Behaves the same as clearInterval except uses cancelRequestAnimationFrame() where possible for better performance
+	 * @param {int|object} handle The callback function
+	 */
+	clear(handle) {
+
+		console.log(handle);
+
+		window.cancelAnimationFrame ? window.cancelAnimationFrame(handle) :
+			window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle) :
+				clearInterval(handle);
+
+		this._removeIndex(handle);
+
+	}
 
 
     /**

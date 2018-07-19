@@ -261,7 +261,7 @@ export default class TetrisGame {
 	/**
      * Get a valid column number [min-max]
      */
-	static getValidColumnsNumber() {
+	static validateColumnsNumber() {
 		const config = this.config;
 		let columnsNumber = config.columnsMin;
 
@@ -277,7 +277,16 @@ export default class TetrisGame {
 		// plus 2 extra block than max word length
 		columnsNumber += 2;
 		columnsNumber = config.columnsMax < columnsNumber ? config.columnsMax : columnsNumber;
-		return columnsNumber % 2 === 0 ? columnsNumber : columnsNumber + 1;
+		const validatedColumns = columnsNumber % 2 === 0 ? columnsNumber : columnsNumber + 1;
+
+
+		// add class to have playBoard columns
+		TetrisGame.playBoard.classList.add(
+			`is${validatedColumns}Column`
+		);
+
+		TetrisGame.initValues.validatedColumnsCount = validatedColumns;
+		return validatedColumns;
 	}
 
 
