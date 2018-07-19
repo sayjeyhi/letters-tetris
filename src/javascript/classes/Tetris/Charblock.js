@@ -110,6 +110,9 @@ export default class Charblock {
 							console.log(YX);
 							Explosion.explode(skullCharacter, YX.x, YX.y);
 							Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+
+							// get next char
+							Charblock.factory();
 						}
 					}
 				};
@@ -170,6 +173,7 @@ export default class Charblock {
 				}
 			}
 		} else {
+
 			// remove char with animation
 			Charblock._destroy(this.element, moveTo.animateOutClass);
 
@@ -387,7 +391,7 @@ export default class Charblock {
 					workingElement.parentNode.removeChild(workingElement);
 				}
 			},
-			(config.useAnimationFlag ? 200/ config.level : 0)
+			(config.useAnimationFlag ? 200 / config.level : 0)
 		);
 	}
 }
