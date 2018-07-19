@@ -43,6 +43,7 @@ const urlsToCache = [
     '/assets/img/mainBackground.jpg',
     '/assets/img/fanavardLogo.png',
     '/assets/img/bomb.gif',
+    '/assets/img/skull.gif',
     '/assets/img/gameIcon-512x512.png'
 ];
 

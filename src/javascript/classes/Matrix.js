@@ -4,14 +4,25 @@
 
 import Helper from './Helper';
 import MapStack from './MapStack';
-
+import CharBlock from './Tetris/Charblock';
 /**
  * This class will hold values of characters, find successful created words, delete them and etc
  */
+
+
+// Different states
 const
 	IS_NOT_VALID=-1,
 	IS_EMPTY=-2,
 	IS_OK = -3;
+
+// Special types names
+const
+	CHARBLOCK_TYPE_BOMB		= 'bomb',
+	CHARBLOCK_TYPE_SKULL	= 'skull';
+
+// Special types value
+const SKULL_VALUE= '-+';
 
 export default class Matrix {
 	/**
@@ -124,9 +135,15 @@ export default class Matrix {
 			colId = lastChar.column,
 			char = lastChar.char;
 
-		if (lastChar.type && lastChar.type==='bomb') {
-			this._explode(rowId, colId, lastChar.typeSize, successCallback);
-			return;
+		if (lastChar.type) {
+			switch (lastChar.type) {
+			case CHARBLOCK_TYPE_BOMB:
+				this._explode(rowId, colId, lastChar.typeSize, successCallback);
+				return;
+			case CHARBLOCK_TYPE_SKULL:
+				this._setSkull(rowId, colId, successCallback);
+				return;
+			}
 		}
 
 		this.setCharacter(rowId, colId, char);
@@ -398,5 +415,19 @@ export default class Matrix {
 
 
 		successCallBack(this.lastChar, callbackObject);
+	}
+
+	/**
+	 *
+	 * @param rowId
+	 * @param colId
+	 * @param successCallback
+	 * @private
+	 */
+	_setSkull(y, x, successCallback) {
+		this.setCharacter(y, x, SKULL_VALUE);
+		if (Helper.isFunction(successCallback)) {
+			successCallback(this.lastChar);
+		}
 	}
 }

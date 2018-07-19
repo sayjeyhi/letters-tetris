@@ -4,6 +4,8 @@
 
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
+import Animate from '../Animate';
+import Explosion from '../Explosion';
 
 
 /**
@@ -64,6 +66,18 @@ export default class WordsHelper {
 		return bombCharacter;
 	}
 
+	static giveMeAnSkull(clickCount) {
+		Helper.log(`Skull click needs: ${clickCount}`);
+		const skullCharacter = document.createElement('img');
+		skullCharacter.src = '/assets/img/skull.gif';
+		skullCharacter.className = 'skull';
+		skullCharacter.title= clickCount;
+		skullCharacter.typeSize = clickCount;
+		skullCharacter.type = 'skull';
+		skullCharacter.special = 'true';
+		return skullCharacter;
+	}
+
 
 	/**
 	 * Choose a char of choosed words
@@ -76,7 +90,7 @@ export default class WordsHelper {
 			// Dont bomb empty field :|
 			if (TetrisGame.matrix.filledCharacters > 0) {
 				if (config.level === 1) {
-					if (Math.random() > 0.85) {
+					if (Math.random() > 0.90) {
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
 						if (roll===20) {
@@ -85,9 +99,11 @@ export default class WordsHelper {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
+					}else if(Math.random()>0.7){
+						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				} else if (config.level=== 2) {
-					if (Math.random() > 0.90) {
+					if (Math.random() > 0.93) {
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
 						if (roll>=19) {

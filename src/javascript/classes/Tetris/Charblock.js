@@ -9,7 +9,8 @@ import WordsHelper from './WordsHelper';
 import MaterialColor from '../MaterialColor';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
-import Explosion from '../Explosion'
+import Explosion from '../Explosion';
+import Animate from '../Animate';
 
 
 export default class Charblock {
@@ -17,8 +18,8 @@ export default class Charblock {
      * Create new char block
      * @return {boolean}
      */
-    static create() {
-        const initValues = TetrisGame.initValues;
+	static create() {
+		const initValues = TetrisGame.initValues;
 
 		// if game is finished
 		if (initValues.finished) {
@@ -36,7 +37,7 @@ export default class Charblock {
 		if (typeof this.char === 'object' && this.char.special === 'true') {
 			this.type = this.char.type;
 			this.typeSize = 1;
-			Helper.log('Incominggggg');
+			Helper.log('Incominggggg bomb :|');
 		} else {
 			this.type = 'regular';
 			this.color = MaterialColor.getRandomColor(); // random material color
@@ -46,8 +47,8 @@ export default class Charblock {
 
 
 		// interval
-		if(!this.interval) {
-			let intervalData = this.getInterval();
+		if (!this.interval) {
+			const intervalData = this.getInterval();
 			this.interval = TetrisGame.interval.make(
 				intervalData.fn,
 				intervalData.delay
@@ -58,11 +59,11 @@ export default class Charblock {
 		// create and show up coming char
 		this._showUpComingChar();
 
-        // add this char as active char
-        initValues.activeChar = this;
+		// add this char as active char
+		initValues.activeChar = this;
 
-        return this;
-    }
+		return this;
+	}
 
 
 	/**
@@ -89,7 +90,28 @@ export default class Charblock {
 			charBlockEl.style.background = charblock.color;
 			charBlockEl.innerHTML = charblock.char;
 		} else {
-			charBlockEl.style.background = 'transparent';
+			if (charblock.type === 'bomb') {
+				charBlockEl.style.background = 'transparent';
+			} else if (charblock.type === 'skull') {
+				charBlockEl.style.backgroundColor='#000';
+				charBlockEl.style.border = 'solid 2px #e66';
+				// Register click listener on charblock
+				charBlockEl.onclick = () => {
+					if (!TetrisGame.initValues.paused) {
+						const skullCharacter = charBlockEl.childNodes[0];
+						const remainingClicks = Helper.int(skullCharacter.title)-1;
+						if (remainingClicks	>=0) {
+							skullCharacter.title = remainingClicks;
+						} else {
+							const YX = Helper.getYX(skullCharacter);
+							console.log('EXPLODING SKULL');
+							console.log(YX);
+							Explosion.explode(skullCharacter, YX.x, YX.y);
+							Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+						}
+					}
+				};
+			}
 			charBlockEl.style.fontSize = '2rem';
 			charBlockEl.appendChild(charblock.char);
 		}
@@ -110,7 +132,6 @@ export default class Charblock {
      * @return {boolean}
      */
 	static move(eventKeyCode, position) {
-
 		const initValues = TetrisGame.initValues;
 		const config = TetrisGame.config;
 		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
@@ -124,8 +145,11 @@ export default class Charblock {
 		}
 
 		const destinationEl = Charblock._getEl(moveTo.row, moveTo.column) || null;
-		if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== '')) {
+		if (moveTo.row >= config.rows || (destinationEl.innerHTML.trim() !== '')) {
 			if (isBottomMove) {
+				// Remove onclick if element reached bottom
+				this.element.onclick = function() { return false; };
+
 				// check words
 				TetrisGame.checkWordSuccess(this);
 
@@ -162,8 +186,8 @@ export default class Charblock {
 	 * Get interval used data
 	 * @return {{fn: function(), delay: number}}
 	 */
-	static getInterval(){
-		let config = TetrisGame.config;
+	static getInterval() {
+		const config = TetrisGame.config;
 
 		return {
 			fn: () => {

@@ -166,6 +166,16 @@ export default class Helper {
 	 */
 	static isNight() {
 		return !Helper.isDay();
+	}
 
+
+	static getYX(dom) {
+		const YX = dom.closest('.isColumn').id.replace('grid', '').split('_');
+		return { y: Helper.int(YX[0]), x: Helper.int(YX[1]) };
+	}
+
+
+	static int(any) {
+		return Number(any);
 	}
 }

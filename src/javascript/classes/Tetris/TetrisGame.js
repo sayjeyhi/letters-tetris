@@ -209,6 +209,7 @@ export default class TetrisGame {
             
             <!--Lazy load bomb Gif-->
             <img src="assets/img/bomb.gif" alt="bombChar" width="0" />  
+            <img src="assets/img/skull.gif" alt="skull" width="0" />  
             
             <footer class="page-footer">
                 <div class="container">
@@ -299,6 +300,7 @@ export default class TetrisGame {
      * @param {Charblock} lastChar
      */
 	static checkWordSuccess(lastChar) {
+
 		// pause game while checking and animating
 		this.initValues.paused = true;
 
