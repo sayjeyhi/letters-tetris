@@ -12,6 +12,7 @@ import Matrix from '../Matrix';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
 import ScoreHandler from './ScoreHandler';
+import ArshLoader from '../../loading/ArshLoader';
 
 /**
  * @class Gameplay
@@ -233,7 +234,7 @@ export default class Gameplay {
 		const scoreModal = new Modal(
 			{
 				animate: config.useAnimationFlag,
-				dark: config.level === 3,
+				dark: config.colorMode,
 				type: modalType,
 				header: modalHeader,
 				content: modalContent,

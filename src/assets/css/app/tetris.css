@@ -134,19 +134,17 @@ a {
 	direction: rtl;
 	text-align: right;
 }
-body.isExpert .gameHolder {
+body.isNightMode .gameHolder {
 	background-color: #2d292e !important;
 	color: #a99d9d !important;
 }
-body.isExpert .gameHolder .behindPlayBoard .showUpComingLetter::before {
+body.isNightMode .gameHolder .behindPlayBoard .showUpComingLetter::before {
 	color: #ccc !important;
 }
-body.isExpert .gameHolder .behindPlayBoard .gamingKind {
+body.isNightMode .gameHolder .behindPlayBoard .gamingKind {
 	color: #fefefe;
 }
-body.isMedium .gameHolder {
-	background-color: #70e8a1 !important;
-}
+
 
 .content {
 	position: relative;
@@ -169,6 +167,7 @@ footer.page-footer {
 	background-color: transparent !important;
 	color: #e2e2e2;
 	text-align: center;
+	text-shadow: 0 1px 11px rgba(0, 0, 0, 0.45);
 }
 footer.page-footer i {
 	font-size: 18px;
@@ -306,12 +305,13 @@ svg :not(.doNotUnfill) {
 	padding: 10px 27px;
 	display: inline-block;
 	border: 1px solid #efefef;
-	margin: 10px 15px 35px;
+	margin: 10px 0 35px 0;
 	font-size: 13px;
 	position: relative;
 	width: 210px;
 	line-height: 27px;
-	transition: all 0.3s linear;
+	transition: background-color 0.3s linear;
+	max-width: 80%;
 }
 .wordsKind:hover {
 	background-color: #eee;
@@ -744,6 +744,9 @@ svg :not(.doNotUnfill) {
 	font-weight: 100;
 	font-size: 12px;
 }
+.isVibrateControl{
+	display: none;
+}
 .modal.primary.rtl {
 	border-right: 3px solid;
 }
@@ -1075,6 +1078,9 @@ svg :not(.doNotUnfill) {
 	}
 }
 @media (max-width: 648px) {
+	.isVibrateControl{
+		display: block !important;
+	}
 	.modal {
 		width: 85%;
 	}
@@ -1090,6 +1096,9 @@ svg :not(.doNotUnfill) {
 	}
 	.modal .formData i {
 		display: inline-block !important;
+		font-size: 17px;
+		position: relative;
+		bottom: -4px;
 	}
 	.modal .formData label > span {
 		margin: 6px 2px !important;

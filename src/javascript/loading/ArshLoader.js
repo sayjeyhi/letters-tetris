@@ -15,7 +15,7 @@ import ScoreHandler from '../classes/Tetris/ScoreHandler';
 /**
  * @class ArshLoader - makes animation of page loading on game load
  */
-class ArshLoader {
+export default class ArshLoader {
 	/**
      * Set main properties of ArshLoader
      * @return {ArshLoader}
