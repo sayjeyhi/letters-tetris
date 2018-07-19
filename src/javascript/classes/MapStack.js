@@ -1,5 +1,5 @@
 /**
- * @module EasyMap
+ * @module MapStack
  */
 
 
@@ -31,8 +31,8 @@ export default class MapStack {
 		return this.map.entries();
 	}
 
-	merge(easyMap) {
-		for (const [key, value] of easyMap.entries()) {
+	merge(mapStack) {
+		for (const [key, value] of mapStack.entries()) {
 			this.append(key, value);
 		}
 	}

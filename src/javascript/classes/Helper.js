@@ -150,4 +150,22 @@ export default class Helper {
 	static getRandomInt(min, max) {
 		return Math.floor((Math.random() * (max - min + 1))) + min;
 	}
+
+	/**
+	 * Checks to see if it's night or not :}
+	 * @returns {boolean}
+	 */
+	static isDay() {
+		const hours = new Date().getHours();
+		return hours > 6 && hours < 20;
+	}
+
+	/**
+	 * Checks to see if it's day or not :| :|
+	 * @returns {boolean}
+	 */
+	static isNight() {
+		return !Helper.isDay();
+
+	}
 }
