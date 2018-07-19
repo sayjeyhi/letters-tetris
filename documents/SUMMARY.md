@@ -31,3 +31,5 @@
 -   [Interval](src/13-Interval/0-README.md)
 
 -   [Timer](src/14-Timer/0-README.md)
+
+-   [Swipe](src/15-Swipe/0-README.md)
