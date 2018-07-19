@@ -324,7 +324,6 @@ export default class TetrisGame {
 			TetrisGame.checkSuccessWordStack();
 			return;
 		} else if (lastChar.type === 'bomb') {
-			// todo: where is lastChar :|
 			Helper.log('BOOOOOOM');
 			TetrisGame._animateExplode(successObject, lastChar);
 			return;
@@ -371,6 +370,7 @@ export default class TetrisGame {
 			// Stack is empty, resume the game
 			console.log('Stack is empty');
 			initValues.paused=false;
+			//TODO: Jafar rezayi: Show new character here
 			return;
 		}
 		const x = falledCharacter.x;
