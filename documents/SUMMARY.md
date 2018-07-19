@@ -35,3 +35,5 @@
 -   [Swipe](src/15-Swipe/0-README.md)
 
 -   [Matrix](src/16-Matrix/0-README.md)
+
+-   [Helper](src/17-Helper/0-README.md)
