@@ -1,20 +1,41 @@
 {
-    "short_name": "Tetris",
-    "name": "Persian Tetris",
-    "icons": [
-        {
-            "src": "assets/img/gameIcon-192x192.png",
-            "type": "image/png",
-            "sizes": "192x192"
-        },{
-            "src": "assets/img/gameIcon-512x512.png",
-            "type": "image/png",
-            "sizes": "512x512"
-        }
-    ],
-    "start_url": "/?homescreen=1",
-    "scope": "/",
-    "background_color": "#3367D6",
-    "display": "standalone",
-    "theme_color": "#3367D6"
+	"short_name": "Lt",
+	"name": "Letters Tetris",
+	"icons": [
+		{
+			"src": "assets/img/gameIcon-48x48.png",
+			"type": "image/png",
+			"sizes": "48x48"
+		},
+		{
+			"src": "assets/img/gameIcon-72x72.png",
+			"type": "image/png",
+			"sizes": "72x72"
+		},
+		{
+			"src": "assets/img/gameIcon-96x96.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		},
+		{
+			"src": "assets/img/gameIcon-144x144.png",
+			"type": "image/png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "assets/img/gameIcon-192x192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "assets/img/gameIcon-512x512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "/?homescreen=1",
+	"scope": "/",
+	"background_color": "#ffffff",
+	"display": "standalone",
+	"theme_color": "#ffffff"
 }
