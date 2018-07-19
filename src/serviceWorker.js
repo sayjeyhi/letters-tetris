@@ -13,6 +13,7 @@ const urlsToCache = [
     '/?homescreen=1',
     '/App_bundle.js',
     '/assets/css/app/tetris.css',
+
     '/assets/localization/lang.en.json',
     '/assets/localization/lang.fa.json',
     '/assets/localization/lang.ja.json',
@@ -28,6 +29,7 @@ const urlsToCache = [
     '/assets/words/ja/colors.json',
     '/assets/words/ja/fruits.json',
     '/assets/words/ja/things.json',
+
     '/assets/mp3/background.mp3',
     '/assets/mp3/explode.mp3',
     '/assets/mp3/finishGame.mp3',
@@ -36,8 +38,11 @@ const urlsToCache = [
     '/assets/mp3/moveChar.mp3',
     '/assets/mp3/pause.mp3',
     '/assets/mp3/start.mp3',
+
     '/assets/img/background.jpg',
     '/assets/img/mainBackground.jpg',
+    '/assets/img/fanavardLogo.png',
+    '/assets/img/bomb.gif',
     '/assets/img/gameIcon-512x512.png'
 ];
 

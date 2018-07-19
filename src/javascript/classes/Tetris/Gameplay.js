@@ -26,12 +26,7 @@ export default class Gameplay {
 		TetrisGame.initValues.upComingCharEl = Helper._('.showUpComingLetter');
 
 		// Get valid column length based on max json word length to create columns
-		TetrisGame.initValues.validatedColumnsCount = TetrisGame.getValidColumnsNumber();
-
-		// add class to have playBoard columns
-		TetrisGame.playBoard.classList.add(
-			`is${TetrisGame.initValues.validatedColumnsCount}Column`
-		);
+		TetrisGame.validateColumnsNumber();
 
 		// show game play board girds
 		if (TetrisGame.config.showGrids) {
@@ -54,6 +49,11 @@ export default class Gameplay {
 
 		// start game timer
 		TetrisGame.timer.start();
+
+
+		// reset delay of interval
+		TetrisGame.interval.reset();
+
 
 		// create first char block
 		Charblock.factory();
@@ -111,9 +111,6 @@ export default class Gameplay {
 		if (TetrisGame.initValues.wordsFinished) {
 			window.location.reload();
 		}
-
-		// kill all intervals
-		TetrisGame.interval.clearAll();
 
 		// make game variables that variables was on start
 		TetrisGame.setDefaultValues(false);

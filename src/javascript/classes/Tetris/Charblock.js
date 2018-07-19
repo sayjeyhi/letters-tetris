@@ -14,11 +14,11 @@ import Helper from '../Helper';
 export default class Charblock {
 	/**
      * Create new char block
-     * @return {Charblock|boolean}
+     * @return {boolean}
      */
-	constructor() {
-		const initValues = TetrisGame.initValues;
-		const config = TetrisGame.config;
+    static create() {
+        const initValues = TetrisGame.initValues;
+        const config = TetrisGame.config;
 
 
 		// if game is finished
@@ -47,92 +47,37 @@ export default class Charblock {
 
 
 		// interval
-		this.interval = TetrisGame.interval.make(
-			() => {
-				if (!initValues.paused) {
-					this.move(40);
-				}
-			},
-			config.charSpeed / config.level
-		);
+		if(!this.interval) {
+			this.interval = TetrisGame.interval.make(
+				() => {
+					if (!initValues.paused) {
+						Charblock.move(40);
+					}
+				},
+				config.charSpeed / config.level
+			);
+		}
 
 
 		// create and show up coming char
 		this._showUpComingChar();
 
-		// add this char as active char
-		initValues.activeChar = this;
+        // add this char as active char
+        initValues.activeChar = this;
 
-		return this;
-	}
-
-
-	/**
-     * Move char block
-     * @param eventKeyCode
-     * @param position
-     * @return {boolean}
-     */
-	move(eventKeyCode, position) {
-		const initValues = TetrisGame.initValues;
-		const config = TetrisGame.config;
-		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
-
-
-		const moveTo = this._generateMove(eventKeyCode);
-
-		// if move to is out of range
-		if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0 || initValues.finished) {
-			return false;
-		}
-
-		const destinationEl = Charblock._getEl(moveTo.row, moveTo.column) || null;
-		if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== '')) {
-			if (isBottomMove) {
-				// stop interval
-				TetrisGame.interval.clear(this.interval);
-
-				// check words
-				TetrisGame.checkWordSuccess(this);
-
-				if (this.row !== 0) {
-					if (initValues.wordsFinished) {
-						Gameplay.finish('finishWords');
-					} else {
-						// add new char
-						Charblock.factory();
-					}
-				} else {
-					Gameplay.finish('gameOver');
-				}
-			}
-		} else {
-			// remove char with animation
-			this._destroy(this.element, moveTo.animateOutClass);
-
-			// update current char info
-			this.row = moveTo.row;
-			this.column = moveTo.column;
-			this.animateInClass = moveTo.animateInClass;
-
-			// add our char in destination
-			Charblock.factory(this, destinationEl);
-		}
-
-		// play move char
-		Sound.playByKey('moveChar', config.playEventsSound);
-	}
+        return this;
+    }
 
 
 	/**
-     * Factory of character
-     * @param charblock
-     * @param initializeElement
-     */
+	 * Factory of character
+	 * @param charblock
+	 * @param initializeElement
+	 */
 	static factory(charblock, initializeElement) {
 		// if char is not supplied create new one
 		if (typeof charblock === 'undefined') {
-			charblock = new Charblock();
+			charblock = Charblock.create();
 
 			if (Object.keys(charblock).length !== 0) {
 				initializeElement = Charblock._getEl(charblock.row, charblock.column);
@@ -149,7 +94,7 @@ export default class Charblock {
 			charBlockEl.innerHTML = charblock.char;
 		} else {
 			charBlockEl.style.background = 'transparent';
-		    charBlockEl.style.fontSize = '2rem';
+			charBlockEl.style.fontSize = '2rem';
 			charBlockEl.appendChild(charblock.char);
 		}
 
@@ -159,6 +104,61 @@ export default class Charblock {
 
 		initializeElement.innerHTML = '';
 		initializeElement.appendChild(charBlockEl);
+	}
+
+
+	/**
+     * Move char block
+     * @param eventKeyCode
+     * @param position
+     * @return {boolean}
+     */
+	static move(eventKeyCode, position) {
+
+		const initValues = TetrisGame.initValues;
+		const config = TetrisGame.config;
+		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
+
+
+		const moveTo = Charblock._generateMove(eventKeyCode);
+
+		// if move to is out of range
+		if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0 || initValues.finished) {
+			return false;
+		}
+
+		const destinationEl = Charblock._getEl(moveTo.row, moveTo.column) || null;
+		if (moveTo.row >= config.rows || (destinationEl.innerText.trim() !== '')) {
+			if (isBottomMove) {
+				// check words
+				TetrisGame.checkWordSuccess(this);
+
+				if (this.row !== 0) {
+					if (initValues.wordsFinished) {
+						Gameplay.finish('finishWords');
+					} else {
+						// add new char
+						Charblock.factory();
+					}
+				} else {
+					Gameplay.finish('gameOver');
+				}
+			}
+		} else {
+			// remove char with animation
+			Charblock._destroy(this.element, moveTo.animateOutClass);
+
+			// update current char info
+			this.row = moveTo.row;
+			this.column = moveTo.column;
+			this.animateInClass = moveTo.animateInClass;
+
+			// add our char in destination
+			Charblock.factory(this, destinationEl);
+		}
+
+		// play move char
+		Sound.playByKey('moveChar', config.playEventsSound);
 	}
 
 
@@ -262,7 +262,7 @@ export default class Charblock {
      * @return {*}
      * @private
      */
-	_generateMove(keyCode) {
+	static _generateMove(keyCode) {
 		let moveTo;
 		const row = this.row;
 		const column = this.column;
@@ -304,7 +304,7 @@ export default class Charblock {
      * Create and show upcoming character
      * @private
      */
-	_showUpComingChar() {
+	static _showUpComingChar() {
 	    const initValues = TetrisGame.initValues;
 
 		initValues.nextChar = WordsHelper.chooseChar();
@@ -332,7 +332,7 @@ export default class Charblock {
      * @param outgoingAnimation
      * @private
      */
-	_destroy(workingElement, outgoingAnimation) {
+	static _destroy(workingElement, outgoingAnimation) {
 		const config = TetrisGame.config;
 		const animateClass = config.useAnimationFlag ? ' animated ' : '';
 

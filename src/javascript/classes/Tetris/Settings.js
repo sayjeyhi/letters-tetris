@@ -214,6 +214,11 @@ export default class Settings {
      */
 	static _setLevelSetting(gameLevel) {
 		let bodyClass = '';
+		let config = TetrisGame.config;
+
+		// update interval speed
+		TetrisGame.interval.update(config.charSpeed / config.level);
+
 		switch (gameLevel) {
 		case 3:
 			bodyClass = 'isExpert';
@@ -224,7 +229,7 @@ export default class Settings {
 			// Update animation timing and delete timing
 			TetrisGame.initValues.animateConfig = {
 				animateClass: 'fallDownExpert',
-				deleteTiming: TetrisGame.config.expertFallDownAnimateSpeed
+				deleteTiming: config.expertFallDownAnimateSpeed
 			};
 
 			break;
@@ -233,7 +238,7 @@ export default class Settings {
 
 			TetrisGame.initValues.animateConfig = {
 				animateClass: 'fallDownCharMedium',
-				deleteTiming: TetrisGame.config.mediumFallDownAnimateSpeed
+				deleteTiming: config.mediumFallDownAnimateSpeed
 			};
 			break;
 		default:
@@ -241,7 +246,7 @@ export default class Settings {
 
 			TetrisGame.initValues.animateConfig = {
 				animateClass: 'fallDownSimple',
-				deleteTiming: TetrisGame.config.simpleFallDownAnimateSpeed
+				deleteTiming: config.simpleFallDownAnimateSpeed
 			};
 		}
 		document.body.classList.remove('isExpert', 'isMedium', 'isSimple');
