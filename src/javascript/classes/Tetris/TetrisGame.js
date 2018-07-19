@@ -199,7 +199,7 @@ export default class TetrisGame {
                     </div>
                    <div class="courseArea">
                        <div class="setting" onclick="Settings.show();"><i class="icon-setting"></i> ${window.lang.settings}</div>
-                       <div ><i class="icon-money"></i> ${window.lang.score} : <span class="scoreHolder"> 0 </span> &nbsp;|&nbsp; <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="icon-jam"></i> ${window.lang.records}</span> </div>
+                       <div ><i class="icon-money"></i> ${window.lang.score} : <span class="scoreHolder"> 0 </span> &nbsp;|&nbsp; <span class="showScoresList" onclick="ScoreHandler.showScores();" ><i class="icon-bil"></i> ${window.lang.records}</span> </div>
                        <div ><i class="icon-sibil"></i> ${window.lang.createdWords} : <span class="wordCounterHolder">0</span> </div>
                        <div ><i class="icon-clock"></i> ${window.lang.spentTime} : <span class="timerDisplay">0</span></div>
                    </div>

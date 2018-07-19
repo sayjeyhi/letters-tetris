@@ -30,23 +30,21 @@
 	font-style: normal;
 }
 
+
 [class^="icon-"]:before, [class*=" icon-"]:before {
 	font-family: "tetris_webfont" , sans-serif;
 	font-style: normal;
-	font-weight: normal;
+	font-weight: 400;
 	speak: none;
+	line-height:1;
 
 	display: inline-block;
 	text-decoration: inherit;
-	width: 1em;
 	text-align: center;
 
 	/* For safety - reset parent styles, that can break glyph codes*/
 	font-variant: normal;
 	text-transform: none;
-
-	/* fix buttons height, for twitter bootstrap */
-	line-height: 1em;
 
 
 	-webkit-font-smoothing: antialiased;
@@ -841,6 +839,7 @@ svg :not(.doNotUnfill) {
 	top: -9px;
 	color: #d1d1d1b3;
 }
+
 #settingForm .formData {
 	display: inline-block;
 }
@@ -852,6 +851,10 @@ svg :not(.doNotUnfill) {
 .modal.ltr #settingForm .formLabel {
 	margin-left: 12px !important;
 	margin-right: 0 !important;
+}
+
+.modal.dark #settingForm .formLabel i {
+	color: #d1d1d15e !important
 }
 
 .cssRadio input[type="radio"] {

@@ -11,7 +11,9 @@ import Timeout from '../Timeout';
 import Helper from '../Helper';
 import Explosion from '../Explosion'
 
-
+/**
+ * @class Charblock make easier our life on manage characters block
+ */
 export default class Charblock {
 	/**
      * Create new char block

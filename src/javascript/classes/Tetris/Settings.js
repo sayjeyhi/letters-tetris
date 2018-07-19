@@ -6,6 +6,7 @@ import TetrisGame from './TetrisGame';
 import Storage from '../Storage';
 import Modal from '../Modal';
 import Helper from '../Helper';
+import Charblock from "./Charblock";
 
 /**
  * @class Settings to show and set game settings
@@ -241,14 +242,14 @@ export default class Settings {
 		let config = TetrisGame.config;
 
 		// update interval speed
-		TetrisGame.interval.update(config.charSpeed / config.level);
+		TetrisGame.interval.update(Charblock.getInterval());
 
 		switch (gameLevel) {
 		case 3:
 			bodyClass = 'isExpert';
 
 			// use two word same time at hard mode
-			TetrisGame.config.workingWordCount = 2;
+			config.workingWordCount = 2;
 
 			// Update animation timing and delete timing
 			TetrisGame.initValues.animateConfig = {
