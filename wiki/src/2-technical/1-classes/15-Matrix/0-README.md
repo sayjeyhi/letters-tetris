@@ -1,4 +1,7 @@
-#کلاس Matrix
+<h1>
+کلاس Matrix
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+</h1>
 
 ماتریکس صفحه بازی (آرایه 2\*2) بازی موقعیت قرار گرفتن کاراکترها در صفحه را در این کلاس مدیریت می کنیم.
 

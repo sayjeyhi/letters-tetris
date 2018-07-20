@@ -1,4 +1,7 @@
-#کلاس Helper
+<h1>
+کلاس Helper
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+</h1>
 
 متدهای پرکاربرد که در هیچ دسته بندی قابل اجرا نیستند را در این کلاس اجرا می کنیم. متد هایی مثل \_ : (معادل querySelector)
 
