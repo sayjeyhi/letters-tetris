@@ -1,6 +1,6 @@
 <h1>
 کلاس Modal
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
+<a class="ext-link" href="module-classes_Modal" >سورس</a>
 </h1>
 
 این کلاس برای نمایش Modal (پنجره درون صفحه ای) و عملیات های مربوط به آن طراحی شده است. این کلاس با new Modal(config) ساخته می شود و در آبجکت config می توان تنظیمات و رخداد های مورد نظر را به کلاس ارائه داد تا به صورت کاملا مستقل به انجام اموری که مد نظر داریم برسد
