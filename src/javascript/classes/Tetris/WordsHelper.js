@@ -106,7 +106,7 @@ export default class WordsHelper {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(randRange100 > 87){
+					}else if(randRange100 > 10){
 						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
 					}
 				} else if (config.level=== 2) {
