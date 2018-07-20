@@ -62,6 +62,12 @@ p {
 
 .navigation.navigation-next {
 	margin-right: 0 !important;
+	left: 0;
+	right: auto;
+}
+.navigation.navigation-prev {
+	left: auto;
+	right: 0;
 }
 
 .markdown-section img {
@@ -77,6 +83,10 @@ p {
 
 .ext-link {
 	font-size: 16px;
+}
+
+.book-header h1 {
+	display: none;
 }
 
 /*

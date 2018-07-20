@@ -36,6 +36,17 @@ gitbook.events.bind("page.change", function() {
 		var windowUrl = window.location.origin;
 		var finalUrl = windowUrl + "/api-docs/" + url;
 		window.open(finalUrl, "_blank");
-		console.clear();
+		setTimeout(function() {
+			console.clear();
+		}, 1000);
 	});
+	$(".navigation.navigation-next")
+		.children(".fa")
+		.removeClass("fa-angle-right")
+		.addClass("fa-angle-left");
+	$(".navigation.navigation-prev")
+		.children(".fa")
+		.removeClass("fa-angle-left")
+		.addClass("fa-angle-right");
+	$(".navigation.navigation-next").css("margin-left", 30);
 });
