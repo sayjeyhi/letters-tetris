@@ -21,7 +21,6 @@ export default class WordsHelper {
 		const key = initValues.comingWordIndex;
 		const value = window.TetrisWords[key] || '';
 
-		Helper.log(value);
 
 
 		// do we finished words ?
@@ -50,9 +49,7 @@ export default class WordsHelper {
 
 		initValues.comingWordIndex++;
 
-
-		// delete choosed word form list
-		// delete window.TetrisWords[key];
+		Helper.log(value);
 		return value;
 	}
 
