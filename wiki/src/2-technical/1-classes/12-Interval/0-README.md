@@ -1,4 +1,7 @@
-#کلاس Interval
+<h1>
+کلاس Interval
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+</h1>
 
 این کلاس وظیفه مدیریت Interval هایی که در بازی زده می شود را برعهده دارد.
 

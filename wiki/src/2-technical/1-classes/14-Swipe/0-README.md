@@ -1,4 +1,7 @@
-# کلاس Swipe
+<h1>
+ کلاس Swipe
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+</h1>
 
 با ساخت object و ارائه config به آن می توان یک المنت ارائه داد و یک سری تنظیمات مانند threshold، برای حداقل distance که باید جا به جایی بین نقطه شروع و پایان touch در یک جهت و محقق شدن swipe را فراهم آورد.
 
