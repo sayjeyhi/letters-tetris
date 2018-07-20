@@ -155,13 +155,13 @@
     <td>boolean</td>
     <td>showGrids</td>
   </tr>
-  
+
   <tr>
     <td>فعال بودن کاراکترهای ویژه</td>
     <td>boolean</td>
     <td>enable_special_characters</td>
   </tr>
-  
+
   <tr>
     <td>حالت رنگ بندی(۰ روز - ۱ شب) پیش فرض براساس ساعت سیستم تصمیم میگیرد</td>
     <td>int</td>
@@ -175,7 +175,7 @@
 
 {% include "./1-buildMethod.md" %}
 
-{% include "./2-getValidColumnsNumberMethod.md" %}
+{% include "./2-validColumnsNumberMethod.md" %}
 
 {% include "./3-checkWordSuccessMethod.md" %}
 
@@ -183,8 +183,6 @@
 
 {% include "./5-checkSuccessWordStackMethod.md" %}
 
-{% include "./6-showFoundWordAnimatedMethod.md" %}
-
-{% include "./7-addCurrentWordMethod.md" %}
+{% include "./6-showShuffleWordsMethod.md" %}
 
 و یکسری متدهای داخلی که برای انجام اموری کوچک که جزئی از فعالیت های داخلی هستند در این کلاس قرار گرفته اند.
