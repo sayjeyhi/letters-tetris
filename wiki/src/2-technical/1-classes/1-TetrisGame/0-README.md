@@ -1,4 +1,7 @@
-# کلاس TetrisGame
+<h1>
+ کلاس TetrisGame
+<a class="ext-link" href="module-classes_Tetris_TetrisGame.html">سورس</a>
+</h1>
 
 کلاس اصلی برنامه TetrisGame می باشد که برای شروع بازی و برقراری ارتباط بین کلاس های دیگر، توابع اصلی بازی را نگهداری میکند.
 

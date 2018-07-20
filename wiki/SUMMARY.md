@@ -57,3 +57,6 @@
     -   [Helper](src/2-technical/1-classes/16-Helper/0-README.md)
 
 -   [دیزاین پترن](src/2-technical/2-design-patterns/0-README.md)
+
+-   [نکته های بازی](src/2-technical/3-notes/0-README.md)
+-   [نتایج تست سرعت و پرفورمنس](src/2-technical/4-benchmark/0-README.md)
