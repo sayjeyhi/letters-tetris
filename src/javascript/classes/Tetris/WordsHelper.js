@@ -80,7 +80,7 @@ export default class WordsHelper {
 		if (type==='regular') return 'regular';
 		switch (type) {
 		case 'star':
-			return WordsHelper._giveMeAnStar()
+			return WordsHelper._giveMeAnStar();
 		case 'bomb':
 			return WordsHelper._giveMeABomb(levelGenerator.bombSize());
 		case 'skull':

@@ -1,41 +1,41 @@
-// import Matrix from "../../src/javascript/classes/Matrix";
-// import MapStack from "../../src/javascript/classes/MapStack";
-// // Happy 400
-// //
-// //
-// describe("Matrix Class", () => {
-// 	let foundWord = "";
-// 	beforeEach(done => {
-// 		const matrixArray = [
-// 			// X:       0   1   2   3   4   5   6   7
-// 			/* 0 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 0
-// 			/* 1 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 1
-// 			/* 2 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 2
-// 			/* 3 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 3
-// 			/* 4 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 4
-// 			/* 5 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 5
-// 			/* 6 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 6
-// 			/* 7 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 7
-// 			/* 8 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 8
-// 			/* 9 */ [" ", " ", " ", "e", "s", "t", " ", " "] // 9
-// 			// X:       0   1   2   3   4   5   6   7
-// 		];
-// 		const matrix = new Matrix(matrixArray);
-// 		const words = [{ word: "test" }];
-// 		const lastChar = { char: "t", row: 9, column: 2 };
-// 		const foundCallback = function(successObject) {
-// 			console.log(successObject);
-// 			foundWord = words[successObject.wordId].word;
-// 			console.log(foundWord);
-// 			done();
-// 		};
-// 		matrix.checkWords(
-// 			words,
-// 			lastChar,
-// 			{ rtl: true, ltr: true },
-// 			foundCallback
-// 		);
-// 	});
+import Matrix from "../../src/javascript/classes/Matrix";
+import MapStack from "../../src/javascript/classes/MapStack";
+// Happy 400
+//
+//
+describe("Matrix Class", () => {
+	let foundWord = "";
+	beforeEach(done => {
+		const matrixArray = [
+			// X:       0   1   2   3   4   5   6   7
+			/* 0 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 0
+			/* 1 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 1
+			/* 2 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 2
+			/* 3 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 3
+			/* 4 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 4
+			/* 5 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 5
+			/* 6 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 6
+			/* 7 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 7
+			/* 8 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 8
+			/* 9 */ [" ", " ", " ", "e", "s", "t", " ", " "] // 9
+			// X:       0   1   2   3   4   5   6   7
+		];
+		const matrix = new Matrix(matrixArray);
+		const words = [{ word: "test" }];
+		const lastChar = { char: "t", row: 9, column: 2 };
+		const foundCallback = function(successObject) {
+			console.log(successObject);
+			foundWord = words[successObject.wordId].word;
+			console.log(foundWord);
+			done();
+		};
+		matrix.checkWords(
+			words,
+			lastChar,
+			{ rtl: true, ltr: true },
+			foundCallback
+		);
+	});
 
 // 	it("Check words method should find words in matrix", () => {
 // 		expect(foundWord).toBe("");
