@@ -1,13 +1,9 @@
 /**
- * @module Matrix
+ * @module
  */
 
 import Helper from './Helper';
 import MapStack from './MapStack';
-
-/**
- * This class will hold values of characters, find successful created words, delete them and etc
- */
 
 
 // Different states
@@ -27,12 +23,21 @@ const
 	SKULL_VALUE	= '-',
 	STAR_VALUE	= '*';
 
+
+
+/**
+ *
+ * @class Matrix
+ * This class will hold values of characters, find successful created words, delete them and etc
+ */
+
 export default class Matrix {
 	/**
 	 * @param matrix {Array} Matrix of characters
 	 * @property matrix {Array} Matrix of characters
 	 * @property width {Number} - Width of matrix
 	 * @property height {Number} - Height of matrix
+	 * @property filledCharacters {Number} - Get's approximated count of chars stored in matrix
 	 * @example
 	 *  let matrix = new Matrix([[' ',' ',' ',' '],
 	 *      [' ',' ',' ',' '],

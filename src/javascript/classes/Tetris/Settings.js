@@ -26,10 +26,10 @@ export default class Settings {
 
 		const config = TetrisGame.config;
 
-		config.useAnimationFlag = parseInt(settings.useAnimation) === 1;
-		config.playEventsSound = parseInt(settings.eventSounds) === 1;
-		config.playBackgroundSound = parseInt(settings.soundPlay) === 1;
-		config.showGrids = parseInt(settings.showGrids) === 1;
+		config.useAnimationFlag = settings.useAnimation;
+		config.playEventsSound = settings.eventSounds;
+		config.playBackgroundSound = settings.soundPlay;
+		config.showGrids = settings.showGrids;
 		config.level = parseInt(settings.gameLevel) || 1;
 		config.do_vibrate = parseInt(settings.vibration) === 1;
 		config.colorMode = parseInt(settings.colorMode);
@@ -192,6 +192,9 @@ export default class Settings {
 	 */
 	static getDefaultSettings(){
 		const config = TetrisGame.config;
+
+
+		console.log(config);
 
 		// get defined settings
 		return Storage.getObject('settings', {

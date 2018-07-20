@@ -1,17 +1,18 @@
 /**
- * @module MapStack
+ * @module
  */
 
 
 /**
+ *
+ * @class MapStack
+ *
+ * @property map {Map} - Holds a map for implementing MapStack
  * This class is a wrapper for Map with an additional method to append to Map
  * Since extending built-in classes is not supported, We'll have to create a wrapper
- * @extends Map
  */
 export default class MapStack {
-	/**
-     * @constructor
-     */
+
 	constructor() {
 		this.map = new Map();
 	}
@@ -27,10 +28,19 @@ export default class MapStack {
 		else this.map.set(key, [value]);
 	}
 
+	/**
+	 * Gets all values of MapStack
+	 * @returns {IterableIterator}
+	 */
 	entries() {
 		return this.map.entries();
 	}
 
+
+	/**
+	 * Merges another mapStack items to this istance
+	 * @param mapStack
+	 */
 	merge(mapStack) {
 		for (const [key, value] of mapStack.entries()) {
 			this.append(key, value);
@@ -38,6 +48,10 @@ export default class MapStack {
 	}
 
 
+	/**
+	 * Pops a group of a key
+	 * @returns {*}
+	 */
 	popItems() {
 		for (const [key, value] of this.map.entries()) { // Since it's a generator, it's not performance killer
 			const anItemOfAnyX = value;
@@ -48,6 +62,10 @@ export default class MapStack {
 		return false;
 	}
 
+	/**
+	 * Pop's an item from start of array
+	 * @returns {*}
+	 */
 	popItem() {
 		for (const [key, value] of this.map.entries()) { // Since it's a generator, it's not performance killer
 			const anItemOfAnyX = value.pop()[0];
@@ -63,6 +81,6 @@ export default class MapStack {
 
 	// Optimize
 	reduce() {
-		// TODO: IDK :|
+		// TODO: IDK :| xD
 	}
 }

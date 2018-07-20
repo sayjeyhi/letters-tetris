@@ -2088,7 +2088,7 @@ svg :not(.doNotUnfill) {
 	color:rgba(0,0,0,0.3)
 }
 .starBlock::before,.starBlock::after{
-	font-family:'tetris_webfont';
+	font-family:'tetris_webfont' , sans-serif;
 	content: '\e836';
 	font-size:12px;
 	color:rgba(0,0,0,0.3)
@@ -2096,6 +2096,16 @@ svg :not(.doNotUnfill) {
 
 .gameHolder.isLtr .bombBlock::before ,.gameHolder.isLtr .skullBlock i::after{
 	font-family: sans-serif !important;
+}
+
+.linkToDoc{
+	padding: 10px 7px;
+	border-radius: 5px;
+	font-size: 13px;
+	color: rgba(255,255,255,0.8);
+	text-shadow: 0 1px 11px rgba(0, 0, 0, 0.45);
+	display: inline-block;
+	margin-top: 18px;
 }
 
 

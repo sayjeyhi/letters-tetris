@@ -15,7 +15,7 @@ import ScoreHandler from './ScoreHandler';
 import ArshLoader from '../../loading/ArshLoader';
 
 /**
- * @class Gameplay
+ * @class
  */
 export default class Gameplay {
 	/**
