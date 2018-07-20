@@ -24,7 +24,9 @@ describe('Matrix Class', () => {
 		const words = [{ word: 'test' }];
 		const lastChar = { char: 't', row: 9, column: 2 };
 		const foundCallback = function(successObject) {
+			console.log(successObject);
 			foundWord = words[successObject.wordId].word;
+			console.log(foundWord);
 			done();
 		};
 		matrix.checkWords(words, lastChar, { rtl: true, ltr: true }, foundCallback);
@@ -460,70 +462,70 @@ describe('Matrix Class', () => {
 //     })
 // });
 
-
-describe('Matrix Class', () => {
-	const falledStack = new MapStack();
-	let falled;
-	const direction = { dtt: true, rtl: true, ltr: true, ttd: true };
-
-
-	const matrixArray = [
-		// X:       0   1   2   3   4   5   6   7
-		/* 0 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 0
-		/* 1 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 1
-		/* 2 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 2
-		/* 3 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 3
-		/* 4 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 4
-		/* 5 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 5
-		/* 6 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 6
-		/* 7 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 7
-		/* 8 */ [' ', ' ', ' ', 'o', 'z', ' ', ' ', ' '], // 8
-		/* 9 */ [' ', ' ', 'o', 'f', 'o', ' ', ' ', ' '], // 9
-		/* 10 */ [' ', ' ', 'e', 's', 't', 'o', ' ', ' ']// 10
-		// X:       0   1   2   3   4   5   6   7
-	];
-	const matrix = new Matrix(matrixArray);
-	const words = [{ word: 'test' }, { word: 'foo' }, { word: 'zoo' }];
-	const lastChar = { row: 10, column: 1, char: 't' };
-
-	beforeEach(done => {
-		function checkSuccessWordStack(mapStack) {
-			const falledCharacter = mapStack.popItem();
-			if (falledCharacter === false) {
-				// Stack is empty, resume the game
-				console.log('Stack is empty');
-				done();
-				return;
-			}
-			const x = falledCharacter.x;
-			const y = falledCharacter.newY;
-			console.log(`checking y: ${y}  x: ${x}`);
-			if (matrix.isNotEmpty(y, x)) matrix.checkWords(words, { row: y, column: x, char: matrix.getCharacter(y, x) }, direction, foundCallback);
-			else {
-				checkSuccessWordStack(mapStack);
-			}
-		}
-
-
-		var foundCallback = function(successObject) {
-			if (!successObject) {
-				checkSuccessWordStack(falledStack);
-			}
-			falled = successObject.fallingCharacters;
-			// Animate Falled, THEN AFTER ANIMATION,
-			// MERGE STACK
-			// CALL STACK CHECK
-			// If not empty, Pop & Check words
-
-			falledStack.merge(successObject.fallingCharacters);
-			checkSuccessWordStack(falledStack);
-			// done();
-		};
-		matrix.checkWords(words, lastChar, direction, foundCallback);
-	});
-
-	it('Bomb should delete characters near it: ', () => {
-		// let ex = falled.explodedChars;
-		// let falled = falled.fallingCharacters;
-	});
-});
+//
+// describe('Matrix Class', () => {
+// 	const falledStack = new MapStack();
+// 	let falled;
+// 	const direction = { dtt: true, rtl: true, ltr: true, ttd: true };
+//
+//
+// 	const matrixArray = [
+// 		// X:       0   1   2   3   4   5   6   7
+// 		/* 0 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 0
+// 		/* 1 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 1
+// 		/* 2 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 2
+// 		/* 3 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 3
+// 		/* 4 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 4
+// 		/* 5 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 5
+// 		/* 6 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 6
+// 		/* 7 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 7
+// 		/* 8 */ [' ', ' ', ' ', 'o', 'z', ' ', ' ', ' '], // 8
+// 		/* 9 */ [' ', ' ', 'o', 'f', 'o', ' ', ' ', ' '], // 9
+// 		/* 10 */ [' ', ' ', 'e', 's', 't', 'o', ' ', ' ']// 10
+// 		// X:       0   1   2   3   4   5   6   7
+// 	];
+// 	const matrix = new Matrix(matrixArray);
+// 	const words = [{ word: 'test' }, { word: 'foo' }, { word: 'zoo' }];
+// 	const lastChar = { row: 10, column: 1, char: 't' };
+//
+// 	beforeEach(done => {
+// 		function checkSuccessWordStack(mapStack) {
+// 			const falledCharacter = mapStack.popItem();
+// 			if (falledCharacter === false) {
+// 				// Stack is empty, resume the game
+// 				console.log('Stack is empty');
+// 				done();
+// 				return;
+// 			}
+// 			const x = falledCharacter.x;
+// 			const y = falledCharacter.newY;
+// 			console.log(`checking y: ${y}  x: ${x}`);
+// 			if (matrix.isNotEmpty(y, x)) matrix.checkWords(words, { row: y, column: x, char: matrix.getCharacter(y, x) }, direction, foundCallback);
+// 			else {
+// 				checkSuccessWordStack(mapStack);
+// 			}
+// 		}
+//
+//
+// 		var foundCallback = function(successObject) {
+// 			if (!successObject) {
+// 				checkSuccessWordStack(falledStack);
+// 			}
+// 			falled = successObject.fallingCharacters;
+// 			// Animate Falled, THEN AFTER ANIMATION,
+// 			// MERGE STACK
+// 			// CALL STACK CHECK
+// 			// If not empty, Pop & Check words
+//
+// 			falledStack.merge(successObject.fallingCharacters);
+// 			checkSuccessWordStack(falledStack);
+// 			// done();
+// 		};
+// 		matrix.checkWords(words, lastChar, direction, foundCallback);
+// 	});
+//
+// 	it('Bomb should delete characters near it: ', () => {
+// 		// let ex = falled.explodedChars;
+// 		// let falled = falled.fallingCharacters;
+// 	});
+// });
