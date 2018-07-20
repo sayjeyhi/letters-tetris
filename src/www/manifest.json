@@ -1,5 +1,5 @@
 {
-	"short_name": "Lt",
+	"short_name": "Tetris",
 	"name": "Letters Tetris",
 	"icons": [
 		{
@@ -37,5 +37,5 @@
 	"scope": "/",
 	"background_color": "#ffffff",
 	"display": "standalone",
-	"theme_color": "#ffffff"
+	"theme_color": "#14d234"
 }
