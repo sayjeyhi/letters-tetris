@@ -183,7 +183,7 @@ export default class ScoreHandler {
      * @param word
      * @param direction
      */
-	static  _updateStats(word, direction) {
+	static _updateStats(word, direction) {
 		const initValues = TetrisGame.initValues;
 
 		// Update stats related to word

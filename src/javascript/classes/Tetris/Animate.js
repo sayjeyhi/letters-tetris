@@ -31,7 +31,7 @@ export default class Animate {
 		const gameConfig = TetrisGame.config;
 		const oldChar = domToDelete.innerHTML;
 		const oldColor = domToDelete.style.backgroundColor;
-		//const oldType = domToDelete.dataset.type || 'regualar';
+		// const oldType = domToDelete.dataset.type || 'regualar';
 		const domParent = domToDelete.parentNode;
 		const isFallingDown = (newRow !== null && newColumn !== null);
 
@@ -44,7 +44,6 @@ export default class Animate {
 				Explosion.explode(domParent, 35, 10);
 			}
 		}
-
 
 
 		Timeout.request(

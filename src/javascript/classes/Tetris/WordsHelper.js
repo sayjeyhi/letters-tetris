@@ -4,8 +4,6 @@
 
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
-import Animate from './Animate';
-import Explosion from '../Explosion';
 
 
 /**
@@ -16,11 +14,9 @@ export default class WordsHelper {
 	 * Choose random words in game build to work with
 	 */
 	static chooseWord() {
-
 		const initValues = TetrisGame.initValues;
 		const key = initValues.comingWordIndex;
 		const value = window.TetrisWords[key] || '';
-
 
 
 		// do we finished words ?
@@ -60,13 +56,12 @@ export default class WordsHelper {
 	static chooseChar() {
 		const initValues	= TetrisGame.initValues;
 		const config		= TetrisGame.config;
-		let choosedWord,choosedChar;
+		let choosedWord, choosedChar;
 
 		if (config.enable_special_characters) {
 			// Dont bomb empty field :|
 			if (TetrisGame.matrix.filledCharacters > 1) {
-
-				//TODO: Create a clear random method for this shit :|
+				// TODO: Create a clear random method for this shit :|
 				const randRange100 = Helper.getRandomInt(0, 100);
 				if (config.level === 1) {
 					if (randRange100 > 90) {
@@ -110,8 +105,8 @@ export default class WordsHelper {
 		}
 
 
-		for(let w = 0 ; w < initValues.choosedWords.length;w++) {
-			if(!initValues.choosedWords[w].finished){
+		for (let w = 0; w < initValues.choosedWords.length; w++) {
+			if (!initValues.choosedWords[w].finished) {
 				choosedWord = initValues.choosedWords[w];
 				break;
 			}
@@ -125,8 +120,7 @@ export default class WordsHelper {
 		});
 
 		if (availableChars.length === 0) {
-
-			console.log("reset sdasdasd !!!!");
+			console.log('reset sdasdasd !!!!');
 
 			// reset user chars for this word
 			TetrisGame.initValues.choosedWordsUsedChars = [];
@@ -137,16 +131,13 @@ export default class WordsHelper {
 				TetrisGame.showShuffledWords();
 				return this.chooseChar();
 			}
-
 		} else {
-			choosedChar = availableChars.split('').sort(() => {return 0.5 - Math.random()}).pop();
+			choosedChar = availableChars.split('').sort(() => { return 0.5 - Math.random(); }).pop();
 			TetrisGame.initValues.choosedWordsUsedChars.push(choosedChar);
 
 			return choosedChar;
 		}
 	}
-
-
 
 
 	/**
@@ -188,12 +179,11 @@ export default class WordsHelper {
 	 * @return {HTMLElement}
 	 */
 	static giveMeAnStar() {
-		Helper.log(`An Start is coming`);
+		Helper.log('An Start is coming');
 		const starCharacter = document.createElement('i');
 		starCharacter.className = 'star animated icon-star';
 		starCharacter.type = 'star';
 		starCharacter.special = 'true';
 		return starCharacter;
 	}
-
 }

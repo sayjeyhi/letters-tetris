@@ -7,13 +7,12 @@ import Interval from '../Interval';
 import Sound from '../Sound';
 import Settings from './Settings';
 import Storage from '../Storage';
-import Charblock from './Charblock';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
 import MapStack from '../MapStack';
 import ScoreHandler from './ScoreHandler';
 import Animate from './Animate';
-import WordsHelper from "./WordsHelper";
+import WordsHelper from './WordsHelper';
 
 /**
  * @typedef {Object} TetrisGameConfig
@@ -144,7 +143,7 @@ export default class TetrisGame {
 		], { type: 'text/javascript' });
 
 
-		//Shuffle words
+		// Shuffle words
 		Helper.shuffleArray(window.TetrisWords);
 
 
@@ -307,7 +306,6 @@ export default class TetrisGame {
      * @param {Charblock} lastChar
      */
 	static checkWordSuccess(lastChar) {
-
 		Helper.log(this.initValues.choosedWords);
 		// pause game while checking and animating
 		this.initValues.paused = true;
@@ -369,11 +367,10 @@ export default class TetrisGame {
 
 				// update top words bar
 				TetrisGame.showShuffledWords();
-
 			},
 			// (successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
 			// successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
-			(successObject.wordCharacterPositions.length-1)*(config.successAnimationIterationDuration) + TetrisGame.initValues.animateConfig.deleteTiming
+			((successObject.wordCharacterPositions.length-1)*(config.successAnimationIterationDuration)) + TetrisGame.initValues.animateConfig.deleteTiming
 		);
 	}
 
@@ -420,7 +417,7 @@ export default class TetrisGame {
 	static showShuffledWords() {
 		const parent = Helper._('.currentWorkingWords');
 		const randomizeFn = () => { return 0.5 - Math.random(); };
-		const displayFiveWords = TetrisGame.initValues.choosedWords.slice(0,5).sort(randomizeFn);
+		const displayFiveWords = TetrisGame.initValues.choosedWords.slice(0, 5).sort(randomizeFn);
 
 		// make working words empty
 		parent.innerHTML = '';
@@ -479,11 +476,10 @@ export default class TetrisGame {
      * @param wordId
      */
 	static _removeWordAndCharacters(word, wordId) {
-
 		// Remove word from choosed words
-		TetrisGame.initValues.choosedWords.splice(wordId , 1);
+		TetrisGame.initValues.choosedWords.splice(wordId, 1);
 
 		// Remove characters from choosed characters
-		TetrisGame.initValues.choosedWordsUsedChar = "";
+		TetrisGame.initValues.choosedWordsUsedChar = '';
 	}
 }

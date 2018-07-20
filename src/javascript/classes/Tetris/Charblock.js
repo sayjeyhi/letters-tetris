@@ -94,20 +94,16 @@ export default class Charblock {
 			charBlockEl.innerHTML = charblock.char;
 		} else {
 			if (charblock.type === 'bomb') {
-
 				plusCharBlockClass = 'bombBlock animated';
 				charBlockEl.style.background = 'transparent';
 				charBlockEl.dataset.size = charblock.typeSize;
-
 			} else if (charblock.type === 'skull') {
-
 				// set skull styling class
 				plusCharBlockClass = 'skullBlock animated';
 				charBlockEl.style.background = '#000';
 
 				// Register click listener on skullBlock
 				Charblock._registerSkullClick(charBlockEl);
-
 			} else if (charblock.type === 'star') {
 				plusCharBlockClass = 'starBlock animated';
 				charBlockEl.style.background = MaterialColor.getRandomColor();
@@ -140,7 +136,7 @@ export default class Charblock {
 
 
 		// user could not move skull
-		if (!this.element.classList.contains('skullBlock')){
+		if (!this.element.classList.contains('skullBlock')) {
 			moveTo = Charblock._generateMove(eventKeyCode);
 		} else if (isBottomMove) {
 			moveTo = Charblock._generateMove(eventKeyCode);
@@ -223,18 +219,18 @@ export default class Charblock {
 	// 	const animateConfig = TetrisGame.initValues.animateConfig;
 	// 	const domToDelete = Charblock._getEl(oldRow, oldColumn, true);
 	// 	if (!domToDelete || typeof domToDelete ==='undefined') return false;
-    //
+	//
 	// 	let deleteTiming = animateConfig.deleteTiming;
 	// 	const gameConfig = TetrisGame.config;
 	// 	const oldChar = domToDelete.innerText;
 	// 	const oldColor = domToDelete.style.backgroundColor;
 	// 	const domParent = domToDelete.parentNode;
 	// 	const isFallingDown = (newRow !== null && newColumn !== null);
-    //
+	//
 	// 	if (gameConfig.useAnimationFlag) {
 	// 		const animateClass = animateConfig.animateClass;
 	// 		domToDelete.classList.add(animateClass, isFallingDown ? 'fadeOutDown' : 'zoomOutDown');
-    //
+	//
 	// 		// create explosion effect
 	// 		if (!isFallingDown) {
 	// 			Explosion.explode(domParent, 35, 10);
@@ -242,14 +238,14 @@ export default class Charblock {
 	// 	}else{
 	// 		deleteTiming = 0;
 	// 	}
-    //
+	//
 	// 	Timeout.request(
 	// 		() => {
 	// 			if (domToDelete.parentElement === domParent) domParent.removeChild(domToDelete);
 	// 		}, deleteTiming
 	// 	);
-    //
-    //
+	//
+	//
 	// 	// animate up char to down
 	// 	if (isFallingDown) {
 	// 		this.factory(
@@ -422,7 +418,7 @@ export default class Charblock {
 		if (!TetrisGame.initValues.paused) {
 			const skullCharacter = charBlockEl.childNodes[0];
 
-			if(skullCharacter) {
+			if (skullCharacter) {
 				const remainingClicks = Helper.int(skullCharacter.dataset.clicks) - 1;
 				skullCharacter.dataset.clicks = remainingClicks.toString();
 
