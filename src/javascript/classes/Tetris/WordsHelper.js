@@ -24,8 +24,10 @@ export default class WordsHelper {
 
 
 		// do we finished words ?
-		if (value === '') {
-			initValues.wordsFinished = true;
+		if (value === '' ) {
+			if(initValues.choosedWords.length === 0) {
+				initValues.wordsFinished = true;
+			}
 			return false;
 		}
 

@@ -171,11 +171,32 @@ export default class ArshLoader {
                     + '</li>'
                     + '</ul>';
 
+
+				let documentLink = document.createElement("div");
+
+				let wiki = document.createElement("a");
+				wiki.href = "/wiki";
+				wiki.target = "_blank";
+				wiki.className = "linkToDoc";
+				wiki.innerText = "مسـتندات";
+
+				let apiDocs = document.createElement("a");
+				apiDocs.href = "/api-docs";
+				apiDocs.target = "_blank";
+				apiDocs.className = "linkToDoc";
+				apiDocs.innerText = "توصیف فنی";
+
+				documentLink.appendChild(wiki);
+				documentLink.appendChild(apiDocs);
+
 				loadingTextElement.appendChild(chooseWordsKind);
 				loadingTextElement.appendChild(btnFa);
 				loadingTextElement.appendChild(btnEn);
 				loadingTextElement.appendChild(btnJa);
+				loadingTextElement.appendChild(documentLink);
 				loadingTextElement.appendChild(workKindChooser);
+
+
 
 				ArshLoader.isLoaded = true;
 			}, 1000);
@@ -416,5 +437,6 @@ export default class ArshLoader {
 	}
 }
 
-if(typeof in_browser !== "undefined")
+if(typeof in_browser !== "undefined") {
 	ArshLoader.build();
+}
