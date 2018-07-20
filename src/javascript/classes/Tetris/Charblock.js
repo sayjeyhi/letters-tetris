@@ -41,7 +41,7 @@ export default class Charblock {
 			this.typeSize = this.char.typeSize;
 			Helper.log(`Special: ${this.type}`);
 		} else {
-			this.type = 'regular';
+			this.type = 'regualar';
 			this.color = MaterialColor.getRandomColor(); // random material color
 		}
 
@@ -89,27 +89,31 @@ export default class Charblock {
 		const animateClass = TetrisGame.config.useAnimationFlag ? ' animated ' : '';
 		let plusCharBlockClass = '';
 
-		if (charblock.type === 'regular') {
+		if (charblock.type === 'regualar') {
 			charBlockEl.style.background = charblock.color;
 			charBlockEl.innerHTML = charblock.char;
 		} else {
 			if (charblock.type === 'bomb') {
+
+				plusCharBlockClass = 'bombBlock animated';
 				charBlockEl.style.background = 'transparent';
 				charBlockEl.dataset.size = charblock.typeSize;
-				plusCharBlockClass = 'bombBlock';
-				charBlockEl.appendChild(charblock.char);
+
 			} else if (charblock.type === 'skull') {
+
 				// set skull styling class
-				plusCharBlockClass = 'skullBlock';
+				plusCharBlockClass = 'skullBlock animated';
 				charBlockEl.style.background = '#000';
-				// Register click listener on charblock
+
+				// Register click listener on skullBlock
 				Charblock._registerSkullClick(charBlockEl);
-				charBlockEl.appendChild(charblock.char);
+
 			} else if (charblock.type === 'star') {
 				plusCharBlockClass = 'starBlock animated';
-				charBlockEl.appendChild(charblock.char);
 				charBlockEl.style.background = MaterialColor.getRandomColor();
 			}
+
+			charBlockEl.appendChild(charblock.char);
 		}
 
 		charBlockEl.className = `charBlock ${plusCharBlockClass} ${animateClass}${charblock.animateInClass || ''}`;
@@ -133,12 +137,16 @@ export default class Charblock {
 		const isBottomMove = TetrisGame.controlCodes.DOWN === eventKeyCode;
 
 		let moveTo;
+
+
+		// user could not move skull
 		if (!this.element.classList.contains('skullBlock')){
 			moveTo = Charblock._generateMove(eventKeyCode);
-		}
-		else if (isBottomMove) {
+		} else if (isBottomMove) {
 			moveTo = Charblock._generateMove(eventKeyCode);
 		}
+
+
 		// if move to is out of range
 		if (!moveTo || moveTo.column >= initValues.validatedColumnsCount || moveTo.column < 0 || initValues.finished) {
 			return false;
@@ -147,12 +155,12 @@ export default class Charblock {
 		const destinationEl = Charblock._getEl(moveTo.row, moveTo.column) || null;
 		if (moveTo.row >= config.rows || (destinationEl.innerHTML.trim() !== '')) {
 			if (isBottomMove) {
-				// remove styles of coming
-				this.element.classList.remove('skullBlock', 'bombBlock');
+				// remove styles of coming special char
+				this.element.classList.remove('skullBlock', 'bombBlock', 'starBlock');
 
 				// Remove onclick if element reached bottom
-				this.element.removeEventListener('click', Charblock.skullClick, true);
-				this.element.removeEventListener('touchstart', Charblock.skullClick, true);
+				this.element.removeEventListener('click', Charblock._skullClick, true);
+				this.element.removeEventListener('touchstart', Charblock._skullClick, true);
 
 				// check words
 				TetrisGame.checkWordSuccess(this);
@@ -163,7 +171,6 @@ export default class Charblock {
 					} else {
 						// add new char
 						Charblock.factory();
-						console.log('Will add new char !');
 					}
 				} else {
 					Gameplay.finish('gameOver');
@@ -205,56 +212,56 @@ export default class Charblock {
 	}
 
 
-	/**
-	 * Fall node with animation
-	 * @param oldRow {Number}
-	 * @param oldColumn {Number}
-	 * @param newRow {Number}
-	 * @param newColumn {Number}
-	 */
-	static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
-		const animateConfig = TetrisGame.initValues.animateConfig;
-		const domToDelete = Charblock._getEl(oldRow, oldColumn, true);
-		if (!domToDelete || typeof domToDelete ==='undefined') return false;
-
-		let deleteTiming = animateConfig.deleteTiming;
-		const gameConfig = TetrisGame.config;
-		const oldChar = domToDelete.innerText;
-		const oldColor = domToDelete.style.backgroundColor;
-		const domParent = domToDelete.parentNode;
-		const isFallingDown = (newRow !== null && newColumn !== null);
-
-		if (gameConfig.useAnimationFlag) {
-			const animateClass = animateConfig.animateClass;
-			domToDelete.classList.add(animateClass, isFallingDown ? 'fadeOutDown' : 'zoomOutDown');
-
-			// create explosion effect
-			if (!isFallingDown) {
-				Explosion.explode(domParent, 35, 10);
-			}
-		}else{
-			deleteTiming = 0;
-		}
-
-		Timeout.request(
-			() => {
-				if (domToDelete.parentElement === domParent) domParent.removeChild(domToDelete);
-			}, deleteTiming
-		);
-
-
-		// animate up char to down
-		if (isFallingDown) {
-			this.factory(
-				{
-					color: oldColor,
-					char: oldChar,
-					type: 'regular',
-					animateInClass: 'fadeInDown'
-				}, this._getEl(newRow, newColumn)
-			);
-		}
-	}
+	// /**
+	//  * Fall node with animation
+	//  * @param oldRow {Number}
+	//  * @param oldColumn {Number}
+	//  * @param newRow {Number}
+	//  * @param newColumn {Number}
+	//  */
+	// static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
+	// 	const animateConfig = TetrisGame.initValues.animateConfig;
+	// 	const domToDelete = Charblock._getEl(oldRow, oldColumn, true);
+	// 	if (!domToDelete || typeof domToDelete ==='undefined') return false;
+    //
+	// 	let deleteTiming = animateConfig.deleteTiming;
+	// 	const gameConfig = TetrisGame.config;
+	// 	const oldChar = domToDelete.innerText;
+	// 	const oldColor = domToDelete.style.backgroundColor;
+	// 	const domParent = domToDelete.parentNode;
+	// 	const isFallingDown = (newRow !== null && newColumn !== null);
+    //
+	// 	if (gameConfig.useAnimationFlag) {
+	// 		const animateClass = animateConfig.animateClass;
+	// 		domToDelete.classList.add(animateClass, isFallingDown ? 'fadeOutDown' : 'zoomOutDown');
+    //
+	// 		// create explosion effect
+	// 		if (!isFallingDown) {
+	// 			Explosion.explode(domParent, 35, 10);
+	// 		}
+	// 	}else{
+	// 		deleteTiming = 0;
+	// 	}
+    //
+	// 	Timeout.request(
+	// 		() => {
+	// 			if (domToDelete.parentElement === domParent) domParent.removeChild(domToDelete);
+	// 		}, deleteTiming
+	// 	);
+    //
+    //
+	// 	// animate up char to down
+	// 	if (isFallingDown) {
+	// 		this.factory(
+	// 			{
+	// 				color: oldColor,
+	// 				char: oldChar,
+	// 				type: 'regular',
+	// 				animateInClass: 'fadeInDown'
+	// 			}, this._getEl(newRow, newColumn)
+	// 		);
+	// 	}
+	// }
 
 
 	/**
@@ -303,7 +310,6 @@ export default class Charblock {
 
 	/**
 	 * Generate charBlock movement
-	 *
 	 * @param keyCode
 	 * @return {*}
 	 * @private
@@ -401,8 +407,8 @@ export default class Charblock {
 	 * @private
 	 */
 	static _registerSkullClick(charBlockEl) {
-		charBlockEl.addEventListener('click', Charblock.skullClick, true);
-		charBlockEl.addEventListener('touchstart', Charblock.skullClick, true);
+		charBlockEl.addEventListener('click', Charblock._skullClick, true);
+		charBlockEl.addEventListener('touchstart', Charblock._skullClick, true);
 	}
 
 
@@ -410,23 +416,26 @@ export default class Charblock {
 	 * Fire skull click event
 	 * @param event
 	 */
-	static skullClick(event) {
+	static _skullClick(event) {
 		const charBlockEl = event.target.closest('.charBlock');
 		if (!charBlockEl) return;
 		if (!TetrisGame.initValues.paused) {
 			const skullCharacter = charBlockEl.childNodes[0];
-			const remainingClicks = Helper.int(skullCharacter.dataset.clicks) - 1;
-			if (remainingClicks > 0) {
-				skullCharacter.dataset.clicks = remainingClicks.toString();
-			} else {
-				const YX = Helper.getYX(skullCharacter);
 
-				// explode skull charBlock
-				Explosion.explode(skullCharacter, YX.x, YX.y);
-				Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+			if(skullCharacter) {
+				const remainingClicks = Helper.int(skullCharacter.dataset.clicks) - 1;
+				if (remainingClicks > 0) {
+					skullCharacter.dataset.clicks = remainingClicks.toString();
+				} else if (remainingClicks === 0) {
+					const YX = Helper.getYX(skullCharacter);
 
-				// get new charBlock
-				Charblock.factory();
+					// explode skull charBlock
+					Explosion.explode(skullCharacter, YX.x, YX.y);
+					Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+
+					// get new charBlock
+					Charblock.factory();
+				}
 			}
 		}
 	}

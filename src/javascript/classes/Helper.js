@@ -160,14 +160,6 @@ export default class Helper {
 		return hours > 6 && hours < 20;
 	}
 
-	/**
-	 * Checks to see if it's day or not :| :|
-	 * @returns {boolean}
-	 */
-	static isNight() {
-		return !Helper.isDay();
-	}
-
 
 	/**
 	 * Get X-Y positi`on of dom

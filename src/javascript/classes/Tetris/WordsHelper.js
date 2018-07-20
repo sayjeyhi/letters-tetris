@@ -51,54 +51,6 @@ export default class WordsHelper {
 
 
 	/**
-	 * Be careful! It'll give you a bomb
-	 * @param size {Number} - size of bomb
-	 * @returns {HTMLImageElement} (Actually it's a bomb)
-	 */
-	static giveMeABomb(size) {
-		Helper.log(`BombSize: ${size}`);
-		const bombCharacter = document.createElement('img');
-		bombCharacter.src = '/assets/img/bomb.gif';
-		bombCharacter.className = 'bomb';
-		bombCharacter.dataset.size = size.toString();
-		bombCharacter.typeSize = size;
-		bombCharacter.type = 'bomb';
-		bombCharacter.special = 'true';
-		return bombCharacter;
-	}
-
-
-	/**
-	 * Gives us an skull character
-	 * @param clickCount
-	 * @return {HTMLElement}
-	 */
-	static giveMeAnSkull(clickCount) {
-		Helper.log(`Skull click needs: ${clickCount}`);
-		const skullCharacter = document.createElement('i');
-		skullCharacter.className = 'skull animated icon-skelete';
-		skullCharacter.dataset.clicks = clickCount;
-		skullCharacter.type = 'skull';
-		skullCharacter.special = 'true';
-		return skullCharacter;
-	}
-
-
-	/**
-	 * Gives us an Start character which matches any thing
-	 * @return {HTMLElement}
-	 */
-	static giveMeAnStar() {
-		Helper.log(`An Start is coming`);
-		const starCharacter = document.createElement('i');
-		starCharacter.className = 'star animated icon-star';
-		starCharacter.type = 'star';
-		starCharacter.special = 'true';
-		return starCharacter;
-	}
-
-
-	/**
 	 * Choose a char of choosed words
 	 */
 	static chooseChar() {
@@ -108,6 +60,7 @@ export default class WordsHelper {
 		if (config.enable_special_characters) {
 			// Dont bomb empty field :|
 			if (TetrisGame.matrix.filledCharacters > 1) {
+
 				//TODO: Create a clear random method for this shit :|
 				const randRange100 = Helper.getRandomInt(0, 100);
 				if (config.level === 1) {
@@ -172,4 +125,55 @@ export default class WordsHelper {
 			return choosedChar;
 		}
 	}
+
+
+
+
+	/**
+	 * Be careful! It'll give you a bomb
+	 * @param size {Number} - size of bomb
+	 * @returns {HTMLImageElement} (Actually it's a bomb)
+	 */
+	static giveMeABomb(size) {
+		Helper.log(`BombSize: ${size}`);
+		const bombCharacter = document.createElement('img');
+		bombCharacter.src = '/assets/img/bomb.gif';
+		bombCharacter.className = 'bomb';
+		bombCharacter.dataset.size = size.toString();
+		bombCharacter.typeSize = size;
+		bombCharacter.type = 'bomb';
+		bombCharacter.special = 'true';
+		return bombCharacter;
+	}
+
+
+	/**
+	 * Gives us an skull character
+	 * @param clickCount
+	 * @return {HTMLElement}
+	 */
+	static giveMeAnSkull(clickCount) {
+		Helper.log(`Skull click needs: ${clickCount}`);
+		const skullCharacter = document.createElement('i');
+		skullCharacter.className = 'skull animated icon-skelete';
+		skullCharacter.dataset.clicks = clickCount;
+		skullCharacter.type = 'skull';
+		skullCharacter.special = 'true';
+		return skullCharacter;
+	}
+
+
+	/**
+	 * Gives us an Start character which matches any thing
+	 * @return {HTMLElement}
+	 */
+	static giveMeAnStar() {
+		Helper.log(`An Start is coming`);
+		const starCharacter = document.createElement('i');
+		starCharacter.className = 'star animated icon-star';
+		starCharacter.type = 'star';
+		starCharacter.special = 'true';
+		return starCharacter;
+	}
+
 }

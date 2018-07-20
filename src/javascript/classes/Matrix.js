@@ -140,7 +140,7 @@ export default class Matrix {
 			colId = lastChar.column,
 			char = lastChar.char;
 
-		if (lastChar.type!=='regular') {
+		if (lastChar.type!=='regualar') {
 			switch (lastChar.type) {
 			case CHARBLOCK_TYPE_BOMB:
 				this._explode(rowId, colId, lastChar.typeSize, successCallback);

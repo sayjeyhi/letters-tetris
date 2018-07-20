@@ -17,12 +17,16 @@
         url(../fonts/BYekan.ttf) format("truetype");
 }
 
-body {
+body,a {
     font-family: "BYekan" !important;
 }
 
 body {
     direction: rtl;
+}
+
+p{
+	text-align: justify;
 }
 
 .book-summary {

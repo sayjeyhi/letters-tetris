@@ -375,10 +375,7 @@ export default class TetrisGame {
 		const falledCharacter = initValues.falledStack.popItem();
 		if (falledCharacter === false) {
 			// Stack is empty, resume the game
-			console.log('Stack is empty');
 			initValues.paused = false;
-
-			//Charblock.factory();
 
 			return;
 		}

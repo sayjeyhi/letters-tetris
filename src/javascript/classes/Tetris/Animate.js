@@ -29,8 +29,9 @@ export default class Animate {
 		const domToDelete = Charblock._getEl(oldRow, oldColumn, true);
 		if (!domToDelete || typeof domToDelete ==='undefined') return false;
 		const gameConfig = TetrisGame.config;
-		const oldChar = domToDelete.innerText;
+		const oldChar = domToDelete.innerHTML;
 		const oldColor = domToDelete.style.backgroundColor;
+		//const oldType = domToDelete.dataset.type || 'regualar';
 		const domParent = domToDelete.parentNode;
 		const isFallingDown = (newRow !== null && newColumn !== null);
 
@@ -43,6 +44,8 @@ export default class Animate {
 				Explosion.explode(domParent, 35, 10);
 			}
 		}
+
+
 
 		Timeout.request(
 			() => {
@@ -57,7 +60,7 @@ export default class Animate {
 				{
 					color: oldColor,
 					char: oldChar,
-					type: 'regular',
+					type: 'regualar',
 					animateInClass: 'fadeInDown'
 				}, Charblock._getEl(newRow, newColumn)
 			);
