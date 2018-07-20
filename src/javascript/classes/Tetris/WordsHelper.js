@@ -8,10 +8,87 @@ import Animate from './Animate';
 import Explosion from '../Explosion';
 
 
+// We'll use this weighted random generator to generate Special characters based on level
+const RANDOM_GENERATOR = {
+	LEVEL1: {
+		type: Helper.weightedRand({
+			'star':	0.11,
+			'bomb':	0.05,
+			'skull':	0.03,
+			'regular':	0.81
+		}),
+		bombSize: Helper.weightedRand({
+			'1':	0.8,
+			'2':	0.2
+		}),
+		skullSize: Helper.weightedRand({
+			'1':	0.7,
+			'2':	0.3
+		})
+	},
+	LEVEL2: {
+		type:	Helper.weightedRand({
+			'star':	0.05,
+			'bomb':	0.03,
+			'skull':	0.04,
+			'regular':	0.88
+		}),
+		bombSize: Helper.weightedRand({
+			'1':	0.95,
+			'2':	0.05
+		}),
+		skullSize: Helper.weightedRand({
+			'1':	0.2,
+			'2':	0.6,
+			'3':	0.2
+		})
+	},
+	LEVEL3: {
+		type: Helper.weightedRand({
+			'star':	0.02,
+			'bomb':	0.02,
+			'skull':	0.08,
+			'regular':	0.88
+		}),
+		bombSize: Helper.weightedRand({
+			'1':	0.98,
+			'2':	0.02
+		}),
+		skullSize: Helper.weightedRand({
+			'2':	0.5,
+			'3':	0.3,
+			'4':	0.2
+		})
+	}
+};
+
+
 /**
  * @class Words Helper to choose word and char
  */
 export default class WordsHelper {
+
+
+	/**
+	 * Decides if next Char should be Special character and it's attributes based on level
+	 * @param level
+	 * @returns {*}
+	 */
+	static getSpecial(level) {
+		const levelGenerator	= RANDOM_GENERATOR[`LEVEL${level}`];
+		const type				= levelGenerator.type();
+		if (type==='regular') return 'regular';
+		switch (type) {
+		case 'star':
+			return WordsHelper._giveMeAnStar()
+		case 'bomb':
+			return WordsHelper._giveMeABomb(levelGenerator.bombSize());
+		case 'skull':
+			return WordsHelper._giveMeAnSkull(levelGenerator.skullSize());
+		}
+	}
+
+
 	/**
 	 * Choose random words in game build to work with
 	 */
@@ -65,46 +142,9 @@ export default class WordsHelper {
 		if (config.enable_special_characters) {
 			// Dont bomb empty field :|
 			if (TetrisGame.matrix.filledCharacters > 1) {
-
-				//TODO: Create a clear random method for this shit :|
-				const randRange100 = Helper.getRandomInt(0, 100);
-				if (config.level === 1) {
-					if (randRange100 > 90) {
-						const roll = Helper.getRandomInt(0, 20);
-						let bombSize=1;
-						if (roll===20) {
-							bombSize=3;
-						} else if (roll>=16) {
-							bombSize=2;
-						}
-						return WordsHelper._giveMeABomb(bombSize);
-					} else if (randRange100 > 85) {
-						return WordsHelper._giveMeAnSkull(Helper.getRandomInt(1, 3));
-					} else if (randRange100 > 50) {
-						return WordsHelper._giveMeAnStar();
-					}
-				} else if (config.level=== 2) {
-					if (randRange100 > 93) {
-						const roll = Helper.getRandomInt(0, 20);
-						let bombSize=1;
-						if (roll >= 19) {
-							bombSize=2;
-						}
-						return WordsHelper._giveMeABomb(bombSize);
-					} else if (randRange100 > 87) {
-						return WordsHelper._giveMeAnSkull(Helper.getRandomInt(1, 3));
-					}
-				} else if (config.level=== 3) {
-					if (randRange100 > 96) {
-						const roll = Helper.getRandomInt(0, 20);
-						let bombSize=1;
-						if (roll === 20) {
-							bombSize = 2;
-						}
-						return WordsHelper._giveMeABomb(bombSize);
-					} else if (randRange100 > 85) {
-						return WordsHelper._giveMeAnSkull(Helper.getRandomInt(1, 3));
-					}
+				const decider = WordsHelper.getSpecial(config.level);
+				if(decider !== 'regular'){
+					return decider;
 				}
 			}
 		}
