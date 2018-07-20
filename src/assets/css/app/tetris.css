@@ -1954,10 +1954,10 @@ svg :not(.doNotUnfill) {
 		-webkit-transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);
 		transform: scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0);
 		-webkit-animation-timing-function: cubic-bezier(
-				0.55,
-				0.055,
-				0.675,
-				0.19
+			0.55,
+			0.055,
+			0.675,
+			0.19
 		);
 		animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 	}
@@ -1977,10 +1977,10 @@ svg :not(.doNotUnfill) {
 		-webkit-transform: scale3d(0.675, 0.675, 0.675) translate3d(0, -20px, 0);
 		transform: scale3d(0.675, 0.675, 0.675) translate3d(0, -20px, 0);
 		-webkit-animation-timing-function: cubic-bezier(
-				0.75,
-				0.075,
-				0.675,
-				0.19
+			0.75,
+			0.075,
+			0.675,
+			0.19
 		);
 		animation-timing-function: cubic-bezier(0.75, 0.075, 0.675, 0.19);
 	}
@@ -2127,3 +2127,19 @@ svg :not(.doNotUnfill) {
 	bottom: -7px;
 	top: auto;
 }
+
+.bombBlock::before{
+	content: attr(data-size);
+	font-size: 13px;
+	position: absolute;
+	font-family: 'BYekan', BYekan , sans-serif;
+	bottom: -8px;
+	left: 45%;
+	transform: translate(-50% , 0);
+	color: #fff;
+}
+
+.gameHolder.isLtr .bombBlock::before ,.gameHolder.isLtr .skullBlock i::after{
+	font-family: sans-serif !important;
+}
+
