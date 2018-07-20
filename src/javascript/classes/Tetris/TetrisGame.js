@@ -143,6 +143,10 @@ export default class TetrisGame {
 		], { type: 'text/javascript' });
 
 
+		//Shuffle words
+		Helper.shuffleArray(window.TetrisWords);
+
+
 		// set Timer instance to current TetrisGame.timer
 		this.timer = new Timer({
 			blobTiming,
