@@ -101,22 +101,22 @@
     <td>directionWordChecks</td>
   </tr>
   <tr>
-    <td>چپ به راست</td>
+    <td>بررسی از چپ به راست</td>
     <td>boolean</td>
     <td>directionWordChecks.ltr</td>
   </tr>
   <tr>
-    <td>راست به چپ</td>
+    <td>بررسی از راست به چپ</td>
     <td>boolean</td>
     <td>directionWordChecks.rtl</td>
   </tr>
   <tr>
-    <td>بالا به پایین</td>
+    <td>بررسی از بالا به پایین</td>
     <td>boolean</td>
     <td>directionWordChecks.ttd</td>
   </tr>
   <tr>
-    <td>پایین به بالا</td>
+    <td>بررسی پایین به بالا</td>
     <td>boolean</td>
     <td>directionWordChecks.dtt</td>
   </tr>
@@ -154,6 +154,18 @@
     <td>فعال بودن نمایش جداکننده های سطری</td>
     <td>boolean</td>
     <td>showGrids</td>
+  </tr>
+  
+  <tr>
+    <td>فعال بودن کاراکترهای ویژه</td>
+    <td>boolean</td>
+    <td>enable_special_characters</td>
+  </tr>
+  
+  <tr>
+    <td>حالت رنگ بندی(۰ روز - ۱ شب) پیش فرض براساس ساعت سیستم تصمیم میگیرد</td>
+    <td>int</td>
+    <td>colorMode</td>
   </tr>
 </table>
 
