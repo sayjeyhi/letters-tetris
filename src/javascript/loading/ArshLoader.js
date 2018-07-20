@@ -416,4 +416,5 @@ export default class ArshLoader {
 	}
 }
 
-ArshLoader.build();
+if(typeof in_browser !== "undefined")
+	ArshLoader.build();
