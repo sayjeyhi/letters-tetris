@@ -1,6 +1,6 @@
 <h1>
 کلاس Timeout
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
+<a class="ext-link" href="module-classes_Timeout.html" >سورس</a>
 </h1>
 این کلاس یک wrapper برای setTimeout می باشد با این تفاوت که از امکان درخواست پردازش فریم استفاده می کند. (request animationFram)
 
