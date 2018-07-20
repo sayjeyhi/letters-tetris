@@ -4,8 +4,6 @@
 
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
-import Animate from './Animate';
-import Explosion from '../Explosion';
 
 
 // We'll use this weighted random generator to generate Special characters based on level
@@ -80,7 +78,7 @@ export default class WordsHelper {
 		if (type==='regular') return 'regular';
 		switch (type) {
 		case 'star':
-			return WordsHelper._giveMeAnStar()
+			return WordsHelper._giveMeAnStar();
 		case 'bomb':
 			return WordsHelper._giveMeABomb(levelGenerator.bombSize());
 		case 'skull':

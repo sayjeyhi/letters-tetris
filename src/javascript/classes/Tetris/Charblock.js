@@ -11,6 +11,7 @@ import Timeout from '../Timeout';
 import Helper from '../Helper';
 import Explosion from '../Explosion';
 import Animate from './Animate';
+import Interval from "../Interval";
 
 /**
  * @class Charblock make easier our life on manage characters block
@@ -382,8 +383,16 @@ export default class Charblock {
 					Explosion.explode(skullCharacter, YX.x, YX.y);
 					Animate.fallNodeAnimate(YX.y, YX.x, null, null);
 
+					TetrisGame.initValues.paused = true;
+
 					// get new charBlock
-					Charblock.factory();
+					Timeout.request(
+						() => {
+							TetrisGame.initValues.paused = false;
+							Charblock.factory();
+						}, 500
+					);
+
 				}
 			}
 		}

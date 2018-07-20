@@ -1,7 +1,5 @@
 /** @module */
 
-import TetrisGame from "./Tetris/TetrisGame";
-import Charblock from "./Tetris/Charblock";
 
 /**
  *  Interval setting control - Better way to manage setInterval and make it easily to destroy
