@@ -12,7 +12,7 @@ import Timeout from '../Timeout';
 import Helper from '../Helper';
 import MapStack from '../MapStack';
 import ScoreHandler from './ScoreHandler';
-import Animate from '../Animate';
+import Animate from './Animate';
 
 /**
  * @typedef {Object} TetrisGameConfig

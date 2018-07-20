@@ -2,13 +2,13 @@
  * @module
  */
 
-import TetrisGame from './Tetris/TetrisGame';
-import Charblock from './Tetris/Charblock';
-import Timeout from './Timeout';
-import Sound from './Sound';
+import TetrisGame from './TetrisGame';
+import Charblock from './Charblock';
+import Timeout from '../Timeout';
+import Sound from '../Sound';
 // import Helper from './Helper';
-import Explosion from './Explosion';
-import Helper from './Helper';
+import Explosion from '../Explosion';
+import Helper from '../Helper';
 
 /**
  *  @class

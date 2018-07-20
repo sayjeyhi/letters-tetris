@@ -10,7 +10,7 @@ import MaterialColor from '../MaterialColor';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
 import Explosion from '../Explosion';
-import Animate from '../Animate';
+import Animate from './Animate';
 
 /**
  * @class Charblock make easier our life on manage characters block

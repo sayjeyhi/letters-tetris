@@ -4,7 +4,7 @@
 
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
-import Animate from '../Animate';
+import Animate from './Animate';
 import Explosion from '../Explosion';
 
 
