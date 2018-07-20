@@ -1,42 +1,42 @@
 // Karma configuration
 // Generated on Wed Jul 11 2018 06:12:40 GMT+0430 (+0430)
-const path = require('path');
+const path = require("path");
 
 module.exports = function(config) {
 	config.set({
 		// base path that will be used to resolve all patterns (eg. files, exclude)
-		basePath: '',
+		basePath: "",
 
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		frameworks: ['jasmine'],
+		frameworks: ["jasmine-jquery", "jasmine"],
 		files: [
-			'test/tests.webpack.js'
+			"test/tests.webpack.js"
 			// { pattern: 'test/*.html', included: false },
 		],
 		preprocessors: {
-			'test/tests.webpack.js': ['webpack', 'sourcemap']
+			"test/tests.webpack.js": ["webpack", "sourcemap"]
 		},
 		coverageReporter: {
-			type: 'html',
-			dir: '/test_result'
+			type: "html",
+			dir: "/test_result"
 		},
 		webpack: {
 			cache: true,
-			mode: 'development',
-			devtool: 'inline-source-map',
+			mode: "development",
+			devtool: "inline-source-map",
 			module: {
 				rules: [
 					{
 						test: /\.js$/,
-						include: path.resolve('src/'),
-						enforce: 'pre',
-						loader: 'babel-loader'
+						include: path.resolve("src/"),
+						enforce: "pre",
+						loader: "babel-loader"
 					},
 					{
 						test: /\.js?$/,
-						include: path.resolve('src/'),
-						loader: 'babel-loader'
+						include: path.resolve("src/"),
+						loader: "babel-loader"
 					}
 				]
 			}
@@ -45,13 +45,13 @@ module.exports = function(config) {
 		// test results reporter to use
 		// possible values: 'dots', 'progress'
 		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-		reporters: ['progress', 'html'],
+		reporters: ["progress", "html"],
 
 		htmlReporter: {
-			outputFile: 'test_result/report.html',
+			outputFile: "test_result/report.html",
 			// Optional
-			pageTitle: 'ArshTeam TetrisGame Unit Tests Report',
-			subPageTitle: 'Fanavard - Final UI Develop 96-97',
+			pageTitle: "ArshTeam TetrisGame Unit Tests Report",
+			subPageTitle: "Fanavard - Final UI Develop 96-97",
 			groupSuites: true,
 			useCompactStyle: true
 		},
@@ -72,17 +72,17 @@ module.exports = function(config) {
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
 		// browsers: ['ChromeHeadless'],
-		browsers: ['FirefoxHeadless'],
+		browsers: ["FirefoxHeadless"],
 		customLaunchers: {
 			FirefoxHeadless: {
-				base: 'Firefox',
-				flags: ['-headless']
+				base: "Firefox",
+				flags: ["-headless"]
 			}
 		},
 
 		// Continuous Integration mode
 		// if true, Karma captures browsers, runs the tests and exits
-		singleRun: true,
+		singleRun: false,
 
 		// Concurrency level
 		// how many browser should be started simultaneous
