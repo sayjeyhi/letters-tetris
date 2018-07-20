@@ -420,7 +420,7 @@ export default class TetrisGame {
 	static showShuffledWords() {
 		const parent = Helper._('.currentWorkingWords');
 		const randomizeFn = () => { return 0.5 - Math.random(); };
-		const displayFiveWords = TetrisGame.initValues.choosedWords.slice(-5).sort(randomizeFn);
+		const displayFiveWords = TetrisGame.initValues.choosedWords.slice(0,5).sort(randomizeFn);
 
 		// make working words empty
 		parent.innerHTML = '';
