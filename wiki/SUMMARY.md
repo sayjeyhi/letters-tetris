@@ -3,18 +3,20 @@
 ## راهنمای بازی
 
 -   [معرفی](src/1-game-help/README.md)
--   [ورود به بازی](src/1-game-help/part1/entergame.md)
+-   [ورود به بازی](src/1-game-help/entergame.md)
 
--   [معرفی محیط بازی](src/1-game-help/part1/enviroment.md)
+-   [معرفی محیط بازی](src/1-game-help/enviroment.md)
 
-    -   [۱- موضوع کلمات](src/1-game-help/part1/enviroments/1-category.md)
-    -   [۲- کاراکتر بعدی](src/1-game-help/part1/enviroments/2-next-char.md)
-    -   [۳- دکمه ها](src/1-game-help/part1/enviroments/3-buttons.md)
-    -   [۴- تنظیمات](src/1-game-help/part1/enviroments/4-settings.md)
-    -   [۵- وضعیت](src/1-game-help/part1/enviroments/5-status.md)
-    -   [۶- محیط اصلی بازی](src/1-game-help/part1/enviroments/6-main-game.md)
+    -   [۱- موضوع کلمات](src/1-game-help/enviroments/1-category.md)
+    -   [۲- کاراکتر بعدی](src/1-game-help/enviroments/2-next-char.md)
+    -   [۳- دکمه ها](src/1-game-help/enviroments/3-buttons.md)
+    -   [۴- تنظیمات](src/1-game-help/enviroments/4-settings.md)
+    -   [۵- وضعیت](src/1-game-help/enviroments/5-status.md)
+    -   [۶- محیط اصلی بازی](src/1-game-help/enviroments/6-main-game.md)
 
--   [پایان بازی](src/1-game-help/part1/endgame.md)
+-   [کاراکترهای ویژه بازی](src/1-game-help/characters/0-README.md)
+
+-   [پایان بازی](src/1-game-help/endgame.md)
 
 ## مستندات فنی
 
