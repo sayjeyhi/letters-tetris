@@ -183,7 +183,7 @@ export default class ScoreHandler {
      * @param word
      * @param direction
      */
-	static _updateStats(word, direction) {
+	static  _updateStats(word, direction) {
 		const initValues = TetrisGame.initValues;
 
 		// Update stats related to word
@@ -208,8 +208,11 @@ export default class ScoreHandler {
 		// Get encrypted value of Score with our random generated key
 		let score = ScoreHandler._getScore();
 
+		Helper.log(TetrisGame.config.level);
+		const extraPointForLevel = 1+((TetrisGame.config.level-1)/10);
+
 		// Increase value by scoreCalculator from config
-		score += TetrisGame.config.scoreCalculator(word);
+		score += TetrisGame.config.scoreCalculator(word) * (extraPointForLevel);
 
 		// Update our fake score variable to let hacker think they are dealing with real variable
 		initValues.score = score;
