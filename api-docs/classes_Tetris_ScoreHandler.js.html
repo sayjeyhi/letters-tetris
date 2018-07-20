@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: Gameplay | Fanavard TetrisGame</title>
+    <title>Source: classes/Tetris/ScoreHandler.js | Fanavard TetrisGame</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -47,131 +49,248 @@
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-classes_Tetris_Gameplay.html">classes/Tetris/Gameplay</a>~</span>Gameplay<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module
+ */
 
-<article>
-    
-        <div class="container-overview">
-        
-            
-
-<dt>
-    
-        <h4 class="name" id="Gameplay">
-            
-                new <span class="type-signature"></span>Gameplay<span class="signature">()</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="classes_Tetris_Gameplay.js.html">classes/Tetris/Gameplay.js</a></code>,
-                <code><a href="classes_Tetris_Gameplay.js.html#line17">line 17</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+import TetrisGame from './TetrisGame';
+import Storage from '../Storage';
+import Modal from '../Modal';
+import Helper from '../Helper';
+import Timeout from '../Timeout';
+import Gameplay from './Gameplay';
 
 
-<dl class="details">
+/**
+ * @class Settings to show and set game settings
+ */
 
-    
+export default class ScoreHandler {
+	/**
+     * Display score submiter modal and let user submit his score
+     * @param gamingInfo
+     * @param showScore
+     * @param gamingTime
+     */
+	static submit(gamingInfo, showScore, gamingTime) {
+		const config = TetrisGame.config;
+		const submitScoreContent = `
+            &lt;div class="submitScore">
+                &lt;input type="text" name="enterName" id="enterName" placeholder="${window.lang.enterName}" />
+                ${gamingInfo}
+            &lt;/div>
+        `;
 
-    
+		// show new modal to submit score
+		const submitScore = new Modal({
+			animate: config.useAnimationFlag,
+			dark: config.colorMode,
+			type: 'primary',
+			header: window.lang.submitScore,
+			content: submitScoreContent,
+			onShow: () => {
+			    // focus on name input
+			    Helper._('#enterName', submitScore.modal).focus();
+			},
+			buttons: [
+				{
+					text: window.lang.saveScore,
+					isOk: true,
+					onclick() {
+						submitScore.destroy();
+					    ScoreHandler._saveScore({
+							userName: Helper._('#enterName', submitScore.modal).value || '--',
+							score: showScore,
+							time: gamingTime
+						});
+					}
+				}, {
+					text: window.lang.restartGame,
+					isOk: true,
+					onclick() {
+						submitScore.destroy();
+						Gameplay.restart();
+					}
+				}
+			]
+		}, window.lang.rtl);
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
+		Timeout.request(
+			() => {
+				// show submit score modal
+				submitScore.show();
+			}, 1000
+		);
+	}
 
 
-    
+	/**
+     * Show scores modal
+     */
+	static showScores() {
+		const config = TetrisGame.config;
+		const submitted = ScoreHandler._getSubmitted('sort');
 
-</dd>
+		let content = '&lt;div class="scoresTable">';
+		if (submitted.length > 0) {
+			submitted.forEach(item => {
+				content += `&lt;div class="scoreRow">
+                &lt;div class="userName">${item.userName}&lt;/div>
+                &lt;div class="scoreAmount">${item.score}&lt;/div>
+                &lt;div class="timeValue">${item.time}&lt;/div>
+            &lt;/div>`;
+			});
+		} else {
+			content += `&lt;div class="scoreRow">${window.lang.noSubmittedScore}&lt;/div>`;
+		}
+		content += '&lt;/div>';
 
-        
-        </div>
-    
+		// show scores list modal
+		const submitScore = new Modal({
+			animate: config.useAnimationFlag,
+			dark: config.colorMode,
+			type: 'info',
+			header: window.lang.last10Record,
+			content,
+			buttons: [
+				{
+					text: window.lang.modalOkButton,
+					isOk: true,
+					onclick() {
+						submitScore.destroy();
+					}
+				}
+			]
+		}, window.lang.rtl);
+		submitScore.show();
+	}
 
-    
 
-    
+	/**
+     * Save user gained score
+     * @private
+     */
+	static _saveScore(scoreData) {
+		const config = TetrisGame.config;
+		let submitted = ScoreHandler._getSubmitted();
 
-    
+		// we just hold 10 last scores
+		submitted = submitted.slice(-9);
+		submitted.push(scoreData);
+		Storage.setObject(`scores_${window.lang.name}`, submitted);
 
-    
 
-    
+		// show success message
+		const submitScoreResult = new Modal({
+			animate: config.useAnimationFlag,
+			dark: config.colorMode,
+			onShow: () => {
+				Timeout.request(
+					() => { submitScoreResult.destroy(); }, 2000
+				);
+			},
+			header: window.lang.saveOperation,
+			content: window.lang.saveOperationDone
+		}, window.lang.rtl);
 
-    
+		submitScoreResult.show();
+	}
 
-    
 
-    
+	/**
+     * Get submitted scores
+     * @param sort
+     * @return {string|*}
+     */
+	static _getSubmitted(sort) {
+		const scores = Storage.getObject(`scores_${window.lang.name}`, []);
+		if (sort) {
+		    scores.sort((a, b) => {
+				return parseInt(b.score) - parseInt(a.score);
+			});
+		}
 
-    
+		return scores;
+	}
 
-    
-</article>
 
-</section>
+	/**
+     * Get score of user from Storage
+     * @returns {number}
+     */
+	static _getScore() {
+		let score;
+		if (TetrisGame.config.do_encryption) {
+			score = Storage.getEncrypted('score', TetrisGame.initValues.encryptionKey);
+		} else {
+			score = Storage.getInt('score', 0);
+		}
+		return score;
+	}
+
+
+	/**
+     * Updates stats of game
+     * @param word
+     * @param direction
+     */
+	static _updateStats(word, direction) {
+		const initValues = TetrisGame.initValues;
+
+		// Update stats related to word
+		if (direction!=='exploded') {
+			initValues.wordsFounded++;
+			initValues.wordsLengthTotal += word.length;
+		}
+		initValues.wordDirectionCounter[direction]++;
+
+		Helper._('.wordCounterHolder').innerHTML = Math.round(initValues.wordsFounded);
+	}
+
+
+	/**
+     * Update game score in UI and Data
+     * @param word
+     * @private
+     */
+	static _updateScore(word) {
+		const initValues = TetrisGame.initValues;
+
+		// Get encrypted value of Score with our random generated key
+		let score = ScoreHandler._getScore();
+
+		// Increase value by scoreCalculator from config
+		score += TetrisGame.config.scoreCalculator(word);
+
+		// Update our fake score variable to let hacker think they are dealing with real variable
+		initValues.score = score;
+
+		// Update &amp; encrypt score in Storage
+		if (TetrisGame.config.do_encryption) {
+			Storage.setEncrypted('score', score, initValues.encryptionKey);
+		} else {
+			Storage.set('score', score);
+		}
+		Helper._('.scoreHolder').innerHTML = Math.round(score);
+	}
+
+
+	/**
+     * Update score and set it to panel
+     * @param word
+     * @param direction
+     */
+	static _updateScoreAndStats(word, direction) {
+		this._updateStats(word, direction);
+		this._updateScore(word);
+	}
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -188,7 +307,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'module:classes/Tetris/Gameplay~Gameplay_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

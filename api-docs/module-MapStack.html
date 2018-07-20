@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: Gameplay | Fanavard TetrisGame</title>
+    <title>Class: module:MapStack | Fanavard TetrisGame</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -52,8 +52,10 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-classes_Tetris_Gameplay.html">classes/Tetris/Gameplay</a>~</span>Gameplay<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>module:MapStack<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>This class is a wrapper for Map with an additional method to append to Map
+Since extending built-in classes is not supported, We'll have to create a wrapper</p></div>
         
     
 </header>
@@ -66,14 +68,14 @@
 
 <dt>
     
-        <h4 class="name" id="Gameplay">
+        <h4 class="name" id="module:MapStack">
             
-                new <span class="type-signature"></span>Gameplay<span class="signature">()</span><span class="type-signature"></span>
+                new <span class="type-signature"></span>module:MapStack<span class="signature">()</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="classes_Tetris_Gameplay.js.html">classes/Tetris/Gameplay.js</a></code>,
-                <code><a href="classes_Tetris_Gameplay.js.html#line17">line 17</a></code>
+                <code><a href="classes_MapStack.js.html">classes/MapStack.js</a></code>,
+                <code><a href="classes_MapStack.js.html#line11">line 11</a></code>
             </div>
             
         </h4>
@@ -151,6 +153,15 @@
     
 
     
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>Map</li>
+    </ul>
+
 
     
 
@@ -164,6 +175,175 @@
 
     
 
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+                
+
+<dt>
+    
+        <h4 class="name" id="append">
+            
+                <span class="type-signature"></span>append<span class="signature">(key, value)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="classes_MapStack.js.html">classes/MapStack.js</a></code>,
+                <code><a href="classes_MapStack.js.html#line25">line 25</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>If key exists, It'll append to array with given key
+ Otherwise, It'll create object with given key and push value as array</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            </dl>
     
 
     
@@ -188,7 +368,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'module:classes/Tetris/Gameplay~Gameplay_sub'.replace(/"/g, '_');
+        var id = 'module:MapStack_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

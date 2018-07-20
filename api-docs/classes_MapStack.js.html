@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: Gameplay | Fanavard TetrisGame</title>
+    <title>Source: classes/MapStack.js | Fanavard TetrisGame</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -47,131 +49,80 @@
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="module-classes_Tetris_Gameplay.html">classes/Tetris/Gameplay</a>~</span>Gameplay<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-
-<dt>
-    
-        <h4 class="name" id="Gameplay">
-            
-                new <span class="type-signature"></span>Gameplay<span class="signature">()</span><span class="type-signature"></span>
-                
-            
-            <div class="container-source members">
-                <code><a href="classes_Tetris_Gameplay.js.html">classes/Tetris/Gameplay.js</a></code>,
-                <code><a href="classes_Tetris_Gameplay.js.html#line17">line 17</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module MapStack
+ */
 
 
-<dl class="details">
+/**
+ * This class is a wrapper for Map with an additional method to append to Map
+ * Since extending built-in classes is not supported, We'll have to create a wrapper
+ * @extends Map
+ */
+export default class MapStack {
+	/**
+     * @constructor
+     */
+	constructor() {
+		this.map = new Map();
+	}
 
-    
+	/**
+     *  If key exists, It'll append to array with given key
+     *  Otherwise, It'll create object with given key and push value as array
+     * @param key {Object}
+     * @param value {Object}
+     */
+	append(key, value) {
+		if (this.map.has(key)) this.map.get(key).push(value);
+		else this.map.set(key, [value]);
+	}
 
-    
+	entries() {
+		return this.map.entries();
+	}
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
+	merge(mapStack) {
+		for (const [key, value] of mapStack.entries()) {
+			this.append(key, value);
+		}
+	}
 
 
-    
+	popItems() {
+		for (const [key, value] of this.map.entries()) { // Since it's a generator, it's not performance killer
+			const anItemOfAnyX = value;
+			this.map.delete(key);
+			return anItemOfAnyX;
+		}
+		// If we reached here, Map is Empty
+		return false;
+	}
 
-</dd>
+	popItem() {
+		for (const [key, value] of this.map.entries()) { // Since it's a generator, it's not performance killer
+			const anItemOfAnyX = value.pop()[0];
+			if (value.length === 0) {
+				this.map.delete(key);
+			}
+			return anItemOfAnyX;
+		}
+		// If we reached here, Map is Empty
+		return false;
+	}
 
-        
-        </div>
-    
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+	// Optimize
+	reduce() {
+		// TODO: IDK :|
+	}
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -188,7 +139,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'module:classes/Tetris/Gameplay~Gameplay_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

@@ -40,7 +40,8 @@ module.exports = {
 		new CopyWebpackPlugin([
 			{ from: path.join(__dirname, './src/www/'), to: './' },
 			{ from: path.join(__dirname, './src/assets/'), to: './assets/' },
-			{ from: path.join(__dirname, './wiki/_book'), to: './wiki/' }
+			{ from: path.join(__dirname, './wiki/_book'), to: './wiki/' },
+			{ from: path.join(__dirname, './api-docs/'), to: './api-docs/' }
 		]),
 
 		new CompressionPlugin({
