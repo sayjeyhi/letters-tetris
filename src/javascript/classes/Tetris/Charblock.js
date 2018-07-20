@@ -140,7 +140,7 @@ export default class Charblock {
 
 
 		// user could not move skull
-		if (!this.element.classList.contains('skullBlock')){
+		if (!this.element.classList.contains('skullBlock')) {
 			moveTo = Charblock._generateMove(eventKeyCode);
 		} else if (isBottomMove) {
 			moveTo = Charblock._generateMove(eventKeyCode);
@@ -371,7 +371,7 @@ export default class Charblock {
 		if (!TetrisGame.initValues.paused) {
 			const skullCharacter = charBlockEl.childNodes[0];
 
-			if(skullCharacter) {
+			if (skullCharacter) {
 				const remainingClicks = Helper.int(skullCharacter.dataset.clicks) - 1;
 				skullCharacter.dataset.clicks = remainingClicks.toString();
 

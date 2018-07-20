@@ -6,7 +6,7 @@ import TetrisGame from './TetrisGame';
 import Storage from '../Storage';
 import Modal from '../Modal';
 import Helper from '../Helper';
-import Charblock from "./Charblock";
+import Charblock from './Charblock';
 
 /**
  * @class Settings to show and set game settings
@@ -53,7 +53,6 @@ export default class Settings {
      * Show game settings
      */
 	static show() {
-
 		// get defined settings
 		const settings = this.getDefaultSettings();
 
@@ -70,8 +69,8 @@ export default class Settings {
 
 
 		// create setting modal content
-		const content =
-			`<form id="settingForm" class="cssRadio ${spanAnimationClass}">
+		const content
+			= `<form id="settingForm" class="cssRadio ${spanAnimationClass}">
                 <div class="formRow">
                     <div class="formLabel"><i class="icon-sound2"></i> ${window.lang.backgroundMusic}</div>
                     <div class="formData">
@@ -126,7 +125,7 @@ export default class Settings {
                 <div class="formRow">
                     <div class="formLabel"><i class="icon-colorPelete"></i> ${window.lang.colorMode}</div>
                     <div class="formData">
-                        <input id="colorModeDay" type="radio" class="colorMode" name="colorMode" value="0" ${(!settings.colorMode  ? 'checked' : '')} />
+                        <input id="colorModeDay" type="radio" class="colorMode" name="colorMode" value="0" ${(!settings.colorMode ? 'checked' : '')} />
                         <label for="colorModeDay"><span>${window.lang.activeDay}</span></label>
                         <input id="colorModeNight" type="radio" class="colorMode" name="colorMode" value="1" ${(settings.colorMode ? 'checked' : '')} />
                         <label for="colorModeNight"><span>${window.lang.activeNight}</span></label>
@@ -169,8 +168,8 @@ export default class Settings {
 				const modalItSelf = settingModal.modal;
 				const settingForm = Helper._('#settingForm', modalItSelf);
 				const settingData = Settings._getIntValue(
-					settingForm ,
-					['soundPlay' , 'eventSounds' , 'useAnimation' , 'gameLevel' , 'showGrids' , 'vibration' , 'colorMode']
+					settingForm,
+					['soundPlay', 'eventSounds', 'useAnimation', 'gameLevel', 'showGrids', 'vibration', 'colorMode']
 				);
 
 				if (settingData.colorMode === 1) {
@@ -190,7 +189,7 @@ export default class Settings {
 	 * Get default settings Or saved settings
 	 * @return {any}
 	 */
-	static getDefaultSettings(){
+	static getDefaultSettings() {
 		const config = TetrisGame.config;
 
 
@@ -217,10 +216,9 @@ export default class Settings {
 	 * @private
 	 */
 	static _getIntValue(settingForm, names) {
-
-		let settingData = {};
-		names.forEach( item => {
-			let input = Helper._(`.${item}:checked`, settingForm);
+		const settingData = {};
+		names.forEach(item => {
+			const input = Helper._(`.${item}:checked`, settingForm);
 			settingData[item] = (input ? parseInt(input.value) : 0);
 		});
 		return settingData;
@@ -263,7 +261,7 @@ export default class Settings {
      */
 	static _setLevelSetting(gameLevel) {
 		let bodyClass = '';
-		let config = TetrisGame.config;
+		const config = TetrisGame.config;
 
 		// update interval speed
 		TetrisGame.interval.update(Charblock.getInterval());
@@ -308,11 +306,11 @@ export default class Settings {
 	 * @param isNight
 	 * @private
 	 */
-	static _setColorMode(isNight){
-		if(isNight){
-			document.body.classList.add("isNightMode");
-		}else{
-			document.body.classList.remove("isNightMode");
+	static _setColorMode(isNight) {
+		if (isNight) {
+			document.body.classList.add('isNightMode');
+		} else {
+			document.body.classList.remove('isNightMode');
 		}
 	}
 }

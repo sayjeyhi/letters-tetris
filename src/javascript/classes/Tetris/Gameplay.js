@@ -138,7 +138,7 @@ export default class Gameplay {
 	/**
 	 * Restart whole game and back to arshLoader
 	 */
-	static restartWholeGame(){
+	static restartWholeGame() {
 		this.restart();
 
 		// pause background music
