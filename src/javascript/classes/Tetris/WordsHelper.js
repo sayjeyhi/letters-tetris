@@ -80,11 +80,11 @@ export default class WordsHelper {
 		if (type==='regular') return 'regular';
 		switch (type) {
 		case 'star':
-			return WordsHelper.giveMeAnStar();
+			return WordsHelper._giveMeAnStar()
 		case 'bomb':
-			return WordsHelper.giveMeABomb(levelGenerator.bombSize());
+			return WordsHelper._giveMeABomb(levelGenerator.bombSize());
 		case 'skull':
-			return WordsHelper.giveMeAnSkull(levelGenerator.skullSize());
+			return WordsHelper._giveMeAnSkull(levelGenerator.skullSize());
 		}
 	}
 
