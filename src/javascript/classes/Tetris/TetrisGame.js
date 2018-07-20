@@ -301,10 +301,8 @@ export default class TetrisGame {
      * @param {Charblock} lastChar
      */
 	static checkWordSuccess(lastChar) {
-
 		// pause game while checking and animating
 		this.initValues.paused = true;
-
 		// check word happens and then call checkWordsResult fn
 		this.matrix.checkWords(
 			this.initValues.choosedWords,

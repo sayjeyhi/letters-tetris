@@ -4,7 +4,7 @@
 
 import Helper from './Helper';
 import MapStack from './MapStack';
-import CharBlock from './Tetris/Charblock';
+
 /**
  * This class will hold values of characters, find successful created words, delete them and etc
  */
@@ -19,24 +19,27 @@ const
 // Special types names
 const
 	CHARBLOCK_TYPE_BOMB		= 'bomb',
-	CHARBLOCK_TYPE_SKULL	= 'skull';
+	CHARBLOCK_TYPE_SKULL	= 'skull',
+	CHARBLOCK_TYPE_STAR		= 'star';
 
 // Special types value
-const SKULL_VALUE= '-';
+const
+	SKULL_VALUE	= '-',
+	STAR_VALUE	= '*';
 
 export default class Matrix {
 	/**
-     * @param matrix {Array} Matrix of characters
-     * @property matrix {Array} Matrix of characters
-     * @property width {Number} - Width of matrix
-     * @property height {Number} - Height of matrix
-     * @example
-     *  let matrix = new Matrix([[' ',' ',' ',' '],
-     *      [' ',' ',' ',' '],
-     *      [' ',' ',' ',' '],
-     *      [' ',' ',' ',' ']]
-     *  );
-     */
+	 * @param matrix {Array} Matrix of characters
+	 * @property matrix {Array} Matrix of characters
+	 * @property width {Number} - Width of matrix
+	 * @property height {Number} - Height of matrix
+	 * @example
+	 *  let matrix = new Matrix([[' ',' ',' ',' '],
+	 *      [' ',' ',' ',' '],
+	 *      [' ',' ',' ',' '],
+	 *      [' ',' ',' ',' ']]
+	 *  );
+	 */
 	constructor(matrix) {
 		this.matrix = matrix;
 		this.height = matrix.length;
@@ -46,11 +49,11 @@ export default class Matrix {
 
 
 	/**
-     * Set character on matrix
-     * @param y {Number} - Column of matrix
-     * @param x {Number} - Row of matrix
-     * @param char {String} - Character to place in matrix
-     */
+	 * Set character on matrix
+	 * @param y {Number} - Column of matrix
+	 * @param x {Number} - Row of matrix
+	 * @param char {String} - Character to place in matrix
+	 */
 	setCharacter(y, x, char) {
 		this.matrix[y][x] = char;
 		this.filledCharacters++;
@@ -58,10 +61,10 @@ export default class Matrix {
 
 
 	/**
-     * Deletes a single cell in Matrix
-     * @param y {Number} - Column of matrix
-     * @param x {Number} - Row of matrix
-     */
+	 * Deletes a single cell in Matrix
+	 * @param y {Number} - Column of matrix
+	 * @param x {Number} - Row of matrix
+	 */
 	fastDeleteCharacter(y, x) {
 		this.matrix[y][x]= ' ';
 		this.filledCharacters--;
@@ -69,10 +72,10 @@ export default class Matrix {
 
 
 	/**
-     * Deletes a single cell in Matrix safely
-     * @param y {Number}
-     * @param x  {Number}
-     */
+	 * Deletes a single cell in Matrix safely
+	 * @param y {Number}
+	 * @param x  {Number}
+	 */
 	safeDeleteCharacter(y, x) {
 		// If character is out of matrix size or empty, don't do anything
 		if (!this.isValidPosition(y, x)) return IS_NOT_VALID;
@@ -83,59 +86,61 @@ export default class Matrix {
 
 
 	/**
-     * Checks if a position is valid in our matrix
-     * @param y {Number} - Row ID of character
-     * @param x {Number} - Column ID of character
-     */
+	 * Checks if a position is valid in our matrix
+	 * @param y {Number} - Row ID of character
+	 * @param x {Number} - Column ID of character
+	 */
 	isValidPosition(y, x) {
 		return !(y<0 ||y >= this.height || x<0 || x>=this.width);
 	}
 
 	/**
-     * Checks if character is Empty
-     * @param y {Number} - Row ID of character
-     * @param x {Number} - Column ID of character
-     * @returns {boolean} - Returns true if character is empty
-     */
+	 * Checks if character is Empty
+	 * @param y {Number} - Row ID of character
+	 * @param x {Number} - Column ID of character
+	 * @returns {boolean} - Returns true if character is empty
+	 */
 	isEmpty(y, x) {
 		return this.matrix[y][x] === ' ';
 	}
 
 	/**
-     * Gets a character at position
-     * @param y {Number} - Row ID of character
-     * @param x {Number} - Column ID of character
-     * @returns {String}
-     */
+	 * Gets a character at position
+	 * @param y {Number} - Row ID of character
+	 * @param x {Number} - Column ID of character
+	 * @returns {String}
+	 */
 	getCharacter(y, x) {
-	    return this.matrix[y][x];
+		return this.matrix[y][x];
 	}
 
 	/**
-     * Checks if character is Empty
-     * @param y {Number} - Row ID of character
-     * @param x {Number} - Column ID of character
-     * @returns {boolean} - Returns true if character is empty
-     */
+	 * Checks if character is Empty
+	 * @param y {Number} - Row ID of character
+	 * @param x {Number} - Column ID of character
+	 * @returns {boolean} - Returns true if character is empty
+	 */
 	isNotEmpty(y, x) {
 		return !this.isEmpty(y, x);
 	}
 
 
 	/**
-     * Check word happens
-     * @param {String[]} words - To search in strings
-     * @param {Object} lastChar - Last character that has been set
-     * @param {CheckTypes} checkType to search for strings in matrix from x,y point can have any of these values: L|R|T|D
-     * @param {Function} successCallback - Returns founded characters, Falling characters and
-     */
+	 * Check word happens
+	 * @param {String[]} words - To search in strings
+	 * @param {Object} lastChar - Last character that has been set
+	 * @param {CheckTypes} checkType to search for strings in matrix from x,y point can have any of these values: L|R|T|D
+	 * @param {Function} successCallback - Returns founded characters, Falling characters and
+	 */
 	checkWords(words, lastChar, checkType, successCallback) {
-	    this.lastChar = lastChar;
-	    const rowId = lastChar.row,
+		this.lastChar = lastChar;
+
+		const
+			rowId = lastChar.row,
 			colId = lastChar.column,
 			char = lastChar.char;
 
-		if (lastChar.type) {
+		if (lastChar.type!=='regular') {
 			switch (lastChar.type) {
 			case CHARBLOCK_TYPE_BOMB:
 				this._explode(rowId, colId, lastChar.typeSize, successCallback);
@@ -143,10 +148,20 @@ export default class Matrix {
 			case CHARBLOCK_TYPE_SKULL:
 				this._setSkull(rowId, colId, successCallback);
 				return;
+			case CHARBLOCK_TYPE_STAR: // If type is START, we should search for possible words
+				this._setStar(rowId, colId);
+				break;
 			}
+		} else {
+			this.setCharacter(rowId, colId, char);
+			Helper.log('Char has been set');
 		}
-
-		this.setCharacter(rowId, colId, char);
+		// const railingCharsObject = this._getRailingChars(rowId, colId);
+		// const
+		// 	rights	=	railingCharsObject.rights,
+		// 	lefts	=	railingCharsObject.lefts,
+		// 	tops	=	railingCharsObject.tops,
+		// 	downs	=	railingCharsObject.downs;
 		const rights = this._getRailingChars(rowId, colId, 'R');
 		const lefts = this._getRailingChars(rowId, colId, 'L');
 		const tops = this._getRailingChars(rowId, colId, 'T');
@@ -154,53 +169,125 @@ export default class Matrix {
 
 		const sentenceLTR = (lefts.chars + this.matrix[rowId][colId] + rights.chars); // Create valid sentence from left characters + current character + right characters
 		const sentenceTTD = (tops.chars + this.matrix[rowId][colId] + downs.chars); // Create valid sentence from left characters + current character + right characters
-		const sentenceRTL = (Helper.reverse(sentenceLTR)); // Reverse it to get
+		const sentenceRTL = (Helper.reverse(sentenceLTR)); // Reverse it to using custom reverse to support UNICODE characters
 		const sentenceDTT = (Helper.reverse(sentenceTTD));
+		let isAnyWordFounded = false;
 
-		let foundHappened = false;
-		for (let i = 0, len = words.length; i < len; i++) {
-			if (!words[i]) continue;
-			let pos,
-				checkPlace,
-				startFrom;
-			const word = words[i].word;
+		Helper.log(sentenceRTL);
+		Helper.log(sentenceLTR);
+		Helper.log(sentenceTTD);
+		Helper.log(sentenceDTT);
 
-			if (checkType.ltr && (pos = sentenceLTR.indexOf(word)) !== -1) {
-				Helper.log(`LTR--> Found valid word:${word} In:${sentenceLTR}`);
-				startFrom = colId - lefts.len + pos;
-				foundHappened = true;
-				checkPlace = {
-					ltr: true
-				};
-			} else if (checkType.rtl && (pos = sentenceRTL.indexOf(word)) !== -1) {
-				Helper.log(`RTL--> Found valid word:${word} In:${sentenceRTL}`);
-				startFrom = colId + rights.len - pos;
-				foundHappened = true;
-				checkPlace = {
-					rtl: true
-				};
-			} else if (checkType.ttd && (pos = sentenceTTD.indexOf(word)) !== -1) {
-				Helper.log(`TTD--> Found valid word:${word} In:${sentenceTTD}`);
-				startFrom = rowId - tops.len + pos;
-				foundHappened = true;
-				checkPlace = {
-					ttd: true
-				};
-			} else if (checkType.dtt && (pos = sentenceDTT.indexOf(word)) !== -1) {
-				Helper.log(`DTT--> Found valid word:${word} In:${sentenceDTT}`);
-				startFrom = rowId + downs.len - pos;
-				foundHappened = true;
-				checkPlace = {
-					dtt: true
-				};
+		/**
+		 * This part of code is new and so it's a little dirty
+		 * Since STAR character is challenging, Before start processing words,
+		 * We'll check to see if there is any STAR characters our matrix.
+		 * If we found any, We'll use our custom skippableIndexOf to find words with STAR.
+		 * If there wasn't any, We'll use the regular string.indexOf function.
+		 * There would be some duplicate codes, But for now we need performance!
+		 * TODO: Merge duplicate codes in prepossessing phase, Define extra function to clean the code
+		 */
+
+		let needStarSearchHorizontaly	=	false,
+			needStarSearchVertically	=	false;
+
+		if (checkType.ltr || checkType.rtl) {
+			needStarSearchHorizontaly	= sentenceLTR.includes(STAR_VALUE);
+		}
+		if (checkType.ttd || checkType.dtt) {
+			needStarSearchVertically	= sentenceTTD.includes(STAR_VALUE);
+		}
+
+		// This part has duplicate codes, referse to top TODO on line 179
+		if (needStarSearchHorizontaly || needStarSearchVertically) {
+			for (let i = 0, len = words.length; i < len; i++) {
+				if (!words[i]) continue;
+				let pos,
+					checkPlace,
+					startFrom;
+				const word = words[i].word;
+
+				if (checkType.ltr && (pos = Helper.skippableIndexOf(sentenceLTR, word, STAR_VALUE)) !== -1) {
+					Helper.log(`LTR--> Found valid word:${word} In:${sentenceLTR}`);
+					startFrom = colId - lefts.len + pos;
+					isAnyWordFounded = true;
+					checkPlace = {
+						ltr: true
+					};
+				} else if (checkType.rtl && (pos = Helper.skippableIndexOf(sentenceRTL, word, STAR_VALUE)) !== -1) {
+					Helper.log(`RTL--> Found valid word:${word} In:${sentenceRTL}`);
+					startFrom = colId + rights.len - pos;
+					isAnyWordFounded = true;
+					checkPlace = {
+						rtl: true
+					};
+				} else if (checkType.ttd && (pos = Helper.skippableIndexOf(sentenceTTD, word, STAR_VALUE)) !== -1) {
+					Helper.log(`TTD--> Found valid word:${word} In:${sentenceTTD}`);
+					startFrom = rowId - tops.len + pos;
+					isAnyWordFounded = true;
+					checkPlace = {
+						ttd: true
+					};
+				} else if (checkType.dtt && (pos = Helper.skippableIndexOf(sentenceDTT, word, STAR_VALUE)) !== -1) {
+					Helper.log(`DTT--> Found valid word:${word} In:${sentenceDTT}`);
+					startFrom = rowId + downs.len - pos;
+					isAnyWordFounded = true;
+					checkPlace = {
+						dtt: true
+					};
+				}
+
+				if (isAnyWordFounded) {
+					this._deleteCharacters(rowId, colId, i, checkPlace, startFrom, word.length, successCallback);
+					break;
+				}
 			}
+		} else {
+			for (let i = 0, len = words.length; i < len; i++) {
+				if (!words[i]) continue;
+				let pos,
+					checkPlace,
+					startFrom;
+				const word = words[i].word;
 
-			if (foundHappened) {
-				this._deleteCharacters(rowId, colId, i, checkPlace, startFrom, word.length, successCallback);
-				break;
+				if (checkType.ltr && (pos = sentenceLTR.indexOf(word)) !== -1) {
+					Helper.log(`LTR--> Found valid word:${word} In:${sentenceLTR}`);
+					startFrom = colId - lefts.len + pos;
+					isAnyWordFounded = true;
+					checkPlace = {
+						ltr: true
+					};
+				} else if (checkType.rtl && (pos = sentenceRTL.indexOf(word)) !== -1) {
+					Helper.log(`RTL--> Found valid word:${word} In:${sentenceRTL}`);
+					startFrom = colId + rights.len - pos;
+					isAnyWordFounded = true;
+					checkPlace = {
+						rtl: true
+					};
+				} else if (checkType.ttd && (pos = sentenceTTD.indexOf(word)) !== -1) {
+					Helper.log(`TTD--> Found valid word:${word} In:${sentenceTTD}`);
+					startFrom = rowId - tops.len + pos;
+					isAnyWordFounded = true;
+					checkPlace = {
+						ttd: true
+					};
+				} else if (checkType.dtt && (pos = sentenceDTT.indexOf(word)) !== -1) {
+					Helper.log(`DTT--> Found valid word:${word} In:${sentenceDTT}`);
+					startFrom = rowId + downs.len - pos;
+					isAnyWordFounded = true;
+					checkPlace = {
+						dtt: true
+					};
+				}
+
+				if (isAnyWordFounded) {
+					this._deleteCharacters(rowId, colId, i, checkPlace, startFrom, word.length, successCallback);
+					break;
+				}
 			}
 		}
-		if (!foundHappened) {
+
+		if (!isAnyWordFounded) {
 			// No word has been found, call the callback, without param
 			successCallback(this.lastChar);
 		}
@@ -208,17 +295,57 @@ export default class Matrix {
 
 
 	/**
-     * @typedef {Object} RailingChars
-     * @property {Number} len  - Length to show how much did we walked in each direction to either reach to border or whiteSpace
-     * @property {String} chars - String which shows which chars did we found
-     */
+	 * @typedef {Object} RailingChars
+	 * @property {Number} len  - Length to show how much did we walked in each direction to either reach to border or whiteSpace
+	 * @property {String} chars - String which shows which chars did we found
+	 */
 
 	/**
-     * @return {RailingChars}
-     * @param {Number} y - Index of row in matrix
-     * @param {Number} x - Index of column in matrix
-     * @param {String} direction to search for strings in matrix from x,y point can have any of these values: L|R|T|D
-     */
+	 * This function will iterate over All directions at Top,Down,Right and left. Then returns railing characters with their len
+	 * @return {railingCharsObject}
+	 * @param {Number} y - Index of row in matrix
+	 * @param {Number} x - Index of column in matrix
+	 */
+	// _getRailingChars(y, x) {
+	// 	const railingCharsObject={};
+	// 	let i, railingChars, len;
+	// 	// Go in Right direction
+	// 	// i starts with 1 because we dont want the current character
+	// 	// This loop will go to right until it reaches the border OR next character isEmpty
+	// 	// Rest of cases are just like this method but with differnt direction
+	// 	for (i=1, railingChars='', len=0; i+x<this.width && this.isNotEmpty(y, i+x); i++) {
+	// 		railingChars+=this.matrix[y][i+x];
+	// 		len++;
+	// 	}
+	// 	railingCharsObject.rights = { chars: railingChars, len };
+	//
+	// 	for (i=1, railingChars='', len=0; x-i>=0 && this.isNotEmpty(y, x-i); i++) {
+	// 		railingChars=this.matrix[y][x-i] + railingChars;
+	// 		len++;
+	// 	}
+	// 	railingCharsObject.lefts = { chars: railingChars, len };
+	//
+	// 	for (i=1, railingChars='', len=0; y-i>=0 && this.isNotEmpty(y-i, x); i++) {
+	// 		railingChars+=this.matrix[y-i][x];
+	// 		len++;
+	// 	}
+	// 	railingCharsObject.tops = { chars: railingChars, len };
+	//
+	// 	for (i=1, railingChars='', len=0; y+i<this.height && this.isNotEmpty(y+i, x); i++) {
+	// 		railingChars+=this.matrix[y+i][x];
+	// 		len++;
+	// 	}
+	// 	railingCharsObject.downs = { chars: railingChars, len };
+	// 	return railingCharsObject;
+	// }
+
+
+	/**
+	 * @return {RailingChars}
+	 * @param {Number} y - Index of row in matrix
+	 * @param {Number} x - Index of column in matrix
+	 * @param {String} direction to search for strings in matrix from x,y point can have any of these values: L|R|T|D
+	 */
 	_getRailingChars(y, x, direction) {
 		let railingChars='';// Found characters in each directions
 		let len=0;// Determines how much did we move in each direction to get to space or end of direction
@@ -264,23 +391,23 @@ export default class Matrix {
 
 
 	/**
-     * @typedef {Object} CheckTypes - An object representing in which direction should function search for words
-     * @property {Boolean} rtl - Determines if should check Right To Left direction
-     * @property {Boolean} ltr - Determines if should check Left To Right direction
-     * @property {Boolean} ttd - Determines if should check Top To Down direction
-     * @property {Boolean} dtt - Determines if should check Down To Top direction
-     */
+	 * @typedef {Object} CheckTypes - An object representing in which direction should function search for words
+	 * @property {Boolean} rtl - Determines if should check Right To Left direction
+	 * @property {Boolean} ltr - Determines if should check Left To Right direction
+	 * @property {Boolean} ttd - Determines if should check Top To Down direction
+	 * @property {Boolean} dtt - Determines if should check Down To Top direction
+	 */
 
 	/**
-     * Delete characters from matrix
-     * @param rowId {Number} - Row id of last checking character in matrix
-     * @param colId {Number} - col id of last checking character in matrix
-     * @param wordId {Number} - Id of founded word
-     * @param checkType {CheckTypes} - An checkType Object to find direction
-     * @param occurancePositionFrom {Number} - Start position of word
-     * @param occurancePositionLenght {Number} - Length of word
-     * @param successCallBack {Function} - Function to callback when foundWord and Falling words has been found
-     */
+	 * Delete characters from matrix
+	 * @param rowId {Number} - Row id of last checking character in matrix
+	 * @param colId {Number} - col id of last checking character in matrix
+	 * @param wordId {Number} - Id of founded word
+	 * @param checkType {CheckTypes} - An checkType Object to find direction
+	 * @param occurancePositionFrom {Number} - Start position of word
+	 * @param occurancePositionLenght {Number} - Length of word
+	 * @param successCallBack {Function} - Function to callback when foundWord and Falling words has been found
+	 */
 	_deleteCharacters(rowId, colId, wordId, checkType, occurancePositionFrom, occurancePositionLenght, successCallBack) {
 		// Determines if we need to store date to call the callback function if it exists
 		const hasCallback = Helper.isFunction(successCallBack);
@@ -368,12 +495,12 @@ export default class Matrix {
 
 
 	/**
-     * Explodes area near a bomb character
-     * @param rowID {Number} - Row id of bomb
-     * @param colID {Number} - Column id of bomb
-     * @param power {Number} - Power of bomb to explode chars near it
-     * @param successCallBack {function} - Callback function
-     */
+	 * Explodes area near a bomb character
+	 * @param rowID {Number} - Row id of bomb
+	 * @param colID {Number} - Column id of bomb
+	 * @param power {Number} - Power of bomb to explode chars near it
+	 * @param successCallBack {function} - Callback function
+	 */
 	_explode(rowID, colID, power, successCallBack) {
 		const callbackObject = {
 			explodedChars: [{ y: rowID, x: colID }],
@@ -429,5 +556,17 @@ export default class Matrix {
 		if (Helper.isFunction(successCallback)) {
 			successCallback(this.lastChar);
 		}
+	}
+
+	/**
+	 * Sets Star value in matrix
+	 * @param y
+	 * @param x
+	 * @private
+	 */
+	_setStar(y, x) {
+		Helper.log('Setting the star');
+		this.setCharacter(y, x, STAR_VALUE);
+		Helper.log(this.matrix);
 	}
 }

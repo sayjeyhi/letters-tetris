@@ -39,7 +39,7 @@ export default class Charblock {
 		if (typeof this.char === 'object' && this.char.special === 'true') {
 			this.type = this.char.type;
 			this.typeSize = this.char.typeSize;
-			Helper.log('Incominggggg');
+			Helper.log(`Special: ${this.type}`);
 		} else {
 			this.type = 'regular';
 			this.color = MaterialColor.getRandomColor(); // random material color
@@ -96,16 +96,21 @@ export default class Charblock {
 			if (charblock.type === 'bomb') {
 				charBlockEl.style.background = 'transparent';
 				charBlockEl.dataset.size = charblock.typeSize;
-				plusCharBlockClass = "bombBlock";
+				plusCharBlockClass = 'bombBlock';
+				charBlockEl.appendChild(charblock.char);
 			} else if (charblock.type === 'skull') {
 				// set skull styling class
 				plusCharBlockClass = 'skullBlock';
 				charBlockEl.style.background = '#000';
-
 				// Register click listener on charblock
 				Charblock._registerSkullClick(charBlockEl);
+				charBlockEl.appendChild(charblock.char);
+			} else if (charblock.type === 'star') {
+				plusCharBlockClass = 'starBlock transitioned';
+				charBlockEl.innerHTML = '*';
+				charBlockEl.style.background = MaterialColor.getRandomColor();
+				//TODO: Animate background color
 			}
-			charBlockEl.appendChild(charblock.char);
 		}
 
 		charBlockEl.className = `charBlock ${plusCharBlockClass} ${animateClass}${charblock.animateInClass || ''}`;

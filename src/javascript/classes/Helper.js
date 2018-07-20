@@ -9,11 +9,11 @@
  */
 export default class Helper {
 	/**
-     * Wrapper for query selector
-     * @param selector
-     * @param holder
-     * @return {null | object}
-     */
+	 * Wrapper for query selector
+	 * @param selector
+	 * @param holder
+	 * @return {null | object}
+	 */
 	static _(selector, holder) {
 		holder = typeof holder === 'undefined' ? document : holder;
 		return holder.querySelector(selector) || null;
@@ -21,12 +21,12 @@ export default class Helper {
 
 
 	/**
-     * Vibrate device, If it's mobile
-     * @param timeMs
-     */
+	 * Vibrate device, If it's mobile
+	 * @param timeMs
+	 */
 	static vibrate(timeMs) {
-	    if (Helper.isMobile()) {
-	        try {
+		if (Helper.isMobile()) {
+			try {
 				window.navigator.vibrate(timeMs);
 			} catch (e) {
 				// Who cares?
@@ -35,37 +35,37 @@ export default class Helper {
 	}
 
 	/**
-     * Removes a dom :|
-     * @param dom
-     */
+	 * Removes a dom :|
+	 * @param dom
+	 */
 	static removeDom(dom) {
 		dom.parentNode.removeChild(dom);
 	}
 
 
 	/**
-     * Checks if device is mobile
-     * @returns {boolean} - Return true if device is mobile
-     */
+	 * Checks if device is mobile
+	 * @returns {boolean} - Return true if device is mobile
+	 */
 	static isMobile() {
 		return typeof window.orientation !== 'undefined';
 	}
 
 
 	/**
-     * Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
-     * For example this string: 'foo 𝌆 bar mañana mañana' will be corrupt if used string.split("").reverse().join("");
-     * We'll use following code from mathiasbynens to reverse a string properly
-     * {@link https://github.com/mathiasbynens/esrever/blob/master/src/esrever.js repo source}
-     *
-     * @param string - An string to reverse
-     *
-     * @example
-     *  let str = 'foo 𝌆 bar mañana mañana';
-     *  let correctlyReversed = reverse(str); // 'anãnam anañam rab 𝌆 oof'
-     *  let corruptedReverse  = str.split("").reverse().join(""); // 'anãnam anañam rab �� oof'
-     * @returns {string}
-     */
+	 * Reversing strings containing especial unicode characters can cause problems using usual ways to reverse!
+	 * For example this string: 'foo 𝌆 bar mañana mañana' will be corrupt if used string.split("").reverse().join("");
+	 * We'll use following code from mathiasbynens to reverse a string properly
+	 * {@link https://github.com/mathiasbynens/esrever/blob/master/src/esrever.js repo source}
+	 *
+	 * @param string - An string to reverse
+	 *
+	 * @example
+	 *  let str = 'foo 𝌆 bar mañana mañana';
+	 *  let correctlyReversed = reverse(str); // 'anãnam anañam rab 𝌆 oof'
+	 *  let corruptedReverse  = str.split("").reverse().join(""); // 'anãnam anañam rab �� oof'
+	 * @returns {string}
+	 */
 	static reverse(string) {
 		const regexSymbolWithCombiningMarks = /(<%= allExceptCombiningMarks %>)(<%= combiningMarks %>+)/g;
 		const regexSurrogatePair = /([\uD800-\uDBFF])([\uDC00-\uDFFF])/g;
@@ -77,7 +77,7 @@ export default class Helper {
 				// later on (after another round of reversing)
 				return Helper.reverse($2) + $1;
 			})
-		// Swap high and low surrogates so the low surrogates go first
+			// Swap high and low surrogates so the low surrogates go first
 			.replace(regexSurrogatePair, '$2$1');
 		// Step 2: reverse the code units in the string
 		const result = [];
@@ -89,27 +89,27 @@ export default class Helper {
 	}
 
 	/**
-     *
-     * @param possibleFunction - Argument to check if it is a function ro not
-     * @returns {boolean} True if input is a function otherwise false
-     */
+	 *
+	 * @param possibleFunction - Argument to check if it is a function ro not
+	 * @returns {boolean} True if input is a function otherwise false
+	 */
 	static isFunction(possibleFunction) {
 		return typeof (possibleFunction) === typeof (Function);
 	}
 
 	/**
-     * @param {Object} obj - Object to log
-     */
+	 * @param {Object} obj - Object to log
+	 */
 	static log(obj) {
 		console.log(obj);
 	}
 
 
 	/**
-     * Gets Json resource using fetch API
-     * @param url
-     * @returns {Promise<any>}
-     */
+	 * Gets Json resource using fetch API
+	 * @param url
+	 * @returns {Promise<any>}
+	 */
 	static fetchJson(url) {
 		return new Promise((resolve, reject) => {
 			fetch(url).then(response => response.json())
@@ -119,10 +119,10 @@ export default class Helper {
 	}
 
 	/**
-     * Gets Json resources using fetch API
-     * @param urls
-     * @returns {Promise<any>}
-     */
+	 * Gets Json resources using fetch API
+	 * @param urls
+	 * @returns {Promise<any>}
+	 */
 	static fetchAllJson(urls) {
 		return new Promise((resolve, reject) => {
 			Promise.all(urls.map(url => Helper.fetchJson(url)))
@@ -137,16 +137,16 @@ export default class Helper {
 
 
 	/**
-     * Returns a random number between min (inclusive) and max (exclusive)
-     */
+	 * Returns a random number between min (inclusive) and max (exclusive)
+	 */
 	static getRandomArbitrary(min, max) {
 		return (Math.random() * (max - min)) + min;
 	}
 
 	/**
-     * Returns a random integer between min (inclusive) and max (inclusive)
-     * Using Math.round() will give you a non-uniform distribution!
-     */
+	 * Returns a random integer between min (inclusive) and max (inclusive)
+	 * Using Math.round() will give you a non-uniform distribution!
+	 */
 	static getRandomInt(min, max) {
 		return Math.floor((Math.random() * (max - min + 1))) + min;
 	}
@@ -169,13 +169,45 @@ export default class Helper {
 	}
 
 
+	/**
+	 * @private
+	 * @param dom
+	 * @returns {{y, x}}
+	 */
 	static getYX(dom) {
 		const YX = dom.closest('.isColumn').id.replace('grid', '').split('_');
 		return { y: Helper.int(YX[0]), x: Helper.int(YX[1]) };
 	}
 
-
+	/**
+	 * Simple shortcut for parseInt
+	 * @param any
+	 * @returns {number}
+	 */
 	static int(any) {
 		return Number(any);
+	}
+
+	static skippableIndexOf(str, substr, starCharacter) {
+		const len = str.length;
+		const sublen = substr.length;
+		let count = 0;
+		if (sublen > len) {
+			return -1;
+		}
+		for (let i = 0; i < len - sublen + 1; i++) {
+			for (let j = 0; j < sublen; j++) {
+				if (str[j + i] === substr[j] || str[j + i] === starCharacter) {
+					count++;
+					if (count === sublen) {
+						return i;
+					}
+				} else {
+					count = 0;
+					break;
+				}
+			}
+		}
+		return -1;
 	}
 }

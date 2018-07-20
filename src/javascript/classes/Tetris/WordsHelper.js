@@ -85,6 +85,22 @@ export default class WordsHelper {
 
 
 	/**
+	 * Gives us an Start character which matches any thing
+	 * @param clickCount
+	 * @return {HTMLElement}
+	 */
+	static giveMeAnStar() {
+		Helper.log(`An Start is coming`);
+		const starCharacter = document.createElement('i');
+		starCharacter.innerText = '*';
+		starCharacter.className = 'star animated';
+		starCharacter.type = 'star';
+		starCharacter.special = 'true';
+		return starCharacter;
+	}
+
+
+	/**
 	 * Choose a char of choosed words
 	 */
 	static chooseChar() {
@@ -92,23 +108,24 @@ export default class WordsHelper {
 		const initValues	= TetrisGame.initValues;
 		const config		= TetrisGame.config;
 		if (config.enable_special_characters) {
-
 			// Dont bomb empty field :|
 			if (TetrisGame.matrix.filledCharacters > 1) {
-				const randRange100 = Helper.getRandomInt(0,100);
-
+				//TODO: Create a clear random method for this shit :|
+				const randRange100 = Helper.getRandomInt(0, 100);
 				if (config.level === 1) {
 					if (randRange100 > 90) {
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
-						if (roll===20){
+						if (roll===20) {
 							bombSize=3;
 						} else if (roll>=16) {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(randRange100 > 10){
-						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
+					} else if (randRange100 > 85) {
+						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1, 3));
+					} else if (randRange100 > 50) {
+						return WordsHelper.giveMeAnStar();
 					}
 				} else if (config.level=== 2) {
 					if (randRange100 > 93) {
@@ -118,19 +135,19 @@ export default class WordsHelper {
 							bombSize=2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(randRange100 > 87){
-						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
+					} else if (randRange100 > 87) {
+						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1, 3));
 					}
 				} else if (config.level=== 3) {
-					if(randRange100 > 96){
+					if (randRange100 > 96) {
 						const roll = Helper.getRandomInt(0, 20);
 						let bombSize=1;
 						if (roll === 20) {
 							bombSize = 2;
 						}
 						return WordsHelper.giveMeABomb(bombSize);
-					}else if(randRange100 > 85){
-						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1,3));
+					} else if (randRange100 > 85) {
+						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1, 3));
 					}
 				}
 			}
