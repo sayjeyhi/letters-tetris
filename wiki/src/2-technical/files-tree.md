@@ -7,47 +7,35 @@
 │   ├── scripts
 │   │   └── prettify
 │   └── styles
-├── documents
-│   ├── assets
-│   │   ├── fonts
-│   │   ├── images
-│   │   └── styles
-│   └── _book
-│       ├── assets
-│       └── gitbook
 ├── src
 │   ├── assets
 │   │   ├── css
 │   │   ├── img
 │   │   ├── localization
 │   │   ├── mp3
-│   │   ├── wiki
 │   │   └── words
-│   └── javascript
-│       ├── classes
-│       └── loading
+│   ├── javascript
+│   │   ├── classes
+│   │   └── loading
+│   └── www
 ├── test
 │   └── classes
 ├── test_result
 └── wiki
-    ├── assets
+    ├── _assets
     │   ├── fonts
     │   ├── images
+    │   ├── js
     │   └── styles
     ├── _book
-    │   ├── assets
-    │   ├── en
-    │   ├── fa
-    │   └── gitbook
-    ├── en
-    │   └── _book
-    └── fa
-        ├── assets
-        ├── _book
-        ├── part1
-        └── part2
+    │   ├── _assets
+    │   ├── gitbook
+    │   └── src
+    └── src
+        ├── 1-game-help
+        └── 2-technical
 
-45 directories
+33 directories
 ```
 
 کلاس های اختصاصی برنامه در پوشه classes/Tetris و کلاس های عمومی برای توسعه پذیری در پوشه والد یعنی همان classes نوشته شده اند.
