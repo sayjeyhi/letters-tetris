@@ -25,7 +25,8 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
 }
 .lnb .title .link {
     color: #fff;
-    font-style: italic;
+    font-style: normal;
+	font-size: 22px;
 }
 .lnb h3 {
     font-size: 1.5em;
@@ -67,6 +68,7 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
 }
 .lnb .lnb-api .toggle-subnav {
     font-size: 10px;
+	float: left;
 }
 .lnb .member-type {
     margin-top: 5px;
