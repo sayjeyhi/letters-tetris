@@ -175,13 +175,17 @@ export default class Modal {
 
 	/**
 	 * Show modal
+	 * @return {Modal}
 	 */
 	show() {
 		if (Helper.isFunction(this.onShow)) {
 			this.onShow();
 			document.getElementById('container').classList.add('blur');
 		}
+
+		return this;
 	}
+
 
 
 	/**

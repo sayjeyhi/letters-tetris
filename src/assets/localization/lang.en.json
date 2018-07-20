@@ -28,7 +28,7 @@
 	"deActiveSound" :"<i class='icon-notSound'></i><span class='textLabel'>Deactive</span>",
 	"activeVibrate" :"<i class='icon-vibrate'></i><span class='textLabel'>Active</span>",
 	"deActiveVibrate" :"<i class='icon-notVibrate'></i><span class='textLabel'>Deactive</span>",
-	"activeDay" :"<i class='icon-uniE7BC'></i><span class='textLabel'>Day</span>",
+	"activeDay" :"<i class='icon-sun'></i><span class='textLabel'>Day</span>",
 	"activeNight" :"<i class='icon-uniE7BE'></i><span class='textLabel'>Night</span>",
     "animation":"Animation",
     "backgroundMusic": "Background music",

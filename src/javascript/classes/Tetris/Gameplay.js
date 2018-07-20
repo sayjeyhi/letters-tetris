@@ -285,6 +285,7 @@ export default class Gameplay {
 		return matrixRowArray;
 	}
 
+
 	/**
      * Make events for moving charBlocks
      * @private
@@ -328,6 +329,7 @@ export default class Gameplay {
 			}
 		);
 	}
+
 
 	/**
      * Manage btn parts buttons
