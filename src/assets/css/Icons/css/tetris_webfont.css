@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'tetris_webfont';
-  src: url('../font/tetris_webfont.eot?94317072');
-  src: url('../font/tetris_webfont.eot?94317072#iefix') format('embedded-opentype'),
-       url('../font/tetris_webfont.woff2?94317072') format('woff2'),
-       url('../font/tetris_webfont.woff?94317072') format('woff'),
-       url('../font/tetris_webfont.ttf?94317072') format('truetype'),
-       url('../font/tetris_webfont.svg?94317072#tetris_webfont') format('svg');
+  src: url('../font/tetris_webfont.eot?22673191');
+  src: url('../font/tetris_webfont.eot?22673191#iefix') format('embedded-opentype'),
+       url('../font/tetris_webfont.woff2?22673191') format('woff2'),
+       url('../font/tetris_webfont.woff?22673191') format('woff'),
+       url('../font/tetris_webfont.ttf?22673191') format('truetype'),
+       url('../font/tetris_webfont.svg?22673191#tetris_webfont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'tetris_webfont';
-    src: url('../font/tetris_webfont.svg?94317072#tetris_webfont') format('svg');
+    src: url('../font/tetris_webfont.svg?22673191#tetris_webfont') format('svg');
   }
 }
 */
@@ -97,9 +97,6 @@
 .icon-uniE7BC:before { content: '\e827'; } /* '' */
 .icon-gem:before { content: '\e828'; } /* '' */
 .icon-coffee:before { content: '\e829'; } /* '' */
-.icon-uniE91D:before { content: '\e82a'; } /* '' */
-.icon-uniE952:before { content: '\e82b'; } /* '' */
-.icon-minimize:before { content: '\e82c'; } /* '' */
 .icon-leftRight:before { content: '\e82d'; } /* '' */
 .icon-hasSound:before { content: '\e82e'; } /* '' */
 .icon-colorPelete:before { content: '\e82f'; } /* '' */
@@ -108,3 +105,6 @@
 .icon-chimistry:before { content: '\e832'; } /* '' */
 .icon-desktop:before { content: '\e833'; } /* '' */
 .icon-abnabat:before { content: '\e834'; } /* '' */
+.icon-star:before { content: '\e835'; } /* '' */
+.icon-starHalf:before { content: '\e836'; } /* '' */
+.icon-sun:before { content: '\e837'; } /* '' */

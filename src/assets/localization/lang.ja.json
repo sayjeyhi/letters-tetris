@@ -28,7 +28,7 @@
 	"deActiveSound" :"<i class='icon-notSound'></i><span class='textLabel'>非アクティブ</span>",
 	"activeVibrate" :"<i class='icon-vibrate'></i><span class='textLabel'>アクティブ</span>",
 	"deActiveVibrate" :"<i class='icon-notVibrate'></i><span class='textLabel'>非アクティブ</span>",
-	"activeDay" :"<i class='icon-uniE7BC'></i><span class='textLabel'>日</span>",
+	"activeDay" :"<i class='icon-sun'></i><span class='textLabel'>日</span>",
 	"activeNight" :"<i class='icon-uniE7BE'></i><span class='textLabel'>夜</span>",
     "animation":"アニメーション",
     "backgroundMusic": "バックグラウンドミュージック",

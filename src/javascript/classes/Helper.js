@@ -170,7 +170,7 @@ export default class Helper {
 
 
 	/**
-	 * @private
+	 * Get X-Y positi`on of dom
 	 * @param dom
 	 * @returns {{y, x}}
 	 */
@@ -187,6 +187,7 @@ export default class Helper {
 	static int(any) {
 		return Number(any);
 	}
+
 
 	static skippableIndexOf(str, substr, starCharacter) {
 		const len = str.length;

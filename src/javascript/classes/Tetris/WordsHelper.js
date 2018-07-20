@@ -86,14 +86,12 @@ export default class WordsHelper {
 
 	/**
 	 * Gives us an Start character which matches any thing
-	 * @param clickCount
 	 * @return {HTMLElement}
 	 */
 	static giveMeAnStar() {
 		Helper.log(`An Start is coming`);
 		const starCharacter = document.createElement('i');
-		starCharacter.innerText = '*';
-		starCharacter.className = 'star animated';
+		starCharacter.className = 'star animated icon-star';
 		starCharacter.type = 'star';
 		starCharacter.special = 'true';
 		return starCharacter;

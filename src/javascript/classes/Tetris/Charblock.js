@@ -106,10 +106,9 @@ export default class Charblock {
 				Charblock._registerSkullClick(charBlockEl);
 				charBlockEl.appendChild(charblock.char);
 			} else if (charblock.type === 'star') {
-				plusCharBlockClass = 'starBlock';
-				charBlockEl.innerHTML = '*';
+				plusCharBlockClass = 'starBlock animated';
+				charBlockEl.appendChild(charblock.char);
 				charBlockEl.style.background = MaterialColor.getRandomColor();
-				//TODO: Animate background color
 			}
 		}
 
@@ -395,30 +394,39 @@ export default class Charblock {
 		);
 	}
 
+
+	/**
+	 * Register click ability on skull charBlock
+	 * @param charBlockEl
+	 * @private
+	 */
 	static _registerSkullClick(charBlockEl) {
 		charBlockEl.addEventListener('click', Charblock.skullClick, true);
 		charBlockEl.addEventListener('touchstart', Charblock.skullClick, true);
 	}
 
+
 	/**
-	 *
-	 * @param charBlockEl
+	 * Fire skull click event
+	 * @param event
 	 */
 	static skullClick(event) {
-		console.log(event);
 		const charBlockEl = event.target.closest('.charBlock');
 		if (!charBlockEl) return;
 		if (!TetrisGame.initValues.paused) {
 			const skullCharacter = charBlockEl.childNodes[0];
 			const remainingClicks = Helper.int(skullCharacter.dataset.clicks) - 1;
-			if (remainingClicks >= 0) {
+			if (remainingClicks > 0) {
 				skullCharacter.dataset.clicks = remainingClicks.toString();
 			} else {
 				const YX = Helper.getYX(skullCharacter);
-				console.log('EXPLODING SKULL');
-				console.log(YX);
+
+				// explode skull charBlock
 				Explosion.explode(skullCharacter, YX.x, YX.y);
 				Animate.fallNodeAnimate(YX.y, YX.x, null, null);
+
+				// get new charBlock
+				Charblock.factory();
 			}
 		}
 	}
