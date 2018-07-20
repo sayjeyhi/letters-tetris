@@ -1,5 +1,5 @@
 <h3>
 متد move
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
+<a class="ext-link" href="module-classes_Tetris_Charblock.html#line135" >سورس</a>
 </h3>
 برای جابجایی یک بلاک کاراکتر استفاده می شود. در داخل این بلاک از کلاس Gameplay برای بررسی پایان بازی و نمایش اطلاعات، نام و … استفاده می شود. کلاس sound هم برای پخش صدای بازی مورد استفاده قرار گرفته است .
