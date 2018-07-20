@@ -95,6 +95,8 @@ export default class Charblock {
 		} else {
 			if (charblock.type === 'bomb') {
 				charBlockEl.style.background = 'transparent';
+				charBlockEl.dataset.size = charblock.typeSize;
+				plusCharBlockClass = "bombBlock";
 			} else if (charblock.type === 'skull') {
 
 				// set skull styling class
@@ -208,9 +210,10 @@ export default class Charblock {
 	 */
 	static fallNodeAnimate(oldRow, oldColumn, newRow, newColumn) {
 		const animateConfig = TetrisGame.initValues.animateConfig;
-		const deleteTiming = animateConfig.deleteTiming;
 		const domToDelete = Charblock._getEl(oldRow, oldColumn, true);
 		if (!domToDelete || typeof domToDelete ==='undefined') return false;
+
+		let deleteTiming = animateConfig.deleteTiming;
 		const gameConfig = TetrisGame.config;
 		const oldChar = domToDelete.innerText;
 		const oldColor = domToDelete.style.backgroundColor;
@@ -225,6 +228,8 @@ export default class Charblock {
 			if (!isFallingDown) {
 				Explosion.explode(domParent, 35, 10);
 			}
+		}else{
+			deleteTiming = 0;
 		}
 
 		Timeout.request(

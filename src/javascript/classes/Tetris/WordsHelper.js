@@ -61,6 +61,7 @@ export default class WordsHelper {
 		bombCharacter.src = '/assets/img/bomb.gif';
 		bombCharacter.className = 'bomb';
 		bombCharacter.dataset.size = size.toString();
+		bombCharacter.typeSize = size;
 		bombCharacter.type = 'bomb';
 		bombCharacter.special = 'true';
 		return bombCharacter;
@@ -75,7 +76,7 @@ export default class WordsHelper {
 	static giveMeAnSkull(clickCount) {
 		Helper.log(`Skull click needs: ${clickCount}`);
 		const skullCharacter = document.createElement('i');
-		skullCharacter.className = 'skull icon-skelete';
+		skullCharacter.className = 'skull animated icon-skelete';
 		skullCharacter.dataset.clicks = clickCount;
 		skullCharacter.type = 'skull';
 		skullCharacter.special = 'true';
