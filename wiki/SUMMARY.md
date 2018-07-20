@@ -36,26 +36,24 @@
 
     -   [ScoreHandler](src/2-technical/1-classes/6-ScoreHandler/0-README.md)
 
-    -   [HelperClasses](src/2-technical/1-classes/7-HelperClasses/0-README.md)
+    -   [Modal](src/2-technical/1-classes/7-Modal/0-README.md)
 
-    -   [Modal](src/2-technical/1-classes/8-Modal/0-README.md)
+    -   [MaterialColor](src/2-technical/1-classes/8-MaterialColor/0-README.md)
 
-    -   [MaterialColor](src/2-technical/1-classes/9-MaterialColor/0-README.md)
+    -   [Sound](src/2-technical/1-classes/9-Sound/0-README.md)
 
-    -   [Sound](src/2-technical/1-classes/10-Sound/0-README.md)
+    -   [Storage](src/2-technical/1-classes/10-Storage/0-README.md)
 
-    -   [Storage](src/2-technical/1-classes/11-Storage/0-README.md)
+    -   [Timeout](src/2-technical/1-classes/11-Timeout/0-README.md)
 
-    -   [Timeout](src/2-technical/1-classes/12-Timeout/0-README.md)
+    -   [Interval](src/2-technical/1-classes/12-Interval/0-README.md)
 
-    -   [Interval](src/2-technical/1-classes/13-Interval/0-README.md)
+    -   [Timer](src/2-technical/1-classes/13-Timer/0-README.md)
 
-    -   [Timer](src/2-technical/1-classes/14-Timer/0-README.md)
+    -   [Swipe](src/2-technical/1-classes/14-Swipe/0-README.md)
 
-    -   [Swipe](src/2-technical/1-classes/15-Swipe/0-README.md)
+    -   [Matrix](src/2-technical/1-classes/15-Matrix/0-README.md)
 
-    -   [Matrix](src/2-technical/1-classes/16-Matrix/0-README.md)
-
-    -   [Helper](src/2-technical/1-classes/17-Helper/0-README.md)
+    -   [Helper](src/2-technical/1-classes/16-Helper/0-README.md)
 
 -   [دیزاین پترن](src/2-technical/2-design-patterns/0-README.md)
