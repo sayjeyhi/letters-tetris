@@ -1,7 +1,7 @@
 <h3>
 متد checkSuccessWordStack
 
-<a class="ext-link" href="classes_Tetris_TetrisGame.js.html#line128" >سورس</a>
+<a class="ext-link" href="classes_Tetris_TetrisGame.js.html" >سورس</a>
 
 </h3>
 

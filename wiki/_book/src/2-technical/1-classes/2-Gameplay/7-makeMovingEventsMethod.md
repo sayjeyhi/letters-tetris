@@ -1,5 +1,5 @@
 <h3>
-متد makeMovingEvents\_
+متد makeMovingEvents_
 <a class="ext-link" href="module-classes_Tetris_Gameplay.html" >سورس</a>
 </h3>
 
