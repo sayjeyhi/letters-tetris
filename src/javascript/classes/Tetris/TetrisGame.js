@@ -7,6 +7,7 @@ import Interval from '../Interval';
 import Sound from '../Sound';
 import Settings from './Settings';
 import Storage from '../Storage';
+import Charblock from './Charblock';
 import Timeout from '../Timeout';
 import Helper from '../Helper';
 import MapStack from '../MapStack';
@@ -306,7 +307,6 @@ export default class TetrisGame {
      * @param {Charblock} lastChar
      */
 	static checkWordSuccess(lastChar) {
-		Helper.log(this.initValues.choosedWords);
 		// pause game while checking and animating
 		this.initValues.paused = true;
 		// check word happens and then call checkWordsResult fn
@@ -367,7 +367,8 @@ export default class TetrisGame {
 
 				// update top words bar
 				TetrisGame.showShuffledWords();
-			},
+
+				},
 			// (successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
 			// successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
 			((successObject.wordCharacterPositions.length-1)*(config.successAnimationIterationDuration)) + TetrisGame.initValues.animateConfig.deleteTiming
@@ -476,6 +477,7 @@ export default class TetrisGame {
      * @param wordId
      */
 	static _removeWordAndCharacters(word, wordId) {
+
 		// Remove word from choosed words
 		TetrisGame.initValues.choosedWords.splice(wordId, 1);
 

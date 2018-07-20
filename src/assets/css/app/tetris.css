@@ -2085,12 +2085,14 @@ svg :not(.doNotUnfill) {
 
 .starBlock i{
 	font-size:24px;
+	text-shadow: 0 1px 15px rgba(255,255,255,.7);
 	color:rgba(0,0,0,0.3)
 }
 .starBlock::before,.starBlock::after{
 	font-family:'tetris_webfont' , sans-serif;
 	content: '\e836';
 	font-size:12px;
+	text-shadow: 0 1px 15px rgba(255,255,255,.7);
 	color:rgba(0,0,0,0.3)
 }
 
