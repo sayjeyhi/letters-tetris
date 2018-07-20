@@ -88,21 +88,15 @@ export default class Interval {
 
     /**
      * Create another interval
-     * @param usedFunction
-     * @param delay
+     * @param usedFunction {Function} function that we want to call
+     * @param delay {int} delay to call function
      * @return {number}
      */
     make(usedFunction, delay) {
-        // see explanation after the code
-        // const newInterval = setInterval.apply(
-        //     window,
-        //     [usedFunction, delay].concat([].slice.call(arguments, 2))
-        // );
 
 		this.start = new Date().getTime();
 		const newInterval = this.request(usedFunction , delay);
 
-		console.log(newInterval);
         this.intervals[newInterval] = true;
         return newInterval;
     }

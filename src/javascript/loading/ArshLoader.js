@@ -197,7 +197,6 @@ export default class ArshLoader {
 				loadingTextElement.appendChild(workKindChooser);
 
 
-
 				ArshLoader.isLoaded = true;
 			}, 1000);
 		}

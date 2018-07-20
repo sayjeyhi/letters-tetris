@@ -15,9 +15,9 @@ export default class Explosion {
 	 * then render it to display a magical
 	 * explosion effect
 	 *
-	 * @param element
-	 * @param x
-	 * @param y
+	 * @param element {Element} element of explosion
+	 * @param x {int} place x of explosion
+	 * @param y {int} place y of explosion
 	 */
 	static explode(element, x, y) {
 		const bubbles = 10;
@@ -63,7 +63,6 @@ export default class Explosion {
 	 * Create particles of our explosion
 	 * @param c
 	 * @return {{x: number, y: number, radius: *, color: string, rotation: *, speed: *, friction: number, opacity: *, yVel: number, gravity: number}}
-	 * @private
 	 */
 	static _particle(c) {
 		const r = function(a, b, c) {
@@ -92,7 +91,6 @@ export default class Explosion {
 	 * @param particles
 	 * @param ctx
 	 * @param c
-	 * @private
 	 */
 	static _render(particles, ctx, c) {
 		ctx.clearRect(0, 0, c.width, c.height);

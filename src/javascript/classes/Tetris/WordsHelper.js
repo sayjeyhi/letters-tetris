@@ -23,13 +23,11 @@ export default class WordsHelper {
 
 
 
-		// do we finished words ?
+		// do we finished words
 		if (value === '' ) {
-			if(initValues.choosedWords.length === 0) {
-				initValues.wordsFinished = true;
-			}
 			return false;
 		}
+
 
 		// normalize word chars
 		if (window.lang.name === 'ja') {
@@ -62,7 +60,7 @@ export default class WordsHelper {
 	static chooseChar() {
 		const initValues	= TetrisGame.initValues;
 		const config		= TetrisGame.config;
-		let choosedWord,choosedChar;
+		let choosedWord,choosedChar,index;
 
 		if (config.enable_special_characters) {
 			// Dont bomb empty field :|
@@ -79,11 +77,11 @@ export default class WordsHelper {
 						} else if (roll>=16) {
 							bombSize=2;
 						}
-						return WordsHelper.giveMeABomb(bombSize);
+						return WordsHelper._giveMeABomb(bombSize);
 					} else if (randRange100 > 85) {
-						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1, 3));
+						return WordsHelper._giveMeAnSkull(Helper.getRandomInt(1, 3));
 					} else if (randRange100 > 50) {
-						return WordsHelper.giveMeAnStar();
+						return WordsHelper._giveMeAnStar();
 					}
 				} else if (config.level=== 2) {
 					if (randRange100 > 93) {
@@ -92,9 +90,9 @@ export default class WordsHelper {
 						if (roll >= 19) {
 							bombSize=2;
 						}
-						return WordsHelper.giveMeABomb(bombSize);
+						return WordsHelper._giveMeABomb(bombSize);
 					} else if (randRange100 > 87) {
-						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1, 3));
+						return WordsHelper._giveMeAnSkull(Helper.getRandomInt(1, 3));
 					}
 				} else if (config.level=== 3) {
 					if (randRange100 > 96) {
@@ -103,47 +101,60 @@ export default class WordsHelper {
 						if (roll === 20) {
 							bombSize = 2;
 						}
-						return WordsHelper.giveMeABomb(bombSize);
+						return WordsHelper._giveMeABomb(bombSize);
 					} else if (randRange100 > 85) {
-						return WordsHelper.giveMeAnSkull(Helper.getRandomInt(1, 3));
+						return WordsHelper._giveMeAnSkull(Helper.getRandomInt(1, 3));
 					}
 				}
 			}
 		}
 
 
-		for(let w = 0 ; w < initValues.choosedWords.length;w++) {
-			if(!initValues.choosedWords[w].finished){
-				choosedWord = initValues.choosedWords[w];
+		for(index = 0 ; index < initValues.choosedWords.length;index++) {
+			if(!initValues.choosedWords[index].finished){
+				choosedWord = initValues.choosedWords[index];
 				break;
 			}
 		}
 
-		let availableChars = choosedWord.word || '';
+		let availableChars = choosedWord ? (choosedWord.word || '') : '';
 
 		// remove used chars for this choosed word
 		initValues.choosedWordsUsedChars.forEach(value => {
 			availableChars = availableChars.replace(value, '');
 		});
 
+
+
 		if (availableChars.length === 0) {
 
-			console.log("reset sdasdasd !!!!");
+			// if game is finished
+			if(initValues.wordsFinished) {
+				return "";
+			}
+
+			// mark word as finished
+			if(TetrisGame.initValues.choosedWords[index]) {
+				TetrisGame.initValues.choosedWords[index].finished = true;
+			}
 
 			// reset user chars for this word
 			TetrisGame.initValues.choosedWordsUsedChars = [];
 
 			// get new word and show it
 			const newWord = this.chooseWord();
-			if (newWord !== false) {
+			if (newWord === false && initValues.choosedWords.length === index) {
+				TetrisGame.initValues.wordsFinished = true;
+				console.log("RAN OUT OF WORDS");
+			}else{
 				TetrisGame.showShuffledWords();
 				return this.chooseChar();
 			}
 
 		} else {
+
 			choosedChar = availableChars.split('').sort(() => {return 0.5 - Math.random()}).pop();
 			TetrisGame.initValues.choosedWordsUsedChars.push(choosedChar);
-
 			return choosedChar;
 		}
 	}
@@ -156,7 +167,7 @@ export default class WordsHelper {
 	 * @param size {Number} - size of bomb
 	 * @returns {HTMLImageElement} (Actually it's a bomb)
 	 */
-	static giveMeABomb(size) {
+	static _giveMeABomb(size) {
 		Helper.log(`BombSize: ${size}`);
 		const bombCharacter = document.createElement('img');
 		bombCharacter.src = '/assets/img/bomb.gif';
@@ -174,7 +185,7 @@ export default class WordsHelper {
 	 * @param clickCount
 	 * @return {HTMLElement}
 	 */
-	static giveMeAnSkull(clickCount) {
+	static _giveMeAnSkull(clickCount) {
 		Helper.log(`Skull click needs: ${clickCount}`);
 		const skullCharacter = document.createElement('i');
 		skullCharacter.className = 'skull animated icon-skelete';
@@ -189,7 +200,7 @@ export default class WordsHelper {
 	 * Gives us an Start character which matches any thing
 	 * @return {HTMLElement}
 	 */
-	static giveMeAnStar() {
+	static _giveMeAnStar() {
 		Helper.log(`An Start is coming`);
 		const starCharacter = document.createElement('i');
 		starCharacter.className = 'star animated icon-star';
