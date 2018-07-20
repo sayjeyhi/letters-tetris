@@ -173,11 +173,6 @@ export default class Matrix {
 		const sentenceDTT = (Helper.reverse(sentenceTTD));
 		let isAnyWordFounded = false;
 
-		Helper.log(sentenceRTL);
-		Helper.log(sentenceLTR);
-		Helper.log(sentenceTTD);
-		Helper.log(sentenceDTT);
-
 		/**
 		 * This part of code is new and so it's a little dirty
 		 * Since STAR character is challenging, Before start processing words,

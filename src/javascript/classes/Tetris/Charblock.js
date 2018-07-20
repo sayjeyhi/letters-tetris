@@ -106,7 +106,7 @@ export default class Charblock {
 				Charblock._registerSkullClick(charBlockEl);
 				charBlockEl.appendChild(charblock.char);
 			} else if (charblock.type === 'star') {
-				plusCharBlockClass = 'starBlock transitioned';
+				plusCharBlockClass = 'starBlock';
 				charBlockEl.innerHTML = '*';
 				charBlockEl.style.background = MaterialColor.getRandomColor();
 				//TODO: Animate background color
