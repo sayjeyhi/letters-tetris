@@ -37,6 +37,7 @@ export default class Gameplay {
 		// create game columns and rows - matrix
 		TetrisGame.matrix = new Matrix(this._makeGameBoard());
 
+
 		// Choose n words from json to create rows and columns
 		for (let i = 0; i < TetrisGame.config.workingWordCount; i++) {
 			const choosedWord = WordsHelper.chooseWord();

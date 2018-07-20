@@ -424,9 +424,9 @@ export default class Charblock {
 
 			if(skullCharacter) {
 				const remainingClicks = Helper.int(skullCharacter.dataset.clicks) - 1;
-				if (remainingClicks > 0) {
-					skullCharacter.dataset.clicks = remainingClicks.toString();
-				} else if (remainingClicks === 0) {
+				skullCharacter.dataset.clicks = remainingClicks.toString();
+
+				if (remainingClicks === 0) {
 					const YX = Helper.getYX(skullCharacter);
 
 					// explode skull charBlock

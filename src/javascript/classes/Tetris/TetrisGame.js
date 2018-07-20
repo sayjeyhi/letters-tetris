@@ -13,6 +13,7 @@ import Helper from '../Helper';
 import MapStack from '../MapStack';
 import ScoreHandler from './ScoreHandler';
 import Animate from './Animate';
+import WordsHelper from "./WordsHelper";
 
 /**
  * @typedef {Object} TetrisGameConfig
@@ -60,7 +61,7 @@ export default class TetrisGame {
 			mobileRows: 8,
 			columnsMin: 6,
 			columnsMax: 16,
-			workingWordCount: 1,
+			workingWordCount: 5,
 			charSpeed: 800, // 1 second - get division to level when making game harder
 			useLowercase: false,
 			simpleFallDownAnimateSpeed: 700,
@@ -236,6 +237,7 @@ export default class TetrisGame {
 	static setDefaultValues(firstCall) {
 		this.initValues = {
 			paused: false, // is game paused
+			comingWordIndex: 0,
 			finished: false, // is game finished
 			wordsFinished: false, // do we run out of words
 			isFirstRun: firstCall, // it is not first run
@@ -342,6 +344,7 @@ export default class TetrisGame {
 
 		const word = initValues.choosedWords[successObject.wordId].word;
 
+
 		// Update score
 		ScoreHandler._updateScoreAndStats(word, successObject.direction);
 		TetrisGame._removeWordAndCharacters(word, successObject.wordId);
@@ -360,6 +363,13 @@ export default class TetrisGame {
 					config.successAnimationIterationDuration, // Delay between falling
 					TetrisGame.checkSuccessWordStack
 				);
+
+				// get new word
+				WordsHelper.chooseWord();
+
+				// update top words bar
+				TetrisGame.showShuffledWords();
+
 			},
 			// (successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
 			// successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
@@ -410,12 +420,7 @@ export default class TetrisGame {
 	static showShuffledWords() {
 		const parent = Helper._('.currentWorkingWords');
 		const randomizeFn = () => { return 0.5 - Math.random(); };
-		const displayFiveWords = window.TetrisWords
-			.sort(randomizeFn)
-			.slice(0, TetrisGame.config.level + 1)
-			.concat(TetrisGame.initValues.choosedWords)
-			.sort(randomizeFn)
-			.slice(0, 5);
+		const displayFiveWords = TetrisGame.initValues.choosedWords.slice(-5).sort(randomizeFn);
 
 		// make working words empty
 		parent.innerHTML = '';
@@ -426,6 +431,7 @@ export default class TetrisGame {
 			parent.appendChild(currentWord);
 		});
 	}
+
 
 	/**
      * Animate explode
@@ -473,15 +479,11 @@ export default class TetrisGame {
      * @param wordId
      */
 	static _removeWordAndCharacters(word, wordId) {
+
 		// Remove word from choosed words
-		TetrisGame.initValues.choosedWords.splice(wordId, 1);
+		TetrisGame.initValues.choosedWords.splice(wordId , 1);
 
 		// Remove characters from choosed characters
-		word.split('').map(char => {
-			const index = TetrisGame.initValues.choosedWordsUsedChars.indexOf(char);
-			if (index !== -1) {
-				TetrisGame.initValues.choosedWordsUsedChars.splice(index, 1);
-			}
-		});
+		TetrisGame.initValues.choosedWordsUsedChar = "";
 	}
 }

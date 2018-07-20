@@ -255,7 +255,7 @@ export default class ArshLoader {
 			rows: 10,
 			columnsMin: 6,
 			columnsMax: 16,
-			workingWordCount: 1,
+			workingWordCount: 5,
 			charSpeed: 800, // 1 second - get division to level when making game harder
 			useLowercase: false,
 			simpleFallDownAnimateSpeed: 700,

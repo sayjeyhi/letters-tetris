@@ -54,7 +54,6 @@ export default class Settings {
      */
 	static show() {
 
-		console.log(TetrisGame.config);
 		// get defined settings
 		const settings = this.getDefaultSettings();
 

@@ -16,13 +16,17 @@ export default class WordsHelper {
 	 * Choose random words in game build to work with
 	 */
 	static chooseWord() {
-		const keys = Object.keys(window.TetrisWords);
-		const randomKey = keys[keys.length * Math.random() << 0];
-		const value = window.TetrisWords[randomKey] || '';
+
+		const initValues = TetrisGame.initValues;
+		const key = initValues.comingWordIndex;
+		const value = window.TetrisWords[key] || '';
+
+		Helper.log(value);
+
 
 		// do we finished words ?
 		if (value === '') {
-			TetrisGame.initValues.wordsFinished = true;
+			initValues.wordsFinished = true;
 			return false;
 		}
 
@@ -40,12 +44,15 @@ export default class WordsHelper {
 
 
 		// add word to active words array
-		TetrisGame.initValues.choosedWords.push(value);
+		initValues.choosedWords.push(value);
 
-		Helper.log(value);
+		TetrisGame.showShuffledWords();
+
+		initValues.comingWordIndex++;
+
 
 		// delete choosed word form list
-		delete window.TetrisWords[randomKey];
+		// delete window.TetrisWords[key];
 		return value;
 	}
 
@@ -54,9 +61,10 @@ export default class WordsHelper {
 	 * Choose a char of choosed words
 	 */
 	static chooseChar() {
-		let choosedChar;
 		const initValues	= TetrisGame.initValues;
 		const config		= TetrisGame.config;
+		let choosedWord,choosedChar;
+
 		if (config.enable_special_characters) {
 			// Dont bomb empty field :|
 			if (TetrisGame.matrix.filledCharacters > 1) {
@@ -104,22 +112,37 @@ export default class WordsHelper {
 			}
 		}
 
-		let availableChars = initValues.choosedWords.map(e => {
-			return e ? e.word : '';
-		}).join('');
 
+		for(let w = 0 ; w < initValues.choosedWords.length;w++) {
+			if(!initValues.choosedWords[w].finished){
+				choosedWord = initValues.choosedWords[w];
+				break;
+			}
+		}
+
+		let availableChars = choosedWord.word || '';
+
+		// remove used chars for this choosed word
 		initValues.choosedWordsUsedChars.forEach(value => {
 			availableChars = availableChars.replace(value, '');
 		});
 
 		if (availableChars.length === 0) {
+
+			console.log("reset sdasdasd !!!!");
+
+			// reset user chars for this word
+			TetrisGame.initValues.choosedWordsUsedChars = [];
+
+			// get new word and show it
 			const newWord = this.chooseWord();
 			if (newWord !== false) {
 				TetrisGame.showShuffledWords();
 				return this.chooseChar();
 			}
+
 		} else {
-			choosedChar = availableChars[Math.random() * availableChars.length << 0];
+			choosedChar = availableChars.split('').sort(() => {return 0.5 - Math.random()}).pop();
 			TetrisGame.initValues.choosedWordsUsedChars.push(choosedChar);
 
 			return choosedChar;

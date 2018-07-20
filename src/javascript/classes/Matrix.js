@@ -154,7 +154,6 @@ export default class Matrix {
 			}
 		} else {
 			this.setCharacter(rowId, colId, char);
-			Helper.log('Char has been set');
 		}
 		// const railingCharsObject = this._getRailingChars(rowId, colId);
 		// const
