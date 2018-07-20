@@ -35,5 +35,3 @@
 [Matrix](./15-Matrix/0-README.md)
 
 [Helper](./16-Helper/0-README.md)
-
-<a class="ext-link" href="/api-docs/module-classes_Explosion.html">api sss sd asd docs</a>
