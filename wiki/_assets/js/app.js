@@ -34,6 +34,7 @@ gitbook.events.bind("page.change", function() {
 	$(".ext-link").click(function(e) {
 		var url = $(this).attr("href");
 		var windowUrl = window.location.origin;
-		window.location.href = windowUrl + "/api-docs/" + url;
+		var finalUrl = windowUrl + "/api-docs/" + url;
+		window.open(finalUrl, "_blank");
 	});
 });
