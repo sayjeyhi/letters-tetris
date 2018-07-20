@@ -174,7 +174,11 @@ export default class Charblock {
 						Charblock.factory();
 					}
 				} else {
-					Gameplay.finish('gameOver');
+
+					// if we arrived to top of the page
+					if(TetrisGame.initValues.activeChar.type !== 'bomb') {
+						Gameplay.finish('gameOver');
+					}
 				}
 			}
 		} else {

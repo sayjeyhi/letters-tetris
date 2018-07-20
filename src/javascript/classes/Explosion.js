@@ -49,12 +49,13 @@ export default class Explosion {
 			Explosion._render(particles, ctx, c);
 		}());
 
+
 		Timeout.request(
 			() => {
 				if (c.parentElement === element) {
 					element.removeChild(c);
 				}
-			}, 200
+			}, 140
 		);
 	}
 
