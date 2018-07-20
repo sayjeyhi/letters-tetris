@@ -1,6 +1,6 @@
 <h1>
 کلاس Sound
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
 </h1>
 برای پخش صداها و مدیریت عملیات های مربوط به آنها در بازی، یک کلاس به صورت ماژولار اجرا شده است که بتوان صداها را به شکل مستقیم play، pause، playByKey کرد و صداهای مربوط به ساخته شدن object صدا را با (دیزاین پترنها) تحت تاثیر قرار دارد و باعث بهبود پرفورمنس برنامه شود.
 

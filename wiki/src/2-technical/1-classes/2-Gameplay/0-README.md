@@ -1,6 +1,6 @@
 <h1>
  کلاس Gameplay
-		<a class="ext-link" href="module-classes_Tetris_Gameplay.html" target="_blank">سورس</a>
+		<a class="ext-link" href="module-classes_Tetris_Gameplay.html">سورس</a>
 </h1>
 
 این کلاس وظیفه مدیریت gameplay بازی را فراهم میکند تا کاربر بتواند امکاناتی مانند شروع، توقف، شروع مجدد، ریستارت و اتمام بازی را داشته باشد.

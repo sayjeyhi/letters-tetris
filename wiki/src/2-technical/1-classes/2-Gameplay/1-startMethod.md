@@ -1,6 +1,6 @@
 <h3>
 متد start
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
 </h3>
 
 با کلیک کاربر بر روی دکمه شروع بازی، اجرا می شود و مانند فراهم سازی مقدمات شروع بازی را بر عهده دارد. مقدماتی مانند ساخت صحنه بازی،‌ ساخت prototype کاراکتر، ساخت ماتریکس، ساخت تایمر و …

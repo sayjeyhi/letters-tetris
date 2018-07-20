@@ -1,6 +1,6 @@
 <h1>
 کلاس Setting
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
 </h1>
 این کلاس وظیفه های مربوط به بخش تنظیمات بازی توسط کاربر را برعهده دارد.
 

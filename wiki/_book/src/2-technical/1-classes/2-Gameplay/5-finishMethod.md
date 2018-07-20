@@ -1,6 +1,6 @@
 <h3>
 متد finish
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line156" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line156" >سورس</a>
 </h3>
 
 این متد در ۲ حالت اجرا می شود:

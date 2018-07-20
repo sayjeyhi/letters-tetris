@@ -1,6 +1,6 @@
 <h3>
  متد build
-<a class="ext-link" href="classes_Tetris_TetrisGame.js.html#line128" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_TetrisGame.js.html#line128" >سورس</a>
 </h3>
 
 سازنده اولیه بازی است که کلاس ها را با استفاده از تنظیمات اولیه کاربر می سازد.

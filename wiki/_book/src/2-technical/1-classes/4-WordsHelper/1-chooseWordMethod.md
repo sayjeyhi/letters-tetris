@@ -1,6 +1,6 @@
 <h3>
  متد chooseWord
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
 </h3>
 این متد وظیفه اش انتخاب یک کلمه از بین کلمات موجود در دسته بندی کاربر را دارد که در متغیر window.TetrisWord قرار گرفته اند.
 

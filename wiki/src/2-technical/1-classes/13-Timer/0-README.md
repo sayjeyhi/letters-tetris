@@ -1,6 +1,6 @@
 <h1>
  کلاس Timer
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
 </h1>
 برای استفاده از ورکر در وب دلایل بسیاری می توان نام برد و این مورد برای بخش timer که در هر ثانیه باید یک شمارنده ای را بروز کند نیز احساس می شود.
 

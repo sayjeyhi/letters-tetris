@@ -1,6 +1,6 @@
 <h3>
 متد checkWords
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
 </h3>
 بررسی محقق شدن کلمه در جهت های config شده توسط مدیر سیستم ( بالا به پایین، پایین به بالا، راست به چپ، چپ به راست)
 

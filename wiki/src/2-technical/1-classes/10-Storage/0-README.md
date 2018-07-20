@@ -1,6 +1,6 @@
 <h1>
 کلاس storage
-<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" target="_blank">سورس</a>
+<a class="ext-link" href="classes_Tetris_Gameplay.js.html#line24" >سورس</a>
 </h1>
 این کلاس برای مدیریت داده های برنامه که در نظر داریم بر روی localStorage کاربر بنویسیم یا بخوانیم ساخته شده است.
 
