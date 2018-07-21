@@ -106,7 +106,9 @@ export default class Matrix {
 	 * @returns {boolean} - Returns true if character is empty
 	 */
 	isEmpty(y, x) {
-		return this.matrix[y][x] === ' ';
+		if(typeof y !=='undefined' && typeof x !=='undefined')
+			return this.matrix[y][x] === ' ';
+		return false;
 	}
 
 	/**
@@ -145,7 +147,7 @@ export default class Matrix {
 			colId = lastChar.column,
 			char = lastChar.char;
 
-		if (lastChar.type	!==	'regualar') {
+		if (lastChar.type	&& lastChar.type	!==	'regualar') {
 			switch (lastChar.type) {
 			case CHARBLOCK_TYPE_BOMB:
 				this._explode(rowId, colId, lastChar.typeSize, successCallback);

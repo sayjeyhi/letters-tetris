@@ -384,7 +384,7 @@ export default class TetrisGame {
 		const config = TetrisGame.config;
 
 		const falledCharacter = initValues.falledStack.popItem();
-		if (falledCharacter === false) {
+		if (falledCharacter === false || typeof falledCharacter !== 'undefined') {
 			// Stack is empty, resume the game
 			Helper.log("Stack is empty :|")
 			initValues.paused = false;

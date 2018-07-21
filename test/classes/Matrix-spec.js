@@ -1,32 +1,29 @@
-import Matrix from "../../src/javascript/classes/Matrix";
-import MapStack from "../../src/javascript/classes/MapStack";
-// Happy 400
-//
-//
-describe("Matrix Class", () => {
-	let foundWord = "";
+import Matrix from '../../src/javascript/classes/Matrix';
+import MapStack from '../../src/javascript/classes/MapStack';
+
+
+describe('Matrix Class', () => {
+	let foundWord = '';
 	beforeEach(done => {
 		const matrixArray = [
-			// X:       0   1   2   3   4   5   6   7
-			/* 0 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 0
-			/* 1 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 1
-			/* 2 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 2
-			/* 3 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 3
-			/* 4 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 4
-			/* 5 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 5
-			/* 6 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 6
-			/* 7 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 7
-			/* 8 */ [" ", " ", " ", " ", " ", " ", " ", " "], // 8
-			/* 9 */ [" ", " ", " ", "e", "s", "t", " ", " "] // 9
-			// X:       0   1   2   3   4   5   6   7
+			// X:     0   1   2   3   4   5    6    7    8
+			/* 0 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 0
+			/* 1 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 1
+			/* 2 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 2
+			/* 3 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 3
+			/* 4 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 4
+			/* 5 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 5
+			/* 6 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 6
+			/* 7 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 7
+			/* 8 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 8
+			/* 9 */ [' ', ' ', ' ', 'e', 's', 't', ' ', ' '] // 9
+			// X:     0   1   2   3   4   5    6    7    8
 		];
 		const matrix = new Matrix(matrixArray);
-		const words = [{ word: "test" }];
-		const lastChar = { char: "t", row: 9, column: 2 };
-		const foundCallback = function(successObject) {
-			console.log(successObject);
+		const words = [{ word: 'test' }];
+		const lastChar = { char: 't', row: 9, column: 2 };
+		const foundCallback = function(lastchar, successObject) {
 			foundWord = words[successObject.wordId].word;
-			console.log(foundWord);
 			done();
 		};
 		matrix.checkWords(
@@ -37,167 +34,152 @@ describe("Matrix Class", () => {
 		);
 	});
 
-// 	it("Check words method should find words in matrix", () => {
-// 		expect(foundWord).toBe("");
-// 	});
-// });
-// //
-// //
-// //
-// //
-// //
-// //
-// //
-// // describe("Matrix Class", function() {
-// //     var sucessObjectReturned;
-// //     beforeEach(function(done) {
-// //         var matrixArray = [
-// //             // X:       0   1   2   3   4   5   6   7
-// //             /* 0 */   [" "," "," "," "," "," "," "," "], //0
-// //             /* 1 */   [" "," "," "," "," "," "," "," "], //1
-// //             /* 2 */   [" "," "," "," "," "," "," "," "], //2
-// //             /* 3 */   [" "," "," "," "," "," "," "," "], //3
-// //             /* 4 */   [" "," "," "," "," "," "," "," "], //4
-// //             /* 5 */   [" "," "," "," "," "," "," "," "], //5
-// //             /* 6 */   [" "," "," "," "," "," "," "," "], //6
-// //             /* 7 */   [" "," "," "," "," "," "," "," "], //7
-// //             /* 8 */   [" "," "," "," "," "," "," "," "], //8
-// //             /* 9 */   [" "," "," ","e","s","t"," "," "], //9
-// //             // X:       0   1   2   3   4   5   6   7
-// //         ];
-// //         var matrix = new Matrix(matrixArray);
-// //         var words = [{ word:"test" }];
-// //         var foundCallback = function (successObject) {
-// //             if(successObject){
-// //                 sucessObjectReturned = successObject;
-// //             }
-// //             done();
-// //         };
-// //         var lastChar = {char:'t',row:9,column:2};
-// //         matrix.checkWords(words,lastChar,{rtl:true},foundCallback);
-// //     });
-// //
-// //     it("Method Check words, Should not find words when check type is one direction: ", function() {
-// //         expect(typeof sucessObjectReturned).toBe("undefined")
-// //     })
-// // });
-// //
-// //
-// //
-// //
-// //
-// //
-// // describe("Matrix Class", function() {
-// //     var foundWord = "";
-// //     beforeEach(function(done) {
-// //         var matrixArray = [
-// //             // X:       0   1   2   3   4   5   6   7
-// //             /* 0 */   [" "," "," "," "," "," "," "," "], //0
-// //             /* 1 */   [" "," "," "," "," "," "," "," "], //1
-// //             /* 2 */   [" "," "," "," "," "," "," "," "], //2
-// //             /* 3 */   [" "," "," "," "," "," "," "," "], //3
-// //             /* 4 */   [" "," "," "," "," "," "," "," "], //4
-// //             /* 5 */   [" "," "," "," "," "," "," "," "], //5
-// //             /* 6 */   [" "," "," "," "," "," "," "," "], //6
-// //             /* 7 */   [" "," "," "," "," "," "," "," "], //7
-// //             /* 8 */   [" "," "," "," "," "," "," "," "], //8
-// //             /* 9 */   [" "," "," "," ","م","ا"," ","س"], //9
-// //             // X:       0   1   2   3   4   5   6   7
-// //         ];
-// //         var matrix = new Matrix(matrixArray);
-// //         var words = [{ word:"سلام" }];
-// //         var foundCallback = function (successObject) {
-// //             foundWord = words[successObject.wordId].word;
-// //             done();
-// //         };
-// //         var lastChar = {char:'ل',row:9,column:6};
-// //         matrix.checkWords(words,lastChar,{rtl:true,ltr:true},foundCallback);
-// //     });
-// //
-// //     it("Method Check words, Should work with persian(or any utf8 characters): ", function() {
-// //         expect(foundWord).toBe("سلام");
-// //     })
-// // });
-// //
-// //
-// //
-// //
-// // describe("Matrix Class", function() {
-// //     var falledCharacter;
-// //     beforeEach(function(done) {
-// //         var matrixArray = [
-// //             // X:       0   1   2   3   4   5   6   7
-// //             /* 0 */   [" "," "," "," "," "," "," "," "], //0
-// //             /* 1 */   [" "," "," "," "," "," "," "," "], //1
-// //             /* 2 */   [" "," "," "," "," "," "," "," "], //2
-// //             /* 3 */   [" "," "," "," "," "," "," "," "], //3
-// //             /* 4 */   [" "," "," "," "," "," "," "," "], //4
-// //             /* 5 */   [" "," "," "," "," "," "," "," "], //5
-// //             /* 6 */   [" "," "," "," "," "," "," "," "], //6
-// //             /* 7 */   [" "," "," "," "," "," "," "," "], //7
-// //             /* 8 */   [" "," "," "," "," ","پ"," "," "], //8
-// //             /* 9 */   [" "," "," "," ","م","ا"," ","س"], //9
-// //             // X:       0   1   2   3   4   5   6   7
-// //         ];
-// //         var matrix = new Matrix(matrixArray);
-// //         var words = [{ word:"سلام" }];
-// //         var foundCallback = function (successObject) {
-// //             falledCharacter = successObject.fallingCharacters[0];
-// //             done();
-// //         };
-// //         var lastChar = {char:'ل',row:9,column:6};
-// //         matrix.checkWords(words,lastChar,{rtl:true,ltr:true},foundCallback);
-// //     });
-// //
-// //     it("Characters should fall: ", function() {
-// //         var falledSuccessfuly =
-// //             falledCharacter.oldX===5 &&
-// //             falledCharacter.oldY===8 &&
-// //             falledCharacter.newX===5 &&
-// //             falledCharacter.newY===9
-// //         expect(falledSuccessfuly).toBeTruthy();
-// //     })
-// // });
-// //
-// //
-// //
-// //
-// //
-// //
-// // describe("Matrix Class", function() {
-// //     var falledCharacter,foundWord;
-// //     beforeEach(function(done) {
-// //         var matrixArray = [
-// //             // X:       0   1   2   3   4   5   6   7
-// //             /* 0 */   [" "," "," "," "," "," "," "," "], //0
-// //             /* 1 */   [" "," "," "," "," "," "," "," "], //1
-// //             /* 2 */   [" "," "," "," "," "," "," "," "], //2
-// //             /* 3 */   [" "," "," "," "," "," "," "," "], //3
-// //             /* 4 */   [" "," "," "," "," "," "," "," "], //4
-// //             /* 5 */   [" "," "," "," "," "," "," "," "], //5
-// //             /* 6 */   [" "," "," "," "," "," "," "," "], //6
-// //             /* 7 */   [" "," "," "," "," "," "," "," "], //7
-// //             /* 8 */   [" "," "," "," "," ","a"," "," "], //8
-// //             /* 9 */   [" "," "," "," ","a","b","c"," "], //9
-// //             // X:       0   1   2   3   4   5   6   7
-// //         ];
-// //         var matrix = new Matrix(matrixArray);
-// //         var words = [{ word:"ad" }];
-// //         var foundCallback = function (successObject) {
-// //             foundWord = words[successObject.wordId].word;
-// //             falledCharacter = successObject.fallingCharacters[0];
-// //             done();
-// //         };
-// //         var lastChar = {char:'d',row:8,column:6};
-// //
-// //         matrix.checkWords(words,lastChar,{rtl:true,ltr:true},foundCallback);
-// //     });
-// //
-// //     it("should find characters with height fall: ", function() {
-// //         expect(foundWord).toBeTruthy("ad");
-// //     })
-// // });
-// //
+	it('Check words method should find words in matrix', () => {
+		expect(foundWord).toBe('test');
+	});
+});
+
+
+describe('Matrix Class', () => {
+	let sucessObjectReturned;
+	beforeEach(done => {
+		const matrixArray = [
+			// X:       0   1   2   3   4   5   6   7
+			/* 0 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 0
+			/* 1 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 1
+			/* 2 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 2
+			/* 3 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 3
+			/* 4 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 4
+			/* 5 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 5
+			/* 6 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 6
+			/* 7 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 7
+			/* 8 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 8
+			/* 9 */ [' ', ' ', ' ', 'e', 's', 't', ' ', ' '] // 9
+			// X:       0   1   2   3   4   5   6   7
+		];
+		const matrix = new Matrix(matrixArray);
+		const words = [{ word: 'test' }];
+		const foundCallback = function(lastchar, successObject) {
+			if (successObject) {
+				sucessObjectReturned = successObject;
+			}
+			done();
+		};
+		const lastChar = { char: 't', row: 9, column: 2 };
+		matrix.checkWords(words, lastChar, { rtl: true }, foundCallback);
+	});
+
+	it('Method Check words, Should not find words when check type is not in approiate direction: ', () => {
+		expect(typeof sucessObjectReturned).toBe('undefined');
+	});
+});
+
+
+describe('Matrix Class', () => {
+	let foundWord = '';
+	beforeEach(done => {
+		const matrixArray = [
+			// X:       0   1   2   3   4   5   6   7
+			/* 0 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 0
+			/* 1 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 1
+			/* 2 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 2
+			/* 3 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 3
+			/* 4 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 4
+			/* 5 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 5
+			/* 6 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 6
+			/* 7 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 7
+			/* 8 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 8
+			/* 9 */ [' ', ' ', ' ', ' ', 'م', 'ا', ' ', 'س'] // 9
+			// X:       0   1   2   3   4   5   6   7
+		];
+		const matrix = new Matrix(matrixArray);
+		const words = [{ word: 'سلام' }];
+		const foundCallback = function(lastChar, successObject) {
+			foundWord = words[successObject.wordId].word;
+			done();
+		};
+		const lastChar = { char: 'ل', row: 9, column: 6 };
+		matrix.checkWords(words, lastChar, { rtl: true, ltr: true }, foundCallback);
+	});
+
+	it('Method Check words, Should work with persian(or any utf8 characters): ', () => {
+		expect(foundWord).toBe('سلام');
+	});
+});
+
+
+describe('Matrix Class', () => {
+	let falledCharacters;
+	beforeEach(done => {
+		const matrixArray = [
+			// X:     0    1    2    3    4    5    6    7
+			/* 0 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 0
+			/* 1 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 1
+			/* 2 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 2
+			/* 3 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 3
+			/* 4 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 4
+			/* 5 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 5
+			/* 6 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 6
+			/* 7 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 7
+			/* 8 */ [' ', ' ', ' ', ' ', ' ', 'پ', ' ', ' '], // 8
+			/* 9 */ [' ', ' ', ' ', ' ', 'م', 'ا', ' ', 'س'] // 9
+			// X:     0    1    2    3    4    5    6    7
+		];
+		const matrix = new Matrix(matrixArray);
+		const words = [{ word: 'سلام' }];
+		const foundCallback = function(lastChar, successObject) {
+			falledCharacters = successObject.fallingCharacters;
+			done();
+		};
+		const lastChar = { char: 'ل', row: 9, column: 6 };
+		matrix.checkWords(words, lastChar, { rtl: true, ltr: true }, foundCallback);
+	});
+
+	it('Characters should fall: ', () => {
+		const falled = falledCharacters.popItem();
+
+		const falledSuccessfuly
+			= falled.x	===	5
+			&& falled.oldY	===	8
+			&& falled.newY	===	9;
+		expect(falledSuccessfuly).toBeTruthy();
+	});
+});
+
+
+describe('Matrix Class', () => {
+	let falledCharacter, foundWord;
+	beforeEach(done => {
+		const matrixArray = [
+			// X:       0   1   2   3   4   5   6   7
+			/* 0 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 0
+			/* 1 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 1
+			/* 2 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 2
+			/* 3 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 3
+			/* 4 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 4
+			/* 5 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 5
+			/* 6 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 6
+			/* 7 */ [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // 7
+			/* 8 */ [' ', ' ', ' ', ' ', ' ', 'a', ' ', ' '], // 8
+			/* 9 */ [' ', ' ', ' ', ' ', 'a', 'b', 'c', ' '] // 9
+			// X:     0    1    2    3    4    5    6    7
+		];
+		const matrix = new Matrix(matrixArray);
+		const words = [{ word: 'ad' }];
+		const foundCallback = function(lastchar,successObject) {
+			foundWord = words[successObject.wordId].word;
+			done();
+		};
+		const lastChar = { char: 'd', row: 8, column: 6 };
+
+		matrix.checkWords(words, lastChar, { rtl: true, ltr: true }, foundCallback);
+	});
+
+	it('should find characters with height fall: ', () => {
+		expect(foundWord).toBeTruthy('ad');
+	});
+});
+
 // //
 // //
 // //
