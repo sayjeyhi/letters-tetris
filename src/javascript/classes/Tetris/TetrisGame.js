@@ -367,8 +367,7 @@ export default class TetrisGame {
 
 				// update top words bar
 				TetrisGame.showShuffledWords();
-
-				},
+			},
 			// (successObject.fallingCharacters.length * 200) + config.successAnimationIterationDuration
 			// successObject.wordCharacterPositions.length * config.successAnimationIterationDuration
 			((successObject.wordCharacterPositions.length-1)*(config.successAnimationIterationDuration)) + TetrisGame.initValues.animateConfig.deleteTiming
@@ -387,8 +386,8 @@ export default class TetrisGame {
 		const falledCharacter = initValues.falledStack.popItem();
 		if (falledCharacter === false) {
 			// Stack is empty, resume the game
+			Helper.log("Stack is empty :|")
 			initValues.paused = false;
-
 			return;
 		}
 		const x = falledCharacter.x;
@@ -477,7 +476,6 @@ export default class TetrisGame {
      * @param wordId
      */
 	static _removeWordAndCharacters(word, wordId) {
-
 		// Remove word from choosed words
 		TetrisGame.initValues.choosedWords.splice(wordId, 1);
 
