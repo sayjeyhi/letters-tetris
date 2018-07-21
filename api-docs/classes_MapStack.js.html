@@ -121,8 +121,14 @@ export default class MapStack {
 	 * @returns {*}
 	 */
 	popItem() {
-		for (const [key, value] of this.map.entries()) { // Since it's a generator, it's not performance killer
-			const anItemOfAnyX = value.pop()[0];
+		let entries =  this.map.entries();
+		if(entries.length === 0)
+			return false;
+		for (let [key, value] of entries) { // Since it's a generator, it's not performance killer
+			const anItemOfAnyX = value.pop();
+			if(typeof anItemOfAnyX ==='undefined'){
+				return false;
+			}
 			if (value.length === 0) {
 				this.map.delete(key);
 			}
