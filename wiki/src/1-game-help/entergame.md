@@ -8,8 +8,8 @@
 
 چون این آموزش بر مبنای زبان فارسی تهیه شده است ما بازی را بر اساس زبان فارسی شروع میکنیم.
 
-![enter game](../../../_assets/images/entergame.png)
+![enter game](../../_assets/images/entergame.png)
 
 ### موضوع کلمات
 
-![enter game](../../../_assets/images/select-category.png)
+![enter game](../../_assets/images/select-category.png)

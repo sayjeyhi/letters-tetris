@@ -9,4 +9,4 @@
 5.  ۵- وضعیت امتیاز، تعداد کلمات ساخته شده و مدت زمان طی شده رو بهت نشون میده
 6.  ۶- محیط اصلی بازی که در اون حروف میان و باید مرتبشون کنی
 
-![enter game](../../../_assets/images/enviroment.png)
+![enter game](../../_assets/images/enviroment.png)
