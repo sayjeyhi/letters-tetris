@@ -270,8 +270,8 @@ export default class Settings {
 		case 3:
 			bodyClass = 'isExpert';
 
-			// use two word same time at hard mode
-			config.workingWordCount = 2;
+			// use 6 word same time at hard mode
+			config.workingWordCount = parseInt(config.workingCountExpert);
 
 			// Update animation timing and delete timing
 			TetrisGame.initValues.animateConfig = {
@@ -280,8 +280,11 @@ export default class Settings {
 			};
 
 			break;
-		case 2:
+			case 2:
 			bodyClass = 'isMedium';
+
+			// use 5 word same time at medium mode
+			config.workingWordCount = parseInt(config.workingCountMedium);
 
 			TetrisGame.initValues.animateConfig = {
 				animateClass: 'fallDownCharMedium',
@@ -290,6 +293,9 @@ export default class Settings {
 			break;
 		default:
 			bodyClass = 'isSimple';
+
+			// use 4 word same time at medium mode
+			config.workingWordCount = parseInt(config.workingCountSimple);
 
 			TetrisGame.initValues.animateConfig = {
 				animateClass: 'fallDownSimple',

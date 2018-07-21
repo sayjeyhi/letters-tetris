@@ -62,6 +62,9 @@ export default class TetrisGame {
 			columnsMin: 6,
 			columnsMax: 16,
 			workingWordCount: 5,
+			workingCountSimple : 4,
+			workingCountMedium : 5,
+			workingCountExpert : 6,
 			charSpeed: 800, // 1 second - get division to level when making game harder
 			useLowercase: false,
 			simpleFallDownAnimateSpeed: 700,
@@ -417,7 +420,7 @@ export default class TetrisGame {
 	static showShuffledWords() {
 		const parent = Helper._('.currentWorkingWords');
 		const randomizeFn = () => { return 0.5 - Math.random(); };
-		const displayFiveWords = TetrisGame.initValues.choosedWords.slice(0, 5).sort(randomizeFn);
+		const displayFiveWords = TetrisGame.initValues.choosedWords.slice(0, TetrisGame.config.workingWordCount).sort(randomizeFn);
 
 		// make working words empty
 		parent.innerHTML = '';
