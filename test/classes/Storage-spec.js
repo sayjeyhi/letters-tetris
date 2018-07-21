@@ -1,13 +1,23 @@
 import Storage from "../../src/javascript/classes/Storage";
 
-describe("Storage Class", function () {
-    Storage.set("my_key", "my_value");
+describe("Storage Class", () => {
+	beforeAll(() => {
+		expect(Storage.set).toBeDefined();
+		expect(Storage.get).toBeDefined();
+		expect(Storage.getInt).toBeDefined();
+		expect(Storage.getObject).toBeDefined();
+		expect(Storage.setObject).toBeDefined();
+		expect(Storage.setEncrypted).toBeDefined();
+		expect(Storage.getEncrypted).toBeDefined();
+	});
 
-    it("method set: with default value saves an item in localStorage", function () {
-        expect(Storage.get("my_key")).toBe("my_value");
-    });
+	Storage.set("my_key", "my_value");
 
-    it("method get: with wrong key, it shold return value of second argument", function () {
-        expect(Storage.get("notFoo", "defaultFoo")).toBe("defaultFoo");
-    });
+	it("method set: with default value saves an item in localStorage", () => {
+		expect(Storage.get("my_key")).toBe("my_value");
+	});
+
+	it("method get: with wrong key, it shold return value of second argument", () => {
+		expect(Storage.get("notFoo", "defaultFoo")).toBe("defaultFoo");
+	});
 });

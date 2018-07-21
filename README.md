@@ -29,6 +29,13 @@
  *Using NPM:*   
  `npm install` 
  
+ Tip : node version should be one of : `6.14.0 || ^8.10.0 || >=9.10`
+ if it is not : 
+ ```bash
+ npm install nvm -g
+ nvm install 8.10.0
+ nvm use 8.10.0
+ ```
  ----
 **Usage:** 
  - Execute dev server: `yarn start`
@@ -40,8 +47,18 @@
  - Run unit tests: `yarn test`
  - View unit test results in your browser: `yarn view-test`
   
-  
+ 
  ----
  **Api Documents**
+  : Actually you can see the wiki and api-doc by clicking on bottom links that provided to , on game loader
+  main page bottom. but if you want.
+  
+  Generate api-doc :
   - Generate API-DOCS: `yarn generate-docs`
   - View API-Docs in your browser: `yarn view-docs`
+  
+  Generate gitbook : 
+  - `cd wiki/`
+  - `npm i gitbook-cli -g`
+  - `gitbook install`
+  - `gitbook serve`

@@ -4,8 +4,6 @@
 
 import TetrisGame from './TetrisGame';
 import Helper from '../Helper';
-import Animate from './Animate';
-import Explosion from '../Explosion';
 
 
 // We'll use this weighted random generator to generate Special characters based on level

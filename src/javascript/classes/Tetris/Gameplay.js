@@ -151,7 +151,7 @@ export default class Gameplay {
 
 	/**
      * Game is finished [gameOver OR finishWords]
-     * @param mode
+     * @param mode {string} Finishing mode
      */
 	static finish(mode) {
 		const config = TetrisGame.config;

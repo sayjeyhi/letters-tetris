@@ -1,4 +1,7 @@
-#کلاس Interval
+<h1>
+کلاس Interval
+<a class="ext-link" href="module-classes_Interval.html" >سورس</a>
+</h1>
 
 این کلاس وظیفه مدیریت Interval هایی که در بازی زده می شود را برعهده دارد.
 

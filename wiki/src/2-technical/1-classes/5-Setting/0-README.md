@@ -1,5 +1,7 @@
-# کلاس Setting
-
+<h1>
+کلاس Setting
+<a class="ext-link" href="module-classes_Tetris_Settings" >سورس</a>
+</h1>
 این کلاس وظیفه های مربوط به بخش تنظیمات بازی توسط کاربر را برعهده دارد.
 
 {% include "./1-setMethod.md" %}

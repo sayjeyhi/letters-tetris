@@ -1,4 +1,7 @@
-# کلاس TetrisGame
+<h1>
+ 		کلاس TetrisGame
+		<a class="ext-link" href="module-classes_Tetris_TetrisGame.html" >سورس</a>
+</h1>
 
 کلاس اصلی برنامه TetrisGame می باشد که برای شروع بازی و برقراری ارتباط بین کلاس های دیگر، توابع اصلی بازی را نگهداری میکند.
 
@@ -98,22 +101,22 @@
     <td>directionWordChecks</td>
   </tr>
   <tr>
-    <td>چپ به راست</td>
+    <td>بررسی از چپ به راست</td>
     <td>boolean</td>
     <td>directionWordChecks.ltr</td>
   </tr>
   <tr>
-    <td>راست به چپ</td>
+    <td>بررسی از راست به چپ</td>
     <td>boolean</td>
     <td>directionWordChecks.rtl</td>
   </tr>
   <tr>
-    <td>بالا به پایین</td>
+    <td>بررسی از بالا به پایین</td>
     <td>boolean</td>
     <td>directionWordChecks.ttd</td>
   </tr>
   <tr>
-    <td>پایین به بالا</td>
+    <td>بررسی پایین به بالا</td>
     <td>boolean</td>
     <td>directionWordChecks.dtt</td>
   </tr>
@@ -152,6 +155,18 @@
     <td>boolean</td>
     <td>showGrids</td>
   </tr>
+
+  <tr>
+    <td>فعال بودن کاراکترهای ویژه</td>
+    <td>boolean</td>
+    <td>enable_special_characters</td>
+  </tr>
+
+  <tr>
+    <td>حالت رنگ بندی(۰ روز - ۱ شب) پیش فرض براساس ساعت سیستم تصمیم میگیرد</td>
+    <td>int</td>
+    <td>colorMode</td>
+  </tr>
 </table>
 
 این تنظیمات می تواند توسط شخصی که می خواهد بازی را بر روی سرور اجرا کند به صورت اختصاصی به تابع init داده شوند تا امکانات کامل سیستم را customize کرد.
@@ -160,7 +175,7 @@
 
 {% include "./1-buildMethod.md" %}
 
-{% include "./2-getValidColumnsNumberMethod.md" %}
+{% include "./2-validColumnsNumberMethod.md" %}
 
 {% include "./3-checkWordSuccessMethod.md" %}
 
@@ -168,8 +183,6 @@
 
 {% include "./5-checkSuccessWordStackMethod.md" %}
 
-{% include "./6-showFoundWordAnimatedMethod.md" %}
-
-{% include "./7-addCurrentWordMethod.md" %}
+{% include "./6-showShuffleWordsMethod.md" %}
 
 و یکسری متدهای داخلی که برای انجام اموری کوچک که جزئی از فعالیت های داخلی هستند در این کلاس قرار گرفته اند.

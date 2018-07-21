@@ -1,4 +1,7 @@
-#کلاس Helper
+<h1>
+کلاس Helper
+<a class="ext-link" href="module-classes_Helper.html">سورس</a>
+</h1>
 
 متدهای پرکاربرد که در هیچ دسته بندی قابل اجرا نیستند را در این کلاس اجرا می کنیم. متد هایی مثل \_ : (معادل querySelector)
 

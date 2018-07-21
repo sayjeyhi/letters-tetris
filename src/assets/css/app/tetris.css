@@ -1055,6 +1055,19 @@ svg :not(.doNotUnfill) {
 	footer {
 		display: none;
 	}
+	.skullBlock i{
+		font-size: 18px;
+	}
+
+	.skullBlock i::after,.skullBlock i::before{
+		font-size: 20px;
+	}
+
+	.starBlock::before,.starBlock::after{
+		content:'';
+		font-size: 0 !important;
+	}
+
 }
 @media (max-width: 648px) and (min-width: 480px) {
 	.gameHolder .playBoard {
@@ -2100,7 +2113,12 @@ svg :not(.doNotUnfill) {
 	font-family: sans-serif !important;
 }
 
-.linkToDoc{
+
+
+.linkToDocHolder{
+	transition : color,text-shadow ease-in-out 0.5s;
+}
+.linkToDocHolder .linkToDoc{
 	padding: 10px 7px;
 	border-radius: 5px;
 	font-size: 13px;
@@ -2108,6 +2126,16 @@ svg :not(.doNotUnfill) {
 	text-shadow: 0 1px 11px rgba(0, 0, 0, 0.45);
 	display: inline-block;
 	margin-top: 18px;
+	transition : color ease-in-out 0.5s;
+}
+.linkToDocHolder:hover a{
+	color: transparent;
+	text-shadow: 0 5px 10px rgba(3, 2, 2, 0.85);
+}
+
+.linkToDocHolder .linkToDoc:hover{
+	transform: scale(1.05);
+	color: rgb(255,255,255) !important;
 }
 
 
