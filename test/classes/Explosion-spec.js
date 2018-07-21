@@ -1,6 +1,6 @@
 import Explosion from "../../src/javascript/classes/Explosion";
 
-describe("Timeout Class ", () => {
+describe("Explosion Class ", () => {
 	beforeAll(() => {
 		expect(Explosion.explode).toBeDefined();
 		expect(Explosion._particle).toBeDefined();
