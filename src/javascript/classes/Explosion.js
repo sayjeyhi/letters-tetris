@@ -55,7 +55,7 @@ export default class Explosion {
 				if (c.parentElement === element) {
 					element.removeChild(c);
 				}
-			}, 140
+			}, 100
 		);
 	}
 

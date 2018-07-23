@@ -314,7 +314,7 @@ export default class TetrisGame {
 		this.initValues.paused = true;
 		// check word happens and then call checkWordsResult fn
 		this.matrix.checkWords(
-			this.initValues.choosedWords,
+			window.TetrisWords,
 			lastChar,
 			this.config.directionWordChecks,
 			this.checkWordsResult

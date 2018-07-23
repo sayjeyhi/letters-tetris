@@ -29,12 +29,12 @@
  *Using NPM:*   
  `npm install` 
  
- Tip : node version should be one of : `6.14.0 || ^8.10.0 || >=9.10`
+ Tip : node version should be  `>=9.10`
  if it is not : 
  ```bash
  npm install nvm -g
- nvm install 8.10.0
- nvm use 8.10.0
+ nvm install 9.10.0
+ nvm use 9.10.0
  ```
  ----
 **Usage:** 
