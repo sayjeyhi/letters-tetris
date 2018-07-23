@@ -1,5 +1,4 @@
 import Matrix from '../../src/javascript/classes/Matrix';
-import MapStack from '../../src/javascript/classes/MapStack';
 
 
 describe('Matrix Class', () => {
