@@ -1,2 +1,3 @@
-api-wiki/* linguist-vendored
+api-wiki/**/* linguist-vendored
 api-docs/* linguist-documentation
+api-docs/**/* linguist-documentation
