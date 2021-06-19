@@ -9,12 +9,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Cache  💾
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/.cache
-          key: ${{ runner.os }}-gatsby-${{ hashFiles('**/package-lock.json') }}
-
       - name: Setup node 🎱
         uses: actions/setup-node@v2
         with:
@@ -33,5 +27,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: public
+          FOLDER: dist
           CLEAN: true # Automatically remove deleted files from the deploy branch
