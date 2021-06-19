@@ -179,14 +179,21 @@ export default class ArshLoader {
 				wiki.href = "/wiki";
 				wiki.target = "_blank";
 				wiki.className = "linkToDoc";
-				wiki.innerText = "مسـتندات";
+				wiki.innerText = "wiki";
 
 				let apiDocs = document.createElement("a");
 				apiDocs.href = "/api-docs";
 				apiDocs.target = "_blank";
 				apiDocs.className = "linkToDoc";
-				apiDocs.innerText = "توصیف فنی";
+				apiDocs.innerText = "classes";
 
+				let githubLink = document.createElement("a");
+        githubLink.href = "https://github.com/sayjeyhi/letters-tetris";
+        githubLink.target = "_blank";
+        githubLink.className = "linkToDoc";
+        githubLink.innerText = "github";
+
+				documentLink.appendChild(githubLink);
 				documentLink.appendChild(wiki);
 				documentLink.appendChild(apiDocs);
 
