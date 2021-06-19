@@ -10,7 +10,7 @@
     "scripts": {
         "start": "npm run build && http-server ./dist/ --gzip -o -p 8185",
         "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --progress --mode development --config webpack.config.dev.js",
-        "build": "webpack -p --progress --mode production --config webpack.config.build.js",
+        "build": "yarn generate-docs && webpack -p --progress --mode production --config webpack.config.build.js",
         "generate-docs": "jsdoc -c jsdoc.conf",
         "view-docs": "http-server ./api-docs/ --gzip -o -p 8182",
         "test": "karma start karma.conf.js",
