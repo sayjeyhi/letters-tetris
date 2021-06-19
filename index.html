@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="تیم برنامه نویسی عرش,Arsh programing group">
+    <meta name='description' content='LettersTetris is a game designed to learn foreign languages like a charm'>
+    <meta name="theme-color" content="#14d234" />
+    <title>LettersTetris|بازی کلمات و حروف</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <meta name='application-name' content='LettersTetris'>
+    <meta name='apple-mobile-web-app-status-bar-style' content='black'>
+    <meta name='apple-mobile-web-app-title' content='LettersTetris'>
+    <link rel='icon' sizes='192x192' href='assets/img/gameIcon-192x192.png'>
+    <link rel='apple-touch-icon' href='assets/img/gameIcon-192x192.png'>
+    <meta name='msapplication-TileImage' content='assets/img/gameIcon-192x192.png'>
+    <meta name='msapplication-TileColor' content='#14d234'>
+    <link rel="icon" href="assets/img/gameIcon-192x192.png">
+    <link rel="shortcut icon" href="assets/img/gameIcon-192x192.png">
+    <meta property="og:image" content="assets/img/fanavardLogo.png" />
+    <meta property="og:title" content="پروژه مرحله حضوری مسابقات فن آورد" />
+    <meta property="og:site_name" content="گروه برنامه نویسی عرش" />
+    <meta property="og:url" content="http://jrjs.ir" />
+</head>
+
+<body>
+    <link rel="stylesheet" href="assets/css/app/tetris.css">
+
+    <!-- Main holder of every thing -->
+    <div role="main" id="container"></div>
+
+    <!-- web worker timing content @type="javascript/worker" -->
+    <script id="workerTiming" type="javascript/worker">
+        var pause_flag = false;
+        let i = 0;
+        let timedCount = function() {
+            if (!pause_flag) {
+                i = i+1;
+            }
+            postMessage(i);
+            setTimeout("timedCount()", 1000);
+        }
+        timedCount();
+
+        onmessage = function(event) {
+            if ('pause_flag' in event.data) {
+                pause_flag = event.data['pause_flag'];
+            }
+        };
+    </script>
+
+    <noscript>
+        <p>Please enable javascript , most of our features are based on it.</p>
+    </noscript>
+
+
+	<script type="application/javascript">
+		// set browser flag
+		const in_browser = "yep";
+	</script>
+
+<script type="text/javascript" src="App_bundle.js"></script></body>
+
+</html>
